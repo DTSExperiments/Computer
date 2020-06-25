@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="nexys4_vga_minimal_bench_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="nexys4_vga_minimal_bench" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="56583768485639fs"></ZoomStartTime>
+      <ZoomEndTime time="56584230997200fs"></ZoomEndTime>
+      <Cursor1Time time="56583930000000fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="69" />
+   <wvobject fp_name="/nexys4_vga_minimal_bench/vga_r" type="array">
+      <obj_property name="ElementShortName">vga_r[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_r[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/vga_g" type="array">
+      <obj_property name="ElementShortName">vga_g[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_g[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/vga_b" type="array">
+      <obj_property name="ElementShortName">vga_b[3:0]</obj_property>
+      <obj_property name="ObjectShortName">vga_b[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/sw_in" type="array">
+      <obj_property name="ElementShortName">sw_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/sw" type="array">
+      <obj_property name="ElementShortName">sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/u0/rx_uart" type="logic">
+      <obj_property name="ElementShortName">rx_uart</obj_property>
+      <obj_property name="ObjectShortName">rx_uart</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_start_out" type="logic">
+      <obj_property name="ElementShortName">uart_start_out</obj_property>
+      <obj_property name="ObjectShortName">uart_start_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_byte_out" type="array">
+      <obj_property name="ElementShortName">uart_byte_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">uart_byte_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_uart" type="other">
+      <obj_property name="ElementShortName">si_state_uart</obj_property>
+      <obj_property name="ObjectShortName">si_state_uart</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_addrb" type="array">
+      <obj_property name="ElementShortName">mem_addrb[9:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addrb[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_addra" type="array">
+      <obj_property name="ElementShortName">mem_addra[9:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addra[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_frame" type="other">
+      <obj_property name="ElementShortName">si_state_frame</obj_property>
+      <obj_property name="ObjectShortName">si_state_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut_rsrx" type="logic">
+      <obj_property name="ElementShortName">uut_rsrx</obj_property>
+      <obj_property name="ObjectShortName">uut_rsrx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_h" type="other">
+      <obj_property name="ElementShortName">int_h</obj_property>
+      <obj_property name="ObjectShortName">int_h</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_v" type="other">
+      <obj_property name="ElementShortName">int_v</obj_property>
+      <obj_property name="ObjectShortName">int_v</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/u0/rx_state" type="other">
+      <obj_property name="ElementShortName">rx_state</obj_property>
+      <obj_property name="ObjectShortName">rx_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/hs" type="logic">
+      <obj_property name="ElementShortName">hs</obj_property>
+      <obj_property name="ObjectShortName">hs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/vs" type="logic">
+      <obj_property name="ElementShortName">vs</obj_property>
+      <obj_property name="ObjectShortName">vs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/RsTx_out" type="logic">
+      <obj_property name="ElementShortName">RsTx_out</obj_property>
+      <obj_property name="ObjectShortName">RsTx_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/Hsync_out" type="logic">
+      <obj_property name="ElementShortName">Hsync_out</obj_property>
+      <obj_property name="ObjectShortName">Hsync_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/Vsync_out" type="logic">
+      <obj_property name="ElementShortName">Vsync_out</obj_property>
+      <obj_property name="ObjectShortName">Vsync_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/led_out" type="array">
+      <obj_property name="ElementShortName">led_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led_out[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/clk_in_half_period" type="other">
+      <obj_property name="ElementShortName">clk_in_half_period</obj_property>
+      <obj_property name="ObjectShortName">clk_in_half_period</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_picture" type="other">
+      <obj_property name="ElementShortName">si_state_picture</obj_property>
+      <obj_property name="ObjectShortName">si_state_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_h_picture" type="other">
+      <obj_property name="ElementShortName">int_h_picture</obj_property>
+      <obj_property name="ObjectShortName">int_h_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_v_picture" type="other">
+      <obj_property name="ElementShortName">int_v_picture</obj_property>
+      <obj_property name="ObjectShortName">int_v_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_byte_in" type="array">
+      <obj_property name="ElementShortName">uart_byte_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">uart_byte_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_start_out" type="logic">
+      <obj_property name="ElementShortName">uart_start_out</obj_property>
+      <obj_property name="ObjectShortName">uart_start_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_byte_out" type="array">
+      <obj_property name="ElementShortName">uart_byte_out[7:0]</obj_property>
+      <obj_property name="ObjectShortName">uart_byte_out[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_vga_value" type="array">
+      <obj_property name="ElementShortName">si_vga_value[7:0]</obj_property>
+      <obj_property name="ObjectShortName">si_vga_value[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_show" type="array">
+      <obj_property name="ElementShortName">si_show[7:0]</obj_property>
+      <obj_property name="ObjectShortName">si_show[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_start_in" type="logic">
+      <obj_property name="ElementShortName">uart_start_in</obj_property>
+      <obj_property name="ObjectShortName">uart_start_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/ready_out" type="logic">
+      <obj_property name="ElementShortName">ready_out</obj_property>
+      <obj_property name="ObjectShortName">ready_out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_h_picture" type="other">
+      <obj_property name="ElementShortName">int_h_picture</obj_property>
+      <obj_property name="ObjectShortName">int_h_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/int_v_picture" type="other">
+      <obj_property name="ElementShortName">int_v_picture</obj_property>
+      <obj_property name="ObjectShortName">int_v_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_picture" type="other">
+      <obj_property name="ElementShortName">si_state_picture</obj_property>
+      <obj_property name="ObjectShortName">si_state_picture</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_pos_v" type="other">
+      <obj_property name="ElementShortName">si_pos_v</obj_property>
+      <obj_property name="ObjectShortName">si_pos_v</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_pos_v_old" type="other">
+      <obj_property name="ElementShortName">si_pos_v_old</obj_property>
+      <obj_property name="ObjectShortName">si_pos_v_old</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_pos_h" type="other">
+      <obj_property name="ElementShortName">si_pos_h</obj_property>
+      <obj_property name="ObjectShortName">si_pos_h</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_arr_state" type="other">
+      <obj_property name="ElementShortName">si_arr_state</obj_property>
+      <obj_property name="ObjectShortName">si_arr_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_pos_v_old" type="other">
+      <obj_property name="ElementShortName">si_pos_v_old</obj_property>
+      <obj_property name="ObjectShortName">si_pos_v_old</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/screen_v" type="other">
+      <obj_property name="ElementShortName">screen_v</obj_property>
+      <obj_property name="ObjectShortName">screen_v</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/screen_h" type="other">
+      <obj_property name="ElementShortName">screen_h</obj_property>
+      <obj_property name="ObjectShortName">screen_h</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/vga_visible_h" type="logic">
+      <obj_property name="ElementShortName">vga_visible_h</obj_property>
+      <obj_property name="ObjectShortName">vga_visible_h</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/vga_visible_v" type="logic">
+      <obj_property name="ElementShortName">vga_visible_v</obj_property>
+      <obj_property name="ObjectShortName">vga_visible_v</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/hc_v" type="array">
+      <obj_property name="ElementShortName">hc_v[10:0]</obj_property>
+      <obj_property name="ObjectShortName">hc_v[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/vc_v" type="array">
+      <obj_property name="ElementShortName">vc_v[10:0]</obj_property>
+      <obj_property name="ObjectShortName">vc_v[10:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_frame" type="other">
+      <obj_property name="ElementShortName">si_state_frame</obj_property>
+      <obj_property name="ObjectShortName">si_state_frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_state_vga" type="other">
+      <obj_property name="ElementShortName">si_state_vga</obj_property>
+      <obj_property name="ObjectShortName">si_state_vga</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/clk_in" type="logic">
+      <obj_property name="ElementShortName">clk_in</obj_property>
+      <obj_property name="ObjectShortName">clk_in</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_uart_pointer" type="other">
+      <obj_property name="ElementShortName">si_uart_pointer</obj_property>
+      <obj_property name="ObjectShortName">si_uart_pointer</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_addrb" type="array">
+      <obj_property name="ElementShortName">mem_addrb[9:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addrb[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_enb" type="logic">
+      <obj_property name="ElementShortName">mem_enb</obj_property>
+      <obj_property name="ObjectShortName">mem_enb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_addra" type="array">
+      <obj_property name="ElementShortName">mem_addra[9:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addra[9:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_ena" type="logic">
+      <obj_property name="ElementShortName">mem_ena</obj_property>
+      <obj_property name="ObjectShortName">mem_ena</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_dina" type="array">
+      <obj_property name="ElementShortName">mem_dina[799:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_dina[799:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/mem_doutb" type="array">
+      <obj_property name="ElementShortName">mem_doutb[799:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_doutb[799:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_buffer" type="array">
+      <obj_property name="ElementShortName">si_buffer[799:0]</obj_property>
+      <obj_property name="ObjectShortName">si_buffer[799:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_ad_change_buffer" type="array">
+      <obj_property name="ElementShortName">si_ad_change_buffer[799:0]</obj_property>
+      <obj_property name="ObjectShortName">si_ad_change_buffer[799:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_ad_change" type="other">
+      <obj_property name="ElementShortName">si_ad_change</obj_property>
+      <obj_property name="ObjectShortName">si_ad_change</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/arr_test_help" type="array">
+      <obj_property name="ElementShortName">arr_test_help[7:0]</obj_property>
+      <obj_property name="ObjectShortName">arr_test_help[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_ad_change" type="other">
+      <obj_property name="ElementShortName">si_ad_change</obj_property>
+      <obj_property name="ObjectShortName">si_ad_change</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/frame" type="logic">
+      <obj_property name="ElementShortName">frame</obj_property>
+      <obj_property name="ObjectShortName">frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_arr_state" type="other">
+      <obj_property name="ElementShortName">si_arr_state</obj_property>
+      <obj_property name="ObjectShortName">si_arr_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/si_ad_change" type="other">
+      <obj_property name="ElementShortName">si_ad_change</obj_property>
+      <obj_property name="ObjectShortName">si_ad_change</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/frame" type="logic">
+      <obj_property name="ElementShortName">frame</obj_property>
+      <obj_property name="ObjectShortName">frame</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/uart_byte_in" type="array">
+      <obj_property name="ElementShortName">uart_byte_in[7:0]</obj_property>
+      <obj_property name="ObjectShortName">uart_byte_in[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/sw" type="array">
+      <obj_property name="ElementShortName">sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/nexys4_vga_minimal_bench/uut/arr_test_help" type="array">
+      <obj_property name="ElementShortName">arr_test_help[7:0]</obj_property>
+      <obj_property name="ObjectShortName">arr_test_help[7:0]</obj_property>
+   </wvobject>
+</wave_config>
