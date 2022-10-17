@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "C66rj+uG4uJPolBA+DeAdVRI3s6V3ol68DrTuPz1yiZFAmg0A/jOob0tQ51+lJkHzF0brNmuSjGE8aUKHfcI/g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\LocalAdmin\\source\\repos\\plot\\plot\\plot.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\microsoft.win32.systemevents\\4.6.0\\microsoft.win32.systemevents.4.6.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.linux-arm.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.linux-arm64.runtime.native.system.io.ports\\6.0.0\\runtime.linux-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.linux-x64.runtime.native.system.io.ports\\6.0.0\\runtime.linux-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.native.system.io.ports\\6.0.0\\runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.osx-arm64.runtime.native.system.io.ports\\6.0.0\\runtime.osx-arm64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\runtime.osx-x64.runtime.native.system.io.ports\\6.0.0\\runtime.osx-x64.runtime.native.system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\scottplot\\4.1.48\\scottplot.4.1.48.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\scottplot.winforms\\4.1.48\\scottplot.winforms.4.1.48.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\system.drawing.common\\4.6.1\\system.drawing.common.4.6.1.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\system.io.ports\\6.0.0\\system.io.ports.6.0.0.nupkg.sha512",
+    "C:\\Users\\LocalAdmin\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
