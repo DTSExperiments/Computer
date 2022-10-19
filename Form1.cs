@@ -64,9 +64,9 @@ namespace plotBrembs
             signalPlotAD.YAxisIndex = 0;
             signalPlotPIX.YAxisIndex = 1;
 
-            formsPlot1.Plot.SetAxisLimitsX(xMin: 0, xMax: liveDataAD.Length);
+            //formsPlot1.Plot.SetAxisLimitsX(xMin: 0, xMax: liveDataAD.Length);
             //formsPlot1.Plot.SetAxisLimits(xMin: 0, xMax: 4000, yMin: -1, yMax: 1, yAxisIndex: 0);
-            //formsPlot1.Plot.SetAxisLimits(yMin: -1, yMax: 800, yAxisIndex: 1);
+            formsPlot1.Plot.SetAxisLimits(xMin: 0, xMax: liveDataAD.Length, yMin: -1, yMax: 800, yAxisIndex: 1);
 
             //formsPlot1.Plot.YAxis.LockLimits(true);
             //formsPlot1.Plot.XAxis.LockLimits(true);
@@ -129,7 +129,7 @@ namespace plotBrembs
                         _serialPort.WriteLine("Start");
                     }
                     aTimer.Start();
-                    
+
                 }
                 else
                 {
@@ -248,7 +248,7 @@ namespace plotBrembs
 
         private void SetTimer()
         {
-            aTimer = new Timers.Timer(100);
+            aTimer = new Timers.Timer(250);
             aTimer.Elapsed += this.OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.SynchronizingObject = this;
@@ -258,7 +258,7 @@ namespace plotBrembs
         private void OnTimedEvent(Object source, Timers.ElapsedEventArgs e)
         {
             formsPlot1.Plot.AxisAutoY(0.1, 0);
-            formsPlot1.Plot.AxisAutoY(0.1, 1);
+            //formsPlot1.Plot.AxisAutoY(0.1, 1);
             Debug.WriteLine(formsPlot1.Plot.GetAxisLimits().ToString());
             formsPlot1.Refresh();
             TimeSpan elapsedTime = new TimeSpan(DateTime.Now.Ticks - beginTime.Ticks);
