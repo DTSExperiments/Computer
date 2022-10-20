@@ -164,7 +164,7 @@ namespace plotBrembs
                 {
 
                 }
-                this.BeginInvoke(new ShowSerialData(LineReceived), list);
+                this.BeginInvoke(new ShowSerialData(LineReceived), new object[] { list });
             }
         }
 
@@ -184,7 +184,7 @@ namespace plotBrembs
                     {
                         throw new Exception("LF not found");
                     }
-                    Debug.WriteLine(_serialValue.IndexOf(0x0A));
+                    //Debug.WriteLine(_serialValue.IndexOf(0x0A));
                     byteArray = _serialValue.GetRange(0, 4).ToArray();
                     nextValueUint = BitConverter.ToUInt16(byteArray, 0);
                     BitArray nextValueADBit = new BitArray(byteArray);
@@ -248,7 +248,7 @@ namespace plotBrembs
 
         private void SetTimer()
         {
-            aTimer = new Timers.Timer(250);
+            aTimer = new Timers.Timer(1000);
             aTimer.Elapsed += this.OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.SynchronizingObject = this;
@@ -257,13 +257,22 @@ namespace plotBrembs
 
         private void OnTimedEvent(Object source, Timers.ElapsedEventArgs e)
         {
+#if DEBUG
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+#endif
             formsPlot1.Plot.AxisAutoY(0.1, 0);
             //formsPlot1.Plot.AxisAutoY(0.1, 1);
-            Debug.WriteLine(formsPlot1.Plot.GetAxisLimits().ToString());
+            //Debug.WriteLine(formsPlot1.Plot.GetAxisLimits().ToString());
             formsPlot1.Refresh();
             TimeSpan elapsedTime = new TimeSpan(DateTime.Now.Ticks - beginTime.Ticks);
             debugTextbox.Text = elapsedTime.Milliseconds.ToString() + " " + nextValueIndex.ToString() + " " + _serialClear.ToString();
             beginTime = DateTime.Now;
+#if DEBUG
+            timer.Stop();
+            Debug.WriteLine("Render Taken: " + timer.Elapsed.TotalMilliseconds.ToString("#,##0.00 'milliseconds'"));
+#endif
+
         }
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
