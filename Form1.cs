@@ -28,11 +28,11 @@ namespace plotBrembs
         public SerialPort _serialPort = null;
         public Thread ReadSerialDataThread;
 
-        private double[] liveDataAD = new double[4000];
-        private double[] liveDataPIX = new double[4000];
+        private double[] liveDataAD = new double[500];
+        private double[] liveDataPIX = new double[500];
 
         private List<byte> list = new List<byte>();
-        private int nextValueIndex = -1;
+        private int nextValueIndex = 0;
 
         SignalPlot signalPlotAD = null;
         SignalPlot signalPlotPIX = null;
@@ -65,6 +65,8 @@ namespace plotBrembs
 
             signalPlotAD = formsPlot1.Plot.AddSignal(liveDataAD);
             signalPlotPIX = formsPlot1.Plot.AddSignal(liveDataPIX);
+
+            formsPlot1.Plot.Benchmark(enable: true);
 
             signalPlotAD.YAxisIndex = 0;
             signalPlotPIX.YAxisIndex = 1;
@@ -253,7 +255,7 @@ namespace plotBrembs
 
         private void SetTimer()
         {
-            aTimer = new Timers.Timer(2000);
+            aTimer = new Timers.Timer(250);
             aTimer.Elapsed += this.OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.SynchronizingObject = this;
