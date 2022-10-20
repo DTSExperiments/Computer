@@ -11,6 +11,7 @@ using System.Drawing;
 using System;
 using Timers = System.Timers;
 using ScottPlot.Plottable;
+using System.Reflection;
 
 namespace plotBrembs
 {
@@ -38,9 +39,13 @@ namespace plotBrembs
 
         public delegate void ShowSerialData(List<byte> _readSerialValue);
 
+        Version version = new Version();
+
         public Form1()
         {
             InitializeComponent();
+
+            version = Assembly.GetExecutingAssembly().GetName().Version;
 
             List<string> portList = new List<string>();
 
@@ -52,7 +57,7 @@ namespace plotBrembs
 
             serialComboBox.SelectedIndex = 0;
 
-            this.Text = Application.ProductVersion;
+            this.Text = version.ToString();
 
             _serialPort = new SerialPort();
             _serialPort.BaudRate = 115200;
@@ -248,7 +253,7 @@ namespace plotBrembs
 
         private void SetTimer()
         {
-            aTimer = new Timers.Timer(1000);
+            aTimer = new Timers.Timer(2000);
             aTimer.Elapsed += this.OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.SynchronizingObject = this;
