@@ -35,10 +35,11 @@ namespace plotBrembs
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.serialComboBox = new System.Windows.Forms.ComboBox();
-            this.tabControl = new System.Windows.Forms.TabControl();
             this.startSerial = new System.Windows.Forms.Button();
+            this.serialComboBox = new System.Windows.Forms.ComboBox();
             this.Threads = new System.Windows.Forms.Button();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.simulationData = new System.Windows.Forms.Button();
             this.plot.SuspendLayout();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -89,16 +90,28 @@ namespace plotBrembs
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.simulationData, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.startSerial, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.serialComboBox, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.Threads, 1, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 450F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(849, 503);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // startSerial
+            // 
+            this.startSerial.Location = new System.Drawing.Point(3, 30);
+            this.startSerial.Name = "startSerial";
+            this.startSerial.Size = new System.Drawing.Size(64, 20);
+            this.startSerial.TabIndex = 2;
+            this.startSerial.Text = "Start";
+            this.startSerial.UseVisualStyleBackColor = true;
+            this.startSerial.Click += new System.EventHandler(this.startSerial_Click);
             // 
             // serialComboBox
             // 
@@ -107,6 +120,16 @@ namespace plotBrembs
             this.serialComboBox.Name = "serialComboBox";
             this.serialComboBox.Size = new System.Drawing.Size(418, 21);
             this.serialComboBox.TabIndex = 0;
+            // 
+            // Threads
+            // 
+            this.Threads.Location = new System.Drawing.Point(3, 56);
+            this.Threads.Name = "Threads";
+            this.Threads.Size = new System.Drawing.Size(64, 20);
+            this.Threads.TabIndex = 3;
+            this.Threads.Text = "Thread";
+            this.Threads.UseVisualStyleBackColor = true;
+            this.Threads.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabControl
             // 
@@ -119,25 +142,15 @@ namespace plotBrembs
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
             // 
-            // startSerial
+            // simulationData
             // 
-            this.startSerial.Location = new System.Drawing.Point(3, 30);
-            this.startSerial.Name = "startSerial";
-            this.startSerial.Size = new System.Drawing.Size(64, 20);
-            this.startSerial.TabIndex = 2;
-            this.startSerial.Text = "Start";
-            this.startSerial.UseVisualStyleBackColor = true;
-            this.startSerial.Click += new System.EventHandler(this.startSerial_Click);
-            // 
-            // Threads
-            // 
-            this.Threads.Location = new System.Drawing.Point(427, 30);
-            this.Threads.Name = "Threads";
-            this.Threads.Size = new System.Drawing.Size(64, 20);
-            this.Threads.TabIndex = 3;
-            this.Threads.Text = "Thread";
-            this.Threads.UseVisualStyleBackColor = true;
-            this.Threads.Click += new System.EventHandler(this.button1_Click);
+            this.simulationData.Location = new System.Drawing.Point(427, 30);
+            this.simulationData.Name = "simulationData";
+            this.simulationData.Size = new System.Drawing.Size(64, 20);
+            this.simulationData.TabIndex = 4;
+            this.simulationData.Text = "Simulation";
+            this.simulationData.UseVisualStyleBackColor = true;
+            this.simulationData.Click += new System.EventHandler(this.simulateData_Click);
             // 
             // Form1
             // 
@@ -169,6 +182,7 @@ namespace plotBrembs
         private ComboBox serialComboBox;
         private Button startSerial;
         private Button Threads;
+        private Button simulationData;
     }
 }
 

@@ -18,6 +18,7 @@ namespace plotBrembs
     public partial class Form1 : Form
     {
         private static Mutex mut = new Mutex();
+        private static System.Threading.Timer simulationTimer = null;
 
         Timers.Timer aTimer = null;
 
@@ -28,8 +29,8 @@ namespace plotBrembs
         public SerialPort _serialPort = null;
         public Thread ReadSerialDataThread;
 
-        private double[] liveDataAD = new double[500];
-        private double[] liveDataPIX = new double[500];
+        private double[] liveDataAD = new double[300];
+        private double[] liveDataPIX = new double[300];
 
         private List<byte> list = new List<byte>();
         private int nextValueIndex = 0;
@@ -46,6 +47,8 @@ namespace plotBrembs
             InitializeComponent();
 
             version = Assembly.GetExecutingAssembly().GetName().Version;
+
+            
 
             List<string> portList = new List<string>();
 
@@ -154,6 +157,32 @@ namespace plotBrembs
 
         }
 
+        private void simulateData_Click(object sender, EventArgs e)
+        {
+            TimerCallback timerCallback = new TimerCallback(sendSimulationData);
+            simulationTimer = new System.Threading.Timer(timerCallback, null, 0, 100);
+
+
+            Debug.WriteLine("Press the Enter key to exit the program at any time... ");
+        }
+
+        private void sendSimulationData(Object source)
+        {
+            Debug.WriteLine("The Elapsed event was raised at {0}", DateTime.Now);
+            mut.WaitOne();
+            //list.Add(Convert.ToByte(0xFF));
+            //list.Add(Convert.ToByte(0x07));
+            list.Add(Convert.ToByte(0x00));
+            list.Add(Convert.ToByte(0x08));
+            list.Add(Convert.ToByte(0xC8));
+            list.Add(Convert.ToByte(0x00));
+            list.Add(Convert.ToByte(0x0A));
+            mut.ReleaseMutex();
+            Debug.WriteLine("Read");
+            this.BeginInvoke(new ShowSerialData(LineReceived), list);
+
+        }
+
         private void SerialDataReceivedEventHandler(object sender, SerialDataReceivedEventArgs e)
         {
             {
@@ -203,7 +232,7 @@ namespace plotBrembs
                     nextValueAD = BitConverter.ToInt16(byteArray, 0);
                     nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
 
-                    //Debug.WriteLine(nextValueAD);
+                    Debug.WriteLine(nextValueAD);
                     //Debug.WriteLine(nextValuePIX);
 
                     //TimeSpan elapsedTime = new TimeSpan(DateTime.Now.Ticks - beginTime.Ticks);
@@ -216,7 +245,9 @@ namespace plotBrembs
                     mut.ReleaseMutex();
 
                     nextValueIndex = (nextValueIndex < liveDataAD.Length - 1) ? nextValueIndex + 1 : 0;
-                    liveDataAD[nextValueIndex] = Convert.ToDouble(nextValueAD);
+
+                    //Calculation AD-Value
+                    liveDataAD[nextValueIndex] = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
                     liveDataPIX[nextValueIndex] = Convert.ToDouble(nextValuePIX);
 
                     //beginTime = DateTime.Now;
@@ -231,7 +262,7 @@ namespace plotBrembs
 
 
             //Debug.WriteLine(_serialValue.Count);
-            //updateData();
+            updateData();
 
         }
 
@@ -260,6 +291,12 @@ namespace plotBrembs
             aTimer.AutoReset = true;
             aTimer.SynchronizingObject = this;
             aTimer.Enabled = false;
+        }
+
+        private void updateData()
+        {
+            formsPlot1.Refresh();
+            debugTextbox.Text = liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString();
         }
 
         private void OnTimedEvent(Object source, Timers.ElapsedEventArgs e)
