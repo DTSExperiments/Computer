@@ -30,26 +30,27 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.plot = new System.Windows.Forms.TabPage();
-            this.debugTextbox = new System.Windows.Forms.TextBox();
-            this.formsPlot1 = new ScottPlot.FormsPlot();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.simulationData = new System.Windows.Forms.Button();
             this.startSerial = new System.Windows.Forms.Button();
             this.serialComboBox = new System.Windows.Forms.ComboBox();
             this.Threads = new System.Windows.Forms.Button();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.simulationData = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.plot.SuspendLayout();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // plot
             // 
-            this.plot.Controls.Add(this.debugTextbox);
-            this.plot.Controls.Add(this.formsPlot1);
+            this.plot.Controls.Add(this.chart1);
             this.plot.Location = new System.Drawing.Point(4, 22);
             this.plot.Name = "plot";
             this.plot.Padding = new System.Windows.Forms.Padding(3);
@@ -57,22 +58,6 @@ namespace plotBrembs
             this.plot.TabIndex = 0;
             this.plot.Text = "Plot";
             this.plot.UseVisualStyleBackColor = true;
-            // 
-            // debugTextbox
-            // 
-            this.debugTextbox.Cursor = System.Windows.Forms.Cursors.SizeAll;
-            this.debugTextbox.Location = new System.Drawing.Point(471, 3);
-            this.debugTextbox.Name = "debugTextbox";
-            this.debugTextbox.Size = new System.Drawing.Size(395, 20);
-            this.debugTextbox.TabIndex = 2;
-            // 
-            // formsPlot1
-            // 
-            this.formsPlot1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.formsPlot1.Location = new System.Drawing.Point(3, 3);
-            this.formsPlot1.Name = "formsPlot1";
-            this.formsPlot1.Size = new System.Drawing.Size(863, 581);
-            this.formsPlot1.TabIndex = 0;
             // 
             // config
             // 
@@ -102,6 +87,16 @@ namespace plotBrembs
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 450F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(849, 503);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // simulationData
+            // 
+            this.simulationData.Location = new System.Drawing.Point(427, 30);
+            this.simulationData.Name = "simulationData";
+            this.simulationData.Size = new System.Drawing.Size(64, 20);
+            this.simulationData.TabIndex = 4;
+            this.simulationData.Text = "Simulation";
+            this.simulationData.UseVisualStyleBackColor = true;
+            this.simulationData.Click += new System.EventHandler(this.simulateData_Click);
             // 
             // startSerial
             // 
@@ -142,15 +137,19 @@ namespace plotBrembs
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
             // 
-            // simulationData
+            // chart1
             // 
-            this.simulationData.Location = new System.Drawing.Point(427, 30);
-            this.simulationData.Name = "simulationData";
-            this.simulationData.Size = new System.Drawing.Size(64, 20);
-            this.simulationData.TabIndex = 4;
-            this.simulationData.Text = "Simulation";
-            this.simulationData.UseVisualStyleBackColor = true;
-            this.simulationData.Click += new System.EventHandler(this.simulateData_Click);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(3, 3);
+            this.chart1.Name = "chart1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(863, 581);
+            this.chart1.TabIndex = 3;
+            this.chart1.Text = "chart1";
             // 
             // Form1
             // 
@@ -163,10 +162,10 @@ namespace plotBrembs
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.plot.ResumeLayout(false);
-            this.plot.PerformLayout();
             this.config.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -174,15 +173,14 @@ namespace plotBrembs
         #endregion
 
         private TabPage plot;
-        private ScottPlot.FormsPlot formsPlot1;
         private TabPage config;
         private TabControl tabControl;
-        private TextBox debugTextbox;
         private TableLayoutPanel tableLayoutPanel1;
         private ComboBox serialComboBox;
         private Button startSerial;
         private Button Threads;
         private Button simulationData;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

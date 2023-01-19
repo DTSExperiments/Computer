@@ -10,8 +10,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System;
 using Timers = System.Timers;
-using ScottPlot.Plottable;
+//using ScottPlot.Plottable;
 using System.Reflection;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace plotBrembs
 {
@@ -29,14 +30,14 @@ namespace plotBrembs
         public SerialPort _serialPort = null;
         public Thread ReadSerialDataThread;
 
-        private double[] liveDataAD = new double[300];
-        private double[] liveDataPIX = new double[300];
+        private double[] liveDataAD = new double[1080];
+        private double[] liveDataPIX = new double[1080];
 
         private List<byte> list = new List<byte>();
         private int nextValueIndex = 0;
 
-        SignalPlot signalPlotAD = null;
-        SignalPlot signalPlotPIX = null;
+        //SignalPlot signalPlotAD = null;
+        //SignalPlot signalPlotPIX = null;
 
         public delegate void ShowSerialData(List<byte> _readSerialValue);
 
@@ -66,44 +67,44 @@ namespace plotBrembs
             _serialPort.BaudRate = 115200;
             _serialPort.Parity = Parity.None;
 
-            signalPlotAD = formsPlot1.Plot.AddSignal(liveDataAD);
-            signalPlotPIX = formsPlot1.Plot.AddSignal(liveDataPIX);
+            //signalPlotAD = formsPlot1.Plot.AddSignal(liveDataAD);
+            //signalPlotPIX = formsPlot1.Plot.AddSignal(liveDataPIX);
 
-            formsPlot1.Plot.Benchmark(enable: true);
+            //formsPlot1.Plot.Benchmark(enable: true);
 
-            signalPlotAD.YAxisIndex = 0;
-            signalPlotPIX.YAxisIndex = 1;
+            //signalPlotAD.YAxisIndex = 0;
+            //signalPlotPIX.YAxisIndex = 1;
 
             //formsPlot1.Plot.SetAxisLimitsX(xMin: 0, xMax: liveDataAD.Length);
             //formsPlot1.Plot.SetAxisLimits(xMin: 0, xMax: 4000, yMin: -1, yMax: 1, yAxisIndex: 0);
-            formsPlot1.Plot.SetAxisLimits(xMin: 0, xMax: liveDataAD.Length, yMin: -1, yMax: 800, yAxisIndex: 1);
+            //formsPlot1.Plot.SetAxisLimits(xMin: 0, xMax: liveDataAD.Length, yMin: -1, yMax: 800, yAxisIndex: 1);
 
-            //formsPlot1.Plot.YAxis.LockLimits(true);
-            //formsPlot1.Plot.XAxis.LockLimits(true);
-            //formsPlot1.Plot.YAxis2.LockLimits(true);
+            ////formsPlot1.Plot.YAxis.LockLimits(true);
+            ////formsPlot1.Plot.XAxis.LockLimits(true);
+            ////formsPlot1.Plot.YAxis2.LockLimits(true);
 
-            formsPlot1.Plot.Title(Application.ProductName);
-            formsPlot1.Plot.Grid(true);
+            //formsPlot1.Plot.Title(Application.ProductName);
+            //formsPlot1.Plot.Grid(true);
 
-            signalPlotAD.Color = Color.Magenta;
-            signalPlotPIX.Color = Color.Green;
-            signalPlotAD.LineWidth = 2;
-            signalPlotPIX.LineWidth = 2;
-            signalPlotAD.YAxisIndex = 0;
-            signalPlotPIX.YAxisIndex = 1;
+            //signalPlotAD.Color = Color.Magenta;
+            //signalPlotPIX.Color = Color.Green;
+            //signalPlotAD.LineWidth = 2;
+            //signalPlotPIX.LineWidth = 2;
+            //signalPlotAD.YAxisIndex = 0;
+            //signalPlotPIX.YAxisIndex = 1;
 
-            formsPlot1.Plot.YAxis.Color(Color.Magenta);
-            formsPlot1.Plot.YAxis.Label("AD-Value");
-            formsPlot1.Plot.YAxis2.Color(Color.Green);
-            formsPlot1.Plot.YAxis2.Label("PIXEL-Value");
-            formsPlot1.Plot.XAxis.Label("Time");
+            //formsPlot1.Plot.YAxis.Color(Color.Magenta);
+            //formsPlot1.Plot.YAxis.Label("AD-Value");
+            //formsPlot1.Plot.YAxis2.Color(Color.Green);
+            //formsPlot1.Plot.YAxis2.Label("PIXEL-Value");
+            //formsPlot1.Plot.XAxis.Label("Time");
 
-            formsPlot1.Plot.YAxis2.Ticks(true);
+            //formsPlot1.Plot.YAxis2.Ticks(true);
 
-            formsPlot1.Configuration.RightClickDragZoom = false;
-            formsPlot1.Configuration.ScrollWheelZoom = false;
+            //formsPlot1.Configuration.RightClickDragZoom = false;
+            //formsPlot1.Configuration.ScrollWheelZoom = false;
 
-            formsPlot1.Render();
+            //formsPlot1.Render();
 
             SetTimer();
 
@@ -117,7 +118,36 @@ namespace plotBrembs
             //double[] dataY = new double[] { 1, 4, 9, 16, 25 };
             //formsPlot1.Plot.AddScatter(dataX, dataY);
             //formsPlot1.Refresh();
-            Debug.WriteLine(formsPlot1.Plot.GetAxisLimits().ToString());
+            ChartArea ChartArea0 = new ChartArea("liveDataAD");
+            chart1.ChartAreas.Add(ChartArea0);
+
+            chart1.Series.Add("liveDataAD");
+            chart1.Series.Add("liveDataPIX");
+
+            //Ausssehen festlegen
+            chart1.Series["liveDataAD"].ChartType = SeriesChartType.Line;
+            chart1.Series["liveDataPIX"].ChartType = SeriesChartType.Line;
+
+            //Start value
+            chart1.Series["liveDataAD"].Points.DataBindY(liveDataAD);
+            chart1.Series["liveDataPIX"].Points.DataBindY(liveDataPIX);
+
+            chart1.Series[0].Color = Color.Green;
+            chart1.Series[1].Color = Color.Red;
+
+            chart1.Series[0].YAxisType = AxisType.Primary;
+            chart1.Series[0].YAxisType = AxisType.Secondary;
+
+            chart1.ChartAreas[0].AxisY.Minimum = -0.6;
+            chart1.ChartAreas[0].AxisY.Maximum = 0.6;
+            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
+
+            chart1.ChartAreas[0].AxisY2.Minimum = 0;
+            chart1.ChartAreas[0].AxisY2.Maximum = 800;
+            chart1.ChartAreas[0].AxisY2.MajorGrid.Enabled = true;
+            chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
+
+            Debug.WriteLine("Plot load");
         }
 
         private void startSerial_Click(object sender, EventArgs e)
@@ -160,7 +190,7 @@ namespace plotBrembs
         private void simulateData_Click(object sender, EventArgs e)
         {
             TimerCallback timerCallback = new TimerCallback(sendSimulationData);
-            simulationTimer = new System.Threading.Timer(timerCallback, null, 0, 100);
+            simulationTimer = new System.Threading.Timer(timerCallback, null, 0, 50);
 
 
             Debug.WriteLine("Press the Enter key to exit the program at any time... ");
@@ -295,8 +325,14 @@ namespace plotBrembs
 
         private void updateData()
         {
-            formsPlot1.Refresh();
-            debugTextbox.Text = liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString();
+            //formsPlot1.Refresh();
+
+            chart1.Series["liveDataAD"].Points.RemoveAt(nextValueIndex);
+            chart1.Series["liveDataPIX"].Points.RemoveAt(nextValueIndex);
+            chart1.Series["liveDataAD"].Points.InsertY(nextValueIndex, liveDataAD[nextValueIndex]);
+            chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
+
+            Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString());
         }
 
         private void OnTimedEvent(Object source, Timers.ElapsedEventArgs e)
@@ -305,12 +341,12 @@ namespace plotBrembs
             Stopwatch timer = new Stopwatch();
             timer.Start();
 #endif
-            formsPlot1.Plot.AxisAutoY(0.1, 0);
+            //formsPlot1.Plot.AxisAutoY(0.1, 0);
             //formsPlot1.Plot.AxisAutoY(0.1, 1);
             //Debug.WriteLine(formsPlot1.Plot.GetAxisLimits().ToString());
-            formsPlot1.Refresh();
+            //formsPlot1.Refresh();
             TimeSpan elapsedTime = new TimeSpan(DateTime.Now.Ticks - beginTime.Ticks);
-            debugTextbox.Text = elapsedTime.Milliseconds.ToString() + " " + nextValueIndex.ToString() + " " + _serialClear.ToString();
+            //debugTextbox.Text = elapsedTime.Milliseconds.ToString() + " " + nextValueIndex.ToString() + " " + _serialClear.ToString();
             beginTime = DateTime.Now;
 #if DEBUG
             timer.Stop();
