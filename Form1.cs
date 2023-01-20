@@ -72,6 +72,7 @@ namespace plotBrembs
 
             //formsPlot1.Plot.Benchmark(enable: true);
 
+
             //signalPlotAD.YAxisIndex = 0;
             //signalPlotPIX.YAxisIndex = 1;
 
