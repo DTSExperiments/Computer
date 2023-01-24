@@ -57,9 +57,13 @@ namespace plotBrembs
             portList.Sort();
 
             string[] portNames = portList.ToArray();
-            serialComboBox.Items.AddRange(portNames);
 
-            serialComboBox.SelectedIndex = 0;
+            if (portNames.Length > 0)
+            {
+                serialComboBox.Items.AddRange(portNames);
+                serialComboBox.SelectedIndex = 0;
+            }
+
 
             this.Text = version.ToString();
 
