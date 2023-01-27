@@ -123,7 +123,7 @@ namespace plotBrembs
             //double[] dataY = new double[] { 1, 4, 9, 16, 25 };
             //formsPlot1.Plot.AddScatter(dataX, dataY);
             //formsPlot1.Refresh();
-            ChartArea ChartArea0 = new ChartArea("liveDataAD");
+            ChartArea ChartArea0 = new ChartArea("liveData");
             chart1.ChartAreas.Add(ChartArea0);
 
             chart1.Series.Add("liveDataAD");
@@ -143,12 +143,12 @@ namespace plotBrembs
             chart1.Series[0].YAxisType = AxisType.Primary;
             chart1.Series[0].YAxisType = AxisType.Secondary;
 
-            chart1.ChartAreas[0].AxisY.Minimum = -0.6;
-            chart1.ChartAreas[0].AxisY.Maximum = 0.6;
+            chart1.ChartAreas[0].AxisY.Minimum = 0;
+            chart1.ChartAreas[0].AxisY.Maximum = 800;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
 
-            chart1.ChartAreas[0].AxisY2.Minimum = 0;
-            chart1.ChartAreas[0].AxisY2.Maximum = 800;
+            chart1.ChartAreas[0].AxisY2.Minimum = -0.6;
+            chart1.ChartAreas[0].AxisY2.Maximum = 0.6;
             chart1.ChartAreas[0].AxisY2.MajorGrid.Enabled = true;
             chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
 
