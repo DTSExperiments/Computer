@@ -98,9 +98,24 @@ namespace plotBrembs
 
         private void startSerial_Click(object sender, EventArgs e)
         {
+            int returnValue = 0;
             if (serialCom != null)
             {
-                serialCom.openPort(serialComboBox.Text);
+                returnValue = serialCom.openPort(serialComboBox.Text);
+                switch (returnValue)
+                {
+                    case 0:
+                        serialOpen.Image = Properties.Resources._269210;
+                        break;
+                    case 1:
+                        serialOpen.Image = Properties.Resources._269251;
+                        startSerial.Text = "Stop";
+                        break;
+                    case 2:
+                        serialOpen.Image = Properties.Resources._269251;
+                        startSerial.Text = "Stop";
+                        break;
+                }
             }
            
         }
@@ -175,7 +190,8 @@ namespace plotBrembs
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.ToString);
+                    MessageBox.Show(ex.ToString(), "SerialInterface Event");
+                    
                 }
             }
 
@@ -234,5 +250,63 @@ namespace plotBrembs
             serialCom.closePort();
         }
 
+        private void trackBarRotation_Scroll(object sender, EventArgs e)
+        {
+            TrackBar trackBar = sender as TrackBar;
+
+            numericUpDownRotation.Value = trackBar.Value;
+        }
+
+        private void numericUpDownRotation_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown rotationUpDown = sender as NumericUpDown;
+            int number = 0;
+            try
+            {
+                number = Convert.ToInt32(rotationUpDown.Value);
+                if (number > 255)
+                {
+                    throw new ArgumentException();
+                }
+                trackBarRotation.Value = number;
+            }
+            catch(Exception ex)
+            {
+                rotationUpDown.Text = "0";
+            }
+            
+        }
+
+        private void trackBarLaser_Scroll(object sender, EventArgs e)
+        {
+            TrackBar trackBar = sender as TrackBar;
+
+            numericUpDownLaser.Value = trackBar.Value;
+        }
+
+        private void numericUpDownLaser_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown rotationUpDown = sender as NumericUpDown;
+            int number = 0;
+            try
+            {
+                number = Convert.ToInt32(rotationUpDown.Value);
+                if (number > 255)
+                {
+                    throw new ArgumentException();
+                }
+                trackBarLaser.Value = number;
+            }
+            catch (Exception ex)
+            {
+                rotationUpDown.Text = "0";
+            }
+
+        }
+
+        private void laser_Click(object sender, EventArgs e)
+        {
+            serialCom.sendValues();
+        }
     }
 }

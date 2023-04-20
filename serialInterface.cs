@@ -23,7 +23,29 @@ namespace plotBrembs
             _serialPort.Parity = Parity.None;
         }
 
-        public void openPort(string port)
+        public void sendValues()
+        {
+            try
+            {
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Write("2");
+                    _serialPort.Write("r");
+                    _serialPort.Write(BitConverter.GetBytes(1), 0, 1);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Serial port is not open.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Serial failed", ex.ToString());
+            }
+            
+        }
+
+        public int openPort(string port)
         {
             try
             {
@@ -32,26 +54,32 @@ namespace plotBrembs
                     _serialPort.PortName = port;
                     _serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedEventHandler);
                     _serialPort.Open();
+                    Thread.Sleep(100);
                     if (_serialPort.BytesToRead == 0)
                     {
-                        _serialPort.WriteLine("S");
-                        _serialPort.WriteLine("S");
+                        _serialPort.Write("S");
+                        return 1;
                     }
                     else
                     {
-                        _serialPort.WriteLine("S");
+                        _serialPort.Write("S");
+                        _serialPort.Write("S");
+                        return 2;
                     }
 
                 }
                 else
                 {
-                    _serialPort.WriteLine("S");
-                    _serialPort.Close();
+                    _serialPort.Write("S");
+                    _serialPort.DataReceived -= SerialDataReceivedEventHandler;
+                    _serialPort.Dispose();
+                    return 0;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Serial failed", "Opening SerialPort Event");
+                return -1;
             }
         }
 
@@ -64,7 +92,7 @@ namespace plotBrembs
                     Thread.Sleep(100);
                     if (_serialPort.BytesToRead > 0)
                     {
-                        _serialPort.WriteLine("Stop");
+                        _serialPort.WriteLine("S");
                         _serialPort.Close();
                     }
                 }
