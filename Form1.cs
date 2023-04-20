@@ -308,5 +308,22 @@ namespace plotBrembs
         {
             serialCom.sendValues();
         }
+
+        private void domainUpDown3_SelectedItemChanged(object sender, EventArgs e)
+        {
+            DomainUpDown color = sender as DomainUpDown;
+            switch (color.Text)
+            {
+                case "Red":
+                    color.BackColor = Color.Red;
+                    break;
+                case "Green":
+                    color.BackColor = Color.Red;
+                    break;
+                default:
+                    color.BackColor = Color.Empty;
+                    break;
+            }
+        }
     }
 }

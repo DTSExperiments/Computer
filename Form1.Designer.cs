@@ -30,49 +30,51 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.plot = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.serialOpen = new System.Windows.Forms.PictureBox();
+            this.serialComboBox = new System.Windows.Forms.ComboBox();
             this.simulationData = new System.Windows.Forms.Button();
             this.startSerial = new System.Windows.Forms.Button();
-            this.serialComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.trackBarRotation = new System.Windows.Forms.TrackBar();
             this.rotation = new System.Windows.Forms.Button();
             this.numericUpDownRotation = new System.Windows.Forms.NumericUpDown();
             this.domainUpDown1 = new System.Windows.Forms.DomainUpDown();
-            this.label3 = new System.Windows.Forms.Label();
             this.Threads = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.trackBarLaser = new System.Windows.Forms.TrackBar();
             this.laser = new System.Windows.Forms.Button();
             this.numericUpDownLaser = new System.Windows.Forms.NumericUpDown();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.pattern = new System.Windows.Forms.Label();
-            this.serialOpen = new System.Windows.Forms.PictureBox();
             this.pictureLaser = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
+            this.patternButton = new System.Windows.Forms.Button();
+            this.pattern = new System.Windows.Forms.Label();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
             this.plot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.serialOpen)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRotation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRotation)).BeginInit();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLaser)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLaser)).BeginInit();
-            this.tabControl.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.serialOpen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLaser)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tabControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // plot
@@ -89,8 +91,8 @@ namespace plotBrembs
             // chart1
             // 
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(863, 581);
@@ -168,6 +170,32 @@ namespace plotBrembs
             this.tableLayoutPanel2.Size = new System.Drawing.Size(719, 29);
             this.tableLayoutPanel2.TabIndex = 5;
             // 
+            // serialOpen
+            // 
+            this.serialOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.serialOpen.Image = global::plotBrembs.Properties.Resources._269210;
+            this.serialOpen.InitialImage = global::plotBrembs.Properties.Resources._269210;
+            this.serialOpen.Location = new System.Drawing.Point(162, 3);
+            this.serialOpen.Name = "serialOpen";
+            this.serialOpen.Size = new System.Drawing.Size(153, 23);
+            this.serialOpen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.serialOpen.TabIndex = 12;
+            this.serialOpen.TabStop = false;
+            // 
+            // serialComboBox
+            // 
+            this.serialComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.serialComboBox.FormattingEnabled = true;
+            this.serialComboBox.IntegralHeight = false;
+            this.serialComboBox.Location = new System.Drawing.Point(3, 3);
+            this.serialComboBox.Name = "serialComboBox";
+            this.serialComboBox.Size = new System.Drawing.Size(153, 21);
+            this.serialComboBox.TabIndex = 0;
+            // 
             // simulationData
             // 
             this.simulationData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -193,18 +221,6 @@ namespace plotBrembs
             this.startSerial.Text = "Start";
             this.startSerial.UseVisualStyleBackColor = true;
             this.startSerial.Click += new System.EventHandler(this.startSerial_Click);
-            // 
-            // serialComboBox
-            // 
-            this.serialComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.serialComboBox.FormattingEnabled = true;
-            this.serialComboBox.IntegralHeight = false;
-            this.serialComboBox.Location = new System.Drawing.Point(3, 3);
-            this.serialComboBox.Name = "serialComboBox";
-            this.serialComboBox.Size = new System.Drawing.Size(153, 21);
-            this.serialComboBox.TabIndex = 0;
             // 
             // label1
             // 
@@ -296,6 +312,17 @@ namespace plotBrembs
             this.domainUpDown1.TabIndex = 11;
             this.domainUpDown1.Tag = "";
             this.domainUpDown1.Text = "choose Rotation";
+            this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // Threads
+            // 
+            this.Threads.Location = new System.Drawing.Point(147, 143);
+            this.Threads.Name = "Threads";
+            this.Threads.Size = new System.Drawing.Size(64, 20);
+            this.Threads.TabIndex = 3;
+            this.Threads.Text = "Thread";
+            this.Threads.UseVisualStyleBackColor = true;
+            this.Threads.Click += new System.EventHandler(this.button1_Click);
             // 
             // label3
             // 
@@ -309,16 +336,6 @@ namespace plotBrembs
             this.label3.TabIndex = 9;
             this.label3.Text = "Laser";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Threads
-            // 
-            this.Threads.Location = new System.Drawing.Point(147, 143);
-            this.Threads.Name = "Threads";
-            this.Threads.Size = new System.Drawing.Size(64, 20);
-            this.Threads.TabIndex = 3;
-            this.Threads.Text = "Thread";
-            this.Threads.UseVisualStyleBackColor = true;
-            this.Threads.Click += new System.EventHandler(this.button1_Click);
             // 
             // tableLayoutPanel4
             // 
@@ -361,7 +378,7 @@ namespace plotBrembs
             this.laser.Name = "laser";
             this.laser.Size = new System.Drawing.Size(236, 23);
             this.laser.TabIndex = 4;
-            this.laser.Text = "Laser On/Off";
+            this.laser.Text = "Laser On";
             this.laser.UseVisualStyleBackColor = true;
             this.laser.Click += new System.EventHandler(this.laser_Click);
             // 
@@ -383,15 +400,19 @@ namespace plotBrembs
             this.numericUpDownLaser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDownLaser.ValueChanged += new System.EventHandler(this.numericUpDownLaser_ValueChanged);
             // 
-            // tabControl
+            // pictureLaser
             // 
-            this.tabControl.Controls.Add(this.plot);
-            this.tabControl.Controls.Add(this.config);
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(877, 613);
-            this.tabControl.TabIndex = 1;
+            this.pictureLaser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureLaser.Image = global::plotBrembs.Properties.Resources._269210;
+            this.pictureLaser.InitialImage = global::plotBrembs.Properties.Resources._269210;
+            this.pictureLaser.Location = new System.Drawing.Point(3, 3);
+            this.pictureLaser.Name = "pictureLaser";
+            this.pictureLaser.Size = new System.Drawing.Size(153, 23);
+            this.pictureLaser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureLaser.TabIndex = 11;
+            this.pictureLaser.TabStop = false;
             // 
             // tableLayoutPanel5
             // 
@@ -403,7 +424,9 @@ namespace plotBrembs
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22223F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.22223F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel5.Controls.Add(this.button1, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.domainUpDown3, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.domainUpDown2, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.patternButton, 3, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(147, 73);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
@@ -412,17 +435,34 @@ namespace plotBrembs
             this.tableLayoutPanel5.Size = new System.Drawing.Size(719, 29);
             this.tableLayoutPanel5.TabIndex = 11;
             // 
-            // button1
+            // domainUpDown2
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.domainUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(480, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(236, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Laser On/Off";
-            this.button1.UseVisualStyleBackColor = true;
+            this.domainUpDown2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.domainUpDown2.Items.Add("No pattern");
+            this.domainUpDown2.Items.Add("One touch");
+            this.domainUpDown2.Items.Add("Multi touch");
+            this.domainUpDown2.Location = new System.Drawing.Point(3, 3);
+            this.domainUpDown2.Name = "domainUpDown2";
+            this.domainUpDown2.Size = new System.Drawing.Size(153, 20);
+            this.domainUpDown2.TabIndex = 12;
+            this.domainUpDown2.Tag = "";
+            this.domainUpDown2.Text = "choose Pattern";
+            this.domainUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // patternButton
+            // 
+            this.patternButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.patternButton.Location = new System.Drawing.Point(480, 3);
+            this.patternButton.Name = "patternButton";
+            this.patternButton.Size = new System.Drawing.Size(236, 23);
+            this.patternButton.TabIndex = 4;
+            this.patternButton.Text = "Pattern";
+            this.patternButton.UseVisualStyleBackColor = true;
             // 
             // pattern
             // 
@@ -437,33 +477,34 @@ namespace plotBrembs
             this.pattern.Text = "Pattern";
             this.pattern.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // serialOpen
+            // tabControl
             // 
-            this.serialOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl.Controls.Add(this.plot);
+            this.tabControl.Controls.Add(this.config);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(877, 613);
+            this.tabControl.TabIndex = 1;
+            // 
+            // domainUpDown3
+            // 
+            this.domainUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.serialOpen.Image = global::plotBrembs.Properties.Resources._269210;
-            this.serialOpen.InitialImage = global::plotBrembs.Properties.Resources._269210;
-            this.serialOpen.Location = new System.Drawing.Point(162, 3);
-            this.serialOpen.Name = "serialOpen";
-            this.serialOpen.Size = new System.Drawing.Size(153, 23);
-            this.serialOpen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.serialOpen.TabIndex = 12;
-            this.serialOpen.TabStop = false;
-            // 
-            // pictureLaser
-            // 
-            this.pictureLaser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureLaser.Image = global::plotBrembs.Properties.Resources._269210;
-            this.pictureLaser.InitialImage = global::plotBrembs.Properties.Resources._269210;
-            this.pictureLaser.Location = new System.Drawing.Point(3, 3);
-            this.pictureLaser.Name = "pictureLaser";
-            this.pictureLaser.Size = new System.Drawing.Size(153, 23);
-            this.pictureLaser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureLaser.TabIndex = 11;
-            this.pictureLaser.TabStop = false;
+            this.domainUpDown3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.domainUpDown3.Items.Add("Red");
+            this.domainUpDown3.Items.Add("Blue");
+            this.domainUpDown3.Items.Add("Green");
+            this.domainUpDown3.Items.Add("Cyan");
+            this.domainUpDown3.Location = new System.Drawing.Point(162, 3);
+            this.domainUpDown3.Name = "domainUpDown3";
+            this.domainUpDown3.Size = new System.Drawing.Size(153, 20);
+            this.domainUpDown3.TabIndex = 13;
+            this.domainUpDown3.Tag = "";
+            this.domainUpDown3.Text = "choose Color";
+            this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.domainUpDown3.SelectedItemChanged += new System.EventHandler(this.domainUpDown3_SelectedItemChanged);
             // 
             // Form1
             // 
@@ -481,6 +522,7 @@ namespace plotBrembs
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.serialOpen)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRotation)).EndInit();
@@ -489,10 +531,9 @@ namespace plotBrembs
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLaser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLaser)).EndInit();
-            this.tabControl.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.serialOpen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLaser)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -524,8 +565,10 @@ namespace plotBrembs
         private PictureBox pictureLaser;
         private PictureBox serialOpen;
         private TableLayoutPanel tableLayoutPanel5;
-        private Button button1;
+        private Button patternButton;
         private Label pattern;
+        private DomainUpDown domainUpDown2;
+        private DomainUpDown domainUpDown3;
     }
 }
 
