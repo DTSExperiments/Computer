@@ -30,7 +30,7 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.plot = new System.Windows.Forms.TabPage();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.config = new System.Windows.Forms.TabPage();
@@ -55,11 +55,11 @@ namespace plotBrembs
             this.numericUpDownLaser = new System.Windows.Forms.NumericUpDown();
             this.pictureLaser = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
             this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
             this.patternButton = new System.Windows.Forms.Button();
             this.pattern = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
             this.plot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.config.SuspendLayout();
@@ -90,9 +90,11 @@ namespace plotBrembs
             // 
             // chart1
             // 
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(863, 581);
@@ -278,6 +280,7 @@ namespace plotBrembs
             this.rotation.TabIndex = 4;
             this.rotation.Text = "Rotate";
             this.rotation.UseVisualStyleBackColor = true;
+            this.rotation.Click += new System.EventHandler(this.rotation_Click);
             // 
             // numericUpDownRotation
             // 
@@ -313,6 +316,7 @@ namespace plotBrembs
             this.domainUpDown1.Tag = "";
             this.domainUpDown1.Text = "choose Rotation";
             this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
             // 
             // Threads
             // 
@@ -435,6 +439,25 @@ namespace plotBrembs
             this.tableLayoutPanel5.Size = new System.Drawing.Size(719, 29);
             this.tableLayoutPanel5.TabIndex = 11;
             // 
+            // domainUpDown3
+            // 
+            this.domainUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.domainUpDown3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.domainUpDown3.Items.Add("White");
+            this.domainUpDown3.Items.Add("Blue");
+            this.domainUpDown3.Items.Add("Green");
+            this.domainUpDown3.Items.Add("Cyan");
+            this.domainUpDown3.Location = new System.Drawing.Point(162, 3);
+            this.domainUpDown3.Name = "domainUpDown3";
+            this.domainUpDown3.Size = new System.Drawing.Size(153, 20);
+            this.domainUpDown3.TabIndex = 13;
+            this.domainUpDown3.Tag = "";
+            this.domainUpDown3.Text = "choose Color";
+            this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.domainUpDown3.SelectedItemChanged += new System.EventHandler(this.domainUpDown3_SelectedItemChanged);
+            // 
             // domainUpDown2
             // 
             this.domainUpDown2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -444,6 +467,7 @@ namespace plotBrembs
             this.domainUpDown2.Items.Add("No pattern");
             this.domainUpDown2.Items.Add("One touch");
             this.domainUpDown2.Items.Add("Multi touch");
+            this.domainUpDown2.Items.Add("T pattern");
             this.domainUpDown2.Location = new System.Drawing.Point(3, 3);
             this.domainUpDown2.Name = "domainUpDown2";
             this.domainUpDown2.Size = new System.Drawing.Size(153, 20);
@@ -451,6 +475,7 @@ namespace plotBrembs
             this.domainUpDown2.Tag = "";
             this.domainUpDown2.Text = "choose Pattern";
             this.domainUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.domainUpDown2.SelectedItemChanged += new System.EventHandler(this.domainUpDown2_SelectedItemChanged);
             // 
             // patternButton
             // 
@@ -463,6 +488,7 @@ namespace plotBrembs
             this.patternButton.TabIndex = 4;
             this.patternButton.Text = "Pattern";
             this.patternButton.UseVisualStyleBackColor = true;
+            this.patternButton.Click += new System.EventHandler(this.patternButton_Click);
             // 
             // pattern
             // 
@@ -486,25 +512,6 @@ namespace plotBrembs
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
-            // 
-            // domainUpDown3
-            // 
-            this.domainUpDown3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.domainUpDown3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.domainUpDown3.Items.Add("Red");
-            this.domainUpDown3.Items.Add("Blue");
-            this.domainUpDown3.Items.Add("Green");
-            this.domainUpDown3.Items.Add("Cyan");
-            this.domainUpDown3.Location = new System.Drawing.Point(162, 3);
-            this.domainUpDown3.Name = "domainUpDown3";
-            this.domainUpDown3.Size = new System.Drawing.Size(153, 20);
-            this.domainUpDown3.TabIndex = 13;
-            this.domainUpDown3.Tag = "";
-            this.domainUpDown3.Text = "choose Color";
-            this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.domainUpDown3.SelectedItemChanged += new System.EventHandler(this.domainUpDown3_SelectedItemChanged);
             // 
             // Form1
             // 

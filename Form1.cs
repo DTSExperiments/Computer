@@ -15,6 +15,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace plotBrembs
 {
+
     public partial class Form1 : Form
     {
         private static Mutex mut = new Mutex();
@@ -33,6 +34,12 @@ namespace plotBrembs
         public delegate void ShowSerialData();
 
         Version version = new Version();
+
+        ColorPattern patternColor;
+
+        DisplayPattern patternDisplay;
+
+        RotationValue valueRotation;
 
         public Form1()
         {
@@ -239,15 +246,9 @@ namespace plotBrembs
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
-
-            //System.Text.StringBuilder messageBoxCS = new System.Text.StringBuilder();
-            //messageBoxCS.AppendFormat("{0} = {1}", "CloseReason", e.CloseReason);
-            //messageBoxCS.AppendLine();
-            //messageBoxCS.AppendFormat("{0} = {1}", "Cancel", e.Cancel);
-            //messageBoxCS.AppendLine();
-            //MessageBox.Show(messageBoxCS.ToString(), "FormClosing Event");
-
-            serialCom.closePort();
+            int number = 0;
+            number = serialCom.closePort();
+            Console.WriteLine(number);
         }
 
         private void trackBarRotation_Scroll(object sender, EventArgs e)
@@ -306,7 +307,23 @@ namespace plotBrembs
 
         private void laser_Click(object sender, EventArgs e)
         {
-            serialCom.sendValues();
+            int returnValue = 0;
+            returnValue = serialCom.sendValues(Convert.ToByte(numericUpDownLaser.Value));
+            switch (returnValue)
+            {
+                case 0:
+                    pictureLaser.Image = Properties.Resources._269210;
+                    laser.Text = "Off";
+                    break;
+                case 1:
+                    pictureLaser.Image = Properties.Resources._269251;
+                    laser.Text = "On";
+                    break;
+                case -1:
+                    pictureLaser.Image = Properties.Resources._269210;
+                    laser.Text = "Off";
+                    break;
+            }
         }
 
         private void domainUpDown3_SelectedItemChanged(object sender, EventArgs e)
@@ -316,14 +333,87 @@ namespace plotBrembs
             {
                 case "Red":
                     color.BackColor = Color.Red;
+                    color.ForeColor = Color.WhiteSmoke;
+                    patternColor = ColorPattern.Red;
                     break;
                 case "Green":
-                    color.BackColor = Color.Red;
+                    color.BackColor = Color.Green;
+                    color.ForeColor = Color.WhiteSmoke;
+                    patternColor = ColorPattern.Green;
+                    break;
+                case "Blue":
+                    color.BackColor = Color.Blue;
+                    color.ForeColor = Color.WhiteSmoke;
+                    patternColor = ColorPattern.Blue;
+                    break;
+                case "Cyan":
+                    color.BackColor = Color.Cyan;
+                    color.ForeColor = Color.Black;
+                    patternColor = ColorPattern.Cyan;
+                    break;
+                case "White":
+                    color.BackColor = Color.WhiteSmoke;
+                    color.ForeColor = Color.Black;
+                    patternColor = ColorPattern.White;
                     break;
                 default:
                     color.BackColor = Color.Empty;
+                    color.ForeColor = Color.Black;
+                    patternColor = ColorPattern.none;
                     break;
             }
+        }
+
+        private void domainUpDown2_SelectedItemChanged(object sender, EventArgs e)
+        {
+            DomainUpDown pattern = sender as DomainUpDown;
+            switch (pattern.Text)
+            {
+                case "No pattern":
+                    patternDisplay = DisplayPattern.noPattern;
+                    break;
+                case "One touch":
+                    patternDisplay = DisplayPattern.oneTouch;
+                    break;
+                case "Multi touch":
+                    patternDisplay = DisplayPattern.multiTouch;
+                    break;
+                case "T pattern":
+                    patternDisplay = DisplayPattern.tPattern;
+                    break;
+                default:
+                    patternDisplay = DisplayPattern.noPattern;
+                    break;
+            }
+        }
+
+        private void patternButton_Click(object sender, EventArgs e)
+        {
+            serialCom.sendValues(patternDisplay, patternColor);
+        }
+
+        private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
+        {
+            DomainUpDown rotation = sender as DomainUpDown;
+            switch (rotation.Text)
+            {
+                case "Sample":
+                    valueRotation = RotationValue.Sample;
+                    break;
+                case "Right":
+                    valueRotation = RotationValue.Right;
+                    break;
+                case "Left":
+                    valueRotation = RotationValue.Left;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void rotation_Click(object sender, EventArgs e)
+        {
+            serialCom.sendValues(valueRotation, Convert.ToByte(numericUpDownRotation.Value));
         }
     }
 }
