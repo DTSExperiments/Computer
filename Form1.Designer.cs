@@ -30,7 +30,7 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Threads = new System.Windows.Forms.Button();
@@ -127,7 +127,7 @@ namespace plotBrembs
             this.plot.Padding = new System.Windows.Forms.Padding(3);
             this.plot.Size = new System.Drawing.Size(869, 587);
             this.plot.TabIndex = 0;
-            this.plot.Text = "Plot";
+            this.plot.Text = "Oscilloscope";
             this.plot.UseVisualStyleBackColor = true;
             // 
             // chart1
@@ -135,8 +135,8 @@ namespace plotBrembs
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(863, 441);
