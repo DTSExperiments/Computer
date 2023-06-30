@@ -30,7 +30,7 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Threads = new System.Windows.Forms.Button();
@@ -61,6 +61,7 @@ namespace plotBrembs
             this.startSerial = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.debug = new System.Windows.Forms.TextBox();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.plot.SuspendLayout();
@@ -135,8 +136,8 @@ namespace plotBrembs
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 3);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(863, 441);
@@ -287,6 +288,7 @@ namespace plotBrembs
             this.tableLayoutPanel5.Controls.Add(this.domainUpDown3, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.domainUpDown2, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.patternButton, 3, 0);
+            this.tableLayoutPanel5.Controls.Add(this.debug, 2, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(146, 38);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
@@ -542,6 +544,16 @@ namespace plotBrembs
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
             // 
+            // debug
+            // 
+            this.debug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.debug.Location = new System.Drawing.Point(319, 3);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(152, 20);
+            this.debug.TabIndex = 14;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -564,6 +576,7 @@ namespace plotBrembs
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLaser)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLaser)).EndInit();
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarRotation)).EndInit();
@@ -607,6 +620,7 @@ namespace plotBrembs
         private Button startSerial;
         private Label label4;
         private TabControl tabControl;
+        private TextBox debug;
     }
 }
 

@@ -22,6 +22,7 @@ namespace plotBrembs
         private static System.Threading.Timer simulationTimer = null;
 
         private serialInterface serialCom;
+        private writeFile fileWriter;
 
         public Thread ReadSerialDataThread;
 
@@ -66,6 +67,8 @@ namespace plotBrembs
             serialCom = new serialInterface();
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
 
+            fileWriter = new writeFile();
+
 
         }
 
@@ -108,7 +111,7 @@ namespace plotBrembs
             int returnValue = 0;
             if (serialCom != null)
             {
-                returnValue = serialCom.openPort(serialComboBox.Text);
+                returnValue = serialCom.openPort(serialComboBox.Text);                
                 switch (returnValue)
                 {
                     case 0:
@@ -240,12 +243,16 @@ namespace plotBrembs
                 chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
 
                 Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString());
+                debug.Text = Math.Round(liveDataAD[nextValueIndex], 4).ToString() + ";" + liveDataPIX[nextValueIndex].ToString();
+                fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString());
             }
 
         }
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
+            fileWriter.closeFile();
+
             int number = 0;
             number = serialCom.closePort();
             Console.WriteLine(number);

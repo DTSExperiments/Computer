@@ -254,6 +254,7 @@ namespace plotBrembs
 
         public int closePort()
         {
+
             try
             {
                 if (_serialPort.IsOpen)
