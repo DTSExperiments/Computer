@@ -10,7 +10,9 @@ namespace plotBrembs
 {
     internal class writeFile
     {
+        private readonly object _lockObj = new object();
         StreamWriter writeStream = null;
+
         public writeFile()
         {
             try
@@ -25,13 +27,17 @@ namespace plotBrembs
 
         public async Task writeValue(string valueAppend)
         {
-            try
+            lock (_lockObj)
             {
-                await writeStream.WriteLineAsync(valueAppend);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Value not written: {ex.Message}");
+                try
+                {
+                    writeStream.WriteLine(valueAppend);  // Changed to synchronous call inside lock
+                    writeStream.Flush();  // Ensure that the data is written immediately
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Value not written: {ex.Message}");
+                }
             }
         }
 
@@ -41,3 +47,4 @@ namespace plotBrembs
         }
     }
 }
+
