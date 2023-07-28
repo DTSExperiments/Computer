@@ -190,7 +190,7 @@ namespace plotBrembs
 
                     nextValueIndex = (nextValueIndex < liveDataAD.Length - 1) ? nextValueIndex + 1 : 0;
 
-                    //Calculation AD-Value
+                    //Calculation AD-Values
                     liveDataAD[nextValueIndex] = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
                     liveDataPIX[nextValueIndex] = Convert.ToDouble(nextValuePIX);
 
