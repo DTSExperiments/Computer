@@ -48,6 +48,7 @@ namespace plotBrembs
             this.domainUpDown3 = new System.Windows.Forms.DomainUpDown();
             this.domainUpDown2 = new System.Windows.Forms.DomainUpDown();
             this.patternButton = new System.Windows.Forms.Button();
+            this.debug = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.trackBarRotation = new System.Windows.Forms.TrackBar();
             this.rotation = new System.Windows.Forms.Button();
@@ -61,7 +62,6 @@ namespace plotBrembs
             this.startSerial = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.debug = new System.Windows.Forms.TextBox();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.plot.SuspendLayout();
@@ -348,6 +348,16 @@ namespace plotBrembs
             this.patternButton.UseVisualStyleBackColor = true;
             this.patternButton.Click += new System.EventHandler(this.patternButton_Click);
             // 
+            // debug
+            // 
+            this.debug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.debug.Location = new System.Drawing.Point(319, 3);
+            this.debug.Name = "debug";
+            this.debug.Size = new System.Drawing.Size(152, 20);
+            this.debug.TabIndex = 14;
+            // 
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -543,16 +553,6 @@ namespace plotBrembs
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
-            // 
-            // debug
-            // 
-            this.debug.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.debug.Location = new System.Drawing.Point(319, 3);
-            this.debug.Name = "debug";
-            this.debug.Size = new System.Drawing.Size(152, 20);
-            this.debug.TabIndex = 14;
             // 
             // Form1
             // 

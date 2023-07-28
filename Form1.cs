@@ -182,7 +182,7 @@ namespace plotBrembs
                     BitArray nextValueADBit = new BitArray(byteArray);
                     if (nextValueADBit[11] == true)
                     {
-                        nextValueADBit = nextValueADBit.Or(new BitArray(System.BitConverter.GetBytes(0xF0000000)));
+                        nextValueADBit = nextValueADBit.Or(new BitArray(System.BitConverter.GetBytes(0x0000F000)));
                     }
                     nextValueADBit.CopyTo(byteArray, 0);
                     nextValueAD = BitConverter.ToInt16(byteArray, 0);
@@ -195,8 +195,8 @@ namespace plotBrembs
                     liveDataPIX[nextValueIndex] = Convert.ToDouble(nextValuePIX);
 
                     //beginTime = DateTime.Now;
-                    
 
+                    Debug.WriteLine(nextValueAD);
                 }
                 catch (Exception ex)
                 {
