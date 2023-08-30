@@ -13,6 +13,7 @@ using Timers = System.Timers;
 using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Management;
+using System.Configuration;
 
 namespace plotBrembs
 {
@@ -62,7 +63,7 @@ namespace plotBrembs
             if (portNames.Length > 0)
             {
                 serialComboBox.Items.AddRange(portNames);
-                serialComboBox.SelectedIndex = serialComboBox.FindString(findComPort()); ;
+                serialComboBox.SelectedIndex = serialComboBox.FindString(findComPort(ConfigurationManager.AppSettings["VID"], ConfigurationManager.AppSettings["PID"])); ;
             }
 
 
@@ -76,11 +77,11 @@ namespace plotBrembs
 
         }
 
-        private string findComPort()
+        private string findComPort(string vid, string pid)
         {
             string comPort = "";
 
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%VID_0403%' AND DeviceID LIKE '%PID_6001%' AND Name LIKE '%(COM%'");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", $"SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%VID_{vid}%' AND DeviceID LIKE '%PID_{pid}%' AND Name LIKE '%(COM%'");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
