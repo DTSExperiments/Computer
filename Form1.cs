@@ -12,10 +12,11 @@ using System;
 using Timers = System.Timers;
 using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Management;
 
 namespace plotBrembs
 {
-
+    
     public partial class Form1 : Form
     {
         private static Mutex mut = new Mutex();
@@ -23,6 +24,8 @@ namespace plotBrembs
 
         private serialInterface serialCom;
         private writeFile fileWriter;
+
+        int indexComPort = 0;
 
         public Thread ReadSerialDataThread;
 
@@ -45,7 +48,6 @@ namespace plotBrembs
         public Form1()
         {
             InitializeComponent();
-
             version = Assembly.GetExecutingAssembly().GetName().Version;
 
             List<string> portList = new List<string>();
@@ -55,10 +57,12 @@ namespace plotBrembs
 
             string[] portNames = portList.ToArray();
 
+
+
             if (portNames.Length > 0)
             {
                 serialComboBox.Items.AddRange(portNames);
-                serialComboBox.SelectedIndex = 0;
+                serialComboBox.SelectedIndex = serialComboBox.FindString(findComPort()); ;
             }
 
 
@@ -70,6 +74,27 @@ namespace plotBrembs
             fileWriter = new writeFile();
 
 
+        }
+
+        private string findComPort()
+        {
+            string comPort = "";
+
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE DeviceID LIKE '%VID_0403%' AND DeviceID LIKE '%PID_6001%' AND Name LIKE '%(COM%'");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                string name = queryObj["Name"].ToString();
+                int startIndex = name.IndexOf("(COM");
+                int endIndex = name.IndexOf(")", startIndex);
+                if (startIndex != -1 && endIndex != -1)
+                {
+                    comPort = name.Substring(startIndex + 1, endIndex - startIndex - 1);
+                    Console.WriteLine($"Device with VID_0403 and PID_6001 is connected to {comPort}");
+                }
+            }
+
+            return comPort;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -242,12 +267,13 @@ namespace plotBrembs
                 chart1.Series["liveDataAD"].Points.InsertY(nextValueIndex, liveDataAD[nextValueIndex]);
                 chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
 
-                Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString());
+                Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString()); //write ad and pix value to debug window
                 debug.Text = Math.Round(liveDataAD[nextValueIndex], 4).ToString() + ";" + liveDataPIX[nextValueIndex].ToString();
                 fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString());
             }
 
         }
+
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {

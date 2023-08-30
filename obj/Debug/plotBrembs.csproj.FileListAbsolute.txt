@@ -30,7 +30,6 @@ D:\plotBrems\plotBrems\plotBrems\bin\Debug\ScottPlot.xml
 D:\plotBrems\plotBrems\plotBrems\bin\Debug\System.Numerics.Vectors.xml
 D:\plotBrems\plotBrems\plotBrems\bin\Debug\System.ValueTuple.xml
 D:\plotBrems\plotBrems\plotBrems\obj\Debug\plotBrembs.csproj.AssemblyReference.cache
-D:\plotBrems\plotBrems\plotBrems\obj\Debug\plotBrembs.csproj.SuggestedBindingRedirects.cache
 D:\plotBrems\plotBrems\plotBrems\obj\Debug\plotBrembs.Form1.resources
 D:\plotBrems\plotBrems\plotBrems\obj\Debug\plotBrembs.Properties.Resources.resources
 D:\plotBrems\plotBrems\plotBrems\obj\Debug\plotBrembs.csproj.GenerateResource.cache
