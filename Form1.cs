@@ -14,12 +14,15 @@ using System.Reflection;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Management;
 using System.Configuration;
+using Version = System.Version;
 
 namespace plotBrembs
 {
     
     public partial class Form1 : Form
     {
+        readonly ScottPlot.Plottable.DataLogger adLogger;
+        readonly ScottPlot.Plottable.DataLogger pixLogger;
         private static Mutex mut = new Mutex();
         private static System.Threading.Timer simulationTimer = null;
 
@@ -48,17 +51,41 @@ namespace plotBrembs
 
         public Form1()
         {
-            InitializeComponent();
-            version = Assembly.GetExecutingAssembly().GetName().Version;
-
             List<string> portList = new List<string>();
+            string[] portNames;
+
+            InitializeComponent();
+
+            version = Assembly.GetExecutingAssembly().GetName().Version;
 
             portList.AddRange(SerialPort.GetPortNames());
             portList.Sort();
 
-            string[] portNames = portList.ToArray();
+            portNames = portList.ToArray();
 
+            var yAxis3 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Left);
 
+            adLogger = formsPlot1.Plot.AddDataLogger(Color.Red, 1, "AD-Value");
+            pixLogger = formsPlot1.Plot.AddDataLogger(Color.Blue, 1, "Pixel");
+
+            adLogger.ViewJump();
+            pixLogger.ViewJump();
+
+            adLogger.ManageAxisLimits = false;
+            pixLogger.ManageAxisLimits = false;
+            pixLogger.YAxisIndex = yAxis3.AxisIndex;
+
+            formsPlot1.Plot.SetAxisLimitsX(0, 1080);
+            formsPlot1.Plot.SetAxisLimitsY(-1, 1);
+            formsPlot1.Plot.SetAxisLimitsY(0, 800, yAxis3.AxisIndex);
+
+            formsPlot1.Plot.YAxis.Label("Torque");
+            yAxis3.Label("Degree");
+
+            formsPlot1.Plot.YAxis.Color(Color.Red);
+            yAxis3.Color(Color.Blue);
+
+            formsPlot1.Refresh(true);
 
             if (portNames.Length > 0)
             {
@@ -96,40 +123,6 @@ namespace plotBrembs
             }
 
             return comPort;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ChartArea ChartArea0 = new ChartArea("liveData");
-            chart1.ChartAreas.Add(ChartArea0);
-
-            chart1.Series.Add("liveDataAD");
-            chart1.Series.Add("liveDataPIX");
-
-            //Ausssehen festlegen
-            chart1.Series["liveDataAD"].ChartType = SeriesChartType.Line;
-            chart1.Series["liveDataPIX"].ChartType = SeriesChartType.Line;
-
-            //Start value
-            chart1.Series["liveDataAD"].Points.DataBindY(liveDataAD);
-            chart1.Series["liveDataPIX"].Points.DataBindY(liveDataPIX);
-
-            chart1.Series[0].Color = Color.Green;
-            chart1.Series[1].Color = Color.Red;
-
-            chart1.Series[0].YAxisType = AxisType.Primary;
-            chart1.Series[0].YAxisType = AxisType.Secondary;
-
-            chart1.ChartAreas[0].AxisY.Minimum = 0;
-            chart1.ChartAreas[0].AxisY.Maximum = 800;
-            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = true;
-
-            chart1.ChartAreas[0].AxisY2.Minimum = -0.6;
-            chart1.ChartAreas[0].AxisY2.Maximum = 0.6;
-            chart1.ChartAreas[0].AxisY2.MajorGrid.Enabled = true;
-            chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
-
-            Debug.WriteLine("Plot load");
         }
 
         private void startSerial_Click(object sender, EventArgs e)
@@ -214,7 +207,16 @@ namespace plotBrembs
                     nextValueAD = BitConverter.ToInt16(byteArray, 0);
                     nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
 
-                    nextValueIndex = (nextValueIndex < liveDataAD.Length - 1) ? nextValueIndex + 1 : 0;
+                    if (nextValueIndex >= liveDataAD.Length - 1)
+                    {
+                        adLogger.Clear();
+                        pixLogger.Clear();
+                        nextValueIndex = 0;
+                    }
+                    else
+                    {
+                        nextValueIndex++;
+                    }
 
                     //Calculation AD-Values
                     liveDataAD[nextValueIndex] = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
@@ -257,20 +259,34 @@ namespace plotBrembs
 
         private void updateData()
         {
-            if (chart1.InvokeRequired)
+            if (this.InvokeRequired)
             {
-                chart1.Invoke(new MethodInvoker(updateData));
+                this.Invoke(new MethodInvoker(updateData));
             }
             else
             {
-                chart1.Series["liveDataAD"].Points.RemoveAt(nextValueIndex);
-                chart1.Series["liveDataPIX"].Points.RemoveAt(nextValueIndex);
-                chart1.Series["liveDataAD"].Points.InsertY(nextValueIndex, liveDataAD[nextValueIndex]);
-                chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
+                /* chart1.Series["liveDataAD"].Points.RemoveAt(nextValueIndex);
+                 chart1.Series["liveDataPIX"].Points.RemoveAt(nextValueIndex);
+                 chart1.Series["liveDataAD"].Points.InsertY(nextValueIndex, liveDataAD[nextValueIndex]);
+                 chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
+                */
+                //measure the time between two commands
+                DateTime beginTime = DateTime.Now;
+                var limits = formsPlot1.Plot.GetAxisLimits();
+                adLogger.Add(nextValueIndex, liveDataAD[nextValueIndex]);
+                pixLogger.Add(nextValueIndex, liveDataPIX[nextValueIndex]);
 
                 Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString()); //write ad and pix value to debug window
                 debug.Text = Math.Round(liveDataAD[nextValueIndex], 4).ToString() + ";" + liveDataPIX[nextValueIndex].ToString();
-                fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString());
+                TimeSpan timeSpan = DateTime.Now - beginTime;
+                Debug.WriteLine(timeSpan.TotalMilliseconds.ToString());
+
+                limits = formsPlot1.Plot.GetAxisLimits();
+                formsPlot1.Refresh(true);
+                // properties hold axis view information
+                Debug.WriteLine($"X goes from {limits.XMin} to {limits.XMax}");
+
+                fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString() + ";" + timeSpan.TotalMilliseconds.ToString());
             }
 
         }
@@ -449,5 +465,6 @@ namespace plotBrembs
         {
             serialCom.sendValues(valueRotation, Convert.ToByte(numericUpDownRotation.Value));
         }
+
     }
 }

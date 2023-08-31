@@ -30,12 +30,12 @@ namespace plotBrembs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.config = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Threads = new System.Windows.Forms.Button();
+            this.fileDialog = new System.Windows.Forms.Button();
             this.plot = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.formsPlot1 = new ScottPlot.FormsPlot();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.trackBarLaser = new System.Windows.Forms.TrackBar();
@@ -65,7 +65,6 @@ namespace plotBrembs
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.plot.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarLaser)).BeginInit();
@@ -96,7 +95,8 @@ namespace plotBrembs
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.Threads, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.Threads, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.fileDialog, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -111,7 +111,7 @@ namespace plotBrembs
             // 
             // Threads
             // 
-            this.Threads.Location = new System.Drawing.Point(147, 143);
+            this.Threads.Location = new System.Drawing.Point(3, 38);
             this.Threads.Name = "Threads";
             this.Threads.Size = new System.Drawing.Size(64, 20);
             this.Threads.TabIndex = 3;
@@ -119,9 +119,19 @@ namespace plotBrembs
             this.Threads.UseVisualStyleBackColor = true;
             this.Threads.Click += new System.EventHandler(this.button1_Click);
             // 
+            // fileDialog
+            // 
+            this.fileDialog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileDialog.Location = new System.Drawing.Point(3, 3);
+            this.fileDialog.Name = "fileDialog";
+            this.fileDialog.Size = new System.Drawing.Size(138, 29);
+            this.fileDialog.TabIndex = 4;
+            this.fileDialog.Text = "fileDialog";
+            this.fileDialog.UseVisualStyleBackColor = true;
+            // 
             // plot
             // 
-            this.plot.Controls.Add(this.chart1);
+            this.plot.Controls.Add(this.formsPlot1);
             this.plot.Controls.Add(this.tableLayoutPanel6);
             this.plot.Location = new System.Drawing.Point(4, 22);
             this.plot.Name = "plot";
@@ -131,18 +141,13 @@ namespace plotBrembs
             this.plot.Text = "Oscilloscope";
             this.plot.UseVisualStyleBackColor = true;
             // 
-            // chart1
+            // formsPlot1
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(3, 3);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(863, 441);
-            this.chart1.TabIndex = 5;
-            this.chart1.Text = "chart1";
+            this.formsPlot1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.formsPlot1.Location = new System.Drawing.Point(3, 3);
+            this.formsPlot1.Name = "formsPlot1";
+            this.formsPlot1.Size = new System.Drawing.Size(863, 441);
+            this.formsPlot1.TabIndex = 1;
             // 
             // tableLayoutPanel6
             // 
@@ -563,11 +568,9 @@ namespace plotBrembs
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.config.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.plot.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
@@ -594,7 +597,6 @@ namespace plotBrembs
         private TableLayoutPanel tableLayoutPanel1;
         private Button Threads;
         private TabPage plot;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private TableLayoutPanel tableLayoutPanel6;
         private TableLayoutPanel tableLayoutPanel4;
         private TrackBar trackBarLaser;
@@ -621,6 +623,8 @@ namespace plotBrembs
         private Label label4;
         private TabControl tabControl;
         private TextBox debug;
+        private Button fileDialog;
+        private ScottPlot.FormsPlot formsPlot1;
     }
 }
 

@@ -10,6 +10,18 @@
             Values may contain NaN to describe undefined or uninitialized edges.
             </summary>
         </member>
+        <member name="M:ScottPlot.AxisLimits.WithPan(System.Double,System.Double)">
+            <summary>
+            Return a new set of axis limits panned by the given distance (in axis / coordinate units).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.AxisLimits.WithPanFraction(System.Double,System.Double)">
+            <summary>
+            Return a new set of axis limits panned by the given fraction.
+            If <paramref name="xFrac"/> is 0.1 then the returned limits will be shifted 10% to the right.
+            If <paramref name="yFrac"/> is 0.1 then the returned limits will be shifted 10% upward.
+            </summary>
+        </member>
         <member name="P:ScottPlot.AxisLimits.NoLimits">
             <summary>
             AxisLimits representing uninitialized or "no data" limits (all limits are NaN)
@@ -28,6 +40,16 @@
         <member name="M:ScottPlot.AxisLimits.Expand(ScottPlot.AxisLimits)">
             <summary>
             Return the maximum boundary for both sets of axis limits
+            </summary>
+        </member>
+        <member name="M:ScottPlot.AxisLimits.Expand(System.Double,System.Double)">
+            <summary>
+            Return the maximum boundary for this set of axis limits and the given coordinates
+            </summary>
+        </member>
+        <member name="M:ScottPlot.AxisLimits.Expand(ScottPlot.Coordinate)">
+            <summary>
+            Return the maximum boundary for this set of axis limits and the given coordinates
             </summary>
         </member>
         <member name="M:ScottPlot.AxisLimits.Contains(ScottPlot.Coordinate)">
@@ -225,6 +247,11 @@
             Variable name for the user control tied to this backend.
             </summary>
         </member>
+        <member name="F:ScottPlot.Control.ControlBackEnd.LinkedPlotControls">
+            <summary>
+            Plots whose axes and layout will be updated when this plot changes
+            </summary>
+        </member>
         <member name="M:ScottPlot.Control.ControlBackEnd.#ctor(System.Single,System.Single,System.String)">
             <summary>
             Create a back-end for a user control
@@ -349,6 +376,11 @@
             Apply a scroll wheel action, perform a low quality render, and later re-render in high quality.
             </summary>
         </member>
+        <member name="M:ScottPlot.Control.ControlBackEnd.AddLinkedControl(ScottPlot.Control.IPlotControl,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Add a plot which will have its axes and layout updated when this plot changes
+            </summary>
+        </member>
         <member name="P:ScottPlot.Control.Configuration.Pan">
             <summary>
             Control whether panning is enabled
@@ -398,7 +430,12 @@
         </member>
         <member name="F:ScottPlot.Control.Configuration.MiddleClickDragZoom">
             <summary>
-            Control whether middle-click-drag zooming to a rectangle is enabled
+            Control whether middle-click-drag zooming to a rectangle is enabled.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Control.Configuration.AltLeftClickDragZoom">
+            <summary>
+            Control whether ALT + left-click-drag rectangle zoom is enabled.
             </summary>
         </member>
         <member name="F:ScottPlot.Control.Configuration.MiddleClickAutoAxis">
@@ -496,6 +533,19 @@
         <member name="P:ScottPlot.Control.Configuration.DefaultCursor">
             <summary>
             Default cursor to use (when not hovering or dragging an interactive plottable)
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Control.Configuration.EmitLinkedControlUpdateSignals">
+            <summary>
+            Notify linked plots when axis, size, or layout of this plot changes.
+            Temporarially disable this when applying configuration from another linked plot
+            to prevent an infinite circular update loop.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Control.Configuration.RightClickDragZoomFromMouseDown">
+            <summary>
+            If enabled, right-click-drag zooming will zoom in and out relative to the
+            mouse down cursor location instead of the center of the plot.
             </summary>
         </member>
         <member name="T:ScottPlot.Control.DisplayScale">
@@ -689,6 +739,26 @@
             This is typically called on MouseMove events while left-click-dragging a draggable plottable.
             </summary>
         </member>
+        <member name="T:ScottPlot.Control.IPlotControl">
+            <summary>
+            Interactive ScottPlot controls implement this interface.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Control.IPlotControl.Plot">
+            <summary>
+            The plot displayed by this control
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Control.IPlotControl.Refresh">
+            <summary>
+            Redraw the plot and display it in the control
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Control.IPlotControl.Configuration">
+            <summary>
+            Configuration object holding advanced control options
+            </summary>
+        </member>
         <member name="T:ScottPlot.Control.QualityConfiguration">
             <summary>
             This class defines the quality to use for renders after different interactive events occur.
@@ -730,6 +800,11 @@
         <member name="T:ScottPlot.CoordinateRect">
             <summary>
             Describes the location and size of a rectangle in coordinate space
+            </summary>
+        </member>
+        <member name="T:ScottPlot.CoordinateSize">
+            <summary>
+            Describes a size in coordinate space
             </summary>
         </member>
         <member name="T:ScottPlot.CoordinateVector">
@@ -821,6 +896,37 @@
             <param name="multiplier">Multiply values by this number after generation</param>
             <param name="offset">Add to values after multiplication</param>
             <returns>2D array filled with random numbers</returns>
+        </member>
+        <member name="M:ScottPlot.DataGen.Consecutive2D(System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Generates a 2D array of numbers with constant spacing.
+            </summary>
+            <param name="rows"></param>
+            <param name="columns"></param>
+            <param name="spacing">The space between points.</param>
+            <param name="offset">The first point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.DataGen.Sin2D(System.Int32,System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            Generates a 2D sine pattern.
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="xPeriod">Frequency factor in x direction.</param>
+            <param name="yPeriod">Frequency factor in y direction.</param>
+            <param name="multiple">Intensity factor.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.DataGen.Ramp2D(System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Generate a 2D array in a diagonal gradient pattern
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
         </member>
         <member name="M:ScottPlot.DataGen.RandomInts(System.Random,System.Int32,System.Double,System.Double)">
             <summary>
@@ -1018,11 +1124,15 @@
             </summary>
             <returns>A sample Bitmap</returns>
         </member>
+        <member name="M:ScottPlot.DataGen.SampleImageDataNullable">
+            <summary>
+            Returns a sample 2D array of grayscale values as a nullable array with values scaled from 0 to 1.
+            </summary>
+        </member>
         <member name="M:ScottPlot.DataGen.SampleImageData">
             <summary>
-            Returns a sample 2D array of grayscale values.
+            Returns an image of the Mona Lisa as a 2D array (65 x 100) of grayscale values (0-255)
             </summary>
-            <returns>2D array of grayscale values.</returns>
         </member>
         <member name="M:ScottPlot.DataGen.ActionPotential">
             <summary>
@@ -1044,6 +1154,11 @@
         <member name="M:ScottPlot.DataGen.FullGeneric``1(System.Int32,``0)">
             <summary>
             Return a new array of given length, filled with <paramref name="fillValue"/>.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.DataGen.FlowCytometry(System.Int32)">
+            <summary>
+            Generate clusters of random coordinates designed to appear like flow cytometry data
             </summary>
         </member>
         <member name="P:ScottPlot.Drawing.Colormap.Name">
@@ -1070,6 +1185,53 @@
             <param name="name">colormap name</param>
             <param name="throwIfNotFound">if false the default colormap (Viridis) will be returned</param>
             <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Double[],ScottPlot.Drawing.Colormap,System.Double)">
+            <summary>
+            Convert intensities to colors using the given colormap and return the results as integer RGBA values.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Double[],System.Double[],ScottPlot.Drawing.Colormap)">
+            <summary>
+            Convert intensities to colors using the given colormap and return the results as integer RGBA values.
+            RGBA alpha value will be set according to the given array of opacities (values from 0 to 1).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Double[],System.Drawing.Color)">
+            <summary>
+            Return an array of RGBA integer values for a single color where the alpha
+            channel is defined by an array of values from 0 to 1.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Nullable{System.Double}[],ScottPlot.Drawing.Colormap,System.Double)">
+            <summary>
+            Return an array of RGBA integer values set according to a colormap
+            where intensities are clamped to a lower limit.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Nullable{System.Double}[],System.Nullable{System.Double}[],ScottPlot.Drawing.Colormap)">
+            <summary>
+            Convert intensities to colors using the given colormap and return the results as integer RGBA values.
+            RGBA alpha value will be set according to the given array of opacities (values from 0 to 1).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Nullable{System.Double}[],System.Nullable{System.Double},ScottPlot.Drawing.Colormap)">
+            <summary>
+            Convert intensities to colors using the given colormap and return the results as integer RGBA values.
+            RGBA alpha value will be set according to the given opacity (value from 0 to 1).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetRGBAs(System.Nullable{System.Double}[],System.Drawing.Color)">
+            <summary>
+            Return an array of RGBA integer values for a single color where the alpha
+            channel is defined by an array of values from 0 to 1.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.Colormap.GetColors(System.Double[],ScottPlot.Drawing.Colormap)">
+            <summary>
+            Given an array of intensities (ranging from 0 to 1) return an array of
+            colors according to the given colormap.
+            </summary>
         </member>
         <member name="M:ScottPlot.Drawing.Colormap.Colorbar(ScottPlot.Drawing.Colormap,System.Int32,System.Int32,System.Boolean,System.Double,System.Double)">
             <summary>
@@ -1131,6 +1293,21 @@
         <member name="M:ScottPlot.Drawing.GDI.ClipIntersection(System.Drawing.Graphics,ScottPlot.PlotDimensions,ScottPlot.Coordinate[])">
             <summary>
             Add extra clipping beyond the data area based on an array of user-defined coordinates
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.GDI.FillToInfinity(ScottPlot.PlotDimensions,System.Drawing.Graphics,System.Single,System.Single,System.Drawing.PointF[],System.Boolean,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            Shade the region abvove or below the curve (to infinity) by drawing a polygon to the edge of the visible plot area.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.GDI.GetAlignedRectangle(System.Drawing.RectangleF,System.Drawing.SizeF,ScottPlot.Alignment,System.Single,System.Single)">
+            <summary>
+            Return the position of a small rectangle placed inside a larger rectangle according to the given alignment and margin.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Drawing.GDI.DrawRectangle(System.Drawing.Graphics,System.Drawing.Pen,System.Drawing.RectangleF)">
+            <summary>
+            For some reason this overload is not present in System.Drawing.Common
             </summary>
         </member>
         <member name="T:ScottPlot.Drawing.InstalledFont">
@@ -1296,49 +1473,123 @@
             then if no new requests have been received render using the last-used render type.
             </summary>
         </member>
-        <member name="T:ScottPlot.IPalette">
+        <member name="T:ScottPlot.Generate">
             <summary>
-            A palette is a collection of colors
+            This class contains methods which generate sample data for testing and demonstration purposes
             </summary>
         </member>
-        <member name="P:ScottPlot.IPalette.Name">
+        <member name="M:ScottPlot.Generate.Consecutive(System.Int32,System.Double,System.Double)">
             <summary>
-            Name of this palette
+            Return an array of evenly-spaced numbers
             </summary>
         </member>
-        <member name="P:ScottPlot.IPalette.Description">
+        <member name="M:ScottPlot.Generate.Sin(System.Int32,System.Double,System.Double,System.Double,System.Double)">
             <summary>
-            Name of this palette
+            Return an array of sine waves between -1 and 1.
+            Values are multiplied by <paramref name="mult"/> then shifted by <paramref name="offset"/>.
+            Phase shifts the sine wave horizontally between 0 and 2 Pi.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Generate.Cos(System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Return an array of cosine waves between -1 and 1.
+            Values are multiplied by <paramref name="mult"/> then shifted by <paramref name="offset"/>.
+            Phase shifts the sine wave horizontally between 0 and 2 Pi.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Generate.Consecutive2D(System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Generates a 2D array of numbers with constant spacing.
+            </summary>
+            <param name="rows"></param>
+            <param name="columns"></param>
+            <param name="spacing">The space between points.</param>
+            <param name="offset">The first point.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Generate.Sin2D(System.Int32,System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+            Generates a 2D sine pattern.
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="xPeriod">Frequency factor in x direction.</param>
+            <param name="yPeriod">Frequency factor in y direction.</param>
+            <param name="multiple">Intensity factor.</param>
+        </member>
+        <member name="M:ScottPlot.Generate.Ramp2D(System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Generate a 2D array in a diagonal gradient pattern
+            </summary>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="min"></param>
+            <param name="max"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Generate.RandomWalk(System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            Return a series of values starting with <paramref name="offset"/> and
+            each randomly deviating from the previous by at most <paramref name="mult"/>.
+            Random values are deterministic based on the value of <paramref name="seed"/>.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Generate.Random(System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            Return an array of <paramref name="count"/> random values 
+            from <paramref name="min"/> to <paramref name="max"/>
+            according to the random seed defined by <paramref name="seed"/>
+            </summary>
+        </member>
+        <member name="T:ScottPlot.Generate.DateTime">
+            <summary>
+            Contains methods for generating DateTime sequences
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Generate.DateTime.ExampleDate">
+            <summary>
+            Date of the first ScottPlot commit
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Generate.DateTime.Consecutive(System.Int32,System.DateTime,System.TimeSpan)">
+            <summary>
+            Evenly-spaced DateTimes
             </summary>
         </member>
         <member name="P:ScottPlot.IPalette.Colors">
             <summary>
-            Colors in this palette
+            All colors in this palette
             </summary>
         </member>
-        <member name="M:ScottPlot.IPalette.GetColor(System.Int32)">
+        <member name="P:ScottPlot.IPalette.Name">
             <summary>
-            Get the color at the specified index (with rollover)
+            Display name
             </summary>
         </member>
-        <member name="M:ScottPlot.IPalette.GetColor(System.Int32,System.Double)">
+        <member name="P:ScottPlot.IPalette.Description">
             <summary>
-            Get the color at the specified index (with rollover) with alpha (0 = transparent, 1 = opaque)
+            Additional information such as the source of this palette
             </summary>
         </member>
-        <member name="M:ScottPlot.IPalette.GetColors(System.Int32,System.Int32,System.Double)">
+        <member name="T:ScottPlot.Launcher">
             <summary>
-            Get the first several colors
+            This class consumes a <see cref="P:ScottPlot.Launcher.Plot"/> and has 
+            helper methods for displaying it in different ways.
             </summary>
         </member>
-        <member name="M:ScottPlot.IPalette.GetRGB(System.Int32)">
+        <member name="M:ScottPlot.Launcher.ExecuteFile(System.String)">
             <summary>
-            Get the color at the specified index (with rollover)
+            Launch a file using the system default file handler
             </summary>
         </member>
-        <member name="M:ScottPlot.IPalette.Count">
+        <member name="M:ScottPlot.Launcher.ImageFile(System.Int32,System.Int32,System.String)">
             <summary>
-            Returns the total number of colors in this palette
+            Save the plot as an image file and open it with the default file launcher
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Launcher.ImageHTML(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Save the plot as an image embedded in a HTML file and launch it with the default web browser
             </summary>
         </member>
         <member name="M:ScottPlot.Marker.Create(ScottPlot.MarkerShape)">
@@ -1350,6 +1601,7 @@
             <summary>
             This class contains type-specific methods to convert between generic values and doubles
             optimized for performance using platform-specific features.
+            See discussion in https://github.com/ScottPlot/ScottPlot/pull/1927
             </summary>
         </member>
         <member name="M:ScottPlot.NumericConversion.GenericToDouble``1(``0@)">
@@ -1381,19 +1633,19 @@
             Fields and methods for accessing color palettes
             </summary>
         </member>
-        <member name="M:ScottPlot.Palette.FromHtmlColors(System.String[])">
+        <member name="M:ScottPlot.Palette.FromHtmlColors(System.String[],System.String,System.String)">
             <summary>
             Create a new color palette from an array of HTML colors
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Palette.FromColors(System.Drawing.Color[],System.String,System.String)">
+            <summary>
+            Create a new color palette from an array of colors
             </summary>
         </member>
         <member name="M:ScottPlot.Palette.GetPalettes">
             <summary>
             Return an array containing every available palette
-            </summary>
-        </member>
-        <member name="T:ScottPlot.Palettes.Custom">
-            <summary>
-            Create a custom ScottPlot4 Palette from a collection of colors
             </summary>
         </member>
         <member name="T:ScottPlot.Pixel">
@@ -1441,9 +1693,76 @@
             Vertical position (in pixel units) relative to the data area
             </summary>
         </member>
+        <member name="P:ScottPlot.Plottable.Annotation.Alignment">
+            <summary>
+            Defines which edge of the plot area the annotation will be placed along.
+            Distance from this edge is defined by <see cref="P:ScottPlot.Plottable.Annotation.MarginX"/> and <see cref="P:ScottPlot.Plottable.Annotation.MarginY"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.MarginX">
+            <summary>
+            Distance (in pixels) from the edge of the plot area to place the annotation
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.MarginY">
+            <summary>
+            Distance (in pixels) from the edge of the plot area to place the annotation
+            </summary>
+        </member>
         <member name="P:ScottPlot.Plottable.Annotation.Label">
             <summary>
             Text displayed in the annotation
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.ShadowOffsetX">
+            <summary>
+            Distance (pixels) the shadow will be to the right of the box
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.ShadowOffsetY">
+            <summary>
+            Distance (pixels) the shadow will be below the box
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.Annotation.Font">
+            <summary>
+            Font for the annotation text
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.Background">
+            <summary>
+            If true, the rectangle behind the text will be filled with <see cref="P:ScottPlot.Plottable.Annotation.BackgroundColor"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.BackgroundColor">
+            <summary>
+            Color of the rectangle drawn beneath the annotation if <see cref="P:ScottPlot.Plottable.Annotation.Background"/> is true
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.Shadow">
+            <summary>
+            If true, a rectangular shadow will be drawn behind the background rectangle filled with <see cref="P:ScottPlot.Plottable.Annotation.ShadowColor"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.ShadowColor">
+            <summary>
+            Color of the rectangle drawn beneath the annotation if <see cref="P:ScottPlot.Plottable.Annotation.Shadow"/> is true.
+            Semitransparent colors are recommended for shadows.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.Border">
+            <summary>
+            If true, the rectangle around the text will be drawn according to <see cref="P:ScottPlot.Plottable.Annotation.BorderWidth"/> and <see cref="P:ScottPlot.Plottable.Annotation.BorderColor"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.BorderWidth">
+            <summary>
+            Thickness (in pixels) of the rectangular outline to draw around the text using <see cref="P:ScottPlot.Plottable.Annotation.BorderColor"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Annotation.BorderColor">
+            <summary>
+            Color of the rectangular outline drawn around the text
             </summary>
         </member>
         <member name="T:ScottPlot.Plottable.ArrowCoordinated">
@@ -1760,6 +2079,58 @@
             Y position to render the line
             </summary>
         </member>
+        <member name="F:ScottPlot.Plottable.AxisManagers.FixedWidth.ExpandFractionY">
+            <summary>
+            Fractional amount to expand the axis vertically if data runs outside the current view
+            </summary>
+        </member>
+        <member name="T:ScottPlot.Plottable.AxisManagers.Full">
+            <summary>
+            Show the entire range of data, changing the axis limits only
+            when the data extends otuside the current view.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.AxisManagers.Full.ExpansionRatio">
+            <summary>
+            Defines the amount of whitespace added to the right of the data when data runs outside the current view.
+            1.0 for a view that tightly fits the data and is always changing.
+            2.0 for a view that doubles the horizontal span when new data runs outside the current view.
+            </summary>
+        </member>
+        <member name="T:ScottPlot.Plottable.AxisManagers.IAxisManager">
+            <summary>
+            An axis manager contains logic to suggest axis limits given the current view and size of the data.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.AxisManagers.IAxisManager.GetAxisLimits(ScottPlot.AxisLimits,ScottPlot.AxisLimits)">
+            <summary>
+            Return recommended axis limits given the current view and size of the data
+            </summary>
+        </member>
+        <member name="T:ScottPlot.Plottable.AxisManagers.Slide">
+            <summary>
+            Slide the view to the right to keep the newest data points in view
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.AxisManagers.Slide.Width">
+            <summary>
+            Amount of horizontal area to display (in axis units)
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.AxisManagers.Slide.PaddingFractionX">
+            <summary>
+            Defines the amount of whitespace added to the right of the data when data runs outside the current view.
+            0 for a view that slides every time new data is added
+            1 for a view that only slides forward when new data runs off the screen
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.AxisManagers.Slide.PaddingFractionY">
+            <summary>
+            Defines the amount of whitespace added to the top or bottom of the data when data runs outside the current view.
+            0 sets axis limits to tightly fit the data height
+            1 sets axis limits to double the vertical span in the direction of the vertical overflow
+            </summary>
+        </member>
         <member name="P:ScottPlot.Plottable.AxisSpan.IgnoreAxisAuto">
             <summary>
             If true, AxisAuto() will ignore the position of this span when determining axis limits
@@ -1768,6 +2139,26 @@
         <member name="E:ScottPlot.Plottable.AxisSpan.Dragged">
             <summary>
             This event is invoked after the line is dragged 
+            </summary>
+        </member>
+        <member name="E:ScottPlot.Plottable.AxisSpan.Edge1Dragged">
+            <summary>
+            This event is invoked after the Edge1 is dragged 
+            </summary>
+        </member>
+        <member name="E:ScottPlot.Plottable.AxisSpan.Edge2Dragged">
+            <summary>
+            This event is invoked after the Edge2 is dragged 
+            </summary>
+        </member>
+        <member name="E:ScottPlot.Plottable.AxisSpan.MinDragged">
+            <summary>
+            This event is invoked after the min edge is dragged 
+            </summary>
+        </member>
+        <member name="E:ScottPlot.Plottable.AxisSpan.MaxDragged">
+            <summary>
+            This event is invoked after the max edge is dragged 
             </summary>
         </member>
         <member name="P:ScottPlot.Plottable.AxisSpan.DragSnap">
@@ -1957,6 +2348,63 @@
             Return the bar located under the given coordinate (or null if no bar is there)
             </summary>
         </member>
+        <member name="F:ScottPlot.Plottable.BinnedHistogram.Counts">
+            <summary>
+            Number of items in each histogram bin.
+            Add samples by calling <see cref="M:ScottPlot.Plottable.BinnedHistogram.Add(System.Double,System.Double,System.Int32)"/>.
+            It is not recommended to edit this externally, but it is possible.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Origin">
+            <summary>
+            Location of the lower left of the heatmap
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.CellSize">
+            <summary>
+            Size of each cell of the heatmap (in coordinate units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Rows">
+            <summary>
+            Number of rows in the binned histogram
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Columns">
+            <summary>
+            Number of columns in the binned histogram
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Size">
+            <summary>
+            Size of the scaled histogram (coordinate units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Rectangle">
+            <summary>
+            Region occupied by the scaled histogram (coordinate units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.Colormap">
+            <summary>
+            Colormap used to color the histogram according to its count density
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.BinnedHistogram.Colorbar">
+            <summary>
+            If set, this colorbar's tick labels will be updated on every render.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.BinnedHistogram.TransparentZero">
+            <summary>
+            If enabled, bins with no counts will be transparent.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.BinnedHistogram.GetMaxCount">
+            <summary>
+            Return the value of the cell with the largest count
+            </summary>
+        </member>
         <member name="P:ScottPlot.Plottable.Bracket.X1">
             <summary>
             Horizontal location (in pixel units) relative to the data area
@@ -2007,6 +2455,13 @@
             Display circles of user-defined sizes and colors at specific X/Y positions
             </summary>
         </member>
+        <member name="P:ScottPlot.Plottable.BubblePlot.RadiusIsPixels">
+            <summary>
+            Indicates whether the size of each bubble is in pixel units
+            or in axis units. If using axis units, users may want to enable
+            the axis scale lock feature to enforce bubble circularity.
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plottable.BubblePlot.Clear">
             <summary>
             Clear all bubbles
@@ -2018,10 +2473,10 @@
             </summary>
             <param name="x">horizontal position (in coordinate space)</param>
             <param name="y">horizontal vertical (in coordinate space)</param>
-            <param name="radius">size of the bubble (in pixels)</param>
-            <param name="fillColor"></param>
+            <param name="radius">size of the bubble (sized according to <see cref="P:ScottPlot.Plottable.BubblePlot.RadiusIsPixels"/>)</param>
+            <param name="fillColor">color of the bubble center</param>
             <param name="edgeWidth">size of the outline (in pixels)</param>
-            <param name="edgeColor"></param>
+            <param name="edgeColor">color of the bubble outline</param>
         </member>
         <member name="M:ScottPlot.Plottable.BubblePlot.Add(System.Double[],System.Double[],System.Double,System.Drawing.Color,System.Double,System.Drawing.Color)">
             <summary>
@@ -2062,9 +2517,24 @@
             Color for the line
             </summary>
         </member>
+        <member name="P:ScottPlot.Plottable.ClevelandDotPlot.Point1Color">
+            <summary>
+            Color for markers placed at <see cref="P:ScottPlot.Plottable.ClevelandDotPlot.Ys1"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.ClevelandDotPlot.Point2Color">
+            <summary>
+            Color for markers placed at <see cref="P:ScottPlot.Plottable.ClevelandDotPlot.Ys2"/>
+            </summary>
+        </member>
         <member name="P:ScottPlot.Plottable.ClevelandDotPlot.DotRadius">
             <summary>
             Size of the markers at the ends of each line
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.ClevelandDotPlot.LineWidth">
+            <summary>
+            Width of the stem (in pixels)
             </summary>
         </member>
         <member name="P:ScottPlot.Plottable.ClevelandDotPlot.Label">
@@ -2121,7 +2591,23 @@
         </member>
         <member name="P:ScottPlot.Plottable.Colorbar.Width">
             <summary>
-            Width of the colorbar rectangle
+            Width of the colored rectangle (pixels)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Colorbar.Label">
+            <summary>
+            Optional text to display rotated outside the colormap
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Colorbar.LabelMargin">
+            <summary>
+            Distance (pixels) to offset the axis label from the edge of the colormap.
+            This edge is typically large enough to accommodate tick labels.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.Colorbar.LastRenderWidth">
+            <summary>
+            Size (in pizels) of the colorbar, ticks, and label at the time of the last render
             </summary>
         </member>
         <member name="F:ScottPlot.Plottable.Colorbar.Plottable">
@@ -2195,12 +2681,27 @@
             <param name="vertical">if true, colormap will be vertically oriented (tall and skinny)</param>
             <returns></returns>
         </member>
+        <member name="M:ScottPlot.Plottable.Colorbar.ResizeLayout(ScottPlot.Plot)">
+            <summary>
+            Adjust the layout of the given plot based on size information from the previous render
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plottable.Colorbar.GetEvenlySpacedTicks(System.Single,System.Double)">
             <summary>
             Return a list of ticks evenly spaced between the min and max values.
             </summary>
             <param name="height">height of the vertical colorbar</param>
             <param name="tickSpacing">minimum pixel distance between adjacent ticks</param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Plottable.Colorbar.RenderTicks(ScottPlot.PlotDimensions,System.Drawing.Bitmap,System.Boolean,System.Drawing.RectangleF)">
+            <summary>
+            returns the width of the Ticks+string labels part
+            </summary>
+            <param name="dims"></param>
+            <param name="bmp"></param>
+            <param name="lowQuality"></param>
+            <param name="colorbarRect"></param>
             <returns></returns>
         </member>
         <member name="T:ScottPlot.Plottable.CoxcombPlot">
@@ -2301,6 +2802,182 @@
             If true, AxisAuto() will ignore the position of this line when determining axis limits
             </summary>
         </member>
+        <member name="T:ScottPlot.Plottable.DataLogger">
+            <summary>
+            This plot type stores infinitely growing X/Y pairs and displays them as a scatter plot.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataLogger.Count">
+            <summary>
+            Number of data points currently being tracked.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataLogger.CountOnLastRender">
+            <summary>
+            Number of data points displayed the last time this plottable was rendered.
+            This can be compared with <see cref="P:ScottPlot.Plottable.DataLogger.Count"/> to determine if a new render is required.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataLogger.ManageAxisLimits">
+            <summary>
+            If true, the <see cref="P:ScottPlot.Plottable.DataLogger.AxisManager"/> will be used to update axis limits on every render.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataLogger.AxisManager">
+            <summary>
+            Holds logic used to update axis limits on every render if <see cref="P:ScottPlot.Plottable.DataLogger.ManageAxisLimits"/> is true.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataLogger.Plot">
+            <summary>
+            Used to obtain the current axis limits so <see cref="P:ScottPlot.Plottable.DataLogger.AxisManager"/> can adjust them if needed.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.Add(ScottPlot.Coordinate)">
+            <summary>
+            Add a point to the logger
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.Add(System.Double,System.Double)">
+            <summary>
+            Add a point to the logger
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.AddRange(System.Collections.Generic.IEnumerable{ScottPlot.Coordinate})">
+            <summary>
+            Add a collection of points to the logger
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.Clear">
+            <summary>
+            Clear all logged data points
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.ViewFull">
+            <summary>
+            Automatically expand the axis as needed to ensure the full dataset is visible before each render.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.ViewJump(System.Double,System.Double)">
+            <summary>
+            Automatically adjust the axis limits to track the newest data as it comes in.
+            The axis limits will appear to "jump" when new data runs off the screen.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.ViewSlide(System.Double)">
+            <summary>
+            Automatically adjust the axis limits to track the newest data as it comes in.
+            The axis limits will appear to "slide" continuously as new data is added.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataLogger.ViewCustom(ScottPlot.Plottable.AxisManagers.IAxisManager)">
+            <summary>
+            Use a custom axis manager to update axis limits before each render.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.Data">
+            <summary>
+            Fixed-length array used as a circular buffer to shift data in at the position defined by <see cref="P:ScottPlot.Plottable.DataStreamer.NextIndex"/>.
+            Values in this array should not be modified externally if <see cref="P:ScottPlot.Plottable.DataStreamer.ManageAxisLimits"/> is enabled.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.NextIndex">
+            <summary>
+            Index in <see cref="P:ScottPlot.Plottable.DataStreamer.Data"/> where the next point will be added
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.Count">
+            <summary>
+            The fied number of visible data points to display
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.CountTotal">
+            <summary>
+            The total number of data points added (even though only the latest <see cref="P:ScottPlot.Plottable.DataStreamer.Count"/> are visible)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.CountTotalOnLastRender">
+            <summary>
+            Total of data points added the last time this plottable was rendered.
+            This can be compared with <see cref="P:ScottPlot.Plottable.DataStreamer.CountTotal"/> to determine if a new render is required.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.ManageAxisLimits">
+            <summary>
+            If enabled, axis limits will be adjusted automatically if new data runs off the screen.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.AxisManager">
+            <summary>
+            Contains logic for automatically adjusting axis limits if new data runs off the screen.
+            Only used if <see cref="P:ScottPlot.Plottable.DataStreamer.ManageAxisLimits"/> is true.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.DataStreamer.Plot">
+            <summary>
+            Used to obtain the current axis limits so <see cref="P:ScottPlot.Plottable.DataStreamer.AxisManager"/> can adjust them if needed.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.Renderer">
+            <summary>
+            Logic for displaying the fixed-length Y values in <see cref="P:ScottPlot.Plottable.DataStreamer.Data"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.DataMin">
+            <summary>
+            Minimum value of all known data (not just the data in view)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.DataStreamer.DataMax">
+            <summary>
+            Maximum value of all known data (not just the data in view)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.Add(System.Double)">
+            <summary>
+            Shift in a new Y value
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.AddRange(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Shift in a collection of new Y values
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.Clear(System.Double)">
+            <summary>
+            Clear the buffer by setting all Y points to the given value
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.ViewWipeRight">
+            <summary>
+            Display the data using a view where new data overlapps old data from left to right.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.ViewWipeLeft">
+            <summary>
+            Display the data using a view where new data overlapps old data from right to left.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.ViewScrollLeft">
+            <summary>
+            Display the data using a view that continuously shifts data to the left, placing the newest data on the right.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.ViewScrollRight">
+            <summary>
+            Display the data using a view that continuously shifts data to the right, placing the newest data on the left.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.DataStreamer.ViewCustom(ScottPlot.Plottable.DataStreamerViews.IDataStreamerView)">
+            <summary>
+            Display the data using a custom rendering function
+            </summary>
+        </member>
+        <member name="T:ScottPlot.Plottable.DataStreamerViews.IDataStreamerView">
+            <summary>
+            Contains logic for rendering fixed-length data in a streaming data logger.
+            </summary>
+        </member>
         <member name="T:ScottPlot.Plottable.DraggableMarkerPlot">
             <summary>
             This plot type displays a marker at a point that can be dragged with the mouse.
@@ -2364,6 +3041,71 @@
             <param name="snapY">snap distance (pixels)</param>
             <returns></returns>
         </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.X">
+            <summary>
+            Horizontal center of the circle (axis units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.Y">
+            <summary>
+            Vertical center of the circle (axis units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.RadiusX">
+            <summary>
+            Horizontal radius (axis units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.RadiusY">
+            <summary>
+            Vertical radius (axis units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.Rotation">
+            <summary>
+            Rotation of the ellipse (degrees)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.BorderColor">
+            <summary>
+            Outline color
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.BorderLineWidth">
+            <summary>
+            Outline thickness (pixel units)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.BorderLineStyle">
+            <summary>
+            Outline line style
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.Color">
+            <summary>
+            Fill color
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.HatchStyle">
+            <summary>
+            Fill pattern
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.HatchColor">
+            <summary>
+            Alternate color for fill pattern
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Ellipse.Label">
+            <summary>
+            Text to appear in the legend
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.Ellipse.#ctor(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Create an ellipse centered at (x, y) with the given horizontal and vertical radius
+            </summary>
+        </member>
         <member name="T:ScottPlot.Plottable.FinancePlot">
             <summary>
             Finance plots display open/high/low/close (OHLC) data
@@ -2406,7 +3148,7 @@
             Call Add() and AddRange() to add data.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plottable.FinancePlot.#ctor(ScottPlot.OHLC[])">
+        <member name="M:ScottPlot.Plottable.FinancePlot.#ctor(ScottPlot.IOHLC[])">
             <summary>
             Create a finance plot from existing OHLC data.
             </summary>
@@ -2423,22 +3165,13 @@
             <param name="timeStart"></param>
             <param name="timeSpan"></param>
         </member>
-        <member name="M:ScottPlot.Plottable.FinancePlot.Add(System.Double,System.Double,System.Double,System.Double)">
-            <summary>
-            Add a single candle to the end of the list assuming each candle is spaced 1 horizontal unit apart
-            </summary>
-            <param name="open"></param>
-            <param name="high"></param>
-            <param name="low"></param>
-            <param name="close"></param>
-        </member>
-        <member name="M:ScottPlot.Plottable.FinancePlot.Add(ScottPlot.OHLC)">
+        <member name="M:ScottPlot.Plottable.FinancePlot.Add(ScottPlot.IOHLC)">
             <summary>
             Add a single OHLC to the plot
             </summary>
             <param name="ohlc"></param>
         </member>
-        <member name="M:ScottPlot.Plottable.FinancePlot.AddRange(ScottPlot.OHLC[])">
+        <member name="M:ScottPlot.Plottable.FinancePlot.AddRange(ScottPlot.IOHLC[])">
             <summary>
             Add multiple OHLCs to the plot
             </summary>
@@ -2459,13 +3192,14 @@
             <param name="N">each returned value represents the average of N points</param>
             <returns>times and averages of the OHLC closing prices</returns>
         </member>
-        <member name="M:ScottPlot.Plottable.FinancePlot.GetBollingerBands(System.Int32)">
+        <member name="M:ScottPlot.Plottable.FinancePlot.GetBollingerBands(System.Int32,System.Double)">
             <summary>
             Return Bollinger bands (mean +/- 2*SD) for the OHLC closing prices.
             The returned xs are times in OATime units.
             The returned xs and ys arrays will be the length of the OHLC data minus N (points).
             </summary>
             <param name="N">each returned value represents the average of N points</param>
+            <param name="sdCoeff">standard deviation coefficient</param>
             <returns>times, averages, and both Bollinger bands for the OHLC closing prices</returns>
         </member>
         <member name="T:ScottPlot.Plottable.FunctionPlot">
@@ -2504,7 +3238,7 @@
             Number of rows in the heatmap data
             </summary>
         </member>
-        <member name="F:ScottPlot.Plottable.Heatmap.BmpHeatmap">
+        <member name="P:ScottPlot.Plottable.Heatmap.BmpHeatmap">
             <summary>
             Pre-rendered heatmap image
             </summary>
@@ -2526,7 +3260,7 @@
         </member>
         <member name="P:ScottPlot.Plottable.Heatmap.CellHeight">
             <summary>
-            Width of each cell composing the heatmap
+            Height of each cell composing the heatmap
             </summary>
         </member>
         <member name="P:ScottPlot.Plottable.Heatmap.XMin">
@@ -2602,10 +3336,32 @@
         </member>
         <member name="P:ScottPlot.Plottable.Heatmap.FlipVertically">
             <summary>
-            If true the Heatmap will be drawn from the bottom left corner of the plot. Otherwise it will be drawn from the top left corner. Defaults to false.
+            By default the first row of the 2D array represents the top of the heatmap.
+            If this is true, the first row of the 2D array represents the bottom of the heatmap.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Nullable{System.Double}[0:,0:],ScottPlot.Drawing.Colormap,System.Nullable{System.Double},System.Nullable{System.Double})">
+        <member name="P:ScottPlot.Plottable.Heatmap.FlipHorizontally">
+            <summary>
+            By default the first column of the 2D array represents the left side of the heatmap.
+            If this is true, the first column of the 2D array represents the right side of the heatmap.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Heatmap.Rotation">
+            <summary>        
+            Amount of rotation (degrees) clockwise around the point described by <see cref="P:ScottPlot.Plottable.Heatmap.CenterOfRotation"/>
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Heatmap.CenterOfRotation">
+            <summary>
+            Indicates which corner will be the axis of Rotation.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.Heatmap.Opacity">
+            <summary>
+            Heatmap transparency from 0 (transparent) to 1 (opaque).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Nullable{System.Double}[0:,0:],ScottPlot.Drawing.Colormap,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double}[0:,0:])">
             <summary>
             This method analyzes the intensities and colormap to create a bitmap
             with a single pixel for every intensity value. The bitmap is stored
@@ -2615,8 +3371,10 @@
             <param name="colormap">update the Colormap to use this colormap</param>
             <param name="min">minimum intensity (according to the colormap)</param>
             <param name="max">maximum intensity (according to the colormap)</param>
+            <param name="opacity">If defined, this mask indicates the opacity of each cell in the heatmap from 0 (transparent) to 1 (opaque).
+            If defined, this array must have the same dimensions as the heatmap array. Null values are not shown.</param>
         </member>
-        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Double[0:,0:],ScottPlot.Drawing.Colormap,System.Nullable{System.Double},System.Nullable{System.Double})">
+        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Double[0:,0:],ScottPlot.Drawing.Colormap,System.Nullable{System.Double},System.Nullable{System.Double},System.Double[0:,0:])">
             <summary>
             This method analyzes the intensities and colormap to create a bitmap
             with a single pixel for every intensity value. The bitmap is stored
@@ -2626,11 +3384,39 @@
             <param name="colormap">update the Colormap to use this colormap</param>
             <param name="min">minimum intensity (according to the colormap)</param>
             <param name="max">maximum intensity (according to the colormap)</param>
+            <param name="opacity">If defined, this mask indicates the opacity of each cell in the heatmap from 0 (transparent) to 1 (opaque).
+            If defined, this array must have the same dimensions as the heatmap array.</param>
+        </member>
+        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Drawing.Color,System.Nullable{System.Double}[0:,0:])">
+            <summary>
+            Update the heatmap where every cell is given the same color, but with various opacities.
+            </summary>
+            <param name="color">Single color used for all cells</param>
+            <param name="opacity">Opacities (ranging 0-1) for all cells</param>
+        </member>
+        <member name="M:ScottPlot.Plottable.Heatmap.Update(System.Drawing.Color,System.Double[0:,0:])">
+            <summary>
+            Update the heatmap where every cell is given the same color, but with various opacities.
+            </summary>
+            <param name="color">Single color used for all cells</param>
+            <param name="opacity">Opacities (ranging 0-1) for all cells</param>
+        </member>
+        <member name="M:ScottPlot.Plottable.Heatmap.UpdateBitmap(System.Int32[])">
+            <summary>
+            This should be the only method which creates or modifies <see cref="P:ScottPlot.Plottable.Heatmap.BmpHeatmap"/>
+            </summary>
+            <param name="flatARGB"></param>
         </member>
         <member name="M:ScottPlot.Plottable.Heatmap.GetCellIndexes(System.Double,System.Double)">
             <summary>
             Return the position in the 2D array corresponding to the given coordinate.
             Returns null if the coordinate is not over the heatmap.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.Heatmap.GetBitmap">
+            <summary>
+            Returns a copy of the heatmap image as a <see cref="T:System.Drawing.Bitmap"/>.
+            Dimensions of the image will be equal to those of the source data used to create it.
             </summary>
         </member>
         <member name="T:ScottPlot.Plottable.HLine">
@@ -2756,6 +3542,16 @@
             This corner will be the axis of Rotation, and the center of Scale.
             </summary>
         </member>
+        <member name="P:ScottPlot.Plottable.Image.AntiAlias">
+            <summary>
+            Control whether the image is rendered using anti-aliasing
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.Image.BorderColor">
+            <summary>
+            Color of the border (if <see cref="P:ScottPlot.Plottable.Image.BorderSize"/> is greater than 0)
+            </summary>
+        </member>
         <member name="P:ScottPlot.Plottable.Image.BorderSize">
             <summary>
             Line width of the border (in pixels)
@@ -2844,6 +3640,11 @@
             Size of the circle at the end of each lollipop
             </summary>
         </member>
+        <member name="P:ScottPlot.Plottable.LollipopPlot.LineWidth">
+            <summary>
+            Width of the lollipop stick (in pixels)
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plottable.LollipopPlot.#ctor(System.Double[],System.Double[])">
             <summary>
             Create a lollipop plot from arrays of positions and sizes
@@ -2901,6 +3702,90 @@
             <summary>
             A pie plot displays a collection of values as a circle.
             Pie plots with a hollow center are donut plots.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.SliceLabels">
+            <summary>
+            Labels to display on top of each slice or in the legend.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.LegendLabels">
+            <summary>
+            If populated, this array of strings will be used for the legend.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.Size">
+            <summary>
+            Defines how large the pie is relative to the pixel size of the smallest axis
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.SliceLabelPosition">
+            <summary>
+            Distance from the center of the pie to display labels.
+            Set this value greater to <see cref="P:ScottPlot.Plottable.PiePlot.Size"/> to place labels outside the pie.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.SliceFillColors">
+            <summary>
+            Colors for each slice around the pie
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.SliceLabelColors">
+            <summary>
+            Colors to fill the text placed at each slice
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.BackgroundColor">
+            <summary>
+            Required by System.Drawing but does not influence output image
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.HatchOptions">
+            <summary>
+            Fill style for each slice
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.Explode">
+            <summary>
+            If enabled, slices will be offset from the center and have gaps between them
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.ShowValues">
+            <summary>
+            Display the value of slices using text aligned to each slice
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.ShowPercentages">
+            <summary>
+            Display the percentage of slices using text aligned to each slice
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.ShowLabels">
+            <summary>
+            If enabled, <see cref="P:ScottPlot.Plottable.PiePlot.SliceLabels"/> will be displayed above each slice.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.DonutSize">
+            <summary>
+            Size of the hollow region in the center of a donut plot.
+            Set to zero for a traditional pie plot.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.PiePlot.DonutLabel">
+            <summary>
+            If populated, this text will be displayed in the center of the pie.
+            This option is useful for donut plots with a hollow center.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.PiePlot.CenterFont">
+            <summary>
+            Font to use for the label displayed at the center of donut charts 
+            when <see cref="P:ScottPlot.Plottable.PiePlot.DonutLabel"/> is populated
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Plottable.PiePlot.SliceFont">
+            <summary>
+            Font to use for text displayed over each slice.
             </summary>
         </member>
         <member name="T:ScottPlot.Plottable.Polygon">
@@ -3703,9 +4588,25 @@
             Add multiple points to the list
             </summary>
         </member>
+        <member name="M:ScottPlot.Plottable.ScatterPlotList`1.GetXs">
+            <summary>
+            Returns a copy of all the X positions currently in use
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plottable.ScatterPlotList`1.GetYs">
+            <summary>
+            Returns a copy of all the Y positions currently in use
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plottable.ScatterPlotList`1.GetPoints(ScottPlot.PlotDimensions)">
             <summary>
             Return a new array containing pixel locations for each point of the scatter plot
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plottable.ScatterPlotListDraggable.IndexUnderMouse">
+            <summary>
+            Index of the data point most recently under the mouse.
+            Value is -1 is the mouse is not over a data point.
             </summary>
         </member>
         <member name="P:ScottPlot.Plottable.ScatterPlotListDraggable.MovePointFunc">
@@ -3811,7 +4712,7 @@
             Render when the data is zoomed out so much that it just looks like a vertical line.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plottable.SignalPlotBase`1.RenderLowDensity(ScottPlot.PlotDimensions,System.Drawing.Graphics,System.Int32,System.Int32,System.Drawing.Brush,System.Drawing.Pen,System.Drawing.Pen)">
+        <member name="M:ScottPlot.Plottable.SignalPlotBase`1.RenderLowDensity(ScottPlot.PlotDimensions,System.Drawing.Graphics,System.Int32,System.Int32,System.Drawing.Pen)">
             <summary>
             Render when the data is zoomed in such that there is more than 1 column per data point.
             Rendering is accomplished by drawing a straight line from point to point.
@@ -3910,6 +4811,13 @@
             If the underlying data is updated, you must call Update() methods to recalculate the min/max values.
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:ScottPlot.Plottable.SignalPlotGeneric`1">
+            <summary>
+            A signal plot displays evenly-spaced data.
+            Instead of X/Y pairs, signal plots take Y values and a sample rate.
+            Optional X and Y offsets can further customize the data.
+            </summary>
         </member>
         <member name="T:ScottPlot.Plottable.SignalPlotXY">
             <summary>
@@ -4135,7 +5043,7 @@
             This class holds open/high/low/close (OHLC) price data over a time range.
             </summary>
         </member>
-        <member name="M:ScottPlot.OHLC.#ctor(System.Double,System.Double,System.Double,System.Double,System.DateTime,System.TimeSpan,System.Double)">
+        <member name="M:ScottPlot.OHLC.#ctor(System.Double,System.Double,System.Double,System.Double,System.DateTime,System.TimeSpan)">
             <summary>
             OHLC price over a specific period of time
             </summary>
@@ -4145,21 +5053,24 @@
             <param name="close">closing price</param>
             <param name="timeStart">open time</param>
             <param name="timeSpan">width of the OHLC</param>
-            <param name="volume">transaction volume for this time span</param>
         </member>
-        <member name="M:ScottPlot.OHLC.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+        <member name="M:ScottPlot.OHLC.#ctor(System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
             <summary>
-            OHLC price over a specific period of time
+            OHLC price over a specific period of time using the OADate format
             </summary>
             <param name="open">opening price</param>
             <param name="high">maximum price</param>
             <param name="low">minimum price</param>
             <param name="close">closing price</param>
-            <param name="timeStart">open time (DateTime.ToOADate() units)</param>
-            <param name="timeSpan">width of the OHLC in days</param>
-            <param name="volume">transaction volume for this time span</param>
+            <param name="oaDate">start time (days since 1900)</param>
+            <param name="oaDateSpan">width of the OHLC (days)</param>
         </member>
         <member name="M:ScottPlot.Plot.AddAnnotation(System.String,System.Double,System.Double)">
+            <summary>
+            Display text in the data area at a pixel location (not a X/Y coordinates)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddAnnotation(System.String,ScottPlot.Alignment)">
             <summary>
             Display text in the data area at a pixel location (not a X/Y coordinates)
             </summary>
@@ -4187,6 +5098,21 @@
         <member name="M:ScottPlot.Plot.AddClevelandDot(System.Double[],System.Double[],System.Double[])">
             <summary>
             Add a Cleveland Dot plot for the given values using defined dot positions.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddDataLogger(System.Nullable{System.Drawing.Color},System.Single,System.String)">
+            <summary>
+            Add a data logging scatter plot designed for growing collections of X/Y points.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddDataStreamer(System.Double[],System.Nullable{System.Drawing.Color},System.Single,System.String)">
+            <summary>
+            Add a data streamer to display a fixed number of evenly-spaced Y values
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddDataStreamer(System.Int32)">
+            <summary>
+            Add a data streamer to display a fixed number of evenly-spaced Y values
             </summary>
         </member>
         <member name="M:ScottPlot.Plot.AddLollipop(System.Double[],System.Nullable{System.Drawing.Color})">
@@ -4229,6 +5155,16 @@
             Create a BarSeries filled with the given bars, add it to the plot, and return it.
             </summary>
         </member>
+        <member name="M:ScottPlot.Plot.AddBarSeries(ScottPlot.Plottable.Bar[])">
+            <summary>
+            Create a BarSeries filled with the given bars, add it to the plot, and return it.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddBinnedHistogram(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Add a binned histogram that displays counts of each cell as a heatmap
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plot.AddBubblePlot">
             <summary>
             Add an empty bubble plot. Call it's Add() method to add bubbles with custom position and styling.
@@ -4240,7 +5176,12 @@
             Call the Add() method to add bubbles manually, allowing further customization of size and style.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddCandlesticks(ScottPlot.OHLC[])">
+        <member name="M:ScottPlot.Plot.AddCircle(System.Double,System.Double,System.Double,System.Nullable{System.Drawing.Color},System.Single,ScottPlot.LineStyle)">
+            <summary>
+            Add a circle to the plot
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddCandlesticks(ScottPlot.IOHLC[])">
             <summary>
             Add candlesticks to the chart from OHLC (open, high, low, close) data
             </summary>
@@ -4270,27 +5211,32 @@
             <param name="y">position of horizontal line (axis units)</param>
             <returns>the crosshair that was just created</returns>
         </member>
-        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double,System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddEllipse(System.Double,System.Double,System.Double,System.Double,System.Nullable{System.Drawing.Color},System.Single,ScottPlot.LineStyle)">
+            <summary>
+            Add an ellipse to the plot
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double,System.Nullable{System.Drawing.Color},System.Double,System.Nullable{System.Drawing.Color})">
             <summary>
             Create a polygon to fill the area between Y values and a baseline.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color},System.Double,System.Nullable{System.Drawing.Color})">
             <summary>
             Create a polygon to fill the area between two Y curves that share the same X positions.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddFill(System.Double[],System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color},System.Double,System.Nullable{System.Drawing.Color})">
             <summary>
             Create a polygon to fill the area between Y values of two curves.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddFillError(System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddFillError(System.Double[],System.Double[],System.Double[],System.Nullable{System.Drawing.Color},System.Double,System.Nullable{System.Drawing.Color})">
             <summary>
             Create a polygon to fill the area above and below a Y curve
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddFillAboveAndBelow(System.Double[],System.Double[],System.Double,System.Nullable{System.Drawing.Color},System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddFillAboveAndBelow(System.Double[],System.Double[],System.Double,System.Nullable{System.Drawing.Color},System.Nullable{System.Drawing.Color},System.Double,System.Nullable{System.Drawing.Color})">
             <summary>
             Create a polygon to fill the area between Y values and a baseline
             that uses two different colors for area above and area below the baseline.
@@ -4308,7 +5254,7 @@
             <param name="intensities">2D array of intensities. 
             WARNING: Rendering artifacts may appear for arrays larger than Bitmap can support (~10M total values).</param>
             <param name="colormap"></param>
-            <param name="lockScales">If true, AxisScaleLock() will be called to ensure heatmap cells will be square.</param>
+            <param name="lockScales">If true, <see cref="M:ScottPlot.Plot.AxisScaleLock(System.Boolean,ScottPlot.EqualScaleMode)"/> will be called to ensure heatmap cells will be square.</param>
             <returns>
             Returns the heatmap that was added to the plot.
             Act on its public fields and methods to customize it or update its data.
@@ -4321,11 +5267,29 @@
             <param name="intensities">2D array of intensities. 
             WARNING: Rendering artifacts may appear for arrays larger than Bitmap can support (~10M total values).</param>
             <param name="colormap"></param>
-            <param name="lockScales">If true, AxisScaleLock() will be called to ensure heatmap cells will be square.</param>
+            <param name="lockScales">If true, <see cref="M:ScottPlot.Plot.AxisScaleLock(System.Boolean,ScottPlot.EqualScaleMode)"/> will be called to ensure heatmap cells will be square.</param>
             <returns>
             Returns the heatmap that was added to the plot.
             Act on its public fields and methods to customize it or update its data.
             </returns>
+        </member>
+        <member name="M:ScottPlot.Plot.AddHeatmap(System.Drawing.Color,System.Nullable{System.Double}[0:,0:],System.Nullable{System.Boolean})">
+            <summary>
+            Add a single-color heatmap where opacity is defined by a 2D array.
+            </summary>
+            <param name="color">Single color used for all cells</param>
+            <param name="opacity">Opacities (ranging 0-1) for all cells</param>
+            <param name="lockScales">If true, <see cref="M:ScottPlot.Plot.AxisScaleLock(System.Boolean,ScottPlot.EqualScaleMode)"/> will be called to ensure heatmap cells will be square</param>
+            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Plot.AddHeatmap(System.Drawing.Color,System.Double[0:,0:],System.Nullable{System.Boolean})">
+            <summary>
+            Add a single-color heatmap where opacity is defined by a 2D array.
+            </summary>
+            <param name="color">Single color used for all cells</param>
+            <param name="opacity">Opacities (ranging 0-1) for all cells</param>
+            <param name="lockScales">If true, <see cref="M:ScottPlot.Plot.AxisScaleLock(System.Boolean,ScottPlot.EqualScaleMode)"/> will be called to ensure heatmap cells will be square</param>
+            <returns></returns>
         </member>
         <member name="M:ScottPlot.Plot.AddHeatmapCoordinated(System.Nullable{System.Double}[0:,0:],System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},ScottPlot.Drawing.Colormap)">
             <summary>
@@ -4407,7 +5371,7 @@
             Add a draggable marker at a specific X/Y position.
             </summary>
         </member>
-        <member name="M:ScottPlot.Plot.AddOHLCs(ScottPlot.OHLC[])">
+        <member name="M:ScottPlot.Plot.AddOHLCs(ScottPlot.IOHLC[])">
             <summary>
             Add OHLC (open, high, low, close) data to the plot
             </summary>
@@ -4550,6 +5514,11 @@
             Signal plots have evenly-spaced X points and render very fast.
             </summary>
         </member>
+        <member name="M:ScottPlot.Plot.AddSignal``1(``0[],System.Double,System.Nullable{System.Drawing.Color},System.String)">
+            <summary>
+            Signal plots have evenly-spaced X points and render very fast.
+            </summary>
+        </member>
         <member name="M:ScottPlot.Plot.AddSignalConst``1(``0[],System.Double,System.Nullable{System.Drawing.Color},System.String)">
             <summary>
             SignalConts plots have evenly-spaced X points and render faster than Signal plots
@@ -4595,7 +5564,7 @@
         </member>
         <member name="M:ScottPlot.Plot.AddVerticalLine(System.Double,System.Nullable{System.Drawing.Color},System.Single,ScottPlot.LineStyle,System.String)">
             <summary>
-            Add a vertical axis line at a specific Y position
+            Add a vertical axis line at a specific X position
             </summary>
         </member>
         <member name="M:ScottPlot.Plot.AddVerticalSpan(System.Double,System.Double,System.Nullable{System.Drawing.Color},System.String)">
@@ -4625,7 +5594,7 @@
         </member>
         <member name="M:ScottPlot.Plot.XLabel(System.String)">
             <summary>
-            Set the label for the vertical axis to the right of the plot (XAxis)
+            Set the label for the horizontal axis below the plot (XAxis)
             </summary>
             <param name="label">new text</param>
         </member>
@@ -4694,7 +5663,7 @@
             <param name="horizontal">if true, horizontal layout will be matched</param>
             <param name="vertical">if true, vertical layout will be matched</param>
         </member>
-        <member name="M:ScottPlot.Plot.MatchAxis(ScottPlot.Plot,System.Boolean,System.Boolean)">
+        <member name="M:ScottPlot.Plot.MatchAxis(ScottPlot.Plot,System.Boolean,System.Boolean,System.Int32,System.Int32)">
             <summary>
             Get the axis limits for the given plot and apply them to this plot
             </summary>
@@ -4751,12 +5720,12 @@
             <param name="numberNegativePattern">Appearance of negative numbers</param>
             <param name="numberGroupSizes">Sizes of decimal groups which are separated by the numberGroupSeparator</param>
         </member>
-        <member name="M:ScottPlot.Plot.AddAxis(ScottPlot.Renderable.Edge,System.Int32,System.String,System.Nullable{System.Drawing.Color})">
+        <member name="M:ScottPlot.Plot.AddAxis(ScottPlot.Renderable.Edge,System.Nullable{System.Int32},System.String,System.Nullable{System.Drawing.Color})">
             <summary>
             Create and return an additional axis
             </summary>
             <param name="edge">Edge of the plot the new axis will belong to</param>
-            <param name="axisIndex">Only plottables with the same axis index will use this axis</param>
+            <param name="axisIndex">Only plottables with the same axis index will use this axis. Creates an auto-generated index if null.</param>
             <param name="title">defualt label to use for the axis</param>
             <param name="color">defualt color to use for the axis</param>
             <returns>The axis that was just created and added to the plot. You can further customize it by interacting with it.</returns>
@@ -4765,6 +5734,14 @@
             <summary>
             Remove the a specific axis from the plot
             </summary>
+        </member>
+        <member name="M:ScottPlot.Plot.GetAxesMatching(System.Nullable{System.Int32},System.Nullable{System.Boolean})">
+            <summary>
+            Returns axes matching the given axisIndex and isVertical.
+            </summary>
+            <param name="axisIndex">The axis index to match, or null to allow any index</param>
+            <param name="isVertical">True to match only Y axes, false to match only X axes, or null to match either</param>
+            <returns>The axes matching the given properties</returns>
         </member>
         <member name="M:ScottPlot.Plot.GetCoordinate(System.Single,System.Single,System.Int32,System.Int32)">
             <summary>
@@ -4843,19 +5820,21 @@
             <param name="xAxisIndex">index of the axis the horizontal limits apply to</param>
             <param name="yAxisIndex">index of the axis the vertical limits apply to</param>
         </member>
-        <member name="M:ScottPlot.Plot.SetAxisLimitsX(System.Double,System.Double)">
+        <member name="M:ScottPlot.Plot.SetAxisLimitsX(System.Double,System.Double,System.Int32)">
             <summary>
             Set limits for the primary X axis
             </summary>
             <param name="xMin">lower limit of the horizontal axis</param>
             <param name="xMax">upper limit of the horizontal axis</param>
+            <param name="xAxisIndex">index of the axis the horizontal limits apply to</param>
         </member>
-        <member name="M:ScottPlot.Plot.SetAxisLimitsY(System.Double,System.Double)">
+        <member name="M:ScottPlot.Plot.SetAxisLimitsY(System.Double,System.Double,System.Int32)">
             <summary>
             Set limits for the primary Y axis
             </summary>
             <param name="yMin">lower limit of the vertical axis</param>
             <param name="yMax">upper limit of the vertical axis</param>
+            <param name="yAxisIndex">index of the axis the vertical limits apply to</param>
         </member>
         <member name="M:ScottPlot.Plot.SetAxisLimits(ScottPlot.AxisLimits,System.Int32,System.Int32)">
             <summary>
@@ -4955,12 +5934,23 @@
             <param name="xAxisIndex">index of the axis to zoom</param>
             <param name="yAxisIndex">index of the axis to zoom</param>
         </member>
-        <member name="M:ScottPlot.Plot.AxisPan(System.Double,System.Double)">
+        <member name="M:ScottPlot.Plot.AxisPan(System.Double,System.Double,System.Int32,System.Int32)">
             <summary>
             Pan the primary X and Y axis without affecting zoom
             </summary>
             <param name="dx">horizontal distance to pan (in coordinate units)</param>
             <param name="dy">vertical distance to pan (in coordinate units)</param>
+            <param name="xAxisIndex">index of the axis to act on</param>
+            <param name="yAxisIndex">index of the axis to act on</param>
+        </member>
+        <member name="M:ScottPlot.Plot.AxisPanCenter(System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Pan the primary X and Y axes to center the view on the given coordinate
+            </summary>
+            <param name="x">new horizontal center (coordinate units)</param>
+            <param name="y">new vertical center (in coordinate units)</param>
+            <param name="xAxisIndex">index of the axis to act on</param>
+            <param name="yAxisIndex">index of the axis to act on</param>
         </member>
         <member name="F:ScottPlot.Plot.settings">
             <summary>
@@ -4975,6 +5965,11 @@
         <member name="P:ScottPlot.Plot.Height">
             <summary>
             Plot image height (pixels)
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Plot.Launch">
+            <summary>
+            Platform-specific methods for launching this plot
             </summary>
         </member>
         <member name="M:ScottPlot.Plot.#ctor(System.Int32,System.Int32)">
@@ -4992,7 +5987,7 @@
         </member>
         <member name="P:ScottPlot.Plot.Version">
             <summary>
-            ScottPlot version in the format "1.2.3" (or "1.2.3-beta" for pre-releases)
+            ScottPlot version in the format "1.2.3"
             </summary>
         </member>
         <member name="M:ScottPlot.Plot.Add(ScottPlot.Plottable.IPlottable)">
@@ -5252,6 +6247,74 @@
             <param name="scale">scale the size of the output image by this fraction (without resizing the plot)</param>
             <returns>Full path for the image that was saved</returns>
         </member>
+        <member name="M:ScottPlot.RandomDataGenerator.#ctor">
+            <summary>
+            Use a random seed so each generator returns different data.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.#ctor(System.Int32)">
+            <summary>
+            Use a fixed seed so each generator returns the same data.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomNumber(System.Double)">
+            <summary>
+            Return a uniformly random number between 0 (inclusive) and the given maximum (exclusive)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomNonZeroNumber(System.Double)">
+            <summary>
+            Return a random number guaranteed not to be zero
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomNumberInRange(System.Double,System.Double)">
+            <summary>
+            Return a uniformly random number between the given values
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomInteger">
+            <summary>
+            Return a random integer up to the maximum integer size
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomInteger(System.Int32)">
+            <summary>
+            Return a random integer between zero (inclusive) and the given value (exclusive)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomNormalNumber(System.Double,System.Double)">
+            <summary>
+            Return a number normally distributed around the given <paramref name="mean"/> 
+            according to the <paramref name="stdDev"/> standard deviation.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomSample(System.Int32,System.Double,System.Double)">
+            <summary>
+            Uniformly distributed random numbers
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomNormalSample(System.Int32,System.Double,System.Double)">
+            <summary>
+            Return a collection of numbers normally distributed around the given <paramref name="mean"/> 
+            according to the <paramref name="stdDev"/> standard deviation.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomSin(System.Int32)">
+            <summary>
+            Sine wave with random frequency, amplitude, and phase
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomWalk(System.Int32,System.Double,System.Double)">
+            <summary>
+            A sequence of numbers that starts at <paramref name="offset"/> 
+            and "walks" randomly from one point to the next, scaled by <paramref name="mult"/>.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.RandomDataGenerator.RandomOHLCs(System.Int32)">
+            <summary>
+            Return a collection OHLCs representing random price action
+            </summary>
+        </member>
         <member name="F:ScottPlot.Renderable.ArrowStyle.Anchor">
             <summary>
             Describes which part of the vector line will be placed at the data coordinates.
@@ -5328,9 +6391,24 @@
             Axis dimensions and methods for pixel/unit conversions
             </summary>
         </member>
-        <member name="F:ScottPlot.Renderable.Axis.AxisIndex">
+        <member name="P:ScottPlot.Renderable.Axis.AxisIndex">
             <summary>
             Plottables with this axis index will use pixel/unit conversions from this axis
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Renderable.Axis.AxisLabel">
+            <summary>
+            Customization options for the text label displayed on an axis
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Renderable.Axis.AxisTicks">
+            <summary>
+            Customization options for axis tick marks
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Renderable.Axis.AxisLine">
+            <summary>
+            Customization options for the line between an axis and the data area
             </summary>
         </member>
         <member name="M:ScottPlot.Renderable.Axis.GetSettings(System.Boolean)">
@@ -5352,6 +6430,26 @@
         <member name="M:ScottPlot.Renderable.Axis.SetSizeLimit(System.Single)">
             <summary>
             Size this axis to an exact number of pixels
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.Axis.SetZoomInLimit(System.Nullable{System.Double})">
+            <summary>
+            Limit the zoom so the span of this axis is never smaller than the given value
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.Axis.SetZoomOutLimit(System.Nullable{System.Double})">
+            <summary>
+            Limit the zoom so the span of this axis is never greater than the given value
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.Axis.SetBoundary(System.Double,System.Double)">
+            <summary>
+            Disallow panning or zooming beyond the given limits
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.Axis.SetInnerBoundary(System.Double,System.Double)">
+            <summary>
+            Disallow panning outside or zooming in beyond the given limits
             </summary>
         </member>
         <member name="M:ScottPlot.Renderable.Axis.SetOffset(System.Single)">
@@ -5407,6 +6505,12 @@
             <summary>
             Manually define the string format to use for translating tick positions to tick labels
             </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.Axis.CornerLabelFormat(System.String)">
+            <summary>
+            Manually define the string format to use for translating exponential part of a number to corner label
+            </summary>
+            <param name="format"> String.Format(format,exponent)</param>
         </member>
         <member name="M:ScottPlot.Renderable.Axis.TickLabelNotation(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Int32},System.String)">
             <summary>
@@ -5561,12 +6665,6 @@
             Return the ticks displayed in the previous render
             </summary>
         </member>
-        <member name="M:ScottPlot.Renderable.Axis.TickMeasurement(System.Boolean)">
-            <summary>
-            Configure how tick label measurement is performed when calculating ideal tick density.
-            </summary>
-            <param name="manual"></param>
-        </member>
         <member name="T:ScottPlot.Renderable.AxisDimensions">
             <summary>
             This class stores MUTABLE axis limits and pixel size information for a SINGLE AXIS. 
@@ -5631,6 +6729,16 @@
             <summary>
             Size of the view boundaries.
             This should always be greater or equal to the Span.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Renderable.AxisDimensions.SpanMinimum">
+            <summary>
+            Limit zooming so the span is never smaller than this value
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Renderable.AxisDimensions.SpanMaximum">
+            <summary>
+            Limit zooming so the span is never greater than this value
             </summary>
         </member>
         <member name="P:ScottPlot.Renderable.AxisDimensions.HasBeenSet">
@@ -5724,6 +6832,18 @@
         <member name="M:ScottPlot.Renderable.AxisDimensions.ApplyBounds">
             <summary>
             Modify axis limits such that none extend beyond the boundaries.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.AxisDimensions.ApplyZoomInLimit(System.Double)">
+            <summary>
+            If the zoom is further in than the allowed span,
+            zoom out but keep the center position
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Renderable.AxisDimensions.ApplyZoomOutLimit(System.Double)">
+            <summary>
+            If the zoom is further in than the allowed span,
+            zoom out but keep the center position
             </summary>
         </member>
         <member name="M:ScottPlot.Renderable.AxisDimensions.SetAxis(System.Nullable{System.Double},System.Nullable{System.Double})">
@@ -6030,6 +7150,11 @@
             Zoom all axes by the given pixel distance
             </summary>
         </member>
+        <member name="M:ScottPlot.Settings.AxesZoomPxTo(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Zoom all axes by the given pixel distance
+            </summary>
+        </member>
         <member name="M:ScottPlot.Settings.AxesZoomTo(System.Double,System.Double,System.Single,System.Single)">
             <summary>
             Zoom all axes by the given fraction
@@ -6080,9 +7205,16 @@
             Pan all axes based on the mouse position now vs that last given to MouseDown()
             </summary>
         </member>
-        <member name="M:ScottPlot.Settings.MouseZoom(System.Single,System.Single)">
+        <member name="M:ScottPlot.Settings.MouseZoomCenter(System.Single,System.Single)">
             <summary>
             Zoom all axes based on the mouse position now vs that last given to MouseDown()
+            Relative to the center of the plot
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Settings.MouseZoomFromMouseDown(System.Single,System.Single)">
+            <summary>
+            Zoom all axes based on the mouse position now vs that last given to MouseDown()
+            Relative to the location of the mouse when it was first pressed
             </summary>
         </member>
         <member name="M:ScottPlot.Settings.CopyPrimaryLayoutToAllAxes">
@@ -6093,6 +7225,12 @@
         <member name="M:ScottPlot.Settings.LayoutAuto">
             <summary>
             Automatically adjust the layout for every axis
+            </summary>
+        </member>
+        <member name="T:ScottPlot.SharedColor">
+            <summary>
+            Platform-independent representation of a color.
+            Projects should use extension methods to supply platforms-specific operations.
             </summary>
         </member>
         <member name="T:ScottPlot.SnapLogic.Custom1D">
@@ -6349,6 +7487,16 @@
             <param name="binSize">Width of each bin.</param>
             <param name="density">If False, the result will contain the number of samples in each bin. If True, the result is the value of the probability density function at the bin (the sum of all values will be 1 if the bin size is 1).</param>
         </member>
+        <member name="M:ScottPlot.Statistics.Common.HistogramWithOutliers(System.Double[],System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Compute the histogram of a dataset, also returns the minOutliers and maxOutliers counts. These outlier counts are also included in the first and last histogram bin counts respectively.
+            </summary>
+            <param name="values">Input data</param>
+            <param name="min">Lower edge of the first bin (inclusive). If NaN, minimum of input values will be used.</param>
+            <param name="max">High edge of the largest bin (inclusive). If NaN, maximum of input values will be used.</param>
+            <param name="binSize">Width of each bin.</param>
+            <param name="density">If False, the result will contain the number of samples in each bin. If True, the result is the value of the probability density function at the bin (the sum of all values will be 1 if the bin size is 1).</param>
+        </member>
         <member name="M:ScottPlot.Statistics.Common.Histogram(System.Double[],System.Int32,System.Boolean,System.Double,System.Double)">
             <summary>
             Compute the histogram of a dataset.
@@ -6358,7 +7506,16 @@
             <param name="density">If False, the result will contain the number of samples in each bin. If True, the result is the value of the probability density function at the bin (the sum of all values will be 1 if the bin size is 1).</param>
             <param name="min">Lower edge of the first bin (inclusive). If NaN, minimum of input values will be used.</param>
             <param name="max">High edge of the largest bin (inclusive). If NaN, maximum of input values will be used.</param>
-            <returns></returns>
+        </member>
+        <member name="M:ScottPlot.Statistics.Common.HistogramWithOutliers(System.Double[],System.Int32,System.Boolean,System.Double,System.Double)">
+            <summary>
+            Compute the histogram of a dataset, also returns the minOutliers and maxOutliers counts. These outlier counts are also included in the first and last histogram bin counts respectively.
+            </summary>
+            <param name="values">Input data</param>
+            <param name="binCount">Number of equal-width bins</param>
+            <param name="density">If False, the result will contain the number of samples in each bin. If True, the result is the value of the probability density function at the bin (the sum of all values will be 1 if the bin size is 1).</param>
+            <param name="min">Lower edge of the first bin (inclusive). If NaN, minimum of input values will be used.</param>
+            <param name="max">High edge of the largest bin (inclusive). If NaN, maximum of input values will be used.</param>
         </member>
         <member name="M:ScottPlot.Statistics.Finance.SMA(System.Double[],System.Int32,System.Boolean)">
             <summary>
@@ -6375,7 +7532,7 @@
             <param name="values"></param>
             <param name="period">number of values to use for each calculation</param>
         </member>
-        <member name="M:ScottPlot.Statistics.Finance.SMA(ScottPlot.OHLC[],System.Int32)">
+        <member name="M:ScottPlot.Statistics.Finance.SMA(ScottPlot.IOHLC[],System.Int32)">
             <summary>
             Return the simple moving average (SMA) of the OHLC closing prices.
             The returned data will be shorter than the input data by N points.
@@ -6392,7 +7549,7 @@
             <param name="N">each returned price represents the average of N prices</param>
             <param name="sdCoeff">number of standard deviations from the mean to use for the Bollinger bands</param>
         </member>
-        <member name="M:ScottPlot.Statistics.Finance.Bollinger(ScottPlot.OHLC[],System.Int32,System.Double)">
+        <member name="M:ScottPlot.Statistics.Finance.Bollinger(ScottPlot.IOHLC[],System.Int32,System.Double)">
             <summary>
             Return the SMA and upper/lower Bollinger bands for the closing price of the given OHLCs.
             The returned data will be shorter than the input data by N values.
@@ -6401,70 +7558,133 @@
             <param name="N">each returned price represents the average of N prices</param>
             <param name="sdCoeff">number of standard deviations from the mean to use for the Bollinger bands</param>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.bins">
+        <member name="F:ScottPlot.Statistics.Histogram.Counts">
             <summary>
-            Lower edges of bins used to create the histogram
+            Number of values counted for each bin.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.counts">
+        <member name="F:ScottPlot.Statistics.Histogram.BinCount">
             <summary>
-            Total number of values in each bin.
+            Number of bins.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.countsFrac">
+        <member name="P:ScottPlot.Statistics.Histogram.Sum">
             <summary>
-            Fractional number of values in each bin.
-            The total of all values in this array is 1.0.
+            Running total of all values counted.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.cumulativeCounts">
+        <member name="P:ScottPlot.Statistics.Histogram.ValuesCounted">
             <summary>
-            Cumulative total number of values in each bin.
-            The returned array will start near 0.0 and end near 1.0.
+            Total number of values accumulated.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.probability">
+        <member name="P:ScottPlot.Statistics.Histogram.Bins">
             <summary>
-            Probability density (fraction) for each bin based on the mean and standard deviation of the population.
-            The sum of all these values is 1.0
+            Lower edge for each bin.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.countsFracCurve">
+        <member name="P:ScottPlot.Statistics.Histogram.BinCenters">
             <summary>
-            This is the probability density curve normalized to its peak, so its maximum value is 1.0
+            Center of each bin.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.cumulativeFrac">
+        <member name="P:ScottPlot.Statistics.Histogram.AddOutliersToEdgeBins">
             <summary>
-            Cumulative probability density fraction for each bin
+            Default behavior is that outlier values are not counted.
+            If this is enabled, min/max outliers will be counted in the first/last bin.
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.binSize">
+        <member name="P:ScottPlot.Statistics.Histogram.Min">
             <summary>
-            Distance between each bin
+            Lower edge of the first bin
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.mean">
+        <member name="P:ScottPlot.Statistics.Histogram.Max">
             <summary>
-            Population mean
+            Upper edge of the last bin
             </summary>
         </member>
-        <member name="F:ScottPlot.Statistics.Histogram.stdev">
+        <member name="P:ScottPlot.Statistics.Histogram.BinSize">
             <summary>
-            Population standard deviation
+            The calculated bin size.
             </summary>
         </member>
-        <member name="M:ScottPlot.Statistics.Histogram.#ctor(System.Double[],System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double},System.Boolean)">
+        <member name="P:ScottPlot.Statistics.Histogram.MinOutlierCount">
             <summary>
-            Compute the histogram of a set of data.
-            Bins are identically sized and evenly spaced.
+            Number of values that were smaller than the lower edge of the first bin.
             </summary>
-            <param name="values">input data</param>
-            <param name="min">manually-defined lower edge of first bin</param>
-            <param name="max">manually-defined upper edge of last bin</param>
-            <param name="binSize">manually-defined width of each bin</param>
-            <param name="binCount">resize bins as needed so this number of bins is achieved</param>
-            <param name="ignoreOutOfBounds">if True, values below min or above max will be ignored</param>
+        </member>
+        <member name="P:ScottPlot.Statistics.Histogram.MaxOutlierCount">
+            <summary>
+            Number of values that were greater than the upper edge of the last bin.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.#ctor(System.Double,System.Double,System.Int32,System.Boolean,System.Boolean)">
+            <summary>
+            Create a histogram which will count values supplied by <see cref="M:ScottPlot.Statistics.Histogram.Add(System.Double)"/> and <see cref="M:ScottPlot.Statistics.Histogram.AddRange(System.Collections.Generic.IEnumerable{System.Double})"/>
+            </summary>
+            <param name="min">minimum value to be counted</param>
+            <param name="max">maximum value to be counted</param>
+            <param name="binCount">number of bins between <paramref name="min"/> and <paramref name="max"/></param>
+            <param name="addOutliersToEdgeBins">if false, outliers will not be counted</param>
+            <param name="addFinalBin">if true, one more bin will be added so values equal to <paramref name="max"/> can be counted too</param>
+            <remarks>
+            If <paramref name="min"/> and <paramref name="max"/> are the same value, the <paramref name="min"/> and <paramref name="max"/>
+            properties will be <paramref name="min"/> - 0.5 and <paramref name="max"/> + 0.5, respectively. This is to handle an edge
+            case where all values of an array are exactly the same, producing an identical min and max.
+            </remarks>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.WithFixedBinSize(System.Double,System.Double,System.Double,System.Boolean)">
+            <summary>
+            Create a histogram with bins that can count data from <paramref name="min"/> to <paramref name="max"/> (inclusive)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.WithFixedBinCount(System.Double,System.Double,System.Int32,System.Boolean)">
+            <summary>
+            Create a histogram with bins that can count data from <paramref name="min"/> to <paramref name="max"/> (inclusive)
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.GetProbability">
+            <summary>
+            Return counts normalized so the sum of all counts equals 1
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.GetProbabilityCurve(System.Double[],System.Boolean)">
+            <summary>
+            Return a function describing the probability function (a Gaussian curve fitted to the histogram probabilities).
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.GetNormalized(System.Double)">
+            <summary>
+            Return counts normalized so the maximum value equals the given value
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.GetCumulative">
+            <summary>
+            Return the cumulative histogram counts.
+            Each value is the number of counts in that bin and all bins below it.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.GetCumulativeProbability">
+            <summary>
+            Return the cumulative probability histogram.
+            Each value is the fraction of counts in that bin and all bins below it.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.Add(System.Double)">
+            <summary>
+            Add a single value to the histogram
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.AddRange(System.Collections.Generic.IEnumerable{System.Double})">
+            <summary>
+            Add multiple values to the histogram
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Statistics.Histogram.Clear">
+            <summary>
+            Reset the histogram, setting all counts and values to zero
+            </summary>
         </member>
         <member name="M:ScottPlot.Statistics.Interpolation.Cubic.InterpolateXY(System.Double[],System.Double[],System.Int32)">
             <summary>
@@ -6516,91 +7736,16 @@
             A theme describes a collection of colors and fonts that can be used to style a plot
             </summary>
         </member>
-        <member name="P:ScottPlot.Ticks.TickCollection.CornerLabel">
+        <member name="M:ScottPlot.Ticks.IMinorTickGenerator.GetMinorPositions(System.Double[],System.Double,System.Double)">
             <summary>
-            Label to show in the corner when using multiplier or offset notation
-            </summary>
-        </member>
-        <member name="P:ScottPlot.Ticks.TickCollection.LargestLabelWidth">
-            <summary>
-            Measured size of the largest tick label
-            </summary>
-        </member>
-        <member name="P:ScottPlot.Ticks.TickCollection.LargestLabelHeight">
-            <summary>
-            Measured size of the largest tick label
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.LabelFormat">
-            <summary>
-            Controls how to translate positions to strings
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.Orientation">
-            <summary>
-            If True, these ticks are placed along a vertical (Y) axis.
-            This is used to determine whether tick density should be based on tick label width or height.
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.LabelUsingInvertedSign">
-            <summary>
-            If True, the sign of numeric tick labels will be inverted.
-            This is used to give the appearance of descending ticks.
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.MinorTickDistribution">
-            <summary>
-            Define how minor ticks are distributed (evenly vs. log scale)
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.ManualTickFormatter">
-            <summary>
-            If defined, this function will be used to generate tick labels from positions
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.TickDensity">
-            <summary>
-            Optimally packed tick labels have a density 1.0 and lower densities space ticks farther apart.
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.MinimumTickSpacing">
-            <summary>
-            Defines the minimum distance (in coordinate units) for major ticks.
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.IntegerPositionsOnly">
-            <summary>
-            If True, non-integer tick positions will not be used.
-            This may be desired for log10-scaled axes so tick marks are even powers of 10.
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.LogScaleMinorTickCount">
-            <summary>
-            If minor tick distribution is log-scaled, place this many minor ticks
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.MinorTickCount">
-            <summary>
-            Number of minor ticks per major tick
-            </summary>
-        </member>
-        <member name="F:ScottPlot.Ticks.TickCollection.MeasureStringManually">
-            <summary>
-            Determine tick density using a fixed formula to estimate label size instead of MeasureString().
-            This is less accurate, but is consistent across operating systems, and is independent of font.
-            </summary>
-        </member>
-        <member name="M:ScottPlot.Ticks.TickCollection.MinorFromMajorLog(System.Double[],System.Double,System.Double,System.Int32)">
-            <summary>
-            Return an array of log-spaced minor tick marks for the given range
+            Return an array of minor tick marks for the given range
             </summary>
             <param name="majorTickPositions">Locations of visible major ticks. Must be evenly spaced.</param>
             <param name="min">Do not include minor ticks less than this value.</param>
             <param name="max">Do not include minor ticks greater than this value.</param>
-            <param name="divisions">Number of minor ranges to divide each major range into. (A range is the space between tick marks)</param>
             <returns>Array of minor tick positions (empty at positions occupied by major ticks)</returns>
         </member>
-        <member name="M:ScottPlot.Ticks.TickCollection.GetLogDistributedPoints(System.Int32,System.Double,System.Double,System.Boolean)">
+        <member name="M:ScottPlot.Ticks.MinorTickGenerators.LogDistributed.GetLogDistributedPoints(System.Int32,System.Double,System.Double,System.Boolean)">
             <summary>
             Return log-distributed points between the min/max values
             </summary>
@@ -6608,7 +7753,147 @@
             <param name="min">lowest value</param>
             <param name="max">highest value</param>
             <param name="inclusive">if true, returned values will contain the min/max values themselves</param>
-            <returns></returns>
+        </member>
+        <member name="T:ScottPlot.Ticks.TickGenerator">
+            <summary>
+            This class contains logic to generate ticks given plot size and axis dimensions
+            and many configuration settings to customize this behavior.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.Ticks">
+            <summary>
+            Automatically calculated ticks
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.ManualTicks">
+            <summary>
+            When populated, manual ticks are the ONLY ticks shown
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.AdditionalTicks">
+            <summary>
+            When populated, additionalTicks are shown in addition to automatic ticks
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.CornerLabelFormat">
+            <summary>
+            Controls how to translate exponential part of a number to strings
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.CornerLabel">
+            <summary>
+            Label to show in the corner when using multiplier or offset notation
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.LargestLabelWidth">
+            <summary>
+            Measured size of the largest tick label
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.LargestLabelHeight">
+            <summary>
+            Measured size of the largest tick label
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.LabelFormat">
+            <summary>
+            Controls how to translate positions to strings
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.IsVertical">
+            <summary>
+            If True, these ticks are placed along a vertical (Y) axis.
+            This is used to determine whether tick density should be based on tick label width or height.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.LabelUsingInvertedSign">
+            <summary>
+            If True, the sign of numeric tick labels will be inverted.
+            This is used to give the appearance of descending ticks.
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.MinorTickGenerator">
+            <summary>
+            Logic for generator minor tick positions
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.NumericFormatString">
+            <summary>
+            Format string for generating tick labels from numeric tick positions
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.DateTimeFormatString">
+            <summary>
+            Format string for generating tick labels from DateTime tick positions
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.ManualTickFormatter">
+            <summary>
+            If defined, this function will be used to generate tick labels from positions
+            </summary>
+        </member>
+        <member name="P:ScottPlot.Ticks.TickGenerator.Culture">
+            <summary>
+            Culture to use for generating tick labels
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.TickDensity">
+            <summary>
+            Optimally packed tick labels have a density 1.0 and lower densities space ticks farther apart.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.MinimumTickSpacing">
+            <summary>
+            Defines the minimum distance (in coordinate units) for major ticks.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.IntegerPositionsOnly">
+            <summary>
+            If True, non-integer tick positions will not be used.
+            This may be desired for log10-scaled axes so tick marks are even powers of 10.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.LogScaleMinorTickCount">
+            <summary>
+            If minor tick distribution is log-scaled, place this many minor ticks
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.MeasureStringManually">
+            <summary>
+            Determine tick density using a fixed formula to estimate label size instead of MeasureString().
+            This is less accurate, but is consistent across operating systems, and is independent of font.
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Ticks.TickGenerator.ShowSingleTickForSmallPlots">
+            <summary>
+            Only show a single tick if the axis has a very small pixel size
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Ticks.TickGenerator.Recalculate(ScottPlot.PlotDimensions,ScottPlot.Drawing.Font)">
+            <summary>
+            Recalculate ticks based on the given plot information.
+            Access ticks later by calling <see cref="M:ScottPlot.Ticks.TickGenerator.GetTicks(System.Double,System.Double)"/>
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Ticks.TickGenerator.MaxLabelSize(ScottPlot.Drawing.Font)">
+            <summary>
+            Return the size of the largest expected tick label
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Ticks.TickGenerator.GetIdealTickSpacing(System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Return a round number that would make a good spacing between major ticks.
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Ticks.TickGenerator.GetTickLabels(System.Double[])">
+            <summary>
+            Apply various scaling, inversion, and notation operations and return the labels to show on the plot
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Ticks.TickGenerator.GetNumericLabel(System.Double)">
+            <summary>
+            Create a tick label for the given number according to <see cref="P:ScottPlot.Ticks.TickGenerator.Culture"/>
+            </summary>
         </member>
         <member name="M:ScottPlot.Tools.Pad(System.Double[],System.Int32,System.Double,System.Double,System.Boolean)">
             <summary>
@@ -6683,6 +7968,21 @@
         <member name="M:ScottPlot.Validate.AssertHasText(System.String,System.String)">
             <summary>
             Throws an exception if the string is null, empty, or only contains whitespace
+            </summary>
+        </member>
+        <member name="M:ScottPlot.Validate.Pass">
+            <summary>
+            Placeholder for functions which need to call a validation function
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Version.ShortString">
+            <summary>
+            ScottPlot version number in the format "1.2.3"
+            </summary>
+        </member>
+        <member name="F:ScottPlot.Version.LongString">
+            <summary>
+            Full ScottPlot version in the format "ScottPlot 1.2.3"
             </summary>
         </member>
     </members>
