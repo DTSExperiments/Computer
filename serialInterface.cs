@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -43,11 +44,14 @@ namespace plotBrembs
         public delegate void DataReceivedHandler(byte[] data);
         public event DataReceivedHandler OnDataReceived;
 
-        public serialInterface()
+        private Control _uiControl;
+
+        public serialInterface(Control uiControl)
         {
             _serialPort = new SerialPort();
             _serialPort.BaudRate = 115200;
             _serialPort.Parity = Parity.None;
+            _uiControl = uiControl;
         }
 
         public int sendValues(byte laserPWM)
@@ -217,12 +221,11 @@ namespace plotBrembs
         {
             try
             {
-                if (!_serialPort.IsOpen)
+                if (_serialPort.IsOpen && _serialPort != null)
                 {
                     _serialPort.PortName = port;
                     _serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedEventHandler);
                     _serialPort.Open();
-                    Thread.Sleep(100);
                     if (_serialPort.BytesToRead == 0)
                     {
                         _serialPort.Write("S");
@@ -239,7 +242,9 @@ namespace plotBrembs
                 else
                 {
                     _serialPort.Write("S");
+                    _serialPort.BaseStream.Flush();
                     _serialPort.DataReceived -= SerialDataReceivedEventHandler;
+                    _serialPort.Close();
                     _serialPort.Dispose();
                     _serialPort = null;
                     return 0;
@@ -257,25 +262,15 @@ namespace plotBrembs
 
             try
             {
-                if (_serialPort.IsOpen)
+                if (_serialPort.IsOpen && _serialPort != null)
                 {
-                    Thread.Sleep(100);
-                    if (_serialPort.BytesToRead == 0)
-                    {
-                        _serialPort.DataReceived -= SerialDataReceivedEventHandler;
-                        _serialPort.Dispose();
-                        _serialPort = null;
-                        return 0;
-                    }
-                    else
-                    {
-                        _serialPort.Write("S");
-                        _serialPort.DataReceived -= SerialDataReceivedEventHandler;
-                        _serialPort.Dispose();
-                        _serialPort = null;
-                        return 0;
-                    }
-
+                    _serialPort.Write("S");
+                    _serialPort.BaseStream.Flush();
+                    _serialPort.DataReceived -= SerialDataReceivedEventHandler;
+                    _serialPort.Close();
+                    _serialPort.Dispose();
+                    _serialPort = null;
+                    return 0;
                 }
                 else
                 {
@@ -284,12 +279,14 @@ namespace plotBrembs
             }
             catch (Exception ex)
             {
+                Debug.WriteLine($"Serial failed {ex.Message}", "Closing SerialPort Event");
                 return -1;
             }
         }
 
         private void SerialDataReceivedEventHandler(object sender, SerialDataReceivedEventArgs e)
         {
+            try
             {
                 SerialPort sp = (SerialPort)sender;
                 int bytesToRead = sp.BytesToRead;
@@ -297,7 +294,15 @@ namespace plotBrembs
                 sp.Read(buffer, 0, bytesToRead);
 
                 // Raise the OnDataReceived event
-                OnDataReceived?.Invoke(buffer);
+                _uiControl.BeginInvoke((Action)(() =>
+                {
+                    OnDataReceived?.Invoke(buffer);
+                }));
+            }
+            catch (Exception ex)
+            {
+                // Handle or log the exception as needed
+                Debug.WriteLine($"Error in SerialDataReceivedEventHandler: {ex.Message}");
             }
         }
     }

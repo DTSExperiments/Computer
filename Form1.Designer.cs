@@ -34,6 +34,7 @@ namespace plotBrembs
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Threads = new System.Windows.Forms.Button();
             this.fileDialog = new System.Windows.Forms.Button();
+            this.resolution = new System.Windows.Forms.CheckBox();
             this.plot = new System.Windows.Forms.TabPage();
             this.formsPlot1 = new ScottPlot.FormsPlot();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -62,7 +63,6 @@ namespace plotBrembs
             this.startSerial = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.resolution = new System.Windows.Forms.CheckBox();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.plot.SuspendLayout();
@@ -133,6 +133,20 @@ namespace plotBrembs
             this.fileDialog.TabIndex = 4;
             this.fileDialog.Text = "fileDialog";
             this.fileDialog.UseVisualStyleBackColor = true;
+            // 
+            // resolution
+            // 
+            this.resolution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resolution.AutoSize = true;
+            this.resolution.Location = new System.Drawing.Point(3, 73);
+            this.resolution.Name = "resolution";
+            this.resolution.Size = new System.Drawing.Size(138, 29);
+            this.resolution.TabIndex = 5;
+            this.resolution.Text = "High resolution";
+            this.resolution.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.resolution.UseVisualStyleBackColor = true;
             // 
             // plot
             // 
@@ -563,20 +577,6 @@ namespace plotBrembs
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
-            // 
-            // resolution
-            // 
-            this.resolution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.resolution.AutoSize = true;
-            this.resolution.Location = new System.Drawing.Point(3, 73);
-            this.resolution.Name = "resolution";
-            this.resolution.Size = new System.Drawing.Size(138, 29);
-            this.resolution.TabIndex = 5;
-            this.resolution.Text = "High resolution";
-            this.resolution.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.resolution.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

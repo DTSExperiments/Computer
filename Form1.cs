@@ -23,15 +23,12 @@ namespace plotBrembs
     {
         readonly ScottPlot.Plottable.DataLogger adLogger;
         readonly ScottPlot.Plottable.DataLogger pixLogger;
-        private static Mutex mut = new Mutex();
+
         private static System.Threading.Timer simulationTimer = null;
 
         private serialInterface serialCom;
         private writeFile fileWriter;
 
-        int indexComPort = 0;
-
-        public Thread ReadSerialDataThread;
 
         private double[] liveDataAD = new double[1080];
         private double[] liveDataPIX = new double[1080];
@@ -96,7 +93,7 @@ namespace plotBrembs
 
             this.Text = version.ToString();
 
-            serialCom = new serialInterface();
+            serialCom = new serialInterface(this);
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
 
             fileWriter = new writeFile();
@@ -131,6 +128,27 @@ namespace plotBrembs
             if (serialCom != null)
             {
                 returnValue = serialCom.openPort(serialComboBox.Text);                
+                switch (returnValue)
+                {
+                    case 0:
+                        serialOpen.Image = Properties.Resources._269210;
+                        serialOpen = null;
+                        break;
+                    case 1:
+                        serialOpen.Image = Properties.Resources._269251;
+                        startSerial.Text = "Stop";
+                        break;
+                    case 2:
+                        serialOpen.Image = Properties.Resources._269251;
+                        startSerial.Text = "Stop";
+                        break;
+                }
+            }
+            else
+            {
+                serialCom = new serialInterface(this);
+                serialCom.OnDataReceived += SerialInterface_OnDataReceived;
+                returnValue = serialCom.openPort(serialComboBox.Text);
                 switch (returnValue)
                 {
                     case 0:
@@ -304,11 +322,19 @@ namespace plotBrembs
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
-            fileWriter.closeFile();
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(updateData));
+            }
+            else
+            {
+                fileWriter.closeFile();
 
-            int number = 0;
-            number = serialCom.closePort();
-            Console.WriteLine(number);
+                int number = 0;
+                serialCom.OnDataReceived -= SerialInterface_OnDataReceived;
+                number = serialCom.closePort();
+                Debug.WriteLine(number);
+            }
         }
 
         private void trackBarRotation_Scroll(object sender, EventArgs e)
