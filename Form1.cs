@@ -77,7 +77,7 @@ namespace plotBrembs
 
             formsPlot1.Plot.SetAxisLimitsX(0, 1080);
             formsPlot1.Plot.SetAxisLimitsY(-1, 1);
-            formsPlot1.Plot.SetAxisLimitsY(0, 800, yAxis3.AxisIndex);
+            formsPlot1.Plot.SetAxisLimitsY(-180, 180, yAxis3.AxisIndex);
 
             formsPlot1.Plot.YAxis.Label("Torque");
             yAxis3.Label("Degree");
@@ -265,30 +265,40 @@ namespace plotBrembs
             }
             else
             {
-                /* chart1.Series["liveDataAD"].Points.RemoveAt(nextValueIndex);
-                 chart1.Series["liveDataPIX"].Points.RemoveAt(nextValueIndex);
-                 chart1.Series["liveDataAD"].Points.InsertY(nextValueIndex, liveDataAD[nextValueIndex]);
-                 chart1.Series["liveDataPIX"].Points.InsertY(nextValueIndex, liveDataPIX[nextValueIndex]);
-                */
-                //measure the time between two commands
+
                 DateTime beginTime = DateTime.Now;
-                var limits = formsPlot1.Plot.GetAxisLimits();
+                
                 adLogger.Add(nextValueIndex, liveDataAD[nextValueIndex]);
-                pixLogger.Add(nextValueIndex, liveDataPIX[nextValueIndex]);
+                pixLogger.Add(nextValueIndex, PixelToDegree(liveDataPIX[nextValueIndex]));
 
                 Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString()); //write ad and pix value to debug window
                 debug.Text = Math.Round(liveDataAD[nextValueIndex], 4).ToString() + ";" + liveDataPIX[nextValueIndex].ToString();
                 TimeSpan timeSpan = DateTime.Now - beginTime;
                 Debug.WriteLine(timeSpan.TotalMilliseconds.ToString());
 
-                limits = formsPlot1.Plot.GetAxisLimits();
                 formsPlot1.Refresh(true);
-                // properties hold axis view information
-                Debug.WriteLine($"X goes from {limits.XMin} to {limits.XMax}");
 
                 fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString() + ";" + timeSpan.TotalMilliseconds.ToString());
             }
 
+        }
+
+        private double PixelToDegree(double pixel)
+        {
+            if (pixel >= 0 && pixel <= 400)
+            {
+                // Map 0-400 pixels to 0-180 degrees
+                return (pixel / 400.0) * 180;
+            }
+            else if (pixel >= 401 && pixel <= 800)
+            {
+                // Map 401-800 pixels to 0 to -180 degrees
+                return ((pixel - 401) / 400.0) * (-180);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException("Pixel value is out of range.");
+            }
         }
 
 
