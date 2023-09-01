@@ -85,7 +85,7 @@ namespace plotBrembs
             formsPlot1.Plot.YAxis.Color(Color.Red);
             yAxis3.Color(Color.Blue);
 
-            formsPlot1.Refresh(true);
+            formsPlot1.Refresh(!resolution.Checked);
 
             if (portNames.Length > 0)
             {
@@ -276,7 +276,7 @@ namespace plotBrembs
                 TimeSpan timeSpan = DateTime.Now - beginTime;
                 Debug.WriteLine(timeSpan.TotalMilliseconds.ToString());
 
-                formsPlot1.Refresh(true);
+                formsPlot1.Refresh(!resolution.Checked);
 
                 fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString() + ";" + timeSpan.TotalMilliseconds.ToString());
             }

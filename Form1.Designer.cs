@@ -62,6 +62,7 @@ namespace plotBrembs
             this.startSerial = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.resolution = new System.Windows.Forms.CheckBox();
             this.config.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.plot.SuspendLayout();
@@ -92,11 +93,15 @@ namespace plotBrembs
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.33333F));
             this.tableLayoutPanel1.Controls.Add(this.Threads, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.fileDialog, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.resolution, 0, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -559,6 +564,20 @@ namespace plotBrembs
             this.tabControl.Size = new System.Drawing.Size(877, 613);
             this.tabControl.TabIndex = 1;
             // 
+            // resolution
+            // 
+            this.resolution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resolution.AutoSize = true;
+            this.resolution.Location = new System.Drawing.Point(3, 73);
+            this.resolution.Name = "resolution";
+            this.resolution.Size = new System.Drawing.Size(138, 29);
+            this.resolution.TabIndex = 5;
+            this.resolution.Text = "High resolution";
+            this.resolution.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.resolution.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -570,6 +589,7 @@ namespace plotBrembs
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.config.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.plot.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel6.PerformLayout();
@@ -625,6 +645,7 @@ namespace plotBrembs
         private TextBox debug;
         private Button fileDialog;
         private ScottPlot.FormsPlot formsPlot1;
+        private CheckBox resolution;
     }
 }
 
