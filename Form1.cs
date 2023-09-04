@@ -29,6 +29,7 @@ namespace plotBrembs
         private serialInterface serialCom;
         private writeFile fileWriter;
 
+        bool serialComOpen = false;
 
         private double[] liveDataAD = new double[1080];
         private double[] liveDataPIX = new double[1080];
@@ -125,45 +126,74 @@ namespace plotBrembs
         private void startSerial_Click(object sender, EventArgs e)
         {
             int returnValue = 0;
-            if (serialCom != null)
+
+            try
             {
-                returnValue = serialCom.openPort(serialComboBox.Text);                
-                switch (returnValue)
+                if (serialComOpen == false)
                 {
-                    case 0:
-                        serialOpen.Image = Properties.Resources._269210;
-                        serialOpen = null;
-                        break;
-                    case 1:
-                        serialOpen.Image = Properties.Resources._269251;
-                        startSerial.Text = "Stop";
-                        break;
-                    case 2:
-                        serialOpen.Image = Properties.Resources._269251;
-                        startSerial.Text = "Stop";
-                        break;
+                    if (serialCom != null && serialCom.IsSerialPortNull() == false)
+                    {
+                        returnValue = serialCom.openPort(serialComboBox.Text);
+                        if (returnValue == 0)
+                        {
+                            serialOpen.Image = Properties.Resources._269251;
+                            startSerial.Text = "Stop";
+                            serialComOpen = true;
+                        }
+                        else
+                        {
+                            serialOpen.Image = Properties.Resources._269210;
+                            startSerial.Text = "Failed";
+                        }
+
+                    }
+                    else
+                    {
+                        if (serialCom == null)
+                        {
+                            serialCom = new serialInterface(this);
+                            serialCom.OnDataReceived += SerialInterface_OnDataReceived;
+
+                            returnValue = serialCom.openPort(serialComboBox.Text);
+                            if (returnValue == 0)
+                            {
+                                serialOpen.Image = Properties.Resources._269251;
+                                startSerial.Text = "Stop";
+                                serialComOpen = true;
+                            }
+                            else
+                            {
+                                serialOpen.Image = Properties.Resources._269210;
+                                startSerial.Text = "Failed";
+                                throw new Exception("Serial port failed");
+                            }
+                        }
+
+                        else
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    serialOpen.Image = Properties.Resources._269210;
+                    startSerial.Text = "Start";
+                    serialCom.OnDataReceived -= SerialInterface_OnDataReceived;
+                    if (serialCom.closePort() != 0)
+                    {
+                        throw new Exception("Serial port failed");
+                    };
+                    serialCom = null;
+                    serialComOpen = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                serialCom = new serialInterface(this);
-                serialCom.OnDataReceived += SerialInterface_OnDataReceived;
-                returnValue = serialCom.openPort(serialComboBox.Text);
-                switch (returnValue)
-                {
-                    case 0:
-                        serialOpen.Image = Properties.Resources._269210;
-                        break;
-                    case 1:
-                        serialOpen.Image = Properties.Resources._269251;
-                        startSerial.Text = "Stop";
-                        break;
-                    case 2:
-                        serialOpen.Image = Properties.Resources._269251;
-                        startSerial.Text = "Stop";
-                        break;
-                }
+                MessageBox.Show(ex.Message);
             }
+
+
            
         }
 
@@ -330,10 +360,19 @@ namespace plotBrembs
             {
                 fileWriter.closeFile();
 
-                int number = 0;
-                serialCom.OnDataReceived -= SerialInterface_OnDataReceived;
-                number = serialCom.closePort();
-                Debug.WriteLine(number);
+                if (serialComOpen == true)
+                {
+                    serialOpen.Image = Properties.Resources._269210;
+                    startSerial.Text = "Start";
+                    serialCom.OnDataReceived -= SerialInterface_OnDataReceived;
+                    serialCom.closePort();
+                    serialCom = null;
+                    serialComOpen = false;
+                }
+                else
+                {
+
+                }
             }
         }
 

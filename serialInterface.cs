@@ -221,33 +221,30 @@ namespace plotBrembs
         {
             try
             {
-                if (_serialPort.IsOpen && _serialPort != null)
+                if (_serialPort.IsOpen == false && _serialPort != null)
                 {
                     _serialPort.PortName = port;
                     _serialPort.DataReceived += new SerialDataReceivedEventHandler(SerialDataReceivedEventHandler);
                     _serialPort.Open();
+
+                    Thread.Sleep(100);
+
                     if (_serialPort.BytesToRead == 0)
                     {
                         _serialPort.Write("S");
-                        return 1;
+                        return 0;
                     }
                     else
                     {
                         _serialPort.Write("S");
                         _serialPort.Write("S");
-                        return 2;
+                        return 0;
                     }
 
                 }
                 else
                 {
-                    _serialPort.Write("S");
-                    _serialPort.BaseStream.Flush();
-                    _serialPort.DataReceived -= SerialDataReceivedEventHandler;
-                    _serialPort.Close();
-                    _serialPort.Dispose();
-                    _serialPort = null;
-                    return 0;
+                    return -1;
                 }
             }
             catch (Exception ex)
@@ -255,6 +252,11 @@ namespace plotBrembs
                 MessageBox.Show("Serial failed", "Opening SerialPort Event");
                 return -1;
             }
+        }
+
+        public bool IsSerialPortNull()
+        {
+            return _serialPort == null;
         }
 
         public int closePort()
