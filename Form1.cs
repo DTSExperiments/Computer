@@ -191,7 +191,7 @@ namespace plotBrembs
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
+            } 
 
 
            
@@ -341,7 +341,7 @@ namespace plotBrembs
             else if (pixel >= 401 && pixel <= 800)
             {
                 // Map 401-800 pixels to 0 to -180 degrees
-                return ((pixel - 401) / 400.0) * (-180);
+                return -180 + ((pixel - 401) / 400.0) * 180;
             }
             else
             {
