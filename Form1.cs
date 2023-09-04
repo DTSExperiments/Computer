@@ -77,6 +77,13 @@ namespace plotBrembs
             formsPlot1.Plot.SetAxisLimitsY(-1, 1);
             formsPlot1.Plot.SetAxisLimitsY(-180, 180, yAxis3.AxisIndex);
 
+            formsPlot1.Configuration.ScrollWheelZoom = false;
+            formsPlot1.Configuration.RightClickDragZoom = false;
+            formsPlot1.Configuration.LeftClickDragPan = false;
+
+            formsPlot1.RightClicked -= formsPlot1.DefaultRightClickEvent;
+
+
             formsPlot1.Plot.YAxis.Label("Torque");
             yAxis3.Label("Degree");
 
