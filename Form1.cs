@@ -54,6 +54,8 @@ namespace plotBrembs
 
             InitializeComponent();
 
+            resizeWindow();
+
             version = Assembly.GetExecutingAssembly().GetName().Version;
 
             portList.AddRange(SerialPort.GetPortNames());
@@ -83,7 +85,6 @@ namespace plotBrembs
 
             formsPlot1.RightClicked -= formsPlot1.DefaultRightClickEvent;
 
-
             formsPlot1.Plot.YAxis.Label("Torque");
             yAxis3.Label("Degree");
 
@@ -101,12 +102,31 @@ namespace plotBrembs
 
             this.Text = version.ToString();
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+
             serialCom = new serialInterface(this);
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
 
             fileWriter = new writeFile();
 
 
+        }
+
+
+        private void resizeWindow()
+        {
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            if (screenHeight > 1080)
+            {
+                // Assuming you want to scale the form to 80% of its original size as an example
+                float scalePercentage = 1.5f;
+
+                this.Width = (int)(this.Width * scalePercentage);
+                this.Height = (int)(this.Height * scalePercentage);
+
+            }
         }
 
         private string findComPort(string vid, string pid)
