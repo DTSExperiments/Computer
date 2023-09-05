@@ -108,7 +108,7 @@ namespace plotBrembs
             serialCom = new serialInterface(this);
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
 
-            fileWriter = new writeFile();
+            fileWriter = new writeFile(null, null);
 
 
         }
@@ -353,7 +353,7 @@ namespace plotBrembs
 
                 formsPlot1.Refresh(!resolution.Checked);
 
-                fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString() + ";" + timeSpan.TotalMilliseconds.ToString());
+                //fileWriter.writeValue(liveDataAD[nextValueIndex].ToString() + ";" + liveDataPIX[nextValueIndex].ToString() + ";" + timeSpan.TotalMilliseconds.ToString());
             }
 
         }
@@ -385,7 +385,7 @@ namespace plotBrembs
             }
             else
             {
-                fileWriter.closeFile();
+                //fileWriter.closeFile();
 
                 if (serialComOpen == true)
                 {
@@ -566,6 +566,81 @@ namespace plotBrembs
         private void rotation_Click(object sender, EventArgs e)
         {
             serialCom.sendValues(valueRotation, Convert.ToByte(numericUpDownRotation.Value));
+        }
+
+
+        private void fileDialog_Click(object sender, EventArgs e)
+        {
+            DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+
+            saveFileDialog1.Filter = "XML files(.xml) | *.xml";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.FileName = dto.ToString("yyyyMMdd_HHmmss");
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                label3.Text = saveFileDialog1.FileName;
+                fileWriter.updateFolder(saveFileDialog1.FileName);
+            }
+            else
+            {
+                label3.Text = "No file selected";
+            }
+        }
+
+        private void textBox5_Click(object sender, EventArgs e)
+        {
+            if (textBox5.Text == "LastName")
+            {
+                textBox5.Text = "";
+            }
+        }
+
+        private void textBox4_Click(object sender, EventArgs e)
+        {
+            if (textBox4.Text == "FirstName")
+            {
+                textBox4.Text = "";
+            }
+        }
+
+
+        private void textBox2_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text == "ORCID")
+            {
+                textBox2.Text = "";
+            }
+        }
+
+        private void textBox4_MouseHover(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb != null && tb.Tag != null)
+            {
+                toolTip1.SetToolTip(tb, tb.Tag.ToString());
+            }
+        }
+
+        private void textBox5_MouseHover(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb != null && tb.Tag != null)
+            {
+                toolTip1.SetToolTip(tb, tb.Tag.ToString());
+            }
+        }
+
+        private void textBox2_MouseHover(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            if (tb != null && tb.Tag != null)
+            {
+                toolTip1.SetToolTip(tb, tb.Tag.ToString());
+            }
         }
 
     }
