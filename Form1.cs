@@ -40,6 +40,7 @@ namespace plotBrembs
         public delegate void ShowSerialData();
 
         Version version = new Version();
+        appConfig configApp = new appConfig();
 
         ColorPattern patternColor;
 
@@ -76,7 +77,7 @@ namespace plotBrembs
             pixLogger.YAxisIndex = yAxis3.AxisIndex;
 
             formsPlot1.Plot.SetAxisLimitsX(0, 1080);
-            formsPlot1.Plot.SetAxisLimitsY(-1, 1);
+            formsPlot1.Plot.SetAxisLimitsY(-0.4, 0.4);
             formsPlot1.Plot.SetAxisLimitsY(-180, 180, yAxis3.AxisIndex);
 
             formsPlot1.Configuration.ScrollWheelZoom = false;
