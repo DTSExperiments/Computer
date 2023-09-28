@@ -64,7 +64,7 @@ namespace plotBrembs
 
             portNames = portList.ToArray();
 
-            var yAxis3 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Left);
+            var yAxis3 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Right);
 
             adLogger = formsPlot1.Plot.AddDataLogger(Color.Red, 1, "AD-Value");
             pixLogger = formsPlot1.Plot.AddDataLogger(Color.Blue, 1, "Pixel");
