@@ -66,19 +66,22 @@ namespace plotBrembs
 
             var yAxis3 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Right);
 
-            adLogger = formsPlot1.Plot.AddDataLogger(Color.Red, 1, "AD-Value");
-            pixLogger = formsPlot1.Plot.AddDataLogger(Color.Blue, 1, "Pixel");
+            adLogger = formsPlot1.Plot.AddDataLogger(Color.Blue, 1, "AD-Value");
+            pixLogger = formsPlot1.Plot.AddDataLogger(Color.Red, 1, "Pixel");
 
             adLogger.ViewJump();
             pixLogger.ViewJump();
 
             adLogger.ManageAxisLimits = false;
             pixLogger.ManageAxisLimits = false;
-            pixLogger.YAxisIndex = yAxis3.AxisIndex;
+            adLogger.YAxisIndex = yAxis3.AxisIndex;
 
             formsPlot1.Plot.SetAxisLimitsX(0, 1080);
-            formsPlot1.Plot.SetAxisLimitsY(-0.4, 0.4);
-            formsPlot1.Plot.SetAxisLimitsY(-180, 180, yAxis3.AxisIndex);
+            formsPlot1.Plot.SetAxisLimitsY(-180, 180);
+            formsPlot1.Plot.SetAxisLimitsY(-0.4, 0.4, yAxis3.AxisIndex);
+
+            formsPlot1.Plot.Grid(color: Color.FromArgb(50, Color.Green));
+            formsPlot1.Plot.Grid(lineStyle: LineStyle.Dot);
 
             formsPlot1.Configuration.ScrollWheelZoom = false;
             formsPlot1.Configuration.RightClickDragZoom = false;
@@ -86,11 +89,23 @@ namespace plotBrembs
 
             formsPlot1.RightClicked -= formsPlot1.DefaultRightClickEvent;
 
-            formsPlot1.Plot.YAxis.Label("Torque");
-            yAxis3.Label("Degree");
+            formsPlot1.Plot.YAxis.Label("Degree");
+            yAxis3.Label("Torque"); 
 
             formsPlot1.Plot.YAxis.Color(Color.Red);
             yAxis3.Color(Color.Blue);
+
+            double[] yPositions = { -135, -45,  45,  135};
+            string[] yLabels = { "-135", "-45", "45", "135" };
+            formsPlot1.Plot.YAxis.ManualTickPositions(yPositions, yLabels);
+
+            double[] yAxis3Positions = { -0.2, 0, 0.2 }; // Example positions for yAxis3
+            string[] yAxis3Labels = { "-0.2", "0", "0.2" }; // Example labels for yAxis3
+            yAxis3.ManualTickPositions(yAxis3Positions, yAxis3Labels);
+            yAxis3.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: Color.Blue);
+            yAxis3.Grid(true);
+
+            formsPlot1.Plot.YAxis.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: Color.Red);
 
             formsPlot1.Refresh(!resolution.Checked);
 
