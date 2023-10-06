@@ -89,8 +89,8 @@ namespace plotBrembs
 
             formsPlot1.RightClicked -= formsPlot1.DefaultRightClickEvent;
 
-            formsPlot1.Plot.YAxis.Label("Degree");
-            yAxis3.Label("Torque"); 
+            formsPlot1.Plot.YAxis.Label("arena position");
+            yAxis3.Label("torque"); 
 
             formsPlot1.Plot.YAxis.Color(Color.Red);
             yAxis3.Color(Color.Blue);
