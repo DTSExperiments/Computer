@@ -605,7 +605,7 @@ namespace plotBrembs
             this.domainUpDown3.Size = new System.Drawing.Size(152, 20);
             this.domainUpDown3.TabIndex = 13;
             this.domainUpDown3.Tag = "";
-            this.domainUpDown3.Text = "choose Color";
+            this.domainUpDown3.Text = "White";
             this.domainUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.domainUpDown3.SelectedItemChanged += new System.EventHandler(this.domainUpDown3_SelectedItemChanged);
             // 
@@ -624,7 +624,7 @@ namespace plotBrembs
             this.domainUpDown2.Size = new System.Drawing.Size(152, 20);
             this.domainUpDown2.TabIndex = 12;
             this.domainUpDown2.Tag = "";
-            this.domainUpDown2.Text = "choose Pattern";
+            this.domainUpDown2.Text = "No pattern";
             this.domainUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.domainUpDown2.SelectedItemChanged += new System.EventHandler(this.domainUpDown2_SelectedItemChanged);
             // 
