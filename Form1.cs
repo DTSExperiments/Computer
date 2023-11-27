@@ -126,6 +126,12 @@ namespace plotBrembs
 
             fileWriter = new writeFile(null, null);
 
+            //initialize default values
+            patternDisplay = DisplayPattern.noPattern;
+
+            domainUpDown3.BackColor = Color.WhiteSmoke;
+            domainUpDown3.ForeColor = Color.Black;
+            patternColor = ColorPattern.White;
 
         }
 
