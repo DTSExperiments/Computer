@@ -529,6 +529,7 @@ namespace plotBrembs
             this.laser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.laser.Enabled = false;
             this.laser.Location = new System.Drawing.Point(637, 4);
             this.laser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.laser.Name = "laser";
@@ -668,6 +669,7 @@ namespace plotBrembs
             this.patternButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.patternButton.Enabled = false;
             this.patternButton.Location = new System.Drawing.Point(637, 4);
             this.patternButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.patternButton.Name = "patternButton";
@@ -730,6 +732,7 @@ namespace plotBrembs
             this.rotation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rotation.Enabled = false;
             this.rotation.Location = new System.Drawing.Point(637, 4);
             this.rotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rotation.Name = "rotation";
@@ -773,7 +776,7 @@ namespace plotBrembs
             this.domainUpDown1.Size = new System.Drawing.Size(203, 22);
             this.domainUpDown1.TabIndex = 11;
             this.domainUpDown1.Tag = "";
-            this.domainUpDown1.Text = "choose Rotation";
+            this.domainUpDown1.Text = "Sample";
             this.domainUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.domainUpDown1.SelectedItemChanged += new System.EventHandler(this.domainUpDown1_SelectedItemChanged);
             // 

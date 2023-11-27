@@ -133,6 +133,8 @@ namespace plotBrembs
             domainUpDown3.ForeColor = Color.Black;
             patternColor = ColorPattern.White;
 
+            valueRotation = RotationValue.Sample;
+
         }
 
 
@@ -188,6 +190,9 @@ namespace plotBrembs
                             serialOpen.Image = Properties.Resources._269251;
                             startSerial.Text = "Stop";
                             serialComOpen = true;
+                            laser.Enabled = true;
+                            patternButton.Enabled = true;
+                            rotation.Enabled = true;
                         }
                         else
                         {
@@ -209,6 +214,9 @@ namespace plotBrembs
                                 serialOpen.Image = Properties.Resources._269251;
                                 startSerial.Text = "Stop";
                                 serialComOpen = true;
+                                laser.Enabled = true;
+                                patternButton.Enabled = true;
+                                rotation.Enabled = true;
                             }
                             else
                             {
@@ -235,6 +243,9 @@ namespace plotBrembs
                     };
                     serialCom = null;
                     serialComOpen = false;
+                    laser.Enabled = false;
+                    patternButton.Enabled = false;
+                    rotation.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -479,25 +490,43 @@ namespace plotBrembs
 
         }
 
+
         private void laser_Click(object sender, EventArgs e)
         {
             int returnValue = 0;
-            returnValue = serialCom.sendValues(Convert.ToByte(numericUpDownLaser.Value));
-            switch (returnValue)
+            if (serialComOpen == true)
             {
-                case 0:
-                    pictureLaser.Image = Properties.Resources._269210;
-                    laser.Text = "Off";
-                    break;
-                case 1:
-                    pictureLaser.Image = Properties.Resources._269251;
-                    laser.Text = "On";
-                    break;
-                case -1:
-                    pictureLaser.Image = Properties.Resources._269210;
-                    laser.Text = "Off";
-                    break;
+                try
+                {
+                    returnValue = serialCom.sendValues(Convert.ToByte(numericUpDownLaser.Value));
+                    switch (returnValue)
+                    {
+                        case 0:
+                            pictureLaser.Image = Properties.Resources._269210;
+                            laser.Text = "Off";
+                            break;
+                        case 1:
+                            pictureLaser.Image = Properties.Resources._269251;
+                            laser.Text = "On";
+                            break;
+                        case -1:
+                            pictureLaser.Image = Properties.Resources._269210;
+                            laser.Text = "Off";
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    laser.Enabled = false;
+                    MessageBox.Show(ex.ToString(), "Laser Event");
+                }
             }
+            else
+            {
+                   laser.Enabled = false;
+            }
+
+
         }
 
         private void domainUpDown3_SelectedItemChanged(object sender, EventArgs e)
@@ -563,7 +592,22 @@ namespace plotBrembs
 
         private void patternButton_Click(object sender, EventArgs e)
         {
-            serialCom.sendValues(patternDisplay, patternColor);
+            if (serialComOpen == true)
+            {
+                try
+                {
+                    serialCom.sendValues(patternDisplay, patternColor);
+                }
+                catch (Exception ex)
+                {
+                    patternButton.Enabled = false;
+                    MessageBox.Show(ex.ToString(), "Laser Event");
+                }
+            }
+            else
+            {
+                patternButton.Enabled = false;
+            }
         }
 
         private void domainUpDown1_SelectedItemChanged(object sender, EventArgs e)
@@ -587,7 +631,22 @@ namespace plotBrembs
 
         private void rotation_Click(object sender, EventArgs e)
         {
-            serialCom.sendValues(valueRotation, Convert.ToByte(numericUpDownRotation.Value));
+            if (serialComOpen == true)
+            {
+                try
+                {
+                    serialCom.sendValues(valueRotation, Convert.ToByte(numericUpDownRotation.Value));
+                }
+                catch (Exception ex)
+                {
+                    rotation.Enabled = false;
+                    MessageBox.Show(ex.ToString(), "Laser Event");
+                }
+            }
+            else
+            {
+                rotation.Enabled = false;
+            }
         }
 
 
