@@ -56,12 +56,14 @@ namespace plotBrembs
 
         public int sendValues(byte laserPWM)
         {
+            byte[] laserPWMArray = new byte[1];
+            laserPWMArray[0] = laserPWM; // Assuming laserPWM is your byte variable
             try
             {
                 if (_serialPort.IsOpen)
                 {
                     _serialPort.Write("L");
-                    _serialPort.Write(Convert.ToChar(laserPWM).ToString());
+                    _serialPort.Write(laserPWMArray, 0 , 1);
                     laserOnOff = laserOnOff > 0 ? 0 : 1;
                     return laserOnOff;
                 }
