@@ -518,7 +518,7 @@ namespace plotBrembs
             this.trackBarLaser.BackColor = System.Drawing.SystemColors.Window;
             this.trackBarLaser.Location = new System.Drawing.Point(215, 4);
             this.trackBarLaser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.trackBarLaser.Maximum = 255;
+            this.trackBarLaser.Maximum = 100;
             this.trackBarLaser.Name = "trackBarLaser";
             this.trackBarLaser.Size = new System.Drawing.Size(203, 27);
             this.trackBarLaser.TabIndex = 9;
@@ -546,11 +546,6 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownLaser.Location = new System.Drawing.Point(426, 4);
             this.numericUpDownLaser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.numericUpDownLaser.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
             this.numericUpDownLaser.Name = "numericUpDownLaser";
             this.numericUpDownLaser.ReadOnly = true;
             this.numericUpDownLaser.Size = new System.Drawing.Size(203, 22);

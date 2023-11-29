@@ -498,7 +498,7 @@ namespace plotBrembs
             {
                 try
                 {
-                    returnValue = serialCom.sendValues(Convert.ToByte(numericUpDownLaser.Value));
+                    returnValue = serialCom.sendValues(Convert.ToByte(Math.Round((double)numericUpDownLaser.Value * 2.55, 0)));
 
                     switch (returnValue)
                     {
