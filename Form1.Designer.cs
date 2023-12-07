@@ -108,9 +108,9 @@ namespace plotBrembs
             // 
             this.config.Controls.Add(this.tableLayoutPanel1);
             this.config.Location = new System.Drawing.Point(4, 25);
-            this.config.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.config.Margin = new System.Windows.Forms.Padding(4);
             this.config.Name = "config";
-            this.config.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.config.Padding = new System.Windows.Forms.Padding(4);
             this.config.Size = new System.Drawing.Size(1161, 725);
             this.config.TabIndex = 1;
             this.config.Text = "Config";
@@ -134,7 +134,7 @@ namespace plotBrembs
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.resolution, 0, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
@@ -156,7 +156,7 @@ namespace plotBrembs
             this.tableLayoutPanel8.Controls.Add(this.textBox6, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.textBox3, 2, 0);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(197, 133);
-            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel8.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -169,7 +169,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox7.Location = new System.Drawing.Point(323, 4);
-            this.textBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox7.Margin = new System.Windows.Forms.Padding(4);
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(311, 22);
             this.textBox7.TabIndex = 17;
@@ -180,7 +180,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox6.Location = new System.Drawing.Point(4, 4);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(311, 22);
             this.textBox6.TabIndex = 16;
@@ -191,7 +191,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox3.Location = new System.Drawing.Point(642, 4);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(312, 22);
             this.textBox3.TabIndex = 15;
@@ -220,11 +220,11 @@ namespace plotBrembs
             this.tableLayoutPanel10.Controls.Add(this.textBox4, 0, 0);
             this.tableLayoutPanel10.Controls.Add(this.textBox2, 2, 0);
             this.tableLayoutPanel10.Location = new System.Drawing.Point(197, 90);
-            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel10.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel10.Size = new System.Drawing.Size(958, 35);
             this.tableLayoutPanel10.TabIndex = 17;
             // 
@@ -234,7 +234,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox5.Location = new System.Drawing.Point(323, 4);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(311, 22);
             this.textBox5.TabIndex = 17;
@@ -249,7 +249,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox4.Location = new System.Drawing.Point(4, 4);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox4.Margin = new System.Windows.Forms.Padding(4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(311, 22);
             this.textBox4.TabIndex = 16;
@@ -264,7 +264,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.Location = new System.Drawing.Point(642, 4);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(312, 22);
             this.textBox2.TabIndex = 15;
@@ -297,7 +297,7 @@ namespace plotBrembs
             this.tableLayoutPanel9.Controls.Add(this.domainUpDown4, 0, 0);
             this.tableLayoutPanel9.Controls.Add(this.textBox1, 2, 0);
             this.tableLayoutPanel9.Location = new System.Drawing.Point(197, 47);
-            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -315,7 +315,7 @@ namespace plotBrembs
             this.domainUpDown5.Items.Add("Multi touch");
             this.domainUpDown5.Items.Add("T pattern");
             this.domainUpDown5.Location = new System.Drawing.Point(323, 4);
-            this.domainUpDown5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.domainUpDown5.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown5.Name = "domainUpDown5";
             this.domainUpDown5.Size = new System.Drawing.Size(311, 22);
             this.domainUpDown5.TabIndex = 14;
@@ -334,7 +334,7 @@ namespace plotBrembs
             this.domainUpDown4.Items.Add("Multi touch");
             this.domainUpDown4.Items.Add("T pattern");
             this.domainUpDown4.Location = new System.Drawing.Point(4, 4);
-            this.domainUpDown4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.domainUpDown4.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown4.Name = "domainUpDown4";
             this.domainUpDown4.Size = new System.Drawing.Size(311, 22);
             this.domainUpDown4.TabIndex = 13;
@@ -348,7 +348,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(642, 4);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(312, 22);
             this.textBox1.TabIndex = 15;
@@ -378,7 +378,7 @@ namespace plotBrembs
             this.tableLayoutPanel7.Controls.Add(this.label3, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.fileDialog, 0, 0);
             this.tableLayoutPanel7.Location = new System.Drawing.Point(197, 4);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -402,7 +402,7 @@ namespace plotBrembs
             // fileDialog
             // 
             this.fileDialog.Location = new System.Drawing.Point(4, 4);
-            this.fileDialog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.fileDialog.Margin = new System.Windows.Forms.Padding(4);
             this.fileDialog.Name = "fileDialog";
             this.fileDialog.Size = new System.Drawing.Size(183, 27);
             this.fileDialog.TabIndex = 4;
@@ -431,7 +431,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.resolution.AutoSize = true;
             this.resolution.Location = new System.Drawing.Point(4, 176);
-            this.resolution.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.resolution.Margin = new System.Windows.Forms.Padding(4);
             this.resolution.Name = "resolution";
             this.resolution.Size = new System.Drawing.Size(185, 35);
             this.resolution.TabIndex = 5;
@@ -444,9 +444,9 @@ namespace plotBrembs
             this.plot.Controls.Add(this.formsPlot1);
             this.plot.Controls.Add(this.tableLayoutPanel6);
             this.plot.Location = new System.Drawing.Point(4, 25);
-            this.plot.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.plot.Margin = new System.Windows.Forms.Padding(4);
             this.plot.Name = "plot";
-            this.plot.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.plot.Padding = new System.Windows.Forms.Padding(4);
             this.plot.Size = new System.Drawing.Size(1161, 725);
             this.plot.TabIndex = 0;
             this.plot.Text = "Oscilloscope";
@@ -476,7 +476,7 @@ namespace plotBrembs
             this.tableLayoutPanel6.Controls.Add(this.label4, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(4, 549);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 4;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
@@ -502,11 +502,11 @@ namespace plotBrembs
             this.tableLayoutPanel4.Controls.Add(this.numericUpDownLaser, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.pictureLaser, 0, 0);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(196, 133);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(953, 35);
             this.tableLayoutPanel4.TabIndex = 15;
             // 
@@ -517,7 +517,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarLaser.BackColor = System.Drawing.SystemColors.Window;
             this.trackBarLaser.Location = new System.Drawing.Point(215, 4);
-            this.trackBarLaser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBarLaser.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarLaser.Maximum = 100;
             this.trackBarLaser.Name = "trackBarLaser";
             this.trackBarLaser.Size = new System.Drawing.Size(203, 27);
@@ -531,7 +531,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.laser.Enabled = false;
             this.laser.Location = new System.Drawing.Point(637, 4);
-            this.laser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.laser.Margin = new System.Windows.Forms.Padding(4);
             this.laser.Name = "laser";
             this.laser.Size = new System.Drawing.Size(312, 27);
             this.laser.TabIndex = 4;
@@ -545,7 +545,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownLaser.Location = new System.Drawing.Point(426, 4);
-            this.numericUpDownLaser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownLaser.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownLaser.Name = "numericUpDownLaser";
             this.numericUpDownLaser.ReadOnly = true;
             this.numericUpDownLaser.Size = new System.Drawing.Size(203, 22);
@@ -561,12 +561,13 @@ namespace plotBrembs
             this.pictureLaser.Image = global::plotBrembs.Properties.Resources._269210;
             this.pictureLaser.InitialImage = global::plotBrembs.Properties.Resources._269210;
             this.pictureLaser.Location = new System.Drawing.Point(4, 4);
-            this.pictureLaser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureLaser.Margin = new System.Windows.Forms.Padding(4);
             this.pictureLaser.Name = "pictureLaser";
             this.pictureLaser.Size = new System.Drawing.Size(203, 27);
             this.pictureLaser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureLaser.TabIndex = 11;
             this.pictureLaser.TabStop = false;
+
             // 
             // label5
             // 
@@ -611,11 +612,11 @@ namespace plotBrembs
             this.tableLayoutPanel5.Controls.Add(this.patternButton, 3, 0);
             this.tableLayoutPanel5.Controls.Add(this.debug, 2, 0);
             this.tableLayoutPanel5.Location = new System.Drawing.Point(196, 47);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(953, 35);
             this.tableLayoutPanel5.TabIndex = 12;
             // 
@@ -630,7 +631,7 @@ namespace plotBrembs
             this.domainUpDown3.Items.Add("Green");
             this.domainUpDown3.Items.Add("Cyan");
             this.domainUpDown3.Location = new System.Drawing.Point(215, 4);
-            this.domainUpDown3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.domainUpDown3.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown3.Name = "domainUpDown3";
             this.domainUpDown3.Size = new System.Drawing.Size(203, 22);
             this.domainUpDown3.TabIndex = 13;
@@ -650,7 +651,7 @@ namespace plotBrembs
             this.domainUpDown2.Items.Add("Multi touch");
             this.domainUpDown2.Items.Add("T pattern");
             this.domainUpDown2.Location = new System.Drawing.Point(4, 4);
-            this.domainUpDown2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.domainUpDown2.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown2.Name = "domainUpDown2";
             this.domainUpDown2.Size = new System.Drawing.Size(203, 22);
             this.domainUpDown2.TabIndex = 12;
@@ -666,7 +667,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.patternButton.Enabled = false;
             this.patternButton.Location = new System.Drawing.Point(637, 4);
-            this.patternButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.patternButton.Margin = new System.Windows.Forms.Padding(4);
             this.patternButton.Name = "patternButton";
             this.patternButton.Size = new System.Drawing.Size(312, 27);
             this.patternButton.TabIndex = 4;
@@ -680,7 +681,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.debug.Location = new System.Drawing.Point(426, 4);
-            this.debug.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.debug.Margin = new System.Windows.Forms.Padding(4);
             this.debug.Name = "debug";
             this.debug.Size = new System.Drawing.Size(203, 22);
             this.debug.TabIndex = 14;
@@ -700,11 +701,11 @@ namespace plotBrembs
             this.tableLayoutPanel3.Controls.Add(this.numericUpDownRotation, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.domainUpDown1, 0, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(196, 90);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(953, 35);
             this.tableLayoutPanel3.TabIndex = 10;
             // 
@@ -715,7 +716,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarRotation.BackColor = System.Drawing.SystemColors.Window;
             this.trackBarRotation.Location = new System.Drawing.Point(215, 4);
-            this.trackBarRotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.trackBarRotation.Margin = new System.Windows.Forms.Padding(4);
             this.trackBarRotation.Maximum = 40;
             this.trackBarRotation.Name = "trackBarRotation";
             this.trackBarRotation.Size = new System.Drawing.Size(203, 27);
@@ -729,7 +730,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rotation.Enabled = false;
             this.rotation.Location = new System.Drawing.Point(637, 4);
-            this.rotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rotation.Margin = new System.Windows.Forms.Padding(4);
             this.rotation.Name = "rotation";
             this.rotation.Size = new System.Drawing.Size(312, 27);
             this.rotation.TabIndex = 4;
@@ -743,7 +744,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.numericUpDownRotation.Location = new System.Drawing.Point(426, 4);
-            this.numericUpDownRotation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numericUpDownRotation.Margin = new System.Windows.Forms.Padding(4);
             this.numericUpDownRotation.Maximum = new decimal(new int[] {
             40,
             0,
@@ -766,7 +767,7 @@ namespace plotBrembs
             this.domainUpDown1.Items.Add("Right");
             this.domainUpDown1.Items.Add("Left");
             this.domainUpDown1.Location = new System.Drawing.Point(4, 4);
-            this.domainUpDown1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.domainUpDown1.Margin = new System.Windows.Forms.Padding(4);
             this.domainUpDown1.Name = "domainUpDown1";
             this.domainUpDown1.Size = new System.Drawing.Size(203, 22);
             this.domainUpDown1.TabIndex = 11;
@@ -804,7 +805,7 @@ namespace plotBrembs
             this.tableLayoutPanel2.Controls.Add(this.simulationData, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.startSerial, 2, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(196, 4);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -819,7 +820,7 @@ namespace plotBrembs
             this.serialOpen.Image = global::plotBrembs.Properties.Resources._269210;
             this.serialOpen.InitialImage = global::plotBrembs.Properties.Resources._269210;
             this.serialOpen.Location = new System.Drawing.Point(215, 4);
-            this.serialOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.serialOpen.Margin = new System.Windows.Forms.Padding(4);
             this.serialOpen.Name = "serialOpen";
             this.serialOpen.Size = new System.Drawing.Size(203, 27);
             this.serialOpen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -834,7 +835,7 @@ namespace plotBrembs
             this.serialComboBox.FormattingEnabled = true;
             this.serialComboBox.IntegralHeight = false;
             this.serialComboBox.Location = new System.Drawing.Point(4, 4);
-            this.serialComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.serialComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.serialComboBox.Name = "serialComboBox";
             this.serialComboBox.Size = new System.Drawing.Size(203, 24);
             this.serialComboBox.TabIndex = 0;
@@ -845,7 +846,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.simulationData.Location = new System.Drawing.Point(637, 4);
-            this.simulationData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.simulationData.Margin = new System.Windows.Forms.Padding(4);
             this.simulationData.Name = "simulationData";
             this.simulationData.Size = new System.Drawing.Size(312, 27);
             this.simulationData.TabIndex = 4;
@@ -859,7 +860,7 @@ namespace plotBrembs
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.startSerial.Location = new System.Drawing.Point(426, 4);
-            this.startSerial.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.startSerial.Margin = new System.Windows.Forms.Padding(4);
             this.startSerial.Name = "startSerial";
             this.startSerial.Size = new System.Drawing.Size(203, 27);
             this.startSerial.TabIndex = 2;
@@ -889,7 +890,7 @@ namespace plotBrembs
             this.tabControl.Controls.Add(this.plot);
             this.tabControl.Controls.Add(this.config);
             this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1169, 754);
@@ -902,7 +903,7 @@ namespace plotBrembs
             this.ClientSize = new System.Drawing.Size(1169, 754);
             this.Controls.Add(this.tabControl);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";

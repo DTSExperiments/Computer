@@ -23,6 +23,7 @@ namespace plotBrembs
     {
         readonly ScottPlot.Plottable.DataLogger adLogger;
         readonly ScottPlot.Plottable.DataLogger pixLogger;
+        readonly ScottPlot.Plottable.DataLogger laserLogger;
 
         private static System.Threading.Timer simulationTimer = null;
 
@@ -30,6 +31,7 @@ namespace plotBrembs
         private writeFile fileWriter;
 
         bool serialComOpen = false;
+        bool boLaser = false;
 
         private double[] liveDataAD = new double[1080];
         private double[] liveDataPIX = new double[1080];
@@ -65,22 +67,28 @@ namespace plotBrembs
             portNames = portList.ToArray();
 
             var yAxis3 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Right);
+            var yAxis4 = formsPlot1.Plot.AddAxis(ScottPlot.Renderable.Edge.Left);
 
             adLogger = formsPlot1.Plot.AddDataLogger(Color.Blue, 1, "AD-Value");
             pixLogger = formsPlot1.Plot.AddDataLogger(Color.Red, 1, "Pixel");
+            laserLogger = formsPlot1.Plot.AddDataLogger(Color.Green, 1, "Laser");
 
             adLogger.ViewJump();
             pixLogger.ViewJump();
+            laserLogger.ViewJump();
 
             adLogger.ManageAxisLimits = false;
             pixLogger.ManageAxisLimits = false;
+            laserLogger.ManageAxisLimits = false;
             adLogger.YAxisIndex = yAxis3.AxisIndex;
+            laserLogger.YAxisIndex = yAxis4.AxisIndex;
 
             formsPlot1.Plot.SetAxisLimitsX(0, 1080);
             formsPlot1.Plot.SetAxisLimitsY(-180, 180);
             formsPlot1.Plot.SetAxisLimitsY(-0.4, 0.4, yAxis3.AxisIndex);
+            formsPlot1.Plot.SetAxisLimitsY(-0.1, 1.1, yAxis4.AxisIndex);
 
-            formsPlot1.Plot.Grid(color: Color.FromArgb(50, Color.Green));
+            formsPlot1.Plot.Grid(color: Color.FromArgb(100, Color.Black));
             formsPlot1.Plot.Grid(lineStyle: LineStyle.Dot);
 
             formsPlot1.Configuration.ScrollWheelZoom = false;
@@ -90,10 +98,12 @@ namespace plotBrembs
             formsPlot1.RightClicked -= formsPlot1.DefaultRightClickEvent;
 
             formsPlot1.Plot.YAxis.Label("arena position");
-            yAxis3.Label("torque"); 
+            yAxis3.Label("torque");
+            yAxis4.Label("laser");
 
             formsPlot1.Plot.YAxis.Color(Color.Red);
             yAxis3.Color(Color.Blue);
+            yAxis4.Color(Color.Green);
 
             double[] yPositions = { -135, -45,  45,  135};
             string[] yLabels = { "-135", "-45", "45", "135" };
@@ -104,6 +114,12 @@ namespace plotBrembs
             yAxis3.ManualTickPositions(yAxis3Positions, yAxis3Labels);
             yAxis3.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: Color.Blue);
             yAxis3.Grid(true);
+
+            double[] yAxis4Positions = { 0, 1 }; // Example positions for yAxis3
+            string[] yAxis4Labels = { "off", "on" }; // Example labels for yAxis3
+            yAxis4.ManualTickPositions(yAxis4Positions, yAxis4Labels);
+            yAxis4.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: Color.Green);
+            yAxis4.Grid(true);
 
             formsPlot1.Plot.YAxis.MajorGrid(lineWidth: 1, lineStyle: LineStyle.Dash, color: Color.Red);
 
@@ -319,6 +335,7 @@ namespace plotBrembs
                     {
                         adLogger.Clear();
                         pixLogger.Clear();
+                        laserLogger.Clear();
                         nextValueIndex = 0;
                     }
                     else
@@ -378,6 +395,20 @@ namespace plotBrembs
                 
                 adLogger.Add(nextValueIndex, liveDataAD[nextValueIndex]);
                 pixLogger.Add(nextValueIndex, PixelToDegree(liveDataPIX[nextValueIndex]));
+
+                //convert bool to double
+                if (boLaser == true)
+                {
+                    laserLogger.Add(nextValueIndex, 1);
+                    formsPlot1.Plot.Style(figureBackground: Color.Red);
+                }
+                else
+                {
+                    laserLogger.Add(nextValueIndex, 0);
+                    formsPlot1.Plot.Style(figureBackground: Color.White);
+                }
+
+
 
                 Debug.WriteLine(liveDataAD[nextValueIndex].ToString() + " " + liveDataPIX[nextValueIndex].ToString()); //write ad and pix value to debug window
                 debug.Text = Math.Round(liveDataAD[nextValueIndex], 4).ToString() + ";" + liveDataPIX[nextValueIndex].ToString();
@@ -504,14 +535,17 @@ namespace plotBrembs
                     {
                         case 0:
                             pictureLaser.Image = Properties.Resources._269210;
+                            boLaser = false;
                             laser.Text = "Off";
                             break;
                         case 1:
                             pictureLaser.Image = Properties.Resources._269251;
+                            boLaser = true;
                             laser.Text = "On";
                             break;
                         case -1:
                             pictureLaser.Image = Properties.Resources._269210;
+                            boLaser = false;
                             laser.Text = "Off";
                             break;
                     }
