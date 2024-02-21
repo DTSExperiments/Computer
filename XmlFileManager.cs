@@ -1,0 +1,134 @@
+﻿using System;
+using System.Linq;
+using System.Xml.Linq;
+using System.IO;
+using System.Diagnostics;
+
+
+namespace plotBrembs
+{
+
+
+    public class XmlFileManager
+    {
+
+        public string fileName { get; set; }
+        public string filePath { get; set; }
+
+        public XmlFileManager(string filePath, string fileName)
+        {
+            this.filePath = filePath;
+            this.fileName = fileName;
+            XDocument doc = CreateBasicSchema();
+            saveXML(doc);
+        }
+
+        public void saveXML(XDocument docXML)
+        {
+            if (!File.Exists(Path.Combine(this.filePath, this.fileName)))
+            {
+                try
+                {
+                    docXML.Save(Path.Combine(this.filePath, this.fileName));
+                    Console.WriteLine("XML file created successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
+            }
+        }
+
+        public static XDocument CreateBasicSchema()
+        {
+                XDocument doc = new XDocument(
+                    new XElement("DTS_xml",
+                        new XElement("metadata",
+                            new XElement("license", "PDDL", new XAttribute("URI", "http://opendatacommons.org/licenses/pddl")),
+                            new XElement("URIs",
+                                new XElement("recording", @""),
+                                new XElement("analysis", @""),
+                                new XElement("datamodel", @"")
+                            ),
+                            new XElement("experimenter",
+                                new XElement("firstname", @""),
+                                new XElement("lastname", @""),
+                                new XElement("orcid", @"")
+                            ),
+                            new XElement("fly",
+                                new XElement("name", @""),
+                                new XElement("description", @""),
+                                new XElement("flybase", @"")
+                            ),
+                            new XElement("experiment", new XAttribute("type", @""),
+                                new XElement("dateTime", @""),
+                                new XElement("duration", @""),
+                                new XElement("description", @""),
+                                new XElement("sample_rate", @""),
+                                new XElement("arena_type", @""),
+                                new XElement("meter_type", @"")
+                            )
+                        ),
+                        new XElement("sequence", new XAttribute("periods", @""), @""),
+                        new XElement("timeseries",
+                                new XElement("delimiter", @"tab"),
+                                new XElement("header", @"0"),
+                                new XElement("nullSequence", @"NaN"), 4
+
+                        )
+                    )
+                );
+
+            return doc;
+        }
+
+
+        /*      public void UpdateFirstName(string xmlElement, string newValue)
+              {
+                  if (!File.Exists(FilePath))
+                  {
+                      Console.WriteLine("File does not exist.");
+                      return;
+                  }
+
+                  try
+                  {
+                      XDocument doc = XDocument.Load(FilePath);
+                      XElement firstNameElement = doc.Descendants(xmlElement).FirstOrDefault();
+
+                      if (firstNameElement != @"")
+                      {
+                          firstNameElement.Value = newValue;
+                          WriteXml(doc.Root); // Pass the updated root element to your existing WriteXml method
+                      }
+                      else
+                      {
+                          Console.WriteLine("The firstname element was not found.");
+                      }
+                  }
+                  catch (Exception ex)
+                  {
+                      Console.WriteLine($"An error occurred while updating the firstname: {ex.Message}");
+                  }
+              } 
+
+              public void WriteXml(XElement newContent)
+              {
+                  try
+                  {
+                      XDocument doc = new XDocument(newContent); // Create a new XDocument with the new content
+                      doc.Save(FilePath);
+                      Console.WriteLine("XML file saved successfully.");
+                  }
+                  catch (Exception ex)
+                  {
+                      Console.WriteLine($"An error occurred: {ex.Message}");
+                  }
+              } */
+
+    }
+}
+
+
+
+

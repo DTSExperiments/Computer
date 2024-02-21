@@ -15,6 +15,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Management;
 using System.Configuration;
 using Version = System.Version;
+using System.IO;
 
 namespace plotBrembs
 {
@@ -28,7 +29,7 @@ namespace plotBrembs
         private static System.Threading.Timer simulationTimer = null;
 
         private serialInterface serialCom;
-        private writeFile fileWriter;
+        private XmlFileManager fileWriter;
 
         bool serialComOpen = false;
         bool boLaser = false;
@@ -37,12 +38,12 @@ namespace plotBrembs
         private double[] liveDataPIX = new double[1080];
 
         private List<byte> list = new List<byte>();
+        
         public int nextValueIndex = 0;
 
         public delegate void ShowSerialData();
 
         Version version = new Version();
-        appConfig configApp = new appConfig();
 
         ColorPattern patternColor;
 
@@ -139,8 +140,6 @@ namespace plotBrembs
 
             serialCom = new serialInterface(this);
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
-
-            fileWriter = new writeFile(null, null);
 
             //initialize default values
             patternDisplay = DisplayPattern.noPattern;
@@ -687,6 +686,9 @@ namespace plotBrembs
 
         private void fileDialog_Click(object sender, EventArgs e)
         {
+            string directory = null;
+            string fileName = null;
+
             DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
 
             saveFileDialog1.Filter = "XML files(.xml) | *.xml";
@@ -699,7 +701,9 @@ namespace plotBrembs
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 label3.Text = saveFileDialog1.FileName;
-                fileWriter.updateFolder(saveFileDialog1.FileName);
+                directory = Path.GetDirectoryName(saveFileDialog1.FileName);
+                fileName = Path.GetFileName(saveFileDialog1.FileName);
+                fileWriter = new XmlFileManager(directory, fileName);
             }
             else
             {
@@ -723,6 +727,12 @@ namespace plotBrembs
             }
         }
 
+        private void textBox4_Leave(object sender, EventArgs e)
+        {
+            //xmlFileManager.UpdateFirstName("firstname", textBox4.Text);
+        }
+
+
 
         private void textBox2_Click(object sender, EventArgs e)
         {
@@ -740,6 +750,8 @@ namespace plotBrembs
                 toolTip1.SetToolTip(tb, tb.Tag.ToString());
             }
         }
+
+
 
         private void textBox5_MouseHover(object sender, EventArgs e)
         {
