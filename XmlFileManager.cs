@@ -3,6 +3,8 @@ using System.Linq;
 using System.Xml.Linq;
 using System.IO;
 using System.Diagnostics;
+using System.Security.Principal;
+using System.Windows.Forms;
 
 
 namespace plotBrembs
@@ -34,52 +36,88 @@ namespace plotBrembs
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error Message");
                 }
             }
         }
 
         public static XDocument CreateBasicSchema()
         {
-                XDocument doc = new XDocument(
-                    new XElement("DTS_xml",
-                        new XElement("metadata",
-                            new XElement("license", "PDDL", new XAttribute("URI", "http://opendatacommons.org/licenses/pddl")),
-                            new XElement("URIs",
-                                new XElement("recording", @""),
-                                new XElement("analysis", @""),
-                                new XElement("datamodel", @"")
+            XDocument doc = new XDocument(
+                new XElement("DTS_xml",
+                    new XElement("metadata",
+                        new XElement("license", "PDDL", new XAttribute("URI", "http://opendatacommons.org/licenses/pddl")),
+                        new XElement("URIs",
+                            new XElement("recording", @""),
+                            new XElement("analysis", @""),
+                            new XElement("datamodel", @"")
+                        ),
+                        new XElement("experimenter",
+                            new XElement("firstname", @""),
+                            new XElement("lastname", @""),
+                            new XElement("orcid", @"")
+                        ),
+                        new XElement("fly",
+                            new XElement("name", @""),
+                            new XElement("description", @""),
+                            new XElement("flybase", @"")
+                        ),
+                        new XElement("experiment", new XAttribute("type", @""),
+                            new XElement("dateTime", @""),
+                            new XElement("duration", @""),
+                            new XElement("description", @""),
+                            new XElement("sample_rate", @""),
+                            new XElement("arena_type", @""),
+                            new XElement("meter_type", @"")
+                        )
+                    ),
+                    new XElement("sequence", new XAttribute("periods", @""), @""),
+                    new XElement("timeseries",
+
+                        new XElement("CSV_descriptor",
+                            new XElement("delimiter", "tab"),
+                            new XElement("header", "0"),
+                            new XElement("nullSequence", "NaN")
+                        ),
+
+                        new XElement("variables",
+
+                            new XElement("variable",
+                                new XAttribute("number", "1"),
+                                new XElement("type", "time"),
+                                new XElement("var_type", "uint16int16"),
+                                new XElement("unit", "ms")
                             ),
-                            new XElement("experimenter",
-                                new XElement("firstname", @""),
-                                new XElement("lastname", @""),
-                                new XElement("orcid", @"")
+
+                            new XElement("variable",
+                                new XAttribute("number", "2"),
+                                new XElement("type", "a_pos"),
+                                new XElement("var_type", "int16"),
+                                new XElement("unit", "arb_unit")
                             ),
-                            new XElement("fly",
-                                new XElement("name", @""),
-                                new XElement("description", @""),
-                                new XElement("flybase", @"")
+
+                            new XElement("variable",
+                                new XAttribute("number", "3"),
+                                new XElement("type", "torque"),
+                                new XElement("var_type", "int16"),
+                                new XElement("unit", "arb_unit")
                             ),
-                            new XElement("experiment", new XAttribute("type", @""),
-                                new XElement("dateTime", @""),
-                                new XElement("duration", @""),
-                                new XElement("description", @""),
-                                new XElement("sample_rate", @""),
-                                new XElement("arena_type", @""),
-                                new XElement("meter_type", @"")
+
+                            new XElement("variable",
+                                new XAttribute("number", "4"),
+                                new XElement("type", "period"),
+                                new XElement("var_type", "uint8"),
+                                new XElement("unit", "number")
                             )
                         ),
-                        new XElement("sequence", new XAttribute("periods", @""), @""),
-                        new XElement("timeseries",
-                                new XElement("delimiter", @"tab"),
-                                new XElement("header", @"0"),
-                                new XElement("nullSequence", @"NaN"), 4
-
+                        new XElement("csv_data", @""
+                        // Assuming csv_data will be filled with actual CSV content or more elements
                         )
-                    )
-                );
 
-            return doc;
+                )
+            )
+        );
+        return doc;
         }
 
 

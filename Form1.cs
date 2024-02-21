@@ -771,5 +771,28 @@ namespace plotBrembs
             }
         }
 
+        private void NumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is not a digit or a control character
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Handle the event, effectively ignoring the input
+            }
+        }
+
+        private void NumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (numberTextBox.Text != "")
+            {
+                int value = int.Parse(numberTextBox.Text);
+                // Check if the value is outside the range 1 to 32
+                if (value < 1 || value > 32)
+                {
+                    numberTextBox.Text = @""; // Clearing the text or set it to a default valid value
+                    toolTip1.Show("Number must be between 1 and 32.", numberTextBox, 0, -20, 5000);
+                }
+            }
+        }
+
     }
 }
