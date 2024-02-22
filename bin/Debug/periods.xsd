@@ -1,0 +1,22 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="sequence">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="period" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="type" type="xs:string"/>
+                            <xsd:element name="duration" type="xs:int"/>
+                            <xsd:element name="outcome" type="xs:int"/>
+                            <xsd:element name="pattern" type="xs:int"/>
+                            <xsd:element name="coup_coeff" type="xs:int"/>
+                            <xsd:element name="contingency" type="xs:string" minOccurs="0"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="number" type="xs:int" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="periods" type="xs:int" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

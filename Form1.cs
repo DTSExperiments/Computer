@@ -442,6 +442,11 @@ namespace plotBrembs
             }
         }
 
+        private void clearTableLayoutPanel()
+        {
+            tableLayoutPanel12.Controls.Clear();
+        }
+
         private void CreateAndAddTableLayoutPanel(int periodCounter)
         {
             // Create a new string array for the labels
@@ -835,19 +840,17 @@ namespace plotBrembs
 
             DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
 
-            saveFileDialog1.Filter = "XML files(.xml) | *.xml";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = dto.ToString("yyyyMMdd_HHmmss");
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            openFileDialog1.Filter = "XML files(.xml) | *.xml";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                label3.Text = saveFileDialog1.FileName;
-                directory = Path.GetDirectoryName(saveFileDialog1.FileName);
-                fileName = Path.GetFileName(saveFileDialog1.FileName);
-                fileWriter = new XmlFileManager(directory, fileName);
+                directory = Path.GetDirectoryName(openFileDialog1.FileName);
+                fileName = Path.GetFileName(openFileDialog1.FileName);
+                Boolean validationSchema = XmlFileManager.validateXML(directory, fileName);
             }
             else
             {
@@ -906,12 +909,18 @@ namespace plotBrembs
                 }
                 else
                 {
+                    clearTableLayoutPanel();
                     for (int i = 0; i < value; i++)
                     {
                         CreateAndAddTableLayoutPanel(i+1);
                     }
                 }
             }
+        }
+
+        public string getNumberTextBox
+        {
+            get { return this.numberTextBox.Text; }
         }
 
     }
