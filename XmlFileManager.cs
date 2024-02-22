@@ -13,6 +13,7 @@ namespace plotBrembs
 
     public class XmlFileManager
     {
+        private Form1 form;
 
         public string fileName { get; set; }
         public string filePath { get; set; }
@@ -22,6 +23,15 @@ namespace plotBrembs
             this.filePath = filePath;
             this.fileName = fileName;
             XDocument doc = CreateBasicSchema();
+            saveXML(doc);
+        }
+
+        public XmlFileManager(string filePath, string fileName, Form1 form)
+        {
+            this.form = form;
+            this.filePath = filePath;
+            this.fileName = fileName;
+            XDocument doc = new XDocument();
             saveXML(doc);
         }
 
