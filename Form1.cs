@@ -16,6 +16,9 @@ using System.Management;
 using System.Configuration;
 using Version = System.Version;
 using System.IO;
+using System.Reflection.Emit;
+
+using Label = System.Windows.Forms.Label;
 
 namespace plotBrembs
 {
@@ -439,6 +442,68 @@ namespace plotBrembs
             }
         }
 
+        private void clearTableLayoutPanel()
+        {
+            tableLayoutPanel12.Controls.Clear();
+        }
+
+        private void CreateAndAddTableLayoutPanel(int periodCounter)
+        {
+            // Create a new string array for the labels
+
+            string[] LabelNames = { @"Type", @"Duration", @"Outcome", @"Pattern", @"Coup_Coeff", @"Contingency" };
+
+            TableLayoutPanel newTableLayoutPanel = new TableLayoutPanel();
+            newTableLayoutPanel.Dock = DockStyle.Fill;
+            newTableLayoutPanel.ColumnCount = 1;
+            newTableLayoutPanel.RowCount = 12; // Adjust according to your needs
+            newTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+
+            Label periodLabel = new Label();
+            periodLabel.Text = @"Period " + periodCounter.ToString();
+            //set the font to bold
+            periodLabel.Font = new Font(periodLabel.Font, FontStyle.Bold);
+            periodLabel.Margin = new Padding(0, 10, 0, 10);
+            periodLabel.Anchor = AnchorStyles.None;
+            periodLabel.AutoSize = true;
+            newTableLayoutPanel.Controls.Add(periodLabel,0,0);
+
+            // Dynamically add rows (controls) to the newTableLayoutPanel
+            for (int i = 0; i < newTableLayoutPanel.RowCount; i++)
+            {
+                if (i % 2 == 0) // Label row
+                {
+                    Label label = new Label();
+                    label.Name = "label_" + i.ToString() + "_" + periodCounter.ToString();
+                    label.Text = LabelNames[(i / 2)];
+                    label.Anchor = AnchorStyles.None;
+                    label.AutoSize = true;
+                    newTableLayoutPanel.Controls.Add(label, 0, i+1);
+                }
+                else // TextBox row
+                {
+                    TextBox textBox = new TextBox();
+                    textBox.Dock = DockStyle.Fill;
+                    textBox.Name = "textbox_" + i.ToString() + "_" + periodCounter.ToString();
+                    newTableLayoutPanel.Controls.Add(textBox, 0, i+1);
+                }
+            }
+
+            // Assuming you want to add the newTableLayoutPanel to an existing container (e.g., tableLayoutPanel12)
+            // Make sure tableLayoutPanel12 is the correct container where you want to add newTableLayoutPanel
+            // This could be a direct addition to the tabPage1 or another panel/container in your form
+            int row = tableLayoutPanel12.RowCount;
+            int column = tableLayoutPanel12.ColumnCount; // Assuming you want to add it in a new column for demonstration
+            tableLayoutPanel12.Controls.Add(newTableLayoutPanel, 0, 0);
+
+            // If you specifically want to add it to tableLayoutPanel12, make sure tableLayoutPanel12 is prepared to accept it
+            // For example, if tableLayoutPanel12 should contain multiple instances of newTableLayoutPanel, you may need to adjust its RowCount and possibly add new rows dynamically.
+
+            // Refresh the form or the container to display the newly added TableLayoutPanel
+            tableLayoutPanel12.Refresh(); // Refresh tabPage1 or the specific container where you added the new layout
+        }
+
+
 
         private void Form1_FormClosing(Object sender, FormClosingEventArgs e)
         {
@@ -742,6 +807,57 @@ namespace plotBrembs
             }
         }
 
+        private void saveXML_Click(object sender, EventArgs e)
+        {
+            string directory = null;
+            string fileName = null;
+
+            DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+
+            saveFileDialog1.Filter = "XML files(.xml) | *.xml";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.FileName = @"Periods-" + dto.ToString("yyyyMMdd_HHmmss");
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                directory = Path.GetDirectoryName(saveFileDialog1.FileName);
+                fileName = Path.GetFileName(saveFileDialog1.FileName);
+                fileWriter = new XmlFileManager(directory, fileName, this);
+            }
+            else
+            {
+                
+            }
+        }
+
+        private void loadXML_Click(object sender, EventArgs e)
+        {
+            string directory = null;
+            string fileName = null;
+
+            DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
+
+            openFileDialog1.Filter = "XML files(.xml) | *.xml";
+            openFileDialog1.FilterIndex = 1;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                directory = Path.GetDirectoryName(openFileDialog1.FileName);
+                fileName = Path.GetFileName(openFileDialog1.FileName);
+                Boolean validationSchema = XmlFileManager.validateXML(directory, fileName);
+            }
+            else
+            {
+                
+            }
+        }
+
         private void textBox4_MouseHover(object sender, EventArgs e)
         {
             TextBox tb = sender as TextBox;
@@ -769,6 +885,42 @@ namespace plotBrembs
             {
                 toolTip1.SetToolTip(tb, tb.Tag.ToString());
             }
+        }
+
+        private void NumberTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the pressed key is not a digit or a control character
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Handle the event, effectively ignoring the input
+            }
+        }
+
+        private void NumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (numberTextBox.Text != "")
+            {
+                int value = int.Parse(numberTextBox.Text);
+                // Check if the value is outside the range 1 to 32
+                if (value < 1 || value > 32)
+                {
+                    numberTextBox.Text = @""; // Clearing the text or set it to a default valid value
+                    toolTip1.Show("Number must be between 1 and 32.", numberTextBox, 0, -20, 5000);
+                }
+                else
+                {
+                    clearTableLayoutPanel();
+                    for (int i = 0; i < value; i++)
+                    {
+                        CreateAndAddTableLayoutPanel(i+1);
+                    }
+                }
+            }
+        }
+
+        public string getNumberTextBox
+        {
+            get { return this.numberTextBox.Text; }
         }
 
     }
