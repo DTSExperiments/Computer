@@ -482,10 +482,46 @@ namespace plotBrembs
                 }
                 else // TextBox row
                 {
-                    TextBox textBox = new TextBox();
-                    textBox.Dock = DockStyle.Fill;
-                    textBox.Name = "textbox_" + i.ToString() + "_" + periodCounter.ToString();
-                    newTableLayoutPanel.Controls.Add(textBox, 0, i+1);
+                    //generate a switch case example                    //generate a switch case example
+                    switch (i)
+                    {
+                        case 1:
+                            DomainUpDown domainUpDown1 = new DomainUpDown();
+                            domainUpDown1.Text = "Sample";
+                            domainUpDown1.Items.AddRange(new string[] { "fs", "sw", "yt", "OptomotorR", "OptomotorL" });
+                            domainUpDown1.Dock = DockStyle.Fill;
+                            domainUpDown1.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
+                            //domainUpDown1.SelectedItemChanged += new EventHandler(domainUpDown1_SelectedItemChanged);
+                            domainUpDown1.Anchor = AnchorStyles.None;
+                            newTableLayoutPanel.Controls.Add(domainUpDown1, 0, i+1);
+                            break;
+                        case 7:
+                            DomainUpDown domainUpDown7 = new DomainUpDown();
+                            domainUpDown7.Text = "No pattern";
+                            domainUpDown7.Items.AddRange(new string[] { "No pattern", "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals", "Green on pos. blue on neg. torque", "Blue on pos. green on neg. torque", "Constant daylight" });
+                            domainUpDown7.Dock = DockStyle.Fill;
+                            domainUpDown7.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
+                            //domainUpDown2.SelectedItemChanged += new EventHandler(domainUpDown2_SelectedItemChanged);
+                            domainUpDown7.Anchor = AnchorStyles.None;
+                            newTableLayoutPanel.Controls.Add(domainUpDown7, 0, i+1);
+                            break;
+                        case 11:
+                            DomainUpDown domainUpDown11 = new DomainUpDown();
+                            domainUpDown11.Text = "White";
+                            domainUpDown11.Items.AddRange(new string[] { "1_3_Q", "2_4_Q", "left torque", "right torque"});
+                            domainUpDown11.Dock = DockStyle.Fill;
+                            domainUpDown11.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
+                            //domainUpDown3.SelectedItemChanged += new EventHandler(domainUpDown3_SelectedItemChanged);
+                            domainUpDown11.Anchor = AnchorStyles.None;
+                            newTableLayoutPanel.Controls.Add(domainUpDown11, 0, i+1);
+                            break;
+                        default:
+                            TextBox textBox = new TextBox();
+                            textBox.Dock = DockStyle.Fill;
+                            textBox.Name = "textbox_" + i.ToString() + "_" + periodCounter.ToString();
+                            newTableLayoutPanel.Controls.Add(textBox, 0, i + 1);
+                            break;
+                    }
                 }
             }
 

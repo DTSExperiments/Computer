@@ -99,7 +99,7 @@ namespace plotBrembs
                             new XElement("variable",
                                 new XAttribute("number", "1"),
                                 new XElement("type", "time"),
-                                new XElement("var_type", "uint16int16"),
+                                new XElement("var_type", "uint16"),
                                 new XElement("unit", "ms")
                             ),
 
