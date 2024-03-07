@@ -10,6 +10,7 @@ using System.Xml.Schema;
 using System.Xml;
 using ScottPlot.Statistics.Interpolation;
 using static System.Net.Mime.MediaTypeNames;
+using System.Collections.Generic;
 
 
 namespace plotBrembs
@@ -99,7 +100,7 @@ namespace plotBrembs
                             new XElement("variable",
                                 new XAttribute("number", "1"),
                                 new XElement("type", "time"),
-                                new XElement("var_type", "uint16int16"),
+                                new XElement("var_type", "uint16"),
                                 new XElement("unit", "ms")
                             ),
 
@@ -166,7 +167,25 @@ namespace plotBrembs
         {
             Boolean valid = false;
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add("", Path.GetDirectoryName(Path.Combine(System.Windows.Forms.Application.ExecutablePath, @"periods.xsd")));
+            string exeDirectory = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+            string schemaPath = Path.Combine(exeDirectory, @"periods.xsd");
+
+            // Read the schema file into a string
+            string schemaContent = File.ReadAllText(schemaPath);
+
+            // Use StringReader to provide a stream for XmlSchema.Read
+            using (StringReader sr = new StringReader(schemaContent))
+            {
+                XmlSchema schema = XmlSchema.Read(sr, (sender, args) =>
+                {
+                    // Handle any validation errors here, if necessary
+                    Console.WriteLine(args.Message);
+                    valid = false;
+                });
+
+                // Assuming no target namespace, pass null as the first argument
+                schemas.Add(schema);
+            }
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.ValidationType = ValidationType.Schema;
             settings.Schemas = schemas;
@@ -188,6 +207,33 @@ namespace plotBrembs
             }
 
             return valid;
+        }
+
+        public static List<Period> ReadPeriodsFromXml(string directory, string fileName)
+        {
+            List<Period> periods = new List<Period>();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load(Path.Combine(directory, fileName));
+
+            XmlNodeList periodNodes = doc.DocumentElement.SelectNodes("/sequence/period");
+            foreach (XmlNode node in periodNodes)
+            {
+                Period period = new Period
+                {
+                    Number = int.Parse(node.Attributes["number"].Value),
+                    Type = node.SelectSingleNode("type").InnerText,
+                    Duration = int.Parse(node.SelectSingleNode("duration").InnerText),
+                    Outcome = int.Parse(node.SelectSingleNode("outcome").InnerText),
+                    Pattern = int.Parse(node.SelectSingleNode("pattern").InnerText),
+                    CoupCoeff = int.Parse(node.SelectSingleNode("coup_coeff").InnerText),
+                    Contingency = node.SelectSingleNode("contingency").InnerText
+                };
+
+                periods.Add(period);
+            }
+
+            return periods;
         }
 
         static void ValidationEventHandler(object sender, ValidationEventArgs e)
