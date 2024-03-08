@@ -166,7 +166,7 @@ namespace plotBrembs
         {
             Boolean valid = false;
             XmlSchemaSet schemas = new XmlSchemaSet();
-            schemas.Add("", Path.GetDirectoryName(Path.Combine(System.Windows.Forms.Application.ExecutablePath, @"periods.xsd")));
+            schemas.Add("http://www.brembs.net", Path.GetDirectoryName(Path.Combine(System.Windows.Forms.Application.ExecutablePath, @"period.xsd")));
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.ValidationType = ValidationType.Schema;
             settings.Schemas = schemas;
