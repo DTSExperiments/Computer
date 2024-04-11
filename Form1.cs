@@ -871,6 +871,7 @@ namespace plotBrembs
 
         private void loadXML_Click(object sender, EventArgs e)
         {
+            List<Period> periods = new List<Period>();
             string directory = null;
             string fileName = null;
 
@@ -887,6 +888,73 @@ namespace plotBrembs
                 directory = Path.GetDirectoryName(openFileDialog1.FileName);
                 fileName = Path.GetFileName(openFileDialog1.FileName);
                 Boolean validationSchema = XmlFileManager.validateXML(directory, fileName);
+                if (validationSchema == true)
+                {
+                    periods = XmlFileManager.ReadPeriodsFromXml(directory, fileName);
+                    if (periods != null)
+                    {
+                        clearTableLayoutPanel();
+                        for (int i = 0; i < periods.Count; i++)
+                        {
+                            CreateAndAddTableLayoutPanel(i + 1);
+                            foreach (Control control in tableLayoutPanel12.Controls)
+                            {
+                                if (control is TableLayoutPanel)
+                                {
+                                    foreach (Control control2 in control.Controls)
+                                    {
+                                        if (control2 is TextBox)
+                                        {
+                                            if (control2.Name == "textbox_2_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Type;
+                                            }
+                                            if (control2.Name == "textbox_4_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Duration.ToString();
+                                            }
+                                            if (control2.Name == "textbox_6_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Outcome.ToString();
+                                            }
+                                            if (control2.Name == "textbox_8_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Pattern.ToString();
+                                            }
+                                            if (control2.Name == "textbox_10_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].CoupCoeff.ToString();
+                                            }
+                                            if (control2.Name == "textbox_12_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Contingency;
+                                            }
+                                        }
+                                        if (control2 is DomainUpDown)
+                                        {
+                                            if (control2.Name == "domainUpDown_1_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Type;
+                                            }
+                                            if (control2.Name == "domainUpDown_7_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Pattern.ToString();
+                                            }
+                                            if (control2.Name == "domainUpDown_11_" + (i + 1).ToString())
+                                            {
+                                                control2.Text = periods[i].Contingency;
+                                            }
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("XML file is not valid", "XML Validation");
+                }
             }
             else
             {
