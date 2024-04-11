@@ -19,6 +19,7 @@ using System.IO;
 using System.Reflection.Emit;
 
 using Label = System.Windows.Forms.Label;
+using System.Linq;
 
 namespace plotBrembs
 {
@@ -487,31 +488,45 @@ namespace plotBrembs
                     {
                         case 1:
                             DomainUpDown domainUpDown1 = new DomainUpDown();
-                            domainUpDown1.Text = "Sample";
                             domainUpDown1.Items.AddRange(new string[] { "fs", "sw", "yt", "OptomotorR", "OptomotorL" });
                             domainUpDown1.Dock = DockStyle.Fill;
                             domainUpDown1.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
                             //domainUpDown1.SelectedItemChanged += new EventHandler(domainUpDown1_SelectedItemChanged);
+                            // Setzt den Text des DomainUpDown auf den ersten Eintrag in der Items-Liste
+                            if (domainUpDown1.Items.Count > 0)
+                            {
+                                domainUpDown1.Text = domainUpDown1.Items[0].ToString();
+                            }
+                            domainUpDown1.TextChanged += TypeSelectionChanged;
                             domainUpDown1.Anchor = AnchorStyles.None;
                             newTableLayoutPanel.Controls.Add(domainUpDown1, 0, i+1);
                             break;
                         case 7:
                             DomainUpDown domainUpDown7 = new DomainUpDown();
                             domainUpDown7.Text = "No pattern";
-                            domainUpDown7.Items.AddRange(new string[] { "No pattern", "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals", "Green on pos. blue on neg. torque", "Blue on pos. green on neg. torque", "Constant daylight" });
+                            domainUpDown7.Items.AddRange(new string[] { "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals" });
                             domainUpDown7.Dock = DockStyle.Fill;
                             domainUpDown7.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
                             //domainUpDown2.SelectedItemChanged += new EventHandler(domainUpDown2_SelectedItemChanged);
+                            // Setzt den Text des DomainUpDown auf den ersten Eintrag in der Items-Liste
+                            if (domainUpDown7.Items.Count > 0)
+                            {
+                                domainUpDown7.Text = domainUpDown7.Items[0].ToString();
+                            }
                             domainUpDown7.Anchor = AnchorStyles.None;
                             newTableLayoutPanel.Controls.Add(domainUpDown7, 0, i+1);
                             break;
                         case 11:
                             DomainUpDown domainUpDown11 = new DomainUpDown();
                             domainUpDown11.Text = "White";
-                            domainUpDown11.Items.AddRange(new string[] { "1_3_Q", "2_4_Q", "left torque", "right torque"});
+                            domainUpDown11.Items.AddRange(new string[] { "1_3_Q", "2_4_Q" });
                             domainUpDown11.Dock = DockStyle.Fill;
                             domainUpDown11.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
                             //domainUpDown3.SelectedItemChanged += new EventHandler(domainUpDown3_SelectedItemChanged);
+                            if (domainUpDown11.Items.Count > 0)
+                            {
+                                domainUpDown11.Text = domainUpDown11.Items[0].ToString();
+                            }
                             domainUpDown11.Anchor = AnchorStyles.None;
                             newTableLayoutPanel.Controls.Add(domainUpDown11, 0, i+1);
                             break;
@@ -1021,6 +1036,217 @@ namespace plotBrembs
                 }
             }
         }
+
+        private void TypeSelectionChanged(object sender, EventArgs e)
+        {
+            DomainUpDown typeSelector = sender as DomainUpDown;
+            if (typeSelector == null) return;
+
+            // Finden der zugehörigen Selectors
+            DomainUpDown[] selectors = FindSelectors(typeSelector);
+
+            // Aktualisieren der Selectors basierend auf dem ausgewählten Typ
+            UpdateSelectorsOptions(typeSelector.Text, selectors);
+        }
+
+        private DomainUpDown[] FindSelectors(DomainUpDown typeSelector)
+        {
+            List<DomainUpDown> selectors = new List<DomainUpDown>();
+
+            // Annahme: Die Namen folgen einem bestimmten Muster
+            string baseName = typeSelector.Name.Split('_').First();
+            string variablePart = typeSelector.Name.Split('_').Last();
+
+            // Beispiel, wie man die Namen generiert und die Steuerelemente findet
+            string[] names = new string[] { $"{baseName}_11_{variablePart}", $"{baseName}_7_{variablePart}" };
+
+            Control parent = typeSelector.Parent;
+            if (parent != null)
+            {
+                foreach (string name in names)
+                {
+                    DomainUpDown found = parent.Controls.Find(name, true).FirstOrDefault() as DomainUpDown;
+                    if (found != null)
+                    {
+                        selectors.Add(found);
+                    }
+                }
+            }
+
+            return selectors.ToArray();
+        }
+
+        private void UpdateSelectorsOptions(string type, DomainUpDown[] selectors)
+        {
+            foreach (DomainUpDown selector in selectors)
+            {
+                selector.Items.Clear(); // Leeren der bestehenden Einträge
+
+                // Bestimmen der Einträge basierend auf dem ausgewählten Typ
+                string[] items = GetTypeDependentItems(type, selector.Name);
+
+                foreach (string item in items)
+                {
+                    selector.Items.Add(item);
+                }
+
+                // Ersten Eintrag als ausgewählt setzen, falls vorhanden
+                selector.Text = selector.Items.Count > 0 ? selector.Items[0].ToString() : "";
+            }
+        }
+
+        private string[] GetTypeDependentItems(string type, string selectorName)
+        {
+            // Entscheiden, welche Einträge basierend auf Typ und eventuell Selector-Namen hinzugefügt werden sollen
+
+            //"No pattern", "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals", "Green on pos. blue on neg. torque", "Blue on pos. green on neg. torque", "Constant daylight"
+            switch (type)
+            {
+                case "fs":
+                    if (selectorName.Contains("7")) // Spezifische Einträge für "patternSelector" bei "yt"
+                    {
+                        return new string[] { "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals" };
+                    }
+                    else if (selectorName.Contains("11")) // Angenommen, eine andere Logik für "contingencySelector"
+                    {
+                        return new string[] { "1_3_Q", "2_4_Q" };
+                    }
+                    break;
+                case "sw":
+                    if (selectorName.Contains("7")) // Spezifische Einträge für "patternSelector" bei "yt"
+                    {
+                        return new string[] { "Green on pos. blue on neg. torque", "Blue on pos. green on neg. torque" };
+                    }
+                    else if (selectorName.Contains("11")) // Angenommen, eine andere Logik für "contingencySelector"
+                    {
+                        return new string[] { "left_torque", "right_torque" };
+                    }
+                    break;
+                case "yt":
+                    if (selectorName.Contains("7")) // Spezifische Einträge für "patternSelector" bei "yt"
+                    {
+                        return new string[] { "No pattern", "Constant daylight" };
+                    }
+                    else if (selectorName.Contains("11")) // Angenommen, eine andere Logik für "contingencySelector"
+                    {
+                        return new string[] { "left_torque", "right_torque" };
+                    }
+                    break;
+                case "color":
+                    if (selectorName.Contains("7")) // Spezifische Einträge für "patternSelector" bei "yt"
+                    {
+                        return new string[] { "Constant daylight" };
+                    }
+                    else if (selectorName.Contains("11")) // Angenommen, eine andere Logik für "contingencySelector"
+                    {
+                        return new string[] { "green", "blue" };
+                    }
+                    break;
+                case "OptomotorR":
+                case "OptomotorL":
+                    if (selectorName.Contains("7")) // Spezifische Einträge für "patternSelector" bei "yt"
+                    {
+                        return new string[] { "Constant daylight" };
+                    }
+                    else if (selectorName.Contains("11")) // Angenommen, eine andere Logik für "contingencySelector"
+                    {
+                        return new string[] { };
+                    }
+                    break;
+                    // Keine Einträge für diese Typen
+                    break;
+            }
+            return new string[0]; // Leeres Array, falls keine Bedingungen zutreffen
+        }
+
+
+        //private void TypeSelectionChanged(object sender, EventArgs e)
+        //{
+        //    DomainUpDown typeSelector = sender as DomainUpDown; // Annahme, dass dies der 'Type' Selector ist
+        //    DomainUpDown contingencySelector = FindContingencySelector(typeSelector); // Implementieren Sie diese Funktion, um den zugehörigen 'Contingency' Selector zu finden
+
+        //    if (typeSelector != null && contingencySelector != null)
+        //    {
+        //        UpdateContingencyOptions(typeSelector.Text, contingencySelector);
+        //    }
+        //}
+
+        //private void UpdateContingencyOptions(string type, DomainUpDown contingencySelector)
+        //{
+        //    // Leeren Sie zuerst die vorhandenen Einträge
+        //    contingencySelector.Items.Clear();
+
+        //    switch (type)
+        //    {
+        //        case "fs":
+        //            // Nur die Optionen "1_3_Q, 2_4_Q" hinzufügen, wenn der Typ "fs" ist
+        //            contingencySelector.Items.Add("1_3_Q");
+        //            contingencySelector.Items.Add("2_4_Q");
+        //            break;
+
+        //        case "sw":
+        //        case "yt":
+        //            // Für "sw" und "yt" die Optionen "left_torque" und "right_torque" hinzufügen
+        //            contingencySelector.Items.Add("left_torque");
+        //            contingencySelector.Items.Add("right_torque");
+        //            break;
+
+        //        case "color":
+        //            // Für "color" die Optionen "green" und "blue" hinzufügen
+        //            contingencySelector.Items.Add("green");
+        //            contingencySelector.Items.Add("blue");
+        //            break;
+
+        //        case "OptomotorR":
+        //        case "OptomotorL":
+        //            // Für "OptomotorR" und "OptomotorL" nichts hinzufügen
+        //            break;
+
+        //        default:
+        //            // Optional: Standardoptionen oder Handhabung unbekannter Typen
+        //            // contingencySelector.Items.Add("Standardoption");
+        //            break;
+        //    }
+
+        //    // Setzen des Textes auf den Namen des contingencySelector, falls Einträge vorhanden sind
+        //    if (contingencySelector.Items.Count > 0)
+        //    {
+        //        // Setze den Text des contingencySelector auf den ersten Eintrag in der Items-Liste
+        //        contingencySelector.Text = contingencySelector.Items[0].ToString();
+        //    }
+        //    else
+        //    {
+        //        // Setzen Sie den Text auf den Namen, wenn keine Einträge vorhanden sind
+        //        contingencySelector.Text = "";
+        //    }
+        //}
+
+
+        //private DomainUpDown FindContingencySelector(DomainUpDown typeSelector)
+        //{
+        //    if (typeSelector == null) return null;
+
+        //    Debug.WriteLine(typeSelector.Name);
+
+        //    // Bestimme die Periodennummer und den variablen Teil aus dem Namen des Type Selectors
+        //    var nameParts = typeSelector.Name.Split('_');
+        //    if (nameParts.Length != 3) return null; // Stellt sicher, dass der Name korrekt formatiert ist
+
+        //    string periodNumber = nameParts[1]; // Die Periodennummer (z.B. "1" für "domainUpDown_1_2")
+        //    string variablePart = nameParts[2]; // Der variable Teil (z.B. "2" für "domainUpDown_1_2")
+
+        //    // Generiere den Namen des zugehörigen 'Contingency' DomainUpDown basierend auf der Konvention
+        //    string contingencyName = $"domainUpDown_11_{variablePart}";
+
+        //    // Suche nach dem DomainUpDown im gleichen Container wie der ursprüngliche Type DomainUpDown
+        //    Control parent = typeSelector.Parent;
+        //    if (parent == null) return null;
+
+        //    // Verwenden Sie die Find-Methode, um den 'Contingency' DomainUpDown zu finden
+        //    DomainUpDown contingencySelector = parent.Controls.Find(contingencyName, true).FirstOrDefault() as DomainUpDown;
+
+        //    return contingencySelector;
+        //}
 
         public string getNumberTextBox
         {

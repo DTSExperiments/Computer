@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|c:\\users\\localadmin\\source\\repos\\computer\\xmlfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:xmlfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|c:\\users\\localadmin\\source\\repos\\computer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\periods.xsd||{DEE6CEF9-3BCA-449A-82A6-FC757D6956FB}|",
+      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:periods.xsd||{DEE6CEF9-3BCA-449A-82A6-FC757D6956FB}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\xmlfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:xmlfilemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\periods.xsd||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:periods.xsd||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|C:\\Users\\LocalAdmin\\source\\repos\\Computer\\periods.xsd||{DEE6CEF9-3BCA-449A-82A6-FC757D6956FB}|",
-      "RelativeMoniker": "D:0:0:{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}|plotBrembs.csproj|solutionrelative:periods.xsd||{DEE6CEF9-3BCA-449A-82A6-FC757D6956FB}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,14 +55,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "XmlFileManager.cs",
-              "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\XmlFileManager.cs",
-              "RelativeDocumentMoniker": "XmlFileManager.cs",
-              "ToolTip": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\XmlFileManager.cs",
-              "RelativeToolTip": "XmlFileManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAJQAAAApAAAA",
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AQIAANwBAAAAAAAAAAAEwPoBAACwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T14:42:00.975Z",
+              "WhenOpened": "2024-02-29T14:41:27.323Z",
               "EditorCaption": ""
             },
             {
@@ -72,6 +72,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "XmlFileManager.cs",
+              "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\XmlFileManager.cs",
+              "RelativeDocumentMoniker": "XmlFileManager.cs",
+              "ToolTip": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\XmlFileManager.cs",
+              "RelativeToolTip": "XmlFileManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAOcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-29T14:42:00.975Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "periods.xsd",
               "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\periods.xsd",
               "RelativeDocumentMoniker": "periods.xsd",
@@ -83,7 +95,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "periods.xsd [Entwurf]",
               "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\periods.xsd",
               "RelativeDocumentMoniker": "periods.xsd",
@@ -95,18 +107,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AQIAAKUDAAAAAAAAAAAEwMADAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T14:41:27.323Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Form1.cs [Entwurf]",
               "DocumentMoniker": "C:\\Users\\LocalAdmin\\source\\repos\\Computer\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
