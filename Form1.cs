@@ -448,111 +448,98 @@ namespace plotBrembs
             tableLayoutPanel12.Controls.Clear();
         }
 
+
         private void CreateAndAddTableLayoutPanel(int periodCounter)
         {
-            // Create a new string array for the labels
-
-            string[] LabelNames = { @"Type", @"Duration", @"Outcome", @"Pattern", @"Coup_Coeff", @"Contingency" };
+            string[] LabelNames = { "Type", "Duration", "Outcome", "Pattern", "Coup_Coeff", "Contingency" };
 
             TableLayoutPanel newTableLayoutPanel = new TableLayoutPanel();
             newTableLayoutPanel.Dock = DockStyle.Fill;
+            newTableLayoutPanel.AutoSize = true;
             newTableLayoutPanel.ColumnCount = 1;
-            newTableLayoutPanel.RowCount = 12; // Adjust according to your needs
+            newTableLayoutPanel.RowCount = 13; // Adjust according to your needs
             newTableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 
+            for (int i = 0; i < newTableLayoutPanel.RowCount; i++)
+            {
+                newTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F / newTableLayoutPanel.RowCount));
+            }
+
             Label periodLabel = new Label();
-            periodLabel.Text = @"Period " + periodCounter.ToString();
-            //set the font to bold
+            periodLabel.Text = "Period " + periodCounter.ToString();
             periodLabel.Font = new Font(periodLabel.Font, FontStyle.Bold);
             periodLabel.Margin = new Padding(0, 10, 0, 10);
             periodLabel.Anchor = AnchorStyles.None;
             periodLabel.AutoSize = true;
-            newTableLayoutPanel.Controls.Add(periodLabel,0,0);
+            periodLabel.TextAlign = ContentAlignment.MiddleCenter;
+            newTableLayoutPanel.Controls.Add(periodLabel, 0, 0);
 
-            // Dynamically add rows (controls) to the newTableLayoutPanel
-            for (int i = 0; i < newTableLayoutPanel.RowCount; i++)
+            int labelIndex = 0;
+            for (int i = 1; i < newTableLayoutPanel.RowCount; i++)
             {
-                if (i % 2 == 0) // Label row
+                if (i % 2 != 0 && labelIndex < LabelNames.Length) // Label row
                 {
                     Label label = new Label();
                     label.Name = "label_" + i.ToString() + "_" + periodCounter.ToString();
-                    label.Text = LabelNames[(i / 2)];
+                    label.Text = LabelNames[labelIndex++];
                     label.Anchor = AnchorStyles.None;
                     label.AutoSize = true;
-                    newTableLayoutPanel.Controls.Add(label, 0, i+1);
+                    label.TextAlign = ContentAlignment.MiddleCenter;
+                    newTableLayoutPanel.Controls.Add(label, 0, i);
                 }
-                else // TextBox row
+                else // Control row
                 {
-                    //generate a switch case example                    //generate a switch case example
+                    Control control;
                     switch (i)
                     {
-                        case 1:
-                            DomainUpDown domainUpDown1 = new DomainUpDown();
-                            domainUpDown1.Items.AddRange(new string[] { "fs", "sw", "yt", "OptomotorR", "OptomotorL" });
-                            domainUpDown1.Dock = DockStyle.Fill;
-                            domainUpDown1.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
-                            //domainUpDown1.SelectedItemChanged += new EventHandler(domainUpDown1_SelectedItemChanged);
-                            // Setzt den Text des DomainUpDown auf den ersten Eintrag in der Items-Liste
-                            if (domainUpDown1.Items.Count > 0)
+                        case 2:
+                            control = new DomainUpDown
                             {
-                                domainUpDown1.Text = domainUpDown1.Items[0].ToString();
-                            }
-                            domainUpDown1.TextChanged += TypeSelectionChanged;
-                            domainUpDown1.Anchor = AnchorStyles.None;
-                            newTableLayoutPanel.Controls.Add(domainUpDown1, 0, i+1);
+                                Items = { "fs", "sw", "yt", "OptomotorR", "OptomotorL" },
+                                Dock = DockStyle.Fill,
+                                Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString(),
+                                Text = "fs"
+                            };
+                            (control as DomainUpDown).TextChanged += TypeSelectionChanged;
                             break;
-                        case 7:
-                            DomainUpDown domainUpDown7 = new DomainUpDown();
-                            domainUpDown7.Text = "No pattern";
-                            domainUpDown7.Items.AddRange(new string[] { "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals" });
-                            domainUpDown7.Dock = DockStyle.Fill;
-                            domainUpDown7.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
-                            //domainUpDown2.SelectedItemChanged += new EventHandler(domainUpDown2_SelectedItemChanged);
-                            // Setzt den Text des DomainUpDown auf den ersten Eintrag in der Items-Liste
-                            if (domainUpDown7.Items.Count > 0)
+                        case 8:
+                            control = new DomainUpDown
                             {
-                                domainUpDown7.Text = domainUpDown7.Items[0].ToString();
-                            }
-                            domainUpDown7.Anchor = AnchorStyles.None;
-                            newTableLayoutPanel.Controls.Add(domainUpDown7, 0, i+1);
+                                Items = { "Single vertical stripe", "Striped drum (15 stripes)", "T-Patterns", "Four vertical bars", "Diagonals" },
+                                Dock = DockStyle.Fill,
+                                Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString(),
+                                Text = "Single vertical stripe"
+                            };
                             break;
-                        case 11:
-                            DomainUpDown domainUpDown11 = new DomainUpDown();
-                            domainUpDown11.Text = "White";
-                            domainUpDown11.Items.AddRange(new string[] { "1_3_Q", "2_4_Q" });
-                            domainUpDown11.Dock = DockStyle.Fill;
-                            domainUpDown11.Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString();
-                            //domainUpDown3.SelectedItemChanged += new EventHandler(domainUpDown3_SelectedItemChanged);
-                            if (domainUpDown11.Items.Count > 0)
+                        case 12:
+                            control = new DomainUpDown
                             {
-                                domainUpDown11.Text = domainUpDown11.Items[0].ToString();
-                            }
-                            domainUpDown11.Anchor = AnchorStyles.None;
-                            newTableLayoutPanel.Controls.Add(domainUpDown11, 0, i+1);
+                                Items = { "1_3_Q", "2_4_Q" },
+                                Dock = DockStyle.Fill,
+                                Name = "domainUpDown_" + i.ToString() + "_" + periodCounter.ToString(),
+                                Text = "1_3_Q"
+                            };
                             break;
                         default:
-                            TextBox textBox = new TextBox();
-                            textBox.Dock = DockStyle.Fill;
-                            textBox.Name = "textbox_" + i.ToString() + "_" + periodCounter.ToString();
-                            newTableLayoutPanel.Controls.Add(textBox, 0, i + 1);
+                            control = new TextBox
+                            {
+                                Dock = DockStyle.Fill,
+                                Name = "textbox_" + i.ToString() + "_" + periodCounter.ToString()
+                            };
                             break;
                     }
+                    control.Anchor = AnchorStyles.None;
+                    newTableLayoutPanel.Controls.Add(control, 0, i);
                 }
             }
 
-            // Assuming you want to add the newTableLayoutPanel to an existing container (e.g., tableLayoutPanel12)
-            // Make sure tableLayoutPanel12 is the correct container where you want to add newTableLayoutPanel
-            // This could be a direct addition to the tabPage1 or another panel/container in your form
-            int row = tableLayoutPanel12.RowCount;
-            int column = tableLayoutPanel12.ColumnCount; // Assuming you want to add it in a new column for demonstration
-            tableLayoutPanel12.Controls.Add(newTableLayoutPanel, 0, 0);
+            tableLayoutPanel12.Controls.Add(newTableLayoutPanel);
+            tableLayoutPanel12.RowCount = tableLayoutPanel12.Controls.Count;
+            tableLayoutPanel12.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
-            // If you specifically want to add it to tableLayoutPanel12, make sure tableLayoutPanel12 is prepared to accept it
-            // For example, if tableLayoutPanel12 should contain multiple instances of newTableLayoutPanel, you may need to adjust its RowCount and possibly add new rows dynamically.
-
-            // Refresh the form or the container to display the newly added TableLayoutPanel
-            tableLayoutPanel12.Refresh(); // Refresh tabPage1 or the specific container where you added the new layout
+            tableLayoutPanel12.Refresh();
         }
+
 
 
 
@@ -1015,6 +1002,8 @@ namespace plotBrembs
             }
         }
 
+
+
         private void NumberTextBox_TextChanged(object sender, EventArgs e)
         {
             if (numberTextBox.Text != "")
@@ -1028,13 +1017,32 @@ namespace plotBrembs
                 }
                 else
                 {
-                    clearTableLayoutPanel();
+                    clearTableLayoutPanelContent();
                     for (int i = 0; i < value; i++)
                     {
-                        CreateAndAddTableLayoutPanel(i+1);
+                        CreateAndAddTableLayoutPanel(i + 1);
+                    }
+
+                    // Adjust the height of the tableLayoutPanel12 to fit its content
+                    tableLayoutPanel12.Height = tableLayoutPanel12.PreferredSize.Height;
+
+                    // If the number of elements is greater than 8, make the panel scrollable
+                    if (value > 8)
+                    {
+                        panel1.AutoScroll = true;
+                    }
+                    else
+                    {
+                        panel1.AutoScroll = false;
                     }
                 }
             }
+        }
+
+        private void clearTableLayoutPanelContent()
+        {
+            tableLayoutPanel12.Controls.Clear();
+            tableLayoutPanel12.RowCount = 1;
         }
 
         private void TypeSelectionChanged(object sender, EventArgs e)
@@ -1160,98 +1168,12 @@ namespace plotBrembs
         }
 
 
-        //private void TypeSelectionChanged(object sender, EventArgs e)
-        //{
-        //    DomainUpDown typeSelector = sender as DomainUpDown; // Annahme, dass dies der 'Type' Selector ist
-        //    DomainUpDown contingencySelector = FindContingencySelector(typeSelector); // Implementieren Sie diese Funktion, um den zugehörigen 'Contingency' Selector zu finden
-
-        //    if (typeSelector != null && contingencySelector != null)
-        //    {
-        //        UpdateContingencyOptions(typeSelector.Text, contingencySelector);
-        //    }
-        //}
-
-        //private void UpdateContingencyOptions(string type, DomainUpDown contingencySelector)
-        //{
-        //    // Leeren Sie zuerst die vorhandenen Einträge
-        //    contingencySelector.Items.Clear();
-
-        //    switch (type)
-        //    {
-        //        case "fs":
-        //            // Nur die Optionen "1_3_Q, 2_4_Q" hinzufügen, wenn der Typ "fs" ist
-        //            contingencySelector.Items.Add("1_3_Q");
-        //            contingencySelector.Items.Add("2_4_Q");
-        //            break;
-
-        //        case "sw":
-        //        case "yt":
-        //            // Für "sw" und "yt" die Optionen "left_torque" und "right_torque" hinzufügen
-        //            contingencySelector.Items.Add("left_torque");
-        //            contingencySelector.Items.Add("right_torque");
-        //            break;
-
-        //        case "color":
-        //            // Für "color" die Optionen "green" und "blue" hinzufügen
-        //            contingencySelector.Items.Add("green");
-        //            contingencySelector.Items.Add("blue");
-        //            break;
-
-        //        case "OptomotorR":
-        //        case "OptomotorL":
-        //            // Für "OptomotorR" und "OptomotorL" nichts hinzufügen
-        //            break;
-
-        //        default:
-        //            // Optional: Standardoptionen oder Handhabung unbekannter Typen
-        //            // contingencySelector.Items.Add("Standardoption");
-        //            break;
-        //    }
-
-        //    // Setzen des Textes auf den Namen des contingencySelector, falls Einträge vorhanden sind
-        //    if (contingencySelector.Items.Count > 0)
-        //    {
-        //        // Setze den Text des contingencySelector auf den ersten Eintrag in der Items-Liste
-        //        contingencySelector.Text = contingencySelector.Items[0].ToString();
-        //    }
-        //    else
-        //    {
-        //        // Setzen Sie den Text auf den Namen, wenn keine Einträge vorhanden sind
-        //        contingencySelector.Text = "";
-        //    }
-        //}
-
-
-        //private DomainUpDown FindContingencySelector(DomainUpDown typeSelector)
-        //{
-        //    if (typeSelector == null) return null;
-
-        //    Debug.WriteLine(typeSelector.Name);
-
-        //    // Bestimme die Periodennummer und den variablen Teil aus dem Namen des Type Selectors
-        //    var nameParts = typeSelector.Name.Split('_');
-        //    if (nameParts.Length != 3) return null; // Stellt sicher, dass der Name korrekt formatiert ist
-
-        //    string periodNumber = nameParts[1]; // Die Periodennummer (z.B. "1" für "domainUpDown_1_2")
-        //    string variablePart = nameParts[2]; // Der variable Teil (z.B. "2" für "domainUpDown_1_2")
-
-        //    // Generiere den Namen des zugehörigen 'Contingency' DomainUpDown basierend auf der Konvention
-        //    string contingencyName = $"domainUpDown_11_{variablePart}";
-
-        //    // Suche nach dem DomainUpDown im gleichen Container wie der ursprüngliche Type DomainUpDown
-        //    Control parent = typeSelector.Parent;
-        //    if (parent == null) return null;
-
-        //    // Verwenden Sie die Find-Methode, um den 'Contingency' DomainUpDown zu finden
-        //    DomainUpDown contingencySelector = parent.Controls.Find(contingencyName, true).FirstOrDefault() as DomainUpDown;
-
-        //    return contingencySelector;
-        //}
 
         public string getNumberTextBox
         {
             get { return this.numberTextBox.Text; }
         }
+
 
     }
 }
