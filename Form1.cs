@@ -62,7 +62,8 @@ namespace plotBrembs
 
             InitializeComponent();
 
-            resizeWindow();
+            //Disable resizing of the form
+            //resizeWindow();
 
             version = Assembly.GetExecutingAssembly().GetName().Version;
 
@@ -139,8 +140,10 @@ namespace plotBrembs
 
             this.Text = version.ToString();
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            //Fenstergröße festlegen
+
+            //this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            //this.MaximizeBox = false;
 
             serialCom = new serialInterface(this);
             serialCom.OnDataReceived += SerialInterface_OnDataReceived;
@@ -157,20 +160,20 @@ namespace plotBrembs
         }
 
 
-        private void resizeWindow()
-        {
-            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+        //private void resizeWindow()
+        //{
+        //    int screenHeight = Screen.PrimaryScreen.Bounds.Height;
 
-            if (screenHeight > 1080)
-            {
-                // Assuming you want to scale the form to 80% of its original size as an example
-                float scalePercentage = 1.5f;
+        //    if (screenHeight > 1080)
+        //    {
+        //        // Assuming you want to scale the form to 80% of its original size as an example
+        //        float scalePercentage = 1.5f;
 
-                this.Width = (int)(this.Width * scalePercentage);
-                this.Height = (int)(this.Height * scalePercentage);
+        //        this.Width = (int)(this.Width * scalePercentage);
+        //        this.Height = (int)(this.Height * scalePercentage);
 
-            }
-        }
+        //    }
+        //}
 
         private string findComPort(string vid, string pid)
         {
@@ -786,33 +789,61 @@ namespace plotBrembs
             }
         }
 
-
         private void fileDialog_Click(object sender, EventArgs e)
         {
             string directory = null;
             string fileName = null;
 
-            DateTimeOffset dto = new DateTimeOffset(DateTime.UtcNow);
-
-            saveFileDialog1.Filter = "XML files(.xml) | *.xml";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.FileName = dto.ToString("yyyyMMdd_HHmmss");
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            using (var openFileDialog = new OpenFileDialog())
             {
-                label3.Text = saveFileDialog1.FileName;
-                directory = Path.GetDirectoryName(saveFileDialog1.FileName);
-                fileName = Path.GetFileName(saveFileDialog1.FileName);
-                fileWriter = new XmlFileManager(directory, fileName);
-            }
-            else
-            {
-                label3.Text = "No file selected";
+                openFileDialog.ValidateNames = false;
+                openFileDialog.CheckFileExists = false;
+                openFileDialog.CheckPathExists = true;
+                openFileDialog.FileName = "Select Folder";
+                openFileDialog.Filter = "Folders|\n";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    directory = Path.GetDirectoryName(openFileDialog.FileName);
+                    fileName = GetNextFileName(directory);
+
+                    label3.Text = Path.Combine(directory, fileName);
+                    fileWriter = new XmlFileManager(directory, fileName);
+                }
+                else
+                {
+                    label3.Text = "No directory selected";
+                }
             }
         }
+
+        private string GetNextFileName(string directory)
+        {
+            int maxNumber = 0;
+
+            // Get all XML files in the directory
+            var files = Directory.GetFiles(directory, "*.xml");
+
+            foreach (var file in files)
+            {
+                // Extract the file name without extension
+                var fileBaseName = Path.GetFileNameWithoutExtension(file);
+
+                // Parse the number at the end of the file name
+                if (int.TryParse(fileBaseName, out int fileNumber))
+                {
+                    if (fileNumber > maxNumber)
+                    {
+                        maxNumber = fileNumber;
+                    }
+                }
+            }
+
+            // Increment the highest number found and format as "NN.xml"
+            return (maxNumber + 1).ToString("D2") + ".xml";
+        }
+
+
 
         private void textBox5_Click(object sender, EventArgs e)
         {
@@ -1050,12 +1081,46 @@ namespace plotBrembs
             DomainUpDown typeSelector = sender as DomainUpDown;
             if (typeSelector == null) return;
 
-            // Finden der zugehörigen Selectors
-            DomainUpDown[] selectors = FindSelectors(typeSelector);
+            // Get the period number from the name of the changed control
+            string[] nameParts = typeSelector.Name.Split('_');
+            if (nameParts.Length < 3) return;
+            int currentPeriod;
+            if (!int.TryParse(nameParts[2], out currentPeriod)) return;
 
-            // Aktualisieren der Selectors basierend auf dem ausgewählten Typ
-            UpdateSelectorsOptions(typeSelector.Text, selectors);
+            // Get the selected type value
+            string selectedType = typeSelector.Text;
+
+            // Update all subsequent periods' "Type" values
+            foreach (Control panel in tableLayoutPanel12.Controls)
+            {
+                if (panel is TableLayoutPanel tlp)
+                {
+                    // Extract the period number from the label text or the name of any control
+                    Label periodLabel = tlp.Controls.OfType<Label>().FirstOrDefault(l => l.Text.StartsWith("Period"));
+                    if (periodLabel != null)
+                    {
+                        int periodNumber;
+                        if (int.TryParse(periodLabel.Text.Replace("Period ", ""), out periodNumber))
+                        {
+                            if (periodNumber >= currentPeriod)
+                            {
+                                // Find the "Type" DomainUpDown control in this TableLayoutPanel
+                                DomainUpDown periodTypeSelector = tlp.Controls.OfType<DomainUpDown>().FirstOrDefault(d => d.Name.StartsWith("domainUpDown_2_"));
+                                if (periodTypeSelector != null)
+                                {
+                                    periodTypeSelector.Text = selectedType;
+
+                                    // Optionally update other related controls in the same panel
+                                    DomainUpDown[] selectors = FindSelectors(periodTypeSelector);
+                                    UpdateSelectorsOptions(selectedType, selectors);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
 
         private DomainUpDown[] FindSelectors(DomainUpDown typeSelector)
         {
@@ -1167,12 +1232,13 @@ namespace plotBrembs
             return new string[0]; // Leeres Array, falls keine Bedingungen zutreffen
         }
 
-
-
+        
         public string getNumberTextBox
         {
             get { return this.numberTextBox.Text; }
         }
+
+
 
 
     }

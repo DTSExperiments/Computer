@@ -17,7 +17,7 @@ namespace plotBrembs
 {
     public class XmlFileManager
     {
-        private Form1 form;
+        private Form1 _form;
 
         public string fileName { get; set; }
         public string filePath { get; set; }
@@ -32,10 +32,12 @@ namespace plotBrembs
 
         public XmlFileManager(string filePath, string fileName, Form1 form)
         {
-            this.form = form;
+            List < Period > periods = new List<Period>();
+            this._form = form;
             this.filePath = filePath;
             this.fileName = fileName;
-            XDocument doc = CreateBasicSchemaPeriod(int.Parse(form.getNumberTextBox));
+            periods = CollectPeriodData();
+            XDocument doc = CreateBasicSchemaPeriod(periods);
             saveXML(doc);
             //
         }
@@ -162,6 +164,137 @@ namespace plotBrembs
 
             return periods;
         }
+
+
+        public static XDocument CreateBasicSchemaPeriod(List<Period> periodsData)
+        {
+            // Create the root <sequence> element with the "periods" attribute
+            XElement root = new XElement("sequence", new XAttribute("periods", periodsData.Count));
+
+            // Dynamically create and add <period> elements based on the provided data
+            foreach (var period in periodsData)
+            {
+                XElement periodElement = new XElement("period",
+                    new XAttribute("number", period.Number.ToString()), // Use the provided number
+                    new XElement("type", period.Type),
+                    new XElement("duration", period.Duration),
+                    new XElement("outcome", period.Outcome),
+                    new XElement("pattern", period.Pattern),
+                    new XElement("coup_coeff", period.CoupCoeff),
+                    new XElement("contingency", period.Contingency)
+                );
+
+                // Add the constructed <period> element to the root <sequence> element
+                root.Add(periodElement);
+            }
+
+            // Create the XDocument and add the root element
+            XDocument periods = new XDocument();
+            periods.Add(root);
+
+            return periods;
+        }
+
+        private List<Period> CollectPeriodData()
+        {
+            List<Period> periods = new List<Period>();
+
+            foreach (Control panel in _form.tableLayoutPanel12.Controls)
+            {
+                if (panel is TableLayoutPanel tlp)
+                {
+                    Period periodData = new Period();
+
+                    // Extract the period number from the label text
+                    Label periodLabel = tlp.Controls.OfType<Label>().FirstOrDefault(l => l.Text.StartsWith("Period"));
+                    if (periodLabel != null)
+                    {
+                        periodData.Number = int.Parse(periodLabel.Text.Replace("Period ", ""));
+                    }
+
+                    // Extract the Type
+                    DomainUpDown typeSelector = tlp.Controls.OfType<DomainUpDown>().FirstOrDefault(d => d.Name.StartsWith("domainUpDown_2_"));
+                    if (typeSelector != null)
+                    {
+                        periodData.Type = typeSelector.Text;
+                    }
+
+                    // Extract the Duration
+                    TextBox durationTextBox = tlp.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name.StartsWith("textbox_4_"));
+                    if (durationTextBox != null)
+                    {
+                        int duration;
+                        if (int.TryParse(durationTextBox.Text, out duration))
+                        {
+                            // Conversion succeeded, use 'duration' as needed
+                        }
+                        else
+                        {
+                            // Handle the case where the text is not a valid integer
+                            duration = 0; // or some default value
+                        }
+
+                        periodData.Duration = duration;
+                    }
+
+                    // Extract the Outcome
+                    TextBox outcomeTextBox = tlp.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name.StartsWith("textbox_6_"));
+                    if (outcomeTextBox != null)
+                    {
+                        int outcome;
+                        if (int.TryParse(durationTextBox.Text, out outcome))
+                        {
+                            // Conversion succeeded, use 'duration' as needed
+                        }
+                        else
+                        {
+                            // Handle the case where the text is not a valid integer
+                            outcome = 0; // or some default value
+                        }
+
+                        periodData.Outcome = outcome;
+                    }
+
+                    // Extract the Pattern
+                    DomainUpDown patternSelector = tlp.Controls.OfType<DomainUpDown>().FirstOrDefault(d => d.Name.StartsWith("domainUpDown_8_"));
+                    if (patternSelector != null)
+                    {
+                        periodData.Pattern = patternSelector.Items.IndexOf(patternSelector.Text);
+                    }
+
+                    // Extract the CoupCoeff
+                    TextBox coupCoeffTextBox = tlp.Controls.OfType<TextBox>().FirstOrDefault(t => t.Name.StartsWith("textbox_10_"));
+                    if (coupCoeffTextBox != null)
+                    {
+                        int coupcoeff;
+                        if (int.TryParse(durationTextBox.Text, out coupcoeff))
+                        {
+                            // Conversion succeeded, use 'duration' as needed
+                        }
+                        else
+                        {
+                            // Handle the case where the text is not a valid integer
+                            coupcoeff = 0; // or some default value
+                        }
+
+                        periodData.CoupCoeff = coupcoeff;
+                    }
+
+                    // Extract the Contingency
+                    DomainUpDown contingencySelector = tlp.Controls.OfType<DomainUpDown>().FirstOrDefault(t => t.Name.StartsWith("domainUpDown_11_"));
+                    if (contingencySelector != null)
+                    {
+                        periodData.Contingency = contingencySelector.Text;
+                    }
+
+                    periods.Add(periodData);
+                }
+            }
+
+            return periods;
+        }
+
+
 
         public static Boolean validateXML(string directory, string fileName)
         {
