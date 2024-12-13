@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A540B1E5-EEBF-4B3C-A005-F8E5447D3A53}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>UR_MTrack</RootNamespace>
+    <AssemblyName>MelaTrack</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>false</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\ur-logo-bildmarke-grau2.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GraphUtility, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphUtility.1.1.1\lib\net461\GraphUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="MelaTrack, Version=0.0.0.24184, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Windows.Forms.DataVisualization.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph, Version=5.1.7.430, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>packages\ZedGraph.5.1.7\lib\net35-Client\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CurveButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataHandler.cs" />
+    <Compile Include="Forms\FrmInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmInput.Designer.cs">
+      <DependentUpon>FrmInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GradientPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmExperimentControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmExperimentControl.Designer.cs">
+      <DependentUpon>FrmExperimentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HWAux\FPGACom.cs" />
+    <Compile Include="Helper\CenterDialog.cs" />
+    <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Helper\Enums.cs" />
+    <Compile Include="Controls\UCtrlPeriod.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UCtrlPeriod.Designer.cs">
+      <DependentUpon>UCtrlPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmSplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmSplashScreen.Designer.cs">
+      <DependentUpon>FrmSplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\EventArgs.cs" />
+    <Compile Include="Helper\Logging.cs" />
+    <Compile Include="Helper\MeasurementTimer.cs" />
+    <Compile Include="Controls\OrientedTextLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Settings\SerialPortSettings.cs" />
+    <Compile Include="Settings\PeriodValues.cs" />
+    <Compile Include="Forms\FrmPeriodsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPeriodsView.Designer.cs">
+      <DependentUpon>FrmPeriodsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="HWAux\SerialInterface.cs" />
+    <Compile Include="Files\FileFactory.cs" />
+    <Compile Include="Files\XmlFileFactory.cs" />
+    <Compile Include="Settings\ExperimentSettings.cs" />
+    <Compile Include="Forms\FrmExperimentConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmExperimentConfig.Designer.cs">
+      <DependentUpon>FrmExperimentConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\SingleShotTimer.cs" />
+    <Compile Include="Controls\TitleBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TitleBar.Designer.cs">
+      <DependentUpon>TitleBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WMTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\UCtrlExpAdjust.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\UCtrlExpAdjust.Designer.cs">
+      <DependentUpon>UCtrlExpAdjust.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controls\UCtrlPeriod.resx">
+      <DependentUpon>UCtrlPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CurveButton.resx">
+      <DependentUpon>CurveButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmInput.resx">
+      <DependentUpon>FrmInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmSplashScreen.resx">
+      <DependentUpon>FrmSplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OrientedTextLabel.resx">
+      <DependentUpon>OrientedTextLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPeriodsView.resx">
+      <DependentUpon>FrmPeriodsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\GradientPanel.resx">
+      <DependentUpon>GradientPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmExperimentControl.resx">
+      <DependentUpon>FrmExperimentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TitleBar.resx">
+      <DependentUpon>TitleBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmExperimentConfig.resx">
+      <DependentUpon>FrmExperimentConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\UCtrlExpAdjust.resx">
+      <DependentUpon>UCtrlExpAdjust.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="DTSExperiments_Workprint.licenseheader" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\269240.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\269210.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\269251.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3.png" />
+    <None Include="Resources\6.png" />
+    <None Include="Resources\Minimize.bmp" />
+    <None Include="Resources\GradientClose.png" />
+    <None Include="Resources\GradientClose_128.png" />
+    <None Include="Resources\GradientInfo.png" />
+    <None Include="Resources\GradientMaximize.png" />
+    <None Include="Resources\GradientMinimize.png" />
+    <None Include="Resources\Info.png" />
+    <Content Include="License-LGPL.txt" />
+    <None Include="Resources\1downarrow1.png" />
+    <None Include="Resources\Expand.png" />
+    <None Include="Resources\icon_struct_hide_collapsed.png" />
+    <None Include="Resources\icon-expand.png" />
+    <None Include="Resources\up_256.png" />
+    <None Include="Resources\Upload.png" />
+    <None Include="Resources\1downarrow11.png" />
+    <None Include="Resources\Pause.png" />
+    <None Include="Resources\Play.png" />
+    <None Include="Resources\Stop.png" />
+    <None Include="Resources\Target.png" />
+    <Content Include="Resources\ur-logo-bildmarke-grau.ico" />
+    <Content Include="Resources\ur-logo-bildmarke-grau2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

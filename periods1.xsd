@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                            <xs:element name="type" type="xs:string"/>
-                            <xs:element name="duration" type="xs:int"/>
-                            <xs:element name="outcome" type="xs:int"/>
-                            <xs:element name="pattern" type="xs:int"/>
-                            <xs:element name="coup_coeff" type="xs:int"/>
-                            <xs:element name="contingency" type="xs:string" minOccurs="0"/>
-</xs:schema>

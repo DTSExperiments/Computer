@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace plotBrembs
+namespace UR_MTrack
 {
     internal static class Program
     {
@@ -16,7 +16,8 @@ namespace plotBrembs
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Logging.CreateLogFile();
+            Application.Run(new Main());
         }
     }
 }
