@@ -117,25 +117,5 @@ namespace UR_MTrack
     }
 
 
-    /// <summary>
-    /// scope of the logging facility.
-    /// </summary>
-    public enum LogType
-    {
-        [Description("Debug ")]
-        Debug,
-        [Description("Success ")]
-        Success,
-        [Description("Information: ")]
-        Info,
-        [Description("")]
-        FileLog,
-        [Description("Warning: ")]
-        Warning,
-        [Description("Error occured ")]
-        Error,
-        [Description("Failed ")]
-        Fail
-    }
 
 }

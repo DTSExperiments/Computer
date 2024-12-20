@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +17,7 @@ namespace UR_MTrack
     /// </summary>
     public partial class WMTextBox : TextBox
     {
-        ToolTip _tt;  
+        ToolTip _tt;
         string _watermark = "Watermark Text";
         string _ttText = "ToolTip";
         bool _highlight;
@@ -27,7 +29,8 @@ namespace UR_MTrack
             SetStyle(ControlStyles.AllPaintingInWmPaint |
                             ControlStyles.UserPaint |
                             ControlStyles.OptimizedDoubleBuffer |
-                            ControlStyles.ResizeRedraw, true);            
+                     ControlStyles.SupportsTransparentBackColor |
+                            ControlStyles.ResizeRedraw, true);
 
         }
 
@@ -44,7 +47,7 @@ namespace UR_MTrack
         {
             base.OnPaint(pe);
             var gr = pe.Graphics;//CreateGraphics())
-            
+
             if (!Focused && string.IsNullOrEmpty(Text) && !string.IsNullOrEmpty(_watermark))
             {
                 //gr.DrawString(_watermark, Font, new SolidBrush(WatermarkColor), ClientRectangle);
@@ -60,7 +63,7 @@ namespace UR_MTrack
             }
             if (_highlight)
             {
-                gr.DrawRectangle(new Pen(HighlightColor, 1F), GetBorderRectangle());
+                gr.DrawRectangle(new Pen(HighlightColor, 2F), GetBorderRectangle());
             }
         }
 
@@ -74,26 +77,41 @@ namespace UR_MTrack
         protected override void OnLostFocus(EventArgs e)
         {
             base.OnLostFocus(e);
-            //if (string.IsNullOrEmpty(Text)) { _highlight = true; }
-        }       
-
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            if(e.KeyData== Keys.Escape|| e.KeyData == Keys.Back || e.KeyData == Keys.Enter || e.KeyData == Keys.Return)
-            {
-                if (e.KeyData == Keys.Enter || e.KeyData == Keys.Return) { Refresh(); }
-                base.OnKeyDown(e);
-            }
-            else if (NumbersOnly)
-            {
-                if (char.IsLetter((char)e.KeyCode)) { e.SuppressKeyPress = true; }
-            }            
         }
+
+        //protected override void OnKeyDown(KeyEventArgs e)
+        //{
+        //    if (!((char)keycode).IsNumber()) { suppress = true; }
+        //    if (e.KeyData == Keys.Escape || e.KeyData == Keys.Back || e.KeyData == Keys.Enter || e.KeyData == Keys.Return)
+        //    {
+        //        Refresh();
+        //        base.OnKeyDown(e);
+        //    }
+        //    else if (NumbersOnly)
+        //    {
+        //        Suppress(e);              
+        //    }
+        //}
+
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            if (NumbersOnly)
+            {    // Verify that the pressed key isn't CTRL or any non-numeric digit
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+                { e.Handled = true; }
+                // If you want, you can allow decimal (float) numbers
+                if ((e.KeyChar == '.') && Text.IndexOf('.') > -1)
+                { e.Handled = true; }
+            }
+            else
+            { base.OnKeyPress(e); }
+        }
+
 
         protected override void OnMouseHover(EventArgs e)
         {
             base.OnMouseHover(e);
-            if(_showToolTip) { _tt.Show(_ttText, TopLevelControl); }
+            if (_showToolTip) { _tt.Show(_ttText, TopLevelControl); }
         }
 
         #region Properties
@@ -131,10 +149,10 @@ namespace UR_MTrack
 
         #region Methods
 
+
         Rectangle GetBorderRectangle()
         {
             var rect = ClientRectangle;
-            rect.Inflate(2, 2);
             return rect;
         }
 

@@ -5,41 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UR_MTrack
-{
-    public class LogEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Show a message box 
-        /// </summary>
-        public bool IsShowMsgBox { get; private set; }
-
-        /// <summary>
-        /// A title to the message for e.g. showing in messagebox
-        /// </summary>
-        public string Title { get; private set; }
-
-        /// <summary>
-        /// The message to be logged
-        /// </summary>
-        public string Message { get; private set; }
-        public System.Windows.Forms.MessageBoxIcon Icon { get; set; }
-
-
-        public LogEventArgs(string message, LogType messagetype, bool showmsgbox)
-        {
-            IsShowMsgBox = showmsgbox;
-            Message = message;
-            Title = messagetype.ToString();
-
-            if (messagetype == LogType.Error) { Icon = System.Windows.Forms.MessageBoxIcon.Error; }
-            else if (messagetype == LogType.Warning) { Icon = System.Windows.Forms.MessageBoxIcon.Warning; }
-            else
-            {
-                Icon = System.Windows.Forms.MessageBoxIcon.Information;
-            }
-        }
-    }
-
+{  
     public class PeriodChangedEventArgs : EventArgs
     {
         /// <summary>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using Logging;
 
 namespace UR_MTrack
 {
@@ -61,7 +61,7 @@ namespace UR_MTrack
                     rnd.NextBytes(buffer);
                     buffer[4]=0x0A;
                 }
-                catch (Exception ex) { Logging.Log("Failed to generate random bytes", LogType.Fail, false, ex.Message); }
+                catch (Exception ex) { Log.Append("Failed to generate random bytes", LogType.Fail, false, ex.Message); }
                 finally 
                 {
                     DataReceived?.Invoke(this, new DataReceivedEventArgs(buffer));

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Extensions;
+using Logging;
 
 namespace UR_MTrack
 {
@@ -22,7 +26,7 @@ namespace UR_MTrack
         {
             InitializeComponent();
         }
-       
+
 
         #region Properties
         public ExperimentSettings Settings { get { return _expsettings; } }
@@ -39,8 +43,9 @@ namespace UR_MTrack
 
         public void Show(ExperimentSettings _settings)
         {
+
             _expsettings = _settings;
-            BindControls();
+            if (!DesignMode) { BindControls(); }
             Initialize();
             ShowDialog();
         }
@@ -60,14 +65,49 @@ namespace UR_MTrack
 
         void Initialize()
         {
-            tbDataPath.Text = _expsettings.Datapath;
             _periodsView = new FrmPeriodsView();
             _periodsView.PeriodsConfigured += _periodsView_PeriodsConfigured;
+            tbDataPath.Text = _expsettings.Datapath;
+            tbFirstName.Text = _expsettings.FirstName;
+            tbLastName.Text = _expsettings.LastName;
+            tbOrcID.Text=_expsettings.ORCID.ToString();
+            tbFlyName.Text = _expsettings.FlyName;
+            tbFlyDescription.Text = _expsettings.FlyDescription;
+            tbFlyBase.Text = _expsettings.FlyBase;
+            rtbDescription.Text=_expsettings.ExperimentDescription;
+            tbRecording.Text = _expsettings.Recording;
+            tbAnalysis.Text = _expsettings.Analysis;
+            tbDataModel.Text = _expsettings.DataModel;
         }
 
+        bool IsComplete()
+        {
+            var list = new List<bool>();
+            foreach (Control control in tblConfig.Controls)
+            {
+                if (control is WMTextBox)
+                {
+                    if (string.IsNullOrEmpty(control.Text))
+                    {
+                        list.Add(false);
+                        (control as WMTextBox).Highlight();
+                    }
+                }
+                else if (control is RichTextBox)
+                {
+                    if (string.IsNullOrEmpty(control.Text))
+                    {
+                        list.Add(false);
+                        (control as RichTextBox).BackColor = Color.FromArgb(255, 192, 128);
+                    }
+                }
+            }
+            return !list.Any(element=>element.Equals(false));
+        }
 
         void CollectData()
         {
+            _expsettings.TimeStamp = DateTime.Now;
             _expsettings.Datapath = tbDataPath.Text;
             _expsettings.ExperimentDescription = rtbDescription.Text;
             _expsettings.COMPort = cmbSerialPort.SelectedItem.ToString();
@@ -76,6 +116,7 @@ namespace UR_MTrack
             _expsettings.LastName = tbLastName.Text;
             _expsettings.FlyName = tbFlyName.Text;
             _expsettings.FlyDescription = tbFlyDescription.Text;
+            _expsettings.FlyBase = tbFlyBase.Text;
             _expsettings.Recording = tbRecording.Text;
             _expsettings.Analysis = tbAnalysis.Text;
             _expsettings.DataModel = tbDataModel.Text;
@@ -83,9 +124,10 @@ namespace UR_MTrack
             _expsettings.Scope = cmbScope.ToEnum<Scope>();
 
         }
+
         #endregion
 
-        private void _periodsView_PeriodsConfigured(object sender, System.Collections.Generic.IEnumerable<PeriodValues> e)
+        private void _periodsView_PeriodsConfigured(object sender, IEnumerable<PeriodValues> e)
         {
             _expsettings.PeriodCollection = e;
         }
@@ -108,14 +150,25 @@ namespace UR_MTrack
         {
             try
             {
-                CollectData();
-
+                var check = IsComplete();
+                if (check)
+                {
+                    CollectData();
+                    new FileFactory().SaveSettings(_expsettings);
+                    ExperimentConfigChanged?.Invoke(this, EventArgs.Empty);
+                    DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    using (new CenterDialog(this))
+                    {
+                        MessageBox.Show("Please add the missing information to the highlighted fields.", "Missing Data",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                
             }
-            catch (Exception ex) { Logging.Log(ex); }
-            finally
-            {
-                ExperimentConfigChanged?.Invoke(this, EventArgs.Empty);
-            }
+            catch (Exception ex) { Log.Append(ex); }
         }
 
 
@@ -125,7 +178,7 @@ namespace UR_MTrack
             {
                 new SerialInterface().CheckPort(new SerialPortSettings() { Portname = cmbSerialPort.SelectedItem.ToString() });
             }
-            catch (Exception ex) { Logging.Log(ex); }
+            catch (Exception ex) { Log.Append(ex); }
         }
 
         private void btnChangePath_Click(object sender, EventArgs e)
@@ -135,23 +188,19 @@ namespace UR_MTrack
             tbDataPath.Text = path;
         }
 
-        private void btnLoadPeriod_Click(object sender, EventArgs e)
-        {
-            var path = new FileFactory().SelectFilePath("Open file", "XML files(.xml) | *.xml", _expsettings.Datapath);
-            var periodscollection = new XmlFileFactory().ReadPeriodsFromXml(path);
-            _periodsView.Show(periodscollection);
+        private void btnShowPeriod_Click(object sender, EventArgs e)
+        {            
+            _periodsView.Show(_expsettings.PeriodCollection);
         }
 
         private void btnCreatePeriod_Click(object sender, EventArgs e)
         {
-            using (new CenterDialog(this))
-            {
-                var dlg = new FrmInput(InputType.PeriodCount);
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    _periodsView.Show(dlg.PeriodsCount);
-                }
-            }
+           
+        }
+
+        private void rtbDescription_MouseDown(object sender, MouseEventArgs e)
+        {
+           rtbDescription.BackColor = Color.WhiteSmoke;
         }
     }
 }

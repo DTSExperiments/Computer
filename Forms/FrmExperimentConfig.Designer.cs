@@ -63,8 +63,7 @@
             this.rtbDescription = new System.Windows.Forms.RichTextBox();
             this.orientedTextLabel2 = new UR_MTrack.OrientedTextLabel();
             this.label5 = new System.Windows.Forms.Label();
-            this.btnLoadPeriod = new UR_MTrack.CurveButton();
-            this.btnCreatePeriod = new UR_MTrack.CurveButton();
+            this.btnShow = new UR_MTrack.CurveButton();
             this.label9 = new System.Windows.Forms.Label();
             this.orientedTextLabel1 = new UR_MTrack.OrientedTextLabel();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
@@ -88,7 +87,7 @@
             this.tblMain.Controls.Add(this.tblButtons, 1, 2);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(0);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
             this.tblMain.MaximumSize = new System.Drawing.Size(600, 0);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 3;
@@ -110,7 +109,7 @@
             this.tblMain.SetColumnSpan(this.tBarSessionConfig, 2);
             this.tBarSessionConfig.CtrlBxVisible = false;
             this.tBarSessionConfig.DivColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
-            this.tBarSessionConfig.DivHeight = 3;
+            this.tBarSessionConfig.DivHeight = 2;
             this.tBarSessionConfig.DivVisible = true;
             this.tBarSessionConfig.Dock = System.Windows.Forms.DockStyle.Top;
             this.tBarSessionConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -126,9 +125,9 @@
             this.tBarSessionConfig.RelPos = new float[] {
         0F,
         0.2F,
-        0.8F};
+        1F};
             this.tBarSessionConfig.ShowIcon = false;
-            this.tBarSessionConfig.Size = new System.Drawing.Size(554, 32);
+            this.tBarSessionConfig.Size = new System.Drawing.Size(554, 31);
             this.tBarSessionConfig.TabIndex = 1;
             this.tBarSessionConfig.Titel = "";
             this.tBarSessionConfig.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
@@ -173,11 +172,10 @@
             this.tblConfig.Controls.Add(this.rtbDescription, 1, 13);
             this.tblConfig.Controls.Add(this.orientedTextLabel2, 0, 13);
             this.tblConfig.Controls.Add(this.label5, 0, 18);
-            this.tblConfig.Controls.Add(this.btnLoadPeriod, 1, 19);
-            this.tblConfig.Controls.Add(this.btnCreatePeriod, 2, 19);
+            this.tblConfig.Controls.Add(this.btnShow, 1, 19);
             this.tblConfig.Controls.Add(this.label9, 0, 2);
             this.tblConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblConfig.Location = new System.Drawing.Point(42, 32);
+            this.tblConfig.Location = new System.Drawing.Point(42, 31);
             this.tblConfig.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.tblConfig.Name = "tblConfig";
             this.tblConfig.RowCount = 21;
@@ -271,7 +269,7 @@
             this.tbDataModel.AllowDelims = true;
             this.tbDataModel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbDataModel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDataModel.HighlightColor = System.Drawing.Color.Coral;
+            this.tbDataModel.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbDataModel.Location = new System.Drawing.Point(335, 468);
             this.tbDataModel.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbDataModel.Name = "tbDataModel";
@@ -289,7 +287,7 @@
             this.tbAnalysis.AllowDelims = true;
             this.tbAnalysis.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbAnalysis.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbAnalysis.HighlightColor = System.Drawing.Color.Coral;
+            this.tbAnalysis.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbAnalysis.Location = new System.Drawing.Point(169, 468);
             this.tbAnalysis.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbAnalysis.Name = "tbAnalysis";
@@ -308,7 +306,7 @@
             this.tbRecording.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tblConfig.SetColumnSpan(this.tbRecording, 2);
             this.tbRecording.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRecording.HighlightColor = System.Drawing.Color.Coral;
+            this.tbRecording.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbRecording.Location = new System.Drawing.Point(3, 468);
             this.tbRecording.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbRecording.Name = "tbRecording";
@@ -405,7 +403,7 @@
             this.tbFlyBase.AllowDelims = true;
             this.tbFlyBase.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbFlyBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFlyBase.HighlightColor = System.Drawing.Color.Coral;
+            this.tbFlyBase.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbFlyBase.Location = new System.Drawing.Point(335, 253);
             this.tbFlyBase.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbFlyBase.Name = "tbFlyBase";
@@ -423,7 +421,7 @@
             this.tbFlyDescription.AllowDelims = true;
             this.tbFlyDescription.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbFlyDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFlyDescription.HighlightColor = System.Drawing.Color.Coral;
+            this.tbFlyDescription.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbFlyDescription.Location = new System.Drawing.Point(169, 253);
             this.tbFlyDescription.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbFlyDescription.Name = "tbFlyDescription";
@@ -442,7 +440,7 @@
             this.tbFlyName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tblConfig.SetColumnSpan(this.tbFlyName, 2);
             this.tbFlyName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFlyName.HighlightColor = System.Drawing.Color.Coral;
+            this.tbFlyName.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbFlyName.Location = new System.Drawing.Point(3, 253);
             this.tbFlyName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbFlyName.Name = "tbFlyName";
@@ -490,7 +488,7 @@
             this.tbOrcID.AllowDelims = true;
             this.tbOrcID.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbOrcID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOrcID.HighlightColor = System.Drawing.Color.Coral;
+            this.tbOrcID.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbOrcID.Location = new System.Drawing.Point(335, 189);
             this.tbOrcID.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbOrcID.Name = "tbOrcID";
@@ -508,7 +506,7 @@
             this.tbLastName.AllowDelims = true;
             this.tbLastName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tbLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbLastName.HighlightColor = System.Drawing.Color.Coral;
+            this.tbLastName.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbLastName.Location = new System.Drawing.Point(169, 189);
             this.tbLastName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbLastName.Name = "tbLastName";
@@ -527,7 +525,7 @@
             this.tbFirstName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.tblConfig.SetColumnSpan(this.tbFirstName, 2);
             this.tbFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbFirstName.HighlightColor = System.Drawing.Color.Coral;
+            this.tbFirstName.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbFirstName.Location = new System.Drawing.Point(3, 189);
             this.tbFirstName.Margin = new System.Windows.Forms.Padding(3, 10, 3, 5);
             this.tbFirstName.Name = "tbFirstName";
@@ -593,7 +591,7 @@
             this.tbDataPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.tblConfig.SetColumnSpan(this.tbDataPath, 3);
             this.tbDataPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDataPath.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.tbDataPath.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.tbDataPath.Location = new System.Drawing.Point(3, 45);
             this.tbDataPath.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
             this.tbDataPath.Name = "tbDataPath";
@@ -663,6 +661,7 @@
             this.rtbDescription.Size = new System.Drawing.Size(457, 94);
             this.rtbDescription.TabIndex = 13;
             this.rtbDescription.Text = "";
+            this.rtbDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rtbDescription_MouseDown);
             // 
             // orientedTextLabel2
             // 
@@ -697,70 +696,38 @@
             this.label5.Text = "Period Setup";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnLoadPeriod
+            // btnShow
             // 
-            this.btnLoadPeriod.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnLoadPeriod.AutoSizeFont = false;
-            this.btnLoadPeriod.BackColor = System.Drawing.Color.White;
-            this.btnLoadPeriod.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnLoadPeriod.BorderWidth = 1F;
-            this.btnLoadPeriod.Checkable = false;
-            this.btnLoadPeriod.Checked = false;
-            this.btnLoadPeriod.CheckedColor = System.Drawing.Color.Empty;
-            this.btnLoadPeriod.CornerRadius = 1;
-            this.btnLoadPeriod.ExtMessage = null;
-            this.btnLoadPeriod.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadPeriod.GradientColoring = false;
-            this.btnLoadPeriod.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.btnLoadPeriod.HighlightColor = System.Drawing.Color.Coral;
-            this.btnLoadPeriod.HighlightThickness = 2;
-            this.btnLoadPeriod.Location = new System.Drawing.Point(58, 532);
-            this.btnLoadPeriod.Margin = new System.Windows.Forms.Padding(10);
-            this.btnLoadPeriod.Name = "btnLoadPeriod";
-            this.btnLoadPeriod.RelPos = new float[] {
+            this.btnShow.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnShow.AutoSizeFont = false;
+            this.btnShow.BackColor = System.Drawing.Color.White;
+            this.btnShow.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnShow.BorderWidth = 1F;
+            this.btnShow.Checkable = false;
+            this.btnShow.Checked = false;
+            this.btnShow.CheckedColor = System.Drawing.Color.Empty;
+            this.btnShow.CornerRadius = 1;
+            this.btnShow.ExtMessage = null;
+            this.btnShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.GradientColoring = false;
+            this.btnShow.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.btnShow.HighlightColor = System.Drawing.Color.Coral;
+            this.btnShow.HighlightThickness = 2;
+            this.btnShow.Location = new System.Drawing.Point(58, 532);
+            this.btnShow.Margin = new System.Windows.Forms.Padding(10);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.RelPos = new float[] {
         0F,
         0.2F,
         0.5F,
         1F};
-            this.btnLoadPeriod.ShowExtLabel = false;
-            this.btnLoadPeriod.Size = new System.Drawing.Size(85, 30);
-            this.btnLoadPeriod.TabIndex = 17;
-            this.btnLoadPeriod.Text = "Load";
-            this.btnLoadPeriod.UseVisualStyleBackColor = false;
-            this.btnLoadPeriod.Click += new System.EventHandler(this.btnLoadPeriod_Click);
-            // 
-            // btnCreatePeriod
-            // 
-            this.btnCreatePeriod.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCreatePeriod.AutoSizeFont = false;
-            this.btnCreatePeriod.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnCreatePeriod.BorderWidth = 1F;
-            this.btnCreatePeriod.Checkable = false;
-            this.btnCreatePeriod.Checked = false;
-            this.btnCreatePeriod.CheckedColor = System.Drawing.Color.Empty;
-            this.btnCreatePeriod.CornerRadius = 1;
-            this.btnCreatePeriod.ExtMessage = null;
-            this.btnCreatePeriod.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreatePeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreatePeriod.GradientColoring = false;
-            this.btnCreatePeriod.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.btnCreatePeriod.HighlightColor = System.Drawing.Color.Coral;
-            this.btnCreatePeriod.HighlightThickness = 2;
-            this.btnCreatePeriod.Location = new System.Drawing.Point(206, 532);
-            this.btnCreatePeriod.Margin = new System.Windows.Forms.Padding(10);
-            this.btnCreatePeriod.Name = "btnCreatePeriod";
-            this.btnCreatePeriod.RelPos = new float[] {
-        0F,
-        0.2F,
-        0.5F,
-        1F};
-            this.btnCreatePeriod.ShowExtLabel = false;
-            this.btnCreatePeriod.Size = new System.Drawing.Size(85, 30);
-            this.btnCreatePeriod.TabIndex = 18;
-            this.btnCreatePeriod.Text = "Create New";
-            this.btnCreatePeriod.UseVisualStyleBackColor = true;
-            this.btnCreatePeriod.Click += new System.EventHandler(this.btnCreatePeriod_Click);
+            this.btnShow.ShowExtLabel = false;
+            this.btnShow.Size = new System.Drawing.Size(85, 30);
+            this.btnShow.TabIndex = 17;
+            this.btnShow.Text = "Show";
+            this.btnShow.UseVisualStyleBackColor = false;
+            this.btnShow.Click += new System.EventHandler(this.btnShowPeriod_Click);
             // 
             // label9
             // 
@@ -781,12 +748,12 @@
             this.orientedTextLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.orientedTextLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.orientedTextLabel1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 32);
+            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 31);
             this.orientedTextLabel1.Margin = new System.Windows.Forms.Padding(0);
             this.orientedTextLabel1.Name = "orientedTextLabel1";
             this.orientedTextLabel1.RotationAngle = 270D;
             this.tblMain.SetRowSpan(this.orientedTextLabel1, 2);
-            this.orientedTextLabel1.Size = new System.Drawing.Size(42, 635);
+            this.orientedTextLabel1.Size = new System.Drawing.Size(42, 636);
             this.orientedTextLabel1.TabIndex = 3;
             this.orientedTextLabel1.Text = "Experiment Configuration";
             this.orientedTextLabel1.TextDirection = UR_MTrack.Direction.Clockwise;
@@ -794,6 +761,8 @@
             // 
             // tblButtons
             // 
+            this.tblButtons.AutoSize = true;
+            this.tblButtons.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tblButtons.BackColor = System.Drawing.Color.White;
             this.tblButtons.ColumnCount = 2;
             this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.95238F));
@@ -801,12 +770,12 @@
             this.tblButtons.Controls.Add(this.btnCancel, 1, 0);
             this.tblButtons.Controls.Add(this.btnOk, 0, 0);
             this.tblButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblButtons.Location = new System.Drawing.Point(42, 606);
+            this.tblButtons.Location = new System.Drawing.Point(42, 605);
             this.tblButtons.Margin = new System.Windows.Forms.Padding(0, 0, 1, 3);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblButtons.Size = new System.Drawing.Size(511, 58);
+            this.tblButtons.Size = new System.Drawing.Size(511, 59);
             this.tblButtons.TabIndex = 4;
             // 
             // btnCancel
@@ -853,7 +822,6 @@
             this.btnOk.Checked = false;
             this.btnOk.CheckedColor = System.Drawing.Color.Empty;
             this.btnOk.CornerRadius = 1;
-            this.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOk.ExtMessage = null;
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -922,8 +890,7 @@
         private System.Windows.Forms.ComboBox cmbScope;
         private System.Windows.Forms.ComboBox cmbDMSType;
         private System.Windows.Forms.RichTextBox rtbDescription;
-        private CurveButton btnLoadPeriod;
-        private CurveButton btnCreatePeriod;
+        private CurveButton btnShow;
         private OrientedTextLabel orientedTextLabel2;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;

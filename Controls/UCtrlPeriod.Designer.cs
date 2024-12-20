@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.cmbContingency = new System.Windows.Forms.ComboBox();
             this.tbOutcome = new UR_MTrack.WMTextBox();
@@ -88,6 +89,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.Size = new System.Drawing.Size(264, 196);
             this.tblMain.TabIndex = 0;
+            this.tblMain.DoubleClick += new System.EventHandler(this.SelectCtrl_Click);
             // 
             // cmbContingency
             // 
@@ -108,8 +110,10 @@
             this.tbOutcome.Name = "tbOutcome";
             this.tbOutcome.NumbersOnly = false;
             this.tbOutcome.ReadOnly = true;
+            this.tbOutcome.ShowToolTip = false;
             this.tbOutcome.Size = new System.Drawing.Size(98, 22);
             this.tbOutcome.TabIndex = 16;
+            this.tbOutcome.ToolTipText = "ToolTip";
             this.tbOutcome.WatermarkColor = System.Drawing.Color.Silver;
             this.tbOutcome.WatermarkText = "";
             this.tbOutcome.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
@@ -122,9 +126,11 @@
             this.tbCouplingCoeff.Location = new System.Drawing.Point(106, 142);
             this.tbCouplingCoeff.Name = "tbCouplingCoeff";
             this.tbCouplingCoeff.NumbersOnly = true;
+            this.tbCouplingCoeff.ShowToolTip = false;
             this.tbCouplingCoeff.Size = new System.Drawing.Size(98, 22);
             this.tbCouplingCoeff.TabIndex = 15;
             this.tbCouplingCoeff.Text = "0";
+            this.tbCouplingCoeff.ToolTipText = "ToolTip";
             this.tbCouplingCoeff.WatermarkColor = System.Drawing.Color.Silver;
             this.tbCouplingCoeff.WatermarkText = "0,5";
             this.tbCouplingCoeff.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
@@ -155,6 +161,7 @@
             this.lblHeader.Size = new System.Drawing.Size(63, 23);
             this.lblHeader.TabIndex = 0;
             this.lblHeader.Text = "Period ";
+            this.lblHeader.DoubleClick += new System.EventHandler(this.SelectCtrl_Click);
             // 
             // label5
             // 
@@ -256,6 +263,7 @@
             this.lblHeaderCounter.Size = new System.Drawing.Size(98, 23);
             this.lblHeaderCounter.TabIndex = 1;
             this.lblHeaderCounter.Text = "1";
+            this.lblHeaderCounter.DoubleClick += new System.EventHandler(this.SelectCtrl_Click);
             // 
             // tbDuration
             // 
@@ -265,9 +273,11 @@
             this.tbDuration.Location = new System.Drawing.Point(106, 114);
             this.tbDuration.Name = "tbDuration";
             this.tbDuration.NumbersOnly = true;
+            this.tbDuration.ShowToolTip = false;
             this.tbDuration.Size = new System.Drawing.Size(98, 22);
             this.tbDuration.TabIndex = 14;
             this.tbDuration.Text = "0";
+            this.tbDuration.ToolTipText = "ToolTip";
             this.tbDuration.WatermarkColor = System.Drawing.Color.Silver;
             this.tbDuration.WatermarkText = "Time in ms";
             this.tbDuration.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
@@ -297,13 +307,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.DimGray;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(185)))), ((int)(((byte)(0)))));
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "UCtrlPeriod";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 1, 1);
-            this.Size = new System.Drawing.Size(265, 197);
+            this.Padding = new System.Windows.Forms.Padding(0, 0, 2, 2);
+            this.Size = new System.Drawing.Size(266, 198);
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.ResumeLayout(false);

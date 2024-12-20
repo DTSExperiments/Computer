@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using Extensions;
+using Logging;
 
 namespace UR_MTrack
 {
@@ -14,12 +14,43 @@ namespace UR_MTrack
 
         public void CheckDefaultDirectories()
         {
-            if (!Directory.Exists(Properties.Settings.Default.Datapath))
-            { throw new DirectoryNotFoundException("Program Data Directory"); }
-            if (!Directory.Exists(Properties.Settings.Default.DefaultPeriodPath))
+            if (!Directory.Exists(Properties.Settings.Default.SettingsPath))
+            { throw new DirectoryNotFoundException("Settings Directory"); }
+            if (!Directory.Exists(Properties.Settings.Default.DataPath))
             { throw new DirectoryNotFoundException("Default Data Directory"); }
-            if (!Directory.Exists(Properties.Settings.Default.Logfilepath))
+            if (!Directory.Exists(Properties.Settings.Default.LogfilePath))
             { throw new DirectoryNotFoundException("LogFile Directory"); }
+        }
+
+
+        public void SaveSettings(ExperimentSettings settings,bool usedlg=false)
+        {
+            var filepath = GetSettingsFileName(settings);
+            if (usedlg)
+            {
+                filepath = SaveFileDialog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                                                , "Save Experiment Settings"
+                                                , "Json(*.json)|*.json|All Files (*.*)|*.*");
+            }
+            if (!string.IsNullOrEmpty(filepath))
+            {
+                WriteFile(filepath, SerializeToJSON(settings));
+            }
+        }
+
+
+        public ExperimentSettings LoadSettings()
+        {
+            try
+            {
+                var content = OpenFile(Properties.Settings.Default.SettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
+                return DeserializeSettings<ExperimentSettings>(content);
+            }
+            catch (Exception ex)
+            {
+                Log.Append(ex);
+                return new ExperimentSettings();
+            }
         }
 
         /// <summary>
@@ -53,7 +84,7 @@ namespace UR_MTrack
 
             var dlg = new FolderBrowserDialog()
             {
-                ShowNewFolderButton = true,                
+                ShowNewFolderButton = true,
             };
 
             if (string.IsNullOrEmpty(inidir))
@@ -70,15 +101,28 @@ namespace UR_MTrack
         }
 
         /// <summary>
-        /// open file and read its content. The initial directory is Desktop
+        /// Open a file and read its content without a filedialog.
+        /// </summary>
+        /// <param name="path">the absolute path to the file.</param>
+        /// <returns>file content as string</returns>
+        public string OpenFile(string path)
+        {
+            try
+            { return File.ReadAllText(path); }
+            catch (Exception ex)
+            { Log.Append(ex); }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Select a file from a dialog, open it and read its content.
         /// </summary>
         /// <param name="dlgTitle">the title shown in the title bar of the dialog.</param>
         /// <param name="extfilter">show only defined list of extensions.
         ///                         example: Text(*.txt)|*.txt|All Files (*.*)|*.*</param>
         /// <returns>filecontent as string</returns>
-        public string OpenFile(bool usedlg = true, string dlgTitle = "", string extfilter = "", string filepath = "")
+        public string OpenFile(string inidir, string dlgTitle = "", string extfilter = "")
         {
-            var path = filepath;
             var ofdlg = new OpenFileDialog()
             {
                 CheckFileExists = true,
@@ -90,22 +134,60 @@ namespace UR_MTrack
                 Filter = extfilter,
                 Title = dlgTitle,
                 ValidateNames = true,
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                InitialDirectory = inidir//Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             };
             using (var centerdlg = new CenterDialog())
             {
-                if (DialogResult.OK == ofdlg.ShowDialog())
-                { path = ofdlg.FileName; }
+                try
+                {
+                    if (DialogResult.OK == ofdlg.ShowDialog())
+                    {
+                        return File.ReadAllText(ofdlg.FileName);
+                    }
+                }
+                catch (Exception)
+                { throw; }
+                return string.Empty;
             }
-            try
-            { return File.ReadAllText(path); }
-            catch (Exception)
-            { throw; }
+        }
+
+        /// <summary>
+        /// Select the destination path for a file using a dialog.
+        /// </summary>
+        /// <param name="dlgTitle">the title shown in the title bar of the dialog.</param>
+        /// <param name="extfilter">show only defined list of extensions.
+        ///                         example: Text(*.txt)|*.txt|All Files (*.*)|*.*</param>
+        /// <returns>filecontent as string</returns>
+        string SaveFileDialog(string inidir, string dlgTitle = "", string extfilter = "")
+        {
+            var sfdlg = new SaveFileDialog()
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                SupportMultiDottedExtensions = true,
+                Filter = extfilter,
+                Title = dlgTitle,
+                ValidateNames = true,
+                InitialDirectory = inidir//Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            };
+            using (var centerdlg = new CenterDialog())
+            {
+                try
+                {
+                    if (DialogResult.OK == sfdlg.ShowDialog())
+                    {
+                        return sfdlg.FileName;
+                    }
+                }
+                catch (Exception ex)
+                { Log.Append(ex); }
+                return string.Empty;
+            }
         }
 
 
         /// <summary>
-        /// select  a file. The initial directory is Desktop
+        /// Select  a file using the openfiledialog. The initial directory is Desktop
         /// </summary>
         /// <param name="extfilter">show only defined list of extensions.
         ///                         example: Text(*.txt)|*.txt|All Files (*.*)|*.*</param>
@@ -150,7 +232,7 @@ namespace UR_MTrack
             {
                 return JsonConvert.SerializeObject(obj, Formatting.Indented);
             }
-            catch (Exception ex) { Logging.Log(ex); return string.Empty; }
+            catch (Exception ex) { Log.Append(ex); return string.Empty; }
         }
 
         /// <summary>
@@ -169,9 +251,19 @@ namespace UR_MTrack
                     return data;
                 }
             }
-            catch (Exception ex) { Logging.Log(ex); return default(T); }
+            catch (Exception ex) { Log.Append(ex); return default(T); }
         }
 
+        string GetSettingsFileName(ExperimentSettings exsettings)
+        {
+            var filename = string.Format("{0}_Settings_{1}{2}", DateTime.Now.ToString("ddMMyy_HHmmssf"), exsettings.FlyName, ".json");
+            return Path.Combine(Properties.Settings.Default.SettingsPath, filename);
+        }
+
+        string GetPeridsFileName()
+        {
+            return "Periods-" + (new DateTimeOffset(DateTime.UtcNow)).ToString("yyyyMMdd_HHmmss");
+        }
 
         /// <summary>
         /// save string to file. 
@@ -180,13 +272,13 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="path"></param>
         /// <param name="content"></param>
-        public void SaveFile(string path, string content)
+        public void WriteFile(string path, string content)
         {
             try
             {
                 File.WriteAllText(path, content);
             }
-            catch (Exception) { Logging.Log("Failed to save file.", LogType.Fail); }
+            catch (Exception) { Log.Append("Failed to save file.", LogType.Fail); }
         }
 
         /// <summary>
@@ -196,13 +288,13 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="path"></param>
         /// <param name="content"></param>
-        public void SaveFile(string path, IEnumerable<string> content)
+        void WriteFile(string path, IEnumerable<string> content)
         {
             try
             {
                 File.WriteAllLines(path, content);
             }
-            catch (Exception) { Logging.Log("Failed to save file.", LogType.Fail); }
+            catch (Exception) { Log.Append("Failed to save file.", LogType.Fail); }
         }
     }
 }

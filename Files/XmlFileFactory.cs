@@ -11,6 +11,7 @@ using System.Xml;
 using static System.Net.Mime.MediaTypeNames;
 using System.Collections.Generic;
 using Extensions;
+using Logging;
 
 namespace UR_MTrack
 {
@@ -40,11 +41,11 @@ namespace UR_MTrack
                 try
                 {
                     docXML.Save(Path.Combine(path));
-                    Logging.Log("XML file created successfully.", LogType.Success, false);
+                    Log.Append("XML file created successfully.", LogType.Success, false);
                 }
                 catch (Exception ex)
                 {
-                    Logging.Log("Failed saving XML.", LogType.Fail, true);
+                    Log.Append("Failed saving XML.", LogType.Fail, true);
                     throw new Exception("Failed saving XML", ex);
                 }
             }
@@ -134,11 +135,11 @@ namespace UR_MTrack
             try
             {
                 doc.Save(path);
-                Logging.Log("XML file created successfully.", LogType.Success, false);
+                Log.Append("XML file created successfully.", LogType.Success, false);
             }
             catch (Exception ex)
             {
-                Logging.Log("Failed saving XML.", LogType.Fail, true);
+                Log.Append("Failed saving XML.", LogType.Fail, true);
                 throw new Exception("Failed saving XML", ex);
             }
         }
@@ -178,11 +179,11 @@ namespace UR_MTrack
             try
             {
                 doc.Save(path);
-                Logging.Log("XML file created successfully.", LogType.Success, false);
+                Log.Append("XML file created successfully.", LogType.Success, false);
             }
             catch (Exception ex)
             {
-                Logging.Log("Failed saving XML.", LogType.Fail, true);
+                Log.Append("Failed saving XML.", LogType.Fail, true);
                 throw new Exception("Failed saving XML", ex);
             }
         }
@@ -192,10 +193,10 @@ namespace UR_MTrack
         {
             bool valid = false;
             var schemes = new XmlSchemaSet();
-            var schemaPath = Path.Combine(Properties.Settings.Default.Datapath, @"periods.xsd");
+            var schemaPath = Path.Combine(Properties.Settings.Default.SettingsPath, @"periods.xsd");
 
             // Read the schema file into a string
-            var schemaContent = (new FileFactory()).OpenFile(false, null, null, schemaPath);
+            var schemaContent = (new FileFactory()).OpenFile(schemaPath);
 
             // Use StringReader to provide a stream for XmlSchema.Read
             using (StringReader sr = new StringReader(schemaContent))
@@ -203,7 +204,7 @@ namespace UR_MTrack
                 XmlSchema scheme = XmlSchema.Read(sr, (sender, args) =>
                 {
                     // Handle any validation errors here, if necessary
-                    Logging.Log("Validation error\n" + args.Message);
+                    Log.Append("Validation error\n" + args.Message);
                     valid = false;
                 });
                 // Assuming no target namespace, pass null as the first argument
@@ -220,11 +221,11 @@ namespace UR_MTrack
                 {
                     while (reader.Read()) { }
                     valid = true;
-                    Logging.Log("XML file is valid.", LogType.Success);
+                    Log.Append("XML file is valid.", LogType.Success);
                 }
                 catch (XmlException ex)
                 {
-                    Logging.Log("XML file validation failed.", LogType.Fail, true, ex.Message);
+                    Log.Append("XML file validation failed.", LogType.Fail, true, ex.Message);
                     Debug.WriteLine($"XML exception: {ex.Message}");
                     valid = false;
                 }
@@ -258,7 +259,7 @@ namespace UR_MTrack
                         };
                         periods.Add(period);
                     }
-                    catch (Exception ex) { Logging.Log(ex); }
+                    catch (Exception ex) { Log.Append(ex); }
                 }
             }
             MessageBox.Show("Please check logfile for further information.","Validation failed",MessageBoxButtons.OK,MessageBoxIcon.Error);    
@@ -272,7 +273,7 @@ namespace UR_MTrack
             {
                 case XmlSeverityType.Error:
                 case XmlSeverityType.Warning:
-                    Logging.Log(string.Format("Validation error: {0}", e.Message), LogType.Error);
+                    Log.Append(string.Format("Validation error: {0}", e.Message), LogType.Error);
                     break;
             }
         }

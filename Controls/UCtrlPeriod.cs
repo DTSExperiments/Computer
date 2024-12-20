@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Extensions;
 
@@ -31,8 +32,20 @@ namespace UR_MTrack
             UpdateControls(_periodValues);
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            //base.OnPaint(e);
+            if (Selected)
+            {
+                Padding = new Padding(10);
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(100, Color.LightSalmon)), ClientRectangle);
+            }
+            else { Padding = new Padding(0, 0, 2, 2); }
+        }
+
         #region Properties
         public PeriodValues Period { get { return _periodValues; } }
+        public bool Selected { get; set; }
         #endregion
 
 
@@ -87,13 +100,20 @@ namespace UR_MTrack
             PeriodChanged?.Invoke(this, new PeriodChangedEventArgs(_periodValues));
         }
 
+
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter||e.KeyCode == Keys.Return) 
+            if(e.KeyCode == Keys.Enter||e.KeyCode == Keys.Return||e.KeyCode == Keys.Tab) 
             {
                 CollectValues();
                 PeriodChanged?.Invoke(this, new PeriodChangedEventArgs(_periodValues));
             }
+        }
+
+        private void SelectCtrl_Click(object sender, EventArgs e)
+        {
+            Selected=!Selected;
+            Invalidate();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace UR_MTrack.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,37 +25,37 @@ namespace UR_MTrack.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Periods")]
-        public string DefaultPeriodPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Data")]
+        public string DataPath {
             get {
-                return ((string)(this["DefaultPeriodPath"]));
+                return ((string)(this["DataPath"]));
             }
             set {
-                this["DefaultPeriodPath"] = value;
+                this["DataPath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Log")]
-        public string Logfilepath {
+        public string LogfilePath {
             get {
-                return ((string)(this["Logfilepath"]));
+                return ((string)(this["LogfilePath"]));
             }
             set {
-                this["Logfilepath"] = value;
+                this["LogfilePath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Data")]
-        public string Datapath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Settings")]
+        public string SettingsPath {
             get {
-                return ((string)(this["Datapath"]));
+                return ((string)(this["SettingsPath"]));
             }
             set {
-                this["Datapath"] = value;
+                this["SettingsPath"] = value;
             }
         }
     }

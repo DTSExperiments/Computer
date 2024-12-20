@@ -2,14 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="UR_MTrack.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DefaultPeriodPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Periods</Value>
+    <Setting Name="DataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Data</Value>
     </Setting>
-    <Setting Name="Logfilepath" Type="System.String" Scope="User">
+    <Setting Name="LogfilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Log</Value>
     </Setting>
-    <Setting Name="Datapath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Data</Value>
+    <Setting Name="SettingsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Settings</Value>
     </Setting>
   </Settings>
 </SettingsFile>

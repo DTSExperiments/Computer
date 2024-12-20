@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -42,13 +44,19 @@ namespace UR_MTrack
 
         public void Show(int cnt)
         {
-            BuildPeriods(cnt);
-            ShowDialog();
+            if (!DesignMode)
+            {
+                BuildPeriods(cnt);
+                ShowDialog();
+            }
         }
         public void Show(IEnumerable<PeriodValues> pvalues)
         {
-             BuildPeriods(pvalues);
-             ShowDialog();
+            if (!DesignMode)
+            {
+                BuildPeriods(pvalues);
+                ShowDialog();
+            }
         }
         
 
@@ -95,14 +103,60 @@ namespace UR_MTrack
             return collection;
         }
 
+        void DeleteSelected()
+        {
+            var ctrlList = flpCtrlHost.Controls.Cast<UCtrlPeriod>().ToList();
+            foreach (var ctrl in ctrlList)
+            {
+                if (ctrl.Selected)
+                {
+                    flpCtrlHost.Controls.Remove(ctrl);
+                }
+            }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            Close();
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
             PeriodsConfigured?.Invoke(this,GetPeriodValueCollection());
+        }
+
+        private void btnCreatePeriod_Click(object sender, EventArgs e)
+        {
+            using (new CenterDialog(this))
+            {
+                var dlg = new FrmInput(InputType.PeriodCount);
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    BuildPeriods(dlg.PeriodsCount);                 
+                }
+            }
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            DeleteSelected();
+            Invalidate();
+        }
+
+        private void btnLoadPeriod_Click(object sender, EventArgs e)
+        {
+            if(flpCtrlHost.Controls.Count>0)
+            {
+                var dlgre=MessageBox.Show("Periods will be deleted. \nContinue?","",MessageBoxButtons.YesNo,MessageBoxIcon.Warning); 
+                if (dlgre == DialogResult.Yes) {flpCtrlHost.Controls.Clear(); }
+                else { return; }
+            } 
+            var path = new FileFactory().SelectFilePath("Open file", "XML files(.xml) | *.xml");
+            if (!string.IsNullOrEmpty(path))
+            {
+                var periodscollection = new XmlFileFactory().ReadPeriodsFromXml(path);
+                BuildPeriods(periodscollection);
+            }
         }
     }
 }

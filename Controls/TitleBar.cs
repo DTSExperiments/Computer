@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using Logging;
 
 namespace UR_MTrack
 {
@@ -393,7 +394,7 @@ namespace UR_MTrack
             }
             catch (Exception ex)
             {
-                Logging.Log(ex);
+                Log.Append(ex);
             }
             return _brush;
         }

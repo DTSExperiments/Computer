@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Logging;
+
 
 namespace UR_MTrack
 {
@@ -16,7 +18,14 @@ namespace UR_MTrack
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Logging.CreateLogFile();
+            using (var sp = new FrmSplashScreen())
+            {
+                sp.Show();
+                try
+                {
+                    Log.CheckDirPath(Properties.Settings.Default.LogfilePath);
+                }catch (Exception ex) {sp.Message = ex.Message;}
+            }
             Application.Run(new Main());
         }
     }

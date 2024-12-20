@@ -3,30 +3,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Logging;
 
 namespace Extensions
 {
     public static class Extension
     {
-        //public static void LogException(this Exception ex, string info = "")
-        //{
-        //    var message = ex.Message + Environment.NewLine + ex.StackTrace;
-        //    if (!string.IsNullOrEmpty(info)) { message = info + Environment.NewLine + message; }
-        //    Logging.Log(message, LogType.Error);
-        //}
-
-        public static string InvertIp(this string value)
-        {
-            var temp = value.Split(new char[] { '.' });
-            var r =string.Join(".",  temp.Reverse());
-            return r;
-        }
-
-       
-
         public static void AddRange<T>(this ConcurrentBag<T> bag, IEnumerable<T> toAdd)
         {
             foreach (var element in toAdd)
@@ -35,7 +21,7 @@ namespace Extensions
             }
         }
 
-        public static void Clear<T>(this ConcurrentBag <T> bag)
+        public static void Clear<T>(this ConcurrentBag<T> bag)
         {
             if (bag != null)
             {
@@ -51,14 +37,7 @@ namespace Extensions
         /// <returns></returns>
         public static IEnumerable<Control> ToList(this Control.ControlCollection ctrlcollection)
         {
-            return ctrlcollection.Cast<Control>().ToList();
-            //var list = new List<Control>();
-            
-            //foreach (Control c in ctrlcollection)
-            //{
-            //    list.Add(c);
-            //}
-            //return list;
+            return ctrlcollection.Cast<Control>().ToList();           
         }
 
         /// <summary>
@@ -99,26 +78,47 @@ namespace Extensions
         /// Error - red, Info - blue, Warning - orange
         /// </summary>
         /// <param name="rtb"></param>
-        //public static void ColorizeTags(this RichTextBox rtb)
-        //{
-        //    var tags = Enum.GetValues(typeof(LogType)).Cast<LogType>().Select(v => v.ToString());
-        //    var color = Color.Black;
-        //    var font = new Font("Segoe UI", 11, FontStyle.Underline);
-        //    foreach (string tag in tags)
-        //    {
-        //        if (tag.Equals(LogType.Error.ToString())) { color = Color.Red; } else if (tag.Equals(LogType.Warning.ToString())) { color = Color.Orange; } else if (tag.Equals(LogType.Info.ToString())) { color = Color.Blue; } else if (tag.Equals(LogType.Success.ToString())) { color = Color.Green; } else if (tag.Equals(LogType.Fail.ToString())) { color = Color.OrangeRed; }
+        public static void ColorizeTags(this RichTextBox rtb)
+        {
+            var tags = Enum.GetValues(typeof(LogType)).Cast<LogType>().Select(v => v.ToString());
+            var color = Color.Black;
+            var font = new Font("Segoe UI", 11, FontStyle.Underline);
+            foreach (string tag in tags)
+            {
+                if (tag.Equals(LogType.Error.ToString())) { color = Color.Red; } else if (tag.Equals(LogType.Warning.ToString())) { color = Color.Orange; } else if (tag.Equals(LogType.Info.ToString())) { color = Color.Blue; } else if (tag.Equals(LogType.Success.ToString())) { color = Color.Green; } else if (tag.Equals(LogType.Fail.ToString())) { color = Color.OrangeRed; }
 
-        //        var matchString = Regex.Escape(tag);
-        //        foreach (Match match in Regex.Matches(rtb.Text, matchString))
-        //        {
-        //            rtb.Select(match.Index, tag.Length);
-        //            rtb.SelectionColor = color;
-        //            rtb.SelectionFont = font;
-        //            rtb.Select(rtb.TextLength, 0);
-        //            rtb.SelectionColor = rtb.ForeColor;
-        //        }
-        //    }
-        //}
+                var matchString = Regex.Escape(tag);
+                foreach (Match match in Regex.Matches(rtb.Text, matchString))
+                {
+                    rtb.Select(match.Index, tag.Length);
+                    rtb.SelectionColor = color;
+                    rtb.SelectionFont = font;
+                    rtb.Select(rtb.TextLength, 0);
+                    rtb.SelectionColor = rtb.ForeColor;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="img"></param>
+        /// <param name="opacity">transparency level</param>
+        /// <returns></returns>
+        public static Image SetImgOpacity(this Image img, float opacity)
+        {
+            Bitmap bmpPic = new Bitmap(img.Width, img.Height);
+            Graphics gfxPic = Graphics.FromImage(bmpPic);
+            ColorMatrix cmxPic = new ColorMatrix();
+            cmxPic.Matrix33 = opacity;
+
+            ImageAttributes iaPic = new ImageAttributes();
+            iaPic.SetColorMatrix(cmxPic, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+            gfxPic.DrawImage(img, new Rectangle(0, 0, bmpPic.Width, bmpPic.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, iaPic);
+            gfxPic.Dispose();
+
+            return bmpPic;
+        }
 
         /// <summary>
         /// Check if an IEnumerabel is empty.
@@ -131,20 +131,20 @@ namespace Extensions
             return false;
         }
 
-        
-      
+
+
         #region Numeric
         /// <summary>
         /// Read a double value from a control with "Text" property. 
         /// </summary>
         /// <param name="control">Textbox, Label, Combobox</param>
         /// <returns></returns>
-        public static double GetDoubleValue(this Control control,int decimals=2)
+        public static double GetDoubleValue(this Control control, int decimals = 2)
         {
             if (control is TextBox || control is Label || control is ComboBox)
             {
                 if (double.TryParse(control.Text, out var value))
-                { return Math.Round(value,decimals); }
+                { return Math.Round(value, decimals); }
             }
             return double.NaN;
         }
@@ -249,13 +249,16 @@ namespace Extensions
         /// <returns></returns>
         public static object BindEnumDescription(Type e)
         {
-            var ret = Enum.GetValues(e).Cast<Enum>().Select(value => new{(Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) as DescriptionAttribute).Description,value
+            var ret = Enum.GetValues(e).Cast<Enum>().Select(value => new
+            {
+                (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) as DescriptionAttribute).Description,
+                value
             }).OrderBy(item => item.value).ToList();
 
             return ret;
         }
 
-       
+
 
 
         /// <summary>
@@ -298,11 +301,13 @@ namespace Extensions
                 {
                     T enumVal = (T)Enum.Parse(typeof(T), x);
                     return enumVal;
-                } else
+                }
+                else
                 {
                     return default(T);
                 }
-            } else
+            }
+            else
             { return default(T); }
         }
 

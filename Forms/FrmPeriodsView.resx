@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tBarSessionConfig.AbtImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tBarPeriodsView.AbtImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAvNJREFUWEfd
         mEtvElEYhvGfGFf+hC78ESZGgQLBtlgvKSWxuvCyqMy0gNKC7Qq2LnCHbtpEbgoUBNqagkljahq8JbIw
@@ -136,7 +136,7 @@
         YhCL1xdyqUzvheE5eydx+ahDdMQIHcrBksn0G+z4XxfzK3KeAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="tBarSessionConfig.CloseImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tBarPeriodsView.CloseImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABP1JREFUeF7t
         mutrHGUUxvPVb34UA7om2oSiEYs0WLy0eMEilRQvFG0wSLO9BRIr0qzFuhYsmIXW6litt1oVlZjWzaXd
@@ -163,7 +163,7 @@
         hISEhASdpqb/ADVQSUrjDzjjAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="tBarSessionConfig.MaxImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tBarPeriodsView.MaxImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAABJNJREFUeF7t
         mm9vU2UYxvsR/ABGq4xtOHR1E5ABoyiIIn8mhH/bmEXmGGAUTTSasKyJRBONgkYTjCZVFAUTDBDnjFNa
@@ -188,7 +188,7 @@
         4aGsW0obSjaL93X5hISEhISEhP8hqdR/tE9sm4StpKEAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="tBarSessionConfig.MiniImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="tBarPeriodsView.MiniImg" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAAqdJREFUeF7t
         mstqU1EYhfsIPkAL0dY22HovlYrF4B2LJd6pWAxqb0RUBAeCYMCB4KAoIjgQLDgQBG8FtdBKAvoe6SP0
