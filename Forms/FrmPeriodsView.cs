@@ -39,7 +39,8 @@ namespace UR_MTrack
        
         private void PeriodValuesChanged(object sender, PeriodChangedEventArgs e)
         {
-            UpdatePeriods(e.Values);
+            var selectionmode = flpCtrlHost.Controls.OfType<UCtrlPeriod>().Any(p => p.Selected);
+            UpdatePeriods(e.Values,selectionmode);
         }
 
         public void Show(int cnt)
@@ -84,13 +85,33 @@ namespace UR_MTrack
             flpCtrlHost.ResumeLayout();
         }
 
-        void UpdatePeriods(PeriodValues values)
+        void UpdatePeriods(PeriodValues values,bool updmode)
         {
-            foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
+            if (updmode)
             {
-                if (ctrl.Period.Number >= values.Number)
-                { ctrl.UpdateControls(values); }
+                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Selected)
+                                                          .Select(ctrl => { ctrl.UpdateControls(values); return ctrl; }).ToList();
             }
+            else
+            {
+                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Period.Number>values.Number)
+                                                          .Select(ctrl => { ctrl.UpdateControls(values);return ctrl;}).ToList();
+                //foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
+                //{
+                //    if (ctrl.Period.Number >= values.Number)
+                //    { ctrl.UpdateControls(values); }
+                //}
+            }
+        }
+
+        void UpdatePeriodID()
+        {
+            for(int i=0;i<flpCtrlHost.Controls.Count;i++)
+            {
+                (flpCtrlHost.Controls[i] as UCtrlPeriod).Period.Number = ++i;
+                flpCtrlHost.Controls[i].Invalidate();
+            }
+
         }
 
         IEnumerable<PeriodValues> GetPeriodValueCollection()
@@ -113,7 +134,10 @@ namespace UR_MTrack
                     flpCtrlHost.Controls.Remove(ctrl);
                 }
             }
+            UpdatePeriodID();
         }
+
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.cmbContingency = new System.Windows.Forms.ComboBox();
-            this.tbOutcome = new UR_MTrack.WMTextBox();
-            this.tbCouplingCoeff = new UR_MTrack.WMTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHeader = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -43,9 +41,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblHeaderDelim = new System.Windows.Forms.Label();
             this.lblHeaderCounter = new System.Windows.Forms.Label();
-            this.tbDuration = new UR_MTrack.WMTextBox();
             this.cmbType = new System.Windows.Forms.ComboBox();
             this.cmbPattern = new System.Windows.Forms.ComboBox();
+            this.tbOutcome = new UR_MTrack.WMTextBox();
+            this.tbCouplingCoeff = new UR_MTrack.WMTextBox();
+            this.tbDuration = new UR_MTrack.WMTextBox();
             this.tblMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,41 +99,6 @@
             this.cmbContingency.Size = new System.Drawing.Size(98, 21);
             this.cmbContingency.TabIndex = 19;
             this.cmbContingency.DropDownClosed += new System.EventHandler(this.cmb_DropDownClosed);
-            // 
-            // tbOutcome
-            // 
-            this.tbOutcome.AllowDelims = true;
-            this.tbOutcome.BackColor = System.Drawing.Color.White;
-            this.tbOutcome.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.tbOutcome.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.tbOutcome.Location = new System.Drawing.Point(106, 170);
-            this.tbOutcome.Name = "tbOutcome";
-            this.tbOutcome.NumbersOnly = false;
-            this.tbOutcome.ReadOnly = true;
-            this.tbOutcome.ShowToolTip = false;
-            this.tbOutcome.Size = new System.Drawing.Size(98, 22);
-            this.tbOutcome.TabIndex = 16;
-            this.tbOutcome.ToolTipText = "ToolTip";
-            this.tbOutcome.WatermarkColor = System.Drawing.Color.Silver;
-            this.tbOutcome.WatermarkText = "";
-            this.tbOutcome.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            // 
-            // tbCouplingCoeff
-            // 
-            this.tbCouplingCoeff.AllowDelims = true;
-            this.tbCouplingCoeff.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.tbCouplingCoeff.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.tbCouplingCoeff.Location = new System.Drawing.Point(106, 142);
-            this.tbCouplingCoeff.Name = "tbCouplingCoeff";
-            this.tbCouplingCoeff.NumbersOnly = true;
-            this.tbCouplingCoeff.ShowToolTip = false;
-            this.tbCouplingCoeff.Size = new System.Drawing.Size(98, 22);
-            this.tbCouplingCoeff.TabIndex = 15;
-            this.tbCouplingCoeff.Text = "0";
-            this.tbCouplingCoeff.ToolTipText = "ToolTip";
-            this.tbCouplingCoeff.WatermarkColor = System.Drawing.Color.Silver;
-            this.tbCouplingCoeff.WatermarkText = "0,5";
-            this.tbCouplingCoeff.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
             // 
             // label1
             // 
@@ -265,24 +230,6 @@
             this.lblHeaderCounter.Text = "1";
             this.lblHeaderCounter.DoubleClick += new System.EventHandler(this.SelectCtrl_Click);
             // 
-            // tbDuration
-            // 
-            this.tbDuration.AllowDelims = true;
-            this.tbDuration.Font = new System.Drawing.Font("Arial", 9.75F);
-            this.tbDuration.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.tbDuration.Location = new System.Drawing.Point(106, 114);
-            this.tbDuration.Name = "tbDuration";
-            this.tbDuration.NumbersOnly = true;
-            this.tbDuration.ShowToolTip = false;
-            this.tbDuration.Size = new System.Drawing.Size(98, 22);
-            this.tbDuration.TabIndex = 14;
-            this.tbDuration.Text = "0";
-            this.tbDuration.ToolTipText = "ToolTip";
-            this.tbDuration.WatermarkColor = System.Drawing.Color.Silver;
-            this.tbDuration.WatermarkText = "Time in ms";
-            this.tbDuration.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.tbDuration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
-            // 
             // cmbType
             // 
             this.cmbType.FormattingEnabled = true;
@@ -300,6 +247,60 @@
             this.cmbPattern.Size = new System.Drawing.Size(98, 21);
             this.cmbPattern.TabIndex = 18;
             this.cmbPattern.DropDownClosed += new System.EventHandler(this.cmb_DropDownClosed);
+            // 
+            // tbOutcome
+            // 
+            this.tbOutcome.AllowDelims = true;
+            this.tbOutcome.BackColor = System.Drawing.Color.White;
+            this.tbOutcome.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.tbOutcome.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.tbOutcome.Location = new System.Drawing.Point(106, 170);
+            this.tbOutcome.Name = "tbOutcome";
+            this.tbOutcome.NumbersOnly = true;
+            this.tbOutcome.ShowToolTip = false;
+            this.tbOutcome.Size = new System.Drawing.Size(98, 22);
+            this.tbOutcome.TabIndex = 16;
+            this.tbOutcome.ToolTipText = "ToolTip";
+            this.tbOutcome.WatermarkColor = System.Drawing.Color.Silver;
+            this.tbOutcome.WatermarkText = "";
+            this.tbOutcome.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.tbOutcome.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+            // 
+            // tbCouplingCoeff
+            // 
+            this.tbCouplingCoeff.AllowDelims = true;
+            this.tbCouplingCoeff.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.tbCouplingCoeff.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.tbCouplingCoeff.Location = new System.Drawing.Point(106, 142);
+            this.tbCouplingCoeff.Name = "tbCouplingCoeff";
+            this.tbCouplingCoeff.NumbersOnly = true;
+            this.tbCouplingCoeff.ShowToolTip = false;
+            this.tbCouplingCoeff.Size = new System.Drawing.Size(98, 22);
+            this.tbCouplingCoeff.TabIndex = 15;
+            this.tbCouplingCoeff.Text = "0";
+            this.tbCouplingCoeff.ToolTipText = "ToolTip";
+            this.tbCouplingCoeff.WatermarkColor = System.Drawing.Color.Silver;
+            this.tbCouplingCoeff.WatermarkText = "0,5";
+            this.tbCouplingCoeff.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.tbCouplingCoeff.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
+            // 
+            // tbDuration
+            // 
+            this.tbDuration.AllowDelims = true;
+            this.tbDuration.Font = new System.Drawing.Font("Arial", 9.75F);
+            this.tbDuration.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.tbDuration.Location = new System.Drawing.Point(106, 114);
+            this.tbDuration.Name = "tbDuration";
+            this.tbDuration.NumbersOnly = true;
+            this.tbDuration.ShowToolTip = false;
+            this.tbDuration.Size = new System.Drawing.Size(98, 22);
+            this.tbDuration.TabIndex = 14;
+            this.tbDuration.Text = "0";
+            this.tbDuration.ToolTipText = "ToolTip";
+            this.tbDuration.WatermarkColor = System.Drawing.Color.Silver;
+            this.tbDuration.WatermarkText = "Time in ms";
+            this.tbDuration.WMFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.tbDuration.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_KeyDown);
             // 
             // UCtrlPeriod
             // 

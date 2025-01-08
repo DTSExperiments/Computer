@@ -64,18 +64,27 @@ namespace UR_MTrack
             cmbContingency.DisplayMember = "Description";
             cmbContingency.ValueMember = "value";
             ResumeLayout();
+            tbOutcome.LostFocus += Tb_LostFocus;
+            tbDuration.LostFocus += Tb_LostFocus;
+            tbCouplingCoeff.LostFocus += Tb_LostFocus;
 
         }
 
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         void CollectValues()
         {
             _periodValues.Pattern = cmbPattern.SelectedItem.ToEnum<PeriodPattern>();
             _periodValues.Type = cmbType.SelectedItem.ToEnum<PeriodType>();
-            _periodValues.Contingency = cmbPattern.SelectedItem.ToEnum<PeriodContingency>();
+            _periodValues.Contingency = cmbContingency.SelectedItem.ToEnum<PeriodContingency>();
             _periodValues.Duration=tbDuration.GetIntValue(); 
             _periodValues.Outcome=tbOutcome.GetIntValue();
             _periodValues.CoupCoeff=tbCouplingCoeff.GetDoubleValue();
         }
+
 
         /// <summary>
         /// 
@@ -88,7 +97,8 @@ namespace UR_MTrack
             cmbContingency.SelectedValue=_values.Contingency;
             tbDuration.Text=_values.Duration.ToString();
             tbOutcome.Text=_values.Outcome.ToString();
-            tbCouplingCoeff.Text=_values.CoupCoeff.ToString();      
+            tbCouplingCoeff.Text=_values.CoupCoeff.ToString();  
+            Refresh();
         }
 
 
@@ -108,6 +118,12 @@ namespace UR_MTrack
                 CollectValues();
                 PeriodChanged?.Invoke(this, new PeriodChangedEventArgs(_periodValues));
             }
+        }
+
+        private void Tb_LostFocus(object sender, EventArgs e)
+        {
+            CollectValues();
+            PeriodChanged?.Invoke(this, new PeriodChangedEventArgs(_periodValues));
         }
 
         private void SelectCtrl_Click(object sender, EventArgs e)

@@ -35,9 +35,9 @@ namespace Extensions
         /// </summary>
         /// <param name="ctrlcollection"></param>
         /// <returns></returns>
-        public static IEnumerable<Control> ToList(this Control.ControlCollection ctrlcollection)
+        public static IEnumerable<T> ToList<T>(this Control.ControlCollection ctrlcollection)
         {
-            return ctrlcollection.Cast<Control>().ToList();           
+            return ctrlcollection.Cast<T>().ToList();           
         }
 
         /// <summary>
