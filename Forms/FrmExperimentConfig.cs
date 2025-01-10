@@ -57,7 +57,7 @@ namespace UR_MTrack
             cmbDMSType.DataSource = Extension.BindEnumDescription(typeof(DMSType));
             cmbDMSType.DisplayMember = "Description";
             cmbDMSType.ValueMember = "value";
-            cmbScope.DataSource = Extension.BindEnumDescription(typeof(Scope));
+            cmbScope.DataSource = Extension.BindEnumDescription(typeof(ArenaType));
             cmbScope.DisplayMember = "Description";
             cmbScope.ValueMember = "value";
         }
@@ -121,7 +121,7 @@ namespace UR_MTrack
             _expsettings.Analysis = tbAnalysis.Text;
             _expsettings.DataModel = tbDataModel.Text;
             _expsettings.DMSType = cmbDMSType.SelectedItem.ToEnum<DMSType>();
-            _expsettings.Scope = cmbScope.ToEnum<Scope>();
+            _expsettings.Arena = cmbScope.ToEnum<ArenaType>();
 
         }
 
@@ -165,8 +165,7 @@ namespace UR_MTrack
                         MessageBox.Show("Please add the missing information to the highlighted fields.", "Missing Data",
                                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                }
-                
+                }                
             }
             catch (Exception ex) { Log.Append(ex); }
         }

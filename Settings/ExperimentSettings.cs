@@ -44,16 +44,18 @@ namespace UR_MTrack
         #region Experiment Data
 
         public DMSType DMSType { get; set; }
-        public Scope Scope { get; set; }        
+        public ArenaType Arena { get; set; }        
         public string ExperimentDescription { get; set; }
         
         public string Recording { get; set; }
         public string Analysis { get; set; }
         public string DataModel { get; set; }
-
+        public int Duration { get; set; }
+        public int SamplingRate { get; set; } = 60;
         public int PeriodCount { get { return PeriodCollection.Count(); } }
         
-        [JsonIgnore]
+        
+        //[JsonIgnore]        
         public IEnumerable<PeriodValues> PeriodCollection { get; set; }
 
         #endregion

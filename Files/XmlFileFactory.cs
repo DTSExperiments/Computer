@@ -34,7 +34,7 @@ namespace UR_MTrack
             }
         }
 
-        private void SaveXML(XDocument docXML, string path)
+        void SaveXML(XDocument docXML, string path)
         {
             if (!File.Exists(path))
             {
@@ -51,6 +51,90 @@ namespace UR_MTrack
             }
         }
 
+        XElement BuildXMLHeader(ExperimentSettings expdata)
+        {
+            var header = new XElement("metadata",
+                                     new XElement("license", "PDDL", new XAttribute("URI", "http://opendatacommons.org/licenses/pddl")),
+                                     new XElement("URIs",
+                                         new XElement("recording", expdata.Recording),
+                                         new XElement("analysis", expdata.Analysis),
+                                         new XElement("datamodel", expdata.DataModel)),
+                                     new XElement("experimenter",
+                                         new XElement("firstname", expdata.FirstName),
+                                         new XElement("lastname", expdata.LastName),
+                                         new XElement("orcid", expdata.ORCID)),
+                                     new XElement("fly",
+                                         new XElement("name", expdata.FlyName),
+                                         new XElement("description", expdata.FlyDescription),
+                                         new XElement("flybase", expdata.FlyBase)),
+                                     new XElement("experiment", new XAttribute("type", "torquemeter"),
+                                         new XElement("dateTime", expdata.TimeStamp.ToString("yyyy-MM-ddTHH:mm:ss")),
+                                         new XElement("duration", expdata.Duration),
+                                         new XElement("description", expdata.ExperimentDescription),
+                                         new XElement("sample_rate", expdata.SamplingRate),
+                                         new XElement("arena_type", expdata.Arena),
+                                         new XElement("meter_type", expdata.DMSType)));
+            return header;  
+        }
+
+
+        XElement BuildXMLSequence(ExperimentSettings expdata)
+        {
+            var seqElement = new XElement("sequence", new XAttribute("periods", expdata.PeriodCount.ToString()));
+            // Dynamically create and add <period> elements based on the provided data
+            foreach (var period in expdata.PeriodCollection)
+            {
+                XElement periodElement = new XElement("period",
+                    new XAttribute("number", period.Number.ToString()), // Use the provided number
+                    new XElement("type", period.Type),
+                    new XElement("duration", period.Duration),
+                    new XElement("outcome", period.Outcome),
+                    new XElement("pattern", period.Pattern),
+                    new XElement("coup_coeff", period.CoupCoeff),
+                    new XElement("contingency", period.Contingency)
+                );
+
+                // Add the constructed <period> element to the root <sequence> element
+                seqElement.Add(periodElement);
+            }
+            return seqElement;
+        }
+
+        XElement BuildXMLTimeSeries(ExperimentSettings expdata)
+        {
+            var tsElement = new XElement("timeseries",
+                                        new XElement("CSV_descriptor",
+                                            new XElement("delimiter", "tab"),
+                                            new XElement("header", "0"),
+                                            new XElement("nullSequence", "NaN")),
+
+                                        new XElement("variables",
+                                            new XElement("variable",
+                                                new XAttribute("number", "1"),
+                                                new XElement("type", "time"),
+                                                new XElement("var_type", "uint16"),
+                                                new XElement("unit", "ms")),
+
+                                            new XElement("variable",
+                                                new XAttribute("number", "2"),
+                                                new XElement("type", "a_pos"),
+                                                new XElement("var_type", "int16"),
+                                                new XElement("unit", "arb_unit")),
+
+                                            new XElement("variable",
+                                                new XAttribute("number", "3"),
+                                                new XElement("type", "torque"),
+                                                new XElement("var_type", "int16"),
+                                                new XElement("unit", "arb_unit")),
+
+                                            new XElement("variable",
+                                                new XAttribute("number", "4"),
+                                                new XElement("type", "period"),
+                                                new XElement("var_type", "uint8"),
+                                                new XElement("unit", "number"))),
+                                        new XElement("csv_data", @""));
+            return tsElement;
+        }
 
         /// <summary>
         /// Create a XML file (skeleton) and save it to the given path.
@@ -89,13 +173,11 @@ namespace UR_MTrack
                     ),
                     new XElement("sequence", new XAttribute("periods", @""), @""),
                     new XElement("timeseries",
-
                         new XElement("CSV_descriptor",
                             new XElement("delimiter", "tab"),
                             new XElement("header", "0"),
                             new XElement("nullSequence", "NaN")
                         ),
-
                         new XElement("variables",
 
                             new XElement("variable",
@@ -126,9 +208,7 @@ namespace UR_MTrack
                                 new XElement("unit", "number")
                             )
                         ),
-                        new XElement("csv_data", @""
-                        // Assuming csv_data will be filled with actual CSV content or more elements
-                        )
+                        new XElement("csv_data", @"")
                 )
             )
         );
@@ -188,7 +268,7 @@ namespace UR_MTrack
             }
         }
 
-      
+
         public bool ValidateXML(string path)
         {
             bool valid = false;
@@ -262,7 +342,7 @@ namespace UR_MTrack
                     catch (Exception ex) { Log.Append(ex); }
                 }
             }
-            MessageBox.Show("Please check logfile for further information.","Validation failed",MessageBoxButtons.OK,MessageBoxIcon.Error);    
+            MessageBox.Show("Please check logfile for further information.", "Validation failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return periods;
         }
 

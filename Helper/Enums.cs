@@ -56,7 +56,7 @@ namespace UR_MTrack
         l
     }
 
-    public enum Scope
+    public enum ArenaType
     {
         [Description("Arena")]
         arena,

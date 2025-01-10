@@ -201,8 +201,10 @@ Democurves();
                 //Democurves();
                 if(_dataCollection.TryTake(out var values))
                 {
-                    ///TODO: Split, convert, prepare for Livr Data view and histoview 
-                    
+                    var valAD = (values.ElementAt(0) << 8) | values.ElementAt(1);
+                    var valpix = (values.ElementAt(2) << 8) | values.ElementAt(3);
+
+                    ///TODO: Split, convert, prepare for Live Data view and histoview 
                 }
                 Thread.Sleep(100);
             }
@@ -232,7 +234,7 @@ Democurves();
             for (int i = 0; i < histList.Count - 1; i++)
             {
                 BoxObj box = new BoxObj(histList[i].X, histList[i].Y, histList[i + 1].X - histList[i].X, histList[i].Y,
-                                        Color.Aquamarine,Color.DarkGray,Color.Magenta);
+                                        Color.Aquamarine,Color.LightCyan,Color.Magenta);
                 box.IsClippedToChartRect = true;
                 _histogramzgc.GraphPane.GraphObjList.Add(box);
             }

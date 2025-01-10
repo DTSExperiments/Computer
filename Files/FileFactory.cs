@@ -4,6 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Logging;
+using System.Linq;
+using Extensions;
 
 namespace UR_MTrack
 {
@@ -12,6 +14,10 @@ namespace UR_MTrack
         public FileFactory()
         { }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <exception cref="DirectoryNotFoundException"></exception>
         public void CheckDefaultDirectories()
         {
             if (!Directory.Exists(Properties.Settings.Default.SettingsPath))
@@ -22,7 +28,11 @@ namespace UR_MTrack
             { throw new DirectoryNotFoundException("LogFile Directory"); }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings"></param>
+        /// <param name="usedlg"></param>
         public void SaveSettings(ExperimentSettings settings,bool usedlg=false)
         {
             var filepath = GetSettingsFileName(settings);
@@ -38,7 +48,10 @@ namespace UR_MTrack
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ExperimentSettings LoadSettings()
         {
             try
@@ -51,6 +64,12 @@ namespace UR_MTrack
                 Log.Append(ex);
                 return new ExperimentSettings();
             }
+        }
+
+        public void CreateMeasurementFile(ExperimentSettings settings)
+        {
+            GetPeriodsFileName(settings.Datapath, settings.FlyName);
+
         }
 
         /// <summary>
@@ -221,6 +240,7 @@ namespace UR_MTrack
             }
         }
 
+
         /// <summary>
         /// serialize data to json string.
         /// </summary>
@@ -234,6 +254,7 @@ namespace UR_MTrack
             }
             catch (Exception ex) { Log.Append(ex); return string.Empty; }
         }
+
 
         /// <summary>
         /// deserialize  data from json string
@@ -254,20 +275,39 @@ namespace UR_MTrack
             catch (Exception ex) { Log.Append(ex); return default(T); }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="exsettings"></param>
+        /// <returns></returns>
         string GetSettingsFileName(ExperimentSettings exsettings)
         {
-            var filename = string.Format("{0}_Settings_{1}{2}", DateTime.Now.ToString("ddMMyy_HHmmssf"), exsettings.FlyName, ".json");
+            var filename = string.Format("{0}_Settings_{1}{2}", DateTime.Now.ToString("yyMMdd_HHmm"), exsettings.FlyName, ".json");
             return Path.Combine(Properties.Settings.Default.SettingsPath, filename);
         }
 
-        string GetPeridsFileName()
+
+        /// <summary>
+        /// The name of an outputfile has the structure >>FLYNAME_nn.xml<<
+        /// where >>nn<< represents a file counter 
+        /// </summary>
+        /// <returns></returns>
+        string GetPeriodsFileName(string folderPath,string flyName)
         {
-            return "Periods-" + (new DateTimeOffset(DateTime.UtcNow)).ToString("yyyyMMdd_HHmmss");
+            // Get all XML files in the directory
+            var files = Directory.GetFiles(folderPath, "*.xml");
+            
+            //extract the int-counter from filename and deliver the max-value
+            var counter = files.Where(f=> Path.GetFileNameWithoutExtension(f).Contains(flyName)).Max(f => f.ToNumberOnly());
+
+            return string.Format("{0}-{1}{2}", flyName, counter + 1,".xml"); //"Periods-" + (new DateTimeOffset(DateTime.UtcNow)).ToString("yyMMdd_HHmmss");
         }
+
 
         /// <summary>
         /// save string to file. 
-        /// Attention: this method overewrites a file 
+        /// Attention: this method overwrites a file 
         /// without promt if it already exists.
         /// </summary>
         /// <param name="path"></param>
