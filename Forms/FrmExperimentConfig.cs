@@ -14,10 +14,14 @@ namespace UR_MTrack
         #region WinApi import stuff
         const int WM_NCLBUTTONDOWN = 0xA1;
         const int HT_CAPTION = 0x2;
+        const int CS_DROPSHADOW = 0x20000;
+
         [DllImportAttribute("user32.dll")]
         static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         static extern bool ReleaseCapture();
+
+       
         #endregion
 
         ExperimentSettings _expsettings;
@@ -27,6 +31,23 @@ namespace UR_MTrack
             InitializeComponent();
         }
 
+        #region Overrides
+        
+        /// <summary>
+        /// This gives us the drop shadow behind the borderless form
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+
+        #endregion
 
         #region Properties
         public ExperimentSettings Settings { get { return _expsettings; } }
@@ -43,7 +64,6 @@ namespace UR_MTrack
 
         public void Show(ExperimentSettings _settings)
         {
-
             _expsettings = _settings;
             if (!DesignMode) { BindControls(); }
             Initialize();
@@ -67,17 +87,20 @@ namespace UR_MTrack
         {
             _periodsView = new FrmPeriodsView();
             _periodsView.PeriodsConfigured += _periodsView_PeriodsConfigured;
-            tbDataPath.Text = _expsettings.Datapath;
-            tbFirstName.Text = _expsettings.FirstName;
-            tbLastName.Text = _expsettings.LastName;
-            tbOrcID.Text=_expsettings.ORCID.ToString();
-            tbFlyName.Text = _expsettings.FlyName;
-            tbFlyDescription.Text = _expsettings.FlyDescription;
-            tbFlyBase.Text = _expsettings.FlyBase;
-            rtbDescription.Text=_expsettings.ExperimentDescription;
-            tbRecording.Text = _expsettings.Recording;
-            tbAnalysis.Text = _expsettings.Analysis;
-            tbDataModel.Text = _expsettings.DataModel;
+            if (_expsettings != null)
+            {
+                tbDataPath.Text = _expsettings.Datapath;
+                tbFirstName.Text = _expsettings.FirstName;
+                tbLastName.Text = _expsettings.LastName;
+                tbOrcID.Text = _expsettings.ORCID;
+                tbFlyName.Text = _expsettings.FlyName;
+                tbFlyDescription.Text = _expsettings.FlyDescription;
+                tbFlyBase.Text = _expsettings.FlyBase;
+                rtbDescription.Text = _expsettings.ExperimentDescription;
+                tbRecording.Text = _expsettings.Recording;
+                tbAnalysis.Text = _expsettings.Analysis;
+                tbDataModel.Text = _expsettings.DataModel;
+            }
         }
 
         bool IsComplete()
@@ -102,7 +125,7 @@ namespace UR_MTrack
                     }
                 }
             }
-            return !list.Any(element=>element.Equals(false));
+            return !list.Any(element => element.Equals(false));
         }
 
         void CollectData()
@@ -111,7 +134,7 @@ namespace UR_MTrack
             _expsettings.Datapath = tbDataPath.Text;
             _expsettings.ExperimentDescription = rtbDescription.Text;
             _expsettings.COMPort = cmbSerialPort.SelectedItem.ToString();
-            _expsettings.ORCID = tbOrcID.GetUlongValue();
+            _expsettings.ORCID = tbOrcID.Text;
             _expsettings.FirstName = tbFirstName.Text;
             _expsettings.LastName = tbLastName.Text;
             _expsettings.FlyName = tbFlyName.Text;
@@ -165,7 +188,7 @@ namespace UR_MTrack
                         MessageBox.Show("Please add the missing information to the highlighted fields.", "Missing Data",
                                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                }                
+                }
             }
             catch (Exception ex) { Log.Append(ex); }
         }
@@ -175,7 +198,15 @@ namespace UR_MTrack
         {
             try
             {
-                new SerialInterface().CheckPort(new SerialPortSettings() { Portname = cmbSerialPort.SelectedItem.ToString() });
+                var portname = new SerialInterface().FindDMSComPort();//CheckPort(new SerialPortSettings() { Portname = cmbSerialPort.SelectedItem.ToString() });
+                if (!string.IsNullOrEmpty(portname))
+                    MessageBox.Show(string.Format("Found DMS Device on Port \"{0}\"", portname), "Port lookup successful",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+                    MessageBox.Show(string.Format("Found DMS Device on Port \"{0}\"", portname), "Port lookup successful",
+                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex) { Log.Append(ex); }
         }
@@ -188,18 +219,18 @@ namespace UR_MTrack
         }
 
         private void btnShowPeriod_Click(object sender, EventArgs e)
-        {            
+        {
             _periodsView.Show(_expsettings.PeriodCollection);
         }
 
         private void btnCreatePeriod_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void rtbDescription_MouseDown(object sender, MouseEventArgs e)
         {
-           rtbDescription.BackColor = Color.WhiteSmoke;
+            rtbDescription.BackColor = Color.WhiteSmoke;
         }
     }
 }

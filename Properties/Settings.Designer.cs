@@ -49,13 +49,13 @@ namespace UR_MTrack.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Settings")]
-        public string SettingsPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack")]
+        public string AppSettingsPath {
             get {
-                return ((string)(this["SettingsPath"]));
+                return ((string)(this["AppSettingsPath"]));
             }
             set {
-                this["SettingsPath"] = value;
+                this["AppSettingsPath"] = value;
             }
         }
     }

@@ -56,23 +56,25 @@ namespace UR_MTrack
             if (_currentState == ExperimentState.suspend||_currentState == ExperimentState.stop)
             {                 
                 _currentState = ExperimentState.start;
-                btnStartStop.BackgroundImage=Properties.Resources.Pause;
+                btnStartResume.BackgroundImage=Properties.Resources.Pause;
                 ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.start));
-                btnStartStop.BackColor = Color.Green;
+                btnStartResume.BackColor = Color.Green;
             }
             else
             {                
                 _currentState = ExperimentState.suspend;    
-                btnStartStop.BackgroundImage=Properties.Resources.Play;
+                btnStartResume.BackgroundImage=Properties.Resources.Play;
                 ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.suspend));
-                btnStartStop.BackColor = Color.Transparent;
+                btnStartResume.BackColor = Color.Transparent;
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.stop));
             _currentState = ExperimentState.stop;
+            btnStartResume.BackgroundImage=Properties.Resources.Play;
+            btnStartResume.BackColor = Color.Transparent;
+            ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.stop));            
         }
 
         private void btnPunish_Click(object sender, EventArgs e)

@@ -21,6 +21,7 @@ namespace UR_MTrack
             InitializeComponent();
             _periodValues = new PeriodValues(number);  
             BindControls();
+            UpdateControls(_periodValues);
 
         }
 

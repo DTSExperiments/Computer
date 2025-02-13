@@ -64,7 +64,7 @@ namespace Logging
         Fail
     }
 
-   
+
     /// <summary>
     /// Class for logging the events
     /// </summary>
@@ -84,7 +84,7 @@ namespace Logging
         public static bool CheckDirPath(string path)
         {
             if (!Directory.Exists(path)) { return false; }
-            LogFilePath=CreateLogFile(path);
+            LogFilePath = CreateLogFile(path);
             return true;
         }
 
@@ -117,12 +117,13 @@ namespace Logging
 
         public static void Append(Exception ex)
         {
-            var line = string.Format("\n{0} {1} {2}","Exeption [" +ex.Source+ "]  -  ",
+            var line = string.Format("\n{0} {1} {2}", "Exeption [" + ex.Source + "]  -  ",
                                      ex.Message + "\n", ex.StackTrace);
             WriteToFile(line);
 
 #if DEBUG
-Trace.WriteLine(line);
+            LogMessageReceive?.Invoke(null, new LogEventArgs(line,LogType.Debug ,false));
+            Trace.WriteLine(line);
 #endif
         }
 
@@ -145,19 +146,19 @@ Trace.WriteLine(line);
         static void WriteToFile(string line)
         {
             if (string.IsNullOrEmpty(LogFilePath))
-            try
-            {
-                using (var sw = new StreamWriter(LogFilePath, true))
+                try
                 {
-                    sw.Write(line.Insert(0,DateTime.Now.ToLongTimeString()));
-                    sw.Flush();
+                    using (var sw = new StreamWriter(LogFilePath, true))
+                    {
+                        sw.Write(line.Insert(0, DateTime.Now.ToLongTimeString()));
+                        sw.Flush();
+                    }
                 }
-            }
-            catch (FileNotFoundException ex) { Append(ex); }
+                catch (FileNotFoundException ex) { Append(ex); }
         }
 
-       
 
-        
+
+
     }
 }

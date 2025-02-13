@@ -33,21 +33,25 @@ namespace UR_MTrack
     public class PatternEventArgs : EventArgs
     {        
         public DisplayPattern Pattern { get; private set; }
-        public string ColorName { get; private set; }
+        /// <summary>
+        /// the code used in FPGA-device. [e.g. "G"->green, "D"->cyan,...]
+        /// </summary>
+        public ColorPattern Color { get; private set; }
 
-        public PatternEventArgs(DisplayPattern p,string color)
+
+        public PatternEventArgs(DisplayPattern p,ColorPattern color)
         {
             Pattern = p;
-            ColorName = color;
+            Color = color;
         }
     }
 
     public class RotateEventArgs : EventArgs
     {
-        public RotationValue Rotation { get; private set; }
+        public RotationMode Rotation { get; private set; }
         public int Angle { get; private set; }
 
-        public RotateEventArgs(RotationValue r, int angle)
+        public RotateEventArgs(RotationMode r, int angle)
         {
             Rotation = r;
             Angle = angle;

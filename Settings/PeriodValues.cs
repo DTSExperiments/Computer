@@ -15,7 +15,7 @@ namespace UR_MTrack
         public int Duration { get; set; }
         public int Outcome { get; set; }
         public PeriodPattern Pattern { get; set; }
-        public double CoupCoeff { get; set; }
+        public double CoupCoeff { get; set; } = 11.0;
         public PeriodContingency Contingency { get; set; }
     }
 }

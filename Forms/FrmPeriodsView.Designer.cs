@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPeriodsView));
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
-            this.flpCtrlHost = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.orientedTextLabel1 = new UR_MTrack.OrientedTextLabel();
+            this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnCreatePeriod = new UR_MTrack.CurveButton();
             this.btnLoadPeriod = new UR_MTrack.CurveButton();
             this.btnOk = new UR_MTrack.CurveButton();
             this.btnCancel = new UR_MTrack.CurveButton();
             this.btnRemove = new UR_MTrack.CurveButton();
             this.tBarPeriodsView = new UR_MTrack.TitleBar();
+            this.flpCtrlHost = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.tblMain.SuspendLayout();
             this.tblButtons.SuspendLayout();
             this.SuspendLayout();
@@ -69,6 +69,24 @@
             this.tblMain.Size = new System.Drawing.Size(769, 549);
             this.tblMain.TabIndex = 0;
             // 
+            // orientedTextLabel1
+            // 
+            this.orientedTextLabel1.BackColor = System.Drawing.Color.DimGray;
+            this.orientedTextLabel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.orientedTextLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
+            this.orientedTextLabel1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 31);
+            this.orientedTextLabel1.Margin = new System.Windows.Forms.Padding(0);
+            this.orientedTextLabel1.MaximumSize = new System.Drawing.Size(35, 0);
+            this.orientedTextLabel1.Name = "orientedTextLabel1";
+            this.orientedTextLabel1.RotationAngle = 270D;
+            this.tblMain.SetRowSpan(this.orientedTextLabel1, 3);
+            this.orientedTextLabel1.Size = new System.Drawing.Size(35, 518);
+            this.orientedTextLabel1.TabIndex = 4;
+            this.orientedTextLabel1.Text = "Periods";
+            this.orientedTextLabel1.TextDirection = UR_MTrack.Direction.Clockwise;
+            this.orientedTextLabel1.TextOrientation = UR_MTrack.Orientation.Rotate;
+            // 
             // tblButtons
             // 
             this.tblButtons.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -92,47 +110,6 @@
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblButtons.Size = new System.Drawing.Size(525, 50);
             this.tblButtons.TabIndex = 5;
-            // 
-            // flpCtrlHost
-            // 
-            this.flpCtrlHost.AutoScroll = true;
-            this.flpCtrlHost.AutoSize = true;
-            this.flpCtrlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpCtrlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpCtrlHost.Location = new System.Drawing.Point(45, 41);
-            this.flpCtrlHost.Margin = new System.Windows.Forms.Padding(10);
-            this.flpCtrlHost.Name = "flpCtrlHost";
-            this.flpCtrlHost.Padding = new System.Windows.Forms.Padding(10, 15, 3, 15);
-            this.flpCtrlHost.Size = new System.Drawing.Size(714, 446);
-            this.flpCtrlHost.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.DimGray;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(35, 497);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(734, 2);
-            this.label1.TabIndex = 7;
-            // 
-            // orientedTextLabel1
-            // 
-            this.orientedTextLabel1.BackColor = System.Drawing.Color.DimGray;
-            this.orientedTextLabel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.orientedTextLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.orientedTextLabel1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 31);
-            this.orientedTextLabel1.Margin = new System.Windows.Forms.Padding(0);
-            this.orientedTextLabel1.MaximumSize = new System.Drawing.Size(35, 0);
-            this.orientedTextLabel1.Name = "orientedTextLabel1";
-            this.orientedTextLabel1.RotationAngle = 270D;
-            this.tblMain.SetRowSpan(this.orientedTextLabel1, 3);
-            this.orientedTextLabel1.Size = new System.Drawing.Size(35, 518);
-            this.orientedTextLabel1.TabIndex = 4;
-            this.orientedTextLabel1.Text = "Periods";
-            this.orientedTextLabel1.TextDirection = UR_MTrack.Direction.Clockwise;
-            this.orientedTextLabel1.TextOrientation = UR_MTrack.Orientation.Rotate;
             // 
             // btnCreatePeriod
             // 
@@ -333,6 +310,28 @@
             this.tBarPeriodsView.TabIndex = 2;
             this.tBarPeriodsView.Titel = "";
             this.tBarPeriodsView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
+            // 
+            // flpCtrlHost
+            // 
+            this.flpCtrlHost.AutoScroll = true;
+            this.flpCtrlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flpCtrlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpCtrlHost.Location = new System.Drawing.Point(45, 41);
+            this.flpCtrlHost.Margin = new System.Windows.Forms.Padding(10);
+            this.flpCtrlHost.Name = "flpCtrlHost";
+            this.flpCtrlHost.Padding = new System.Windows.Forms.Padding(10, 15, 3, 15);
+            this.flpCtrlHost.Size = new System.Drawing.Size(714, 446);
+            this.flpCtrlHost.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.DimGray;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(35, 497);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(734, 2);
+            this.label1.TabIndex = 7;
             // 
             // FrmPeriodsView
             // 

@@ -27,9 +27,29 @@ namespace UR_MTrack
             BindControls();
             AutoSize = true;
             Dock = DockStyle.Left;
-            ToggleExCoState();
+            btnLaser.BackColor = Color.FromArgb(80, Color.LightSalmon); 
+            //ToggleExCoState();
         }
 
+        public bool LaserBtnState
+        {
+            get { return btnLaser.Checked; }
+            set
+            {
+
+            }
+        }
+        public bool ConnectBtnState
+        {
+            get { return btnConnect.Checked; }
+            set
+            {
+                if (value)
+                { btnConnect.BackColor = Color.FromArgb(80, Color.GreenYellow); btnConnect.Text = "Connected"; }
+                else 
+                { btnConnect.BackColor = Color.FromArgb(80, Color.LightSalmon); btnConnect.Text = "Disconnected";}
+            }
+        }
 
         private void nUDLaser_ValueChanged(object sender, EventArgs e)
         {
@@ -56,31 +76,45 @@ namespace UR_MTrack
             SerialConnect?.Invoke(this, cmbSerialPort.SelectedItem.ToString());
         }
 
-
         private void btnSetPattern_Click(object sender, EventArgs e)
         {
-            SetPattern?.Invoke(this, new PatternEventArgs(cmbPattern.SelectedItem.ToEnum<DisplayPattern>(), cmbColorPattern.SelectedItem.ToString()));
+            SetPattern?.Invoke(this, new PatternEventArgs(cmbPattern.SelectedItem.ToEnum<DisplayPattern>()
+                                                         , cmbColorPattern.SelectedItem.ToEnum<ColorPattern>()));
         }
 
         private void btnRotate_Click(object sender, EventArgs e)
         {
-            Rotate?.Invoke(this, new RotateEventArgs(cmbRotation.SelectedItem.ToEnum<RotationValue>(), (int)nUDRotation.Value));
+            Rotate?.Invoke(this, new RotateEventArgs(cmbRotation.SelectedItem.ToEnum<RotationMode>(), (int)nUDRotation.Value));
         }
-        private void btnLaser_CheckedChanged(object sender, EventArgs e)
+
+        private void btnLaser_Click(object sender, EventArgs e)
         {
-            if ((sender as CurveButton).Checked) { btnLaser.Text = "On"; btnLaser.BackColor = Color.LimeGreen; LaserSwitch?.Invoke(this, (int)nUDLaser.Value); }
-            else { btnLaser.Text = "Off"; btnLaser.BackColor = Color.FromArgb(150, 255, 128, 128); }
+            if ((sender as CurveButton).Text.Equals("Off"))
+            {
+                btnLaser.Text = "On";
+                btnLaser.BackColor = Color.FromArgb(20, Color.GreenYellow);
+                LaserSwitch?.Invoke(this, (int)nUDLaser.Value);
+            }
+            else
+            {
+                btnLaser.Text = "Off";
+                btnLaser.BackColor = Color.FromArgb(20, Color.LightSalmon);
+                LaserSwitch?.Invoke(this, 0);
+            }
         }
+
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            AdjustmentFinished?.Invoke(this,EventArgs.Empty);
+            AdjustmentFinished?.Invoke(this, EventArgs.Empty);
             ToggleExCoState();
         }
+
         private void ExCo_Click(object sender, EventArgs e)
         {
             ToggleExCoState();
         }
+
 
         void BindControls()
         {
@@ -92,7 +126,7 @@ namespace UR_MTrack
             cmbColorPattern.DataSource = Extension.BindEnumDescription(typeof(ColorPattern));
             cmbColorPattern.DisplayMember = "Description";
             cmbColorPattern.ValueMember = "value";
-            cmbRotation.DataSource = Extension.BindEnumDescription(typeof(RotationValue));
+            cmbRotation.DataSource = Extension.BindEnumDescription(typeof(RotationMode));
             cmbRotation.DisplayMember = "Description";
             cmbRotation.ValueMember = "value";
         }
@@ -108,5 +142,7 @@ namespace UR_MTrack
         {
             //cmbColorPattern.ForeColor=Color.FromArgb(150, Color.FromName(cmbColorPattern.SelectedText));    
         }
+
+        
     }
 }

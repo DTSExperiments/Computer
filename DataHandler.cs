@@ -18,6 +18,7 @@ using ZedGraph;
 using System.Threading;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace UR_MTrack
 {
@@ -30,16 +31,19 @@ namespace UR_MTrack
         Thread _dataTh;
         ZedGraphControl _adValueszgc;
         ZedGraphControl _histogramzgc;
-        PointPairList _advalues;
+        PointPairList _posvalues;
         PointPairList _torquevalues;
         PointPair _punisher;
+        ExperimentSettings _expsettings;
+                
 
-        public DataHandler()
+        public DataHandler(ref ExperimentSettings settings)
         {
+            _expsettings = settings;
             _dataCollection = new ConcurrentBag<IEnumerable<byte>>();    
             _histogramzgc = new ZedGraphControl(); 
             _adValueszgc = new ZedGraphControl();
-            _advalues= new PointPairList(); 
+            _posvalues= new PointPairList(); 
             _torquevalues= new PointPairList();
             InitializeViews();
             InitThread();
@@ -48,6 +52,7 @@ namespace UR_MTrack
         #region Properties
         public ZedGraphControl ADValuesZGC { get { return _adValueszgc; } }
         public ZedGraphControl Histogram { get { return _histogramzgc; } }
+        public DateTime StartTime { get; set; }
 
         #endregion
         
@@ -153,9 +158,9 @@ Democurves();
 
         void Democurves()
         {
-            _advalues = FillPPList_DemoValues(-12000, 12000);
+            _posvalues = FillPPList_DemoValues(-12000, 12000);
             // 
-            var _adcurve =_adValueszgc.GraphPane.AddCurve("Fly Position", _advalues, Color.IndianRed, SymbolType.None);
+            var _adcurve =_adValueszgc.GraphPane.AddCurve("Fly Position", _posvalues, Color.IndianRed, SymbolType.None);
             _adcurve.Line.IsAntiAlias = true;
             _adcurve.Line.IsOptimizedDraw = true;
             
@@ -201,10 +206,14 @@ Democurves();
                 //Democurves();
                 if(_dataCollection.TryTake(out var values))
                 {
-                    var valAD = (values.ElementAt(0) << 8) | values.ElementAt(1);
+                    var valtorque = Convert.ToDouble(((values.ElementAt(0) << 8) | values.ElementAt(1)) * 244.14 * Math.Pow(10, -6));
                     var valpix = (values.ElementAt(2) << 8) | values.ElementAt(3);
-
-                    ///TODO: Split, convert, prepare for Live Data view and histoview 
+                    var timestamp=DateTime.Now.Subtract(StartTime).TotalSeconds;
+                    var mstring = string.Format("{0}\t{1}\t{2}\t{3}", timestamp, valpix, valtorque,0);
+                   // new FileFactory().ChangeXMLValue(_expsettings.Filepath, "csv_data", mstring);
+                    _torquevalues.Add(timestamp,valtorque); 
+                    _posvalues.Add(timestamp,PixelToDegree((double)valpix));
+                    UpdateViews();
                 }
                 Thread.Sleep(100);
             }
@@ -223,10 +232,14 @@ Democurves();
                 // Map 401-800 pixels to 0 to -180 degrees
                 return -180 + ((pixel - 401) / 400.0) * 180;
             }
+#if !DEBUG
             else
             {
-                throw new ArgumentOutOfRangeException("Pixel value is out of range.");
+
+            throw new ArgumentOutOfRangeException("Pixel value is out of range.");
             }
+#endif
+            return pixel;
         }
 
         void CalculateHistogram(PointPairList histList)
@@ -248,16 +261,17 @@ Democurves();
             if(values.Count()>0) 
             { _dataCollection.Add(values); }
         }
+
         public void ResetChart()
         {
             _torquevalues.Clear();
-            _advalues.Clear();
+            _posvalues.Clear();
             _adValueszgc.GraphPane.CurveList.Clear();
             _adValueszgc.Refresh();
             
         }
 
-        #endregion
+#endregion
 
 
 

@@ -140,6 +140,7 @@
     <Compile Include="Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MeasDirector.cs" />
     <Compile Include="Settings\SerialPortSettings.cs" />
     <Compile Include="Settings\PeriodValues.cs" />
     <Compile Include="Forms\FrmPeriodsView.cs">

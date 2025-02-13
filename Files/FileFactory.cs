@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using System.Xml.Linq;
 using Logging;
 using System.Linq;
 using Extensions;
@@ -20,7 +21,7 @@ namespace UR_MTrack
         /// <exception cref="DirectoryNotFoundException"></exception>
         public void CheckDefaultDirectories()
         {
-            if (!Directory.Exists(Properties.Settings.Default.SettingsPath))
+            if (!Directory.Exists(Properties.Settings.Default.AppSettingsPath))
             { throw new DirectoryNotFoundException("Settings Directory"); }
             if (!Directory.Exists(Properties.Settings.Default.DataPath))
             { throw new DirectoryNotFoundException("Default Data Directory"); }
@@ -33,7 +34,7 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="settings"></param>
         /// <param name="usedlg"></param>
-        public void SaveSettings(ExperimentSettings settings,bool usedlg=false)
+        public void SaveSettings(ExperimentSettings settings, bool usedlg = false)
         {
             var filepath = GetSettingsFileName(settings);
             if (usedlg)
@@ -48,6 +49,7 @@ namespace UR_MTrack
             }
         }
 
+
         /// <summary>
         /// 
         /// </summary>
@@ -56,7 +58,7 @@ namespace UR_MTrack
         {
             try
             {
-                var content = OpenFile(Properties.Settings.Default.SettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
+                var content = OpenFile(Properties.Settings.Default.AppSettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
                 return DeserializeSettings<ExperimentSettings>(content);
             }
             catch (Exception ex)
@@ -68,9 +70,49 @@ namespace UR_MTrack
 
         public void CreateMeasurementFile(ExperimentSettings settings)
         {
-            GetPeriodsFileName(settings.Datapath, settings.FlyName);
-
+            using (var xmlFactory = new XmlFileFactory(settings))
+            {
+                if (!File.Exists(xmlFactory.Filepath))
+                {
+                    try
+                    {
+                        xmlFactory.BuildMeasFile().Save(xmlFactory.Filepath);
+                        Log.Append("XML file created successfully.", LogType.Success, false);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Append("Failed saving XML.", LogType.Fail, true);
+                        throw new Exception("Failed saving XML", ex);
+                    }
+                }
+            }
         }
+
+        public void ChangeXMLValue(string path, string xmlElement, string newValue)
+        {
+            if (File.Exists(path)) { Log.Append(string.Format("Unable to change Value for \"{0}\"\nFile {1} does not exist.",xmlElement, path)); return; }
+
+            try
+            {
+                XDocument doc = XDocument.Load(path);
+                XElement element = doc.Descendants(xmlElement).FirstOrDefault();
+
+                if (!element.Equals(@""))
+                {
+                    element.Value = newValue;                    
+                    doc.Save(path);
+                }
+                else
+                {
+                    Log.Append(string.Format("XElement \"{0}\" not found.",xmlElement));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}",xmlElement,ex.StackTrace));
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -284,24 +326,7 @@ namespace UR_MTrack
         string GetSettingsFileName(ExperimentSettings exsettings)
         {
             var filename = string.Format("{0}_Settings_{1}{2}", DateTime.Now.ToString("yyMMdd_HHmm"), exsettings.FlyName, ".json");
-            return Path.Combine(Properties.Settings.Default.SettingsPath, filename);
-        }
-
-
-        /// <summary>
-        /// The name of an outputfile has the structure >>FLYNAME_nn.xml<<
-        /// where >>nn<< represents a file counter 
-        /// </summary>
-        /// <returns></returns>
-        string GetPeriodsFileName(string folderPath,string flyName)
-        {
-            // Get all XML files in the directory
-            var files = Directory.GetFiles(folderPath, "*.xml");
-            
-            //extract the int-counter from filename and deliver the max-value
-            var counter = files.Where(f=> Path.GetFileNameWithoutExtension(f).Contains(flyName)).Max(f => f.ToNumberOnly());
-
-            return string.Format("{0}-{1}{2}", flyName, counter + 1,".xml"); //"Periods-" + (new DateTimeOffset(DateTime.UtcNow)).ToString("yyMMdd_HHmmss");
+            return Path.Combine(Properties.Settings.Default.AppSettingsPath, filename);
         }
 
 
@@ -335,6 +360,14 @@ namespace UR_MTrack
                 File.WriteAllLines(path, content);
             }
             catch (Exception) { Log.Append("Failed to save file.", LogType.Fail); }
+        }
+
+        void DeleteFile(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
         }
     }
 }

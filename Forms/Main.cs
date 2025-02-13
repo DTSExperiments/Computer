@@ -57,11 +57,10 @@ namespace UR_MTrack
         FrmPeriodsView _periodsView;
 
 
-       
+
         public Main()
         {
             InitializeComponent();
-            _datahandler = new DataHandler();
             InitializeControl();
         }
 
@@ -79,48 +78,54 @@ namespace UR_MTrack
 
         protected override void OnShown(EventArgs e)
         {
-           // BackgroundImage = Properties.Resources._6.SetImgOpacity(40);
+            // BackgroundImage = Properties.Resources._6.SetImgOpacity(40);
             base.OnShown(e);
             using (new CenterDialog(this))
             {
                 var dlg = new FrmInput(InputType.ExperimentCreation);
-                var res= dlg.ShowDialog();  
-                    if (res== DialogResult.OK&& dlg.CreationType==InputType.New)
-                    {
-                        ShowExperimentConfig();
-                    }
-                    else if(res == DialogResult.OK&& dlg.CreationType==InputType.Open)
-                    {
+                var res = dlg.ShowDialog();
+                if (res == DialogResult.OK && dlg.CreationType == InputType.Open)
+                {
                     _currentExperimentSettings = new FileFactory().LoadSettings();
-                    }
+                }
+                ShowExperimentConfig();
             }
         }
-        
+
 
         private void _serialCom_DataReceived(object sender, DataReceivedEventArgs e)
         {
             _datahandler.AddMValues(e.Bytes);
-            Log.Append(string.Format("Received data on serial port - \"{0}\"", e.Bytes.Count()), LogType.Info);
+            foreach (byte b in e.Bytes)
+            {
+                Log.Append(string.Format("Received data on serial port - \"{0}\"", b.ToString()), LogType.Info);
+            }
         }
 
         private void _ctrlExpAdjust_Rotate(object sender, RotateEventArgs e)
         {
-            Log.Append(string.Format("Arena rotation requested - \"{0}\"", e.Rotation.ToDescriptionString<RotationValue>()), LogType.Info);
+            Log.Append(string.Format("Arena rotation requested - \"{0}\"", e.Rotation.ToDescriptionString<RotationMode>()), LogType.Info);
+            if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetRotateCommand(e.Rotation, (byte)e.Angle)); }
         }
 
         private void _ctrlExpAdjust_SerialConnect(object sender, string e)
         {
             Log.Append(string.Format("Serial connection requested to port \"{0}\"", e), LogType.Info);
+            _serialPortSettings.Portname = e;
+            ConnectToSerialPort();
         }
 
         private void _ctrlExpAdjust_SetPattern(object sender, PatternEventArgs e)
         {
             Log.Append(string.Format("Arena pattern change requested - \"{0}\"", e.Pattern.ToDescriptionString<DisplayPattern>()), LogType.Info);
+            if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetPatternCommand(e.Pattern, e.Color)); }
         }
 
         private void _ctrlExpAdjust_LaserSwitch(object sender, int e)
         {
             Log.Append(string.Format("Laser triggered - PWM (0-100): \"{0}\"", e), LogType.Info);
+            if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetLaserCommand(e)); }
+            if (e > 0) { _currentExperimentSettings.LaserPWMValue = e; }
         }
 
         private void _ctrlExpAdjust_AdjustmentFinished(object sender, EventArgs e)
@@ -137,8 +142,17 @@ namespace UR_MTrack
             switch (e.ExState)
             {
                 case ExperimentState.start:
-                    { break; }
+                    {
+                        try
+                        {
+                            new FileFactory().CreateMeasurementFile(_currentExperimentSettings);
+                        }
+                        catch (Exception ex) { Log.Append(ex); }
+                        break;
+                    }
                 case ExperimentState.suspend:
+                    { break; }
+                case ExperimentState.resume:
                     { break; }
                 case ExperimentState.stop:
                     { break; }
@@ -158,8 +172,11 @@ namespace UR_MTrack
 
         private void Logging_LogMessageReceive(object sender, LogEventArgs e)
         {
-            rtbLogBox.AppendText(e.Message);
-            rtbLogBox.ScrollToCaret();
+            if (rtbLogBox.IsHandleCreated)
+            {
+                rtbLogBox.Invoke((MethodInvoker)(() => rtbLogBox.AppendText(e.Message)));
+                rtbLogBox.Invoke((MethodInvoker)(() => rtbLogBox.ScrollToCaret()));
+            }
         }
 
 
@@ -170,23 +187,33 @@ namespace UR_MTrack
             Log.Append("Initializing Objects", LogType.Info);
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
-            _serialCom = new SerialInterface();
-            _serialCom.DataReceived += _serialCom_DataReceived;
+            
             /*
              */
             Log.Append("Initializing Controls", LogType.Info);
-            
 
-            _datahandler = new DataHandler();
+
+            _datahandler = new DataHandler(ref _currentExperimentSettings);
             _experimentCtrl = new FrmExperimentControl();
             _experimentCtrl.ExpStateChanged += _experimentCtrl_ExpStateChanged;
             /*
             */
+            tblHisto.Visible = false;
 
-            Log.Append("Finished Initialization", LogType.Info);          
+            Log.Append("Finished Initialization", LogType.Info);
         }
 
-        
+        void ConnectToSerialPort()
+        {
+            if(_serialCom!=null&&_serialCom.Connected)
+            { _serialCom.Disconnect(); _ctrlExpAdjust.ConnectBtnState = false; }
+            else
+            {
+                _serialCom = new SerialInterface(_serialPortSettings);
+                _serialCom.SerialInterfaceDataReceived += _serialCom_DataReceived;
+                _ctrlExpAdjust.ConnectBtnState = _serialCom.Connect();
+            }
+        }
 
         void ShowChart()
         {
@@ -194,7 +221,8 @@ namespace UR_MTrack
             {
                 _datahandler.ADValuesZGC.Dock = DockStyle.Fill;
                 tblControlHost.Controls.Add(_datahandler.ADValuesZGC, 1, 0);
-            }catch (Exception ex) 
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Failed to show chart control.\nPlease check logfile for further information.", ex.Message, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Log.Append(ex);
@@ -205,7 +233,8 @@ namespace UR_MTrack
         {
             try
             {
-                tblHisto.Controls.Add(_datahandler.Histogram,0,0);
+                tblHisto.Controls.Add(_datahandler.Histogram, 0, 0);
+                tblHisto.Visible=true;
             }
             catch (Exception ex)
             {
@@ -254,95 +283,11 @@ namespace UR_MTrack
             }
         }
 
-        private void convertList()
-        {
-            short nextValueAD = 0;
-            ushort nextValuePIX = 0;
-            byte[] byteArray = new byte[4];
-
-            while (list.Count >= 5)
-            {
-                try
-                {
-                    if (Convert.ToByte(list[4]) != 0x0A)
-                    {
-                        throw new Exception("LF not found");
-                    }
-
-                    byteArray = list.GetRange(0, 4).ToArray();
-                    list.RemoveRange(0, 5);
-                    BitArray nextValueADBit = new BitArray(byteArray);
-                    if (nextValueADBit[11] == true)
-                    {
-                        nextValueADBit = nextValueADBit.Or(new BitArray(System.BitConverter.GetBytes(0x0000F000)));
-                    }
-                    nextValueADBit.CopyTo(byteArray, 0);
-                    nextValueAD = BitConverter.ToInt16(byteArray, 0);
-                    nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
-
-                    if (nextValueIndex >= liveDataAD.Length - 1)
-                    {
-                        //adLogger.Clear();
-                        //pixLogger.Clear();
-                        //laserLogger.Clear();
-                        nextValueIndex = 0;
-                    }
-                    else
-                    {
-                        nextValueIndex++;
-                    }
-
-                    //Calculation AD-Values
-                    liveDataAD[nextValueIndex] = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
-                    liveDataPIX[nextValueIndex] = Convert.ToDouble(nextValuePIX);
-
-                    //beginTime = DateTime.Now;
-
-                    Debug.WriteLine(nextValueAD);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "SerialInterface Event");
-
-                }
-            }
-        }
-
-
-        private string GetNextFileName(string directory)
-        {
-            int maxNumber = 0;
-
-            // Get all XML files in the directory
-            var files = Directory.GetFiles(directory, "*.xml");
-
-            foreach (var file in files)
-            {
-                // Extract the file name without extension
-                var fileBaseName = Path.GetFileNameWithoutExtension(file);
-
-                // Parse the number at the end of the file name
-                if (int.TryParse(fileBaseName, out int fileNumber))
-                {
-                    if (fileNumber > maxNumber)
-                    {
-                        maxNumber = fileNumber;
-                    }
-                }
-            }
-
-            // Increment the highest number found and format as "NN.xml"
-            return (maxNumber + 1).ToString("D2") + ".xml";
-        }
-
-
-
         #region ToolStripClickEvents
 
         private void tsmNew_Click(object sender, EventArgs e)
         {
-            using (new CenterDialog(this))
-            { new FrmExperimentConfig().ShowDialog(); }
+            ShowExperimentConfig();
         }
 
         private void tsmSave_Click(object sender, EventArgs e)
@@ -351,15 +296,16 @@ namespace UR_MTrack
             {
                 new FileFactory().SaveSettings(_currentExperimentSettings, true);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                Log.Append(ex.ToString()); 
+                Log.Append(ex.ToString());
             }
         }
 
         private void tsmOpen_Click(object sender, EventArgs e)
         {
             _currentExperimentSettings = new FileFactory().LoadSettings();
+            ShowExperimentConfig();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)

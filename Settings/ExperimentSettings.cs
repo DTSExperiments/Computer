@@ -22,12 +22,19 @@ namespace UR_MTrack
 
         public DateTime TimeStamp { get; set; }
         public string COMPort { get; set; }
+        /// <summary>
+        /// Path to the folder where measurement files are stored.
+        /// </summary>
         public string Datapath { get; set; } = Properties.Settings.Default.DataPath;
+        /// <summary>
+        /// Path to the currently used meaurement file
+        /// </summary>
+        public string Filepath { get; set; }
 
         #endregion
 
         #region Experimenter Data
-        public ulong ORCID { get; set; }
+        public string ORCID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -54,8 +61,7 @@ namespace UR_MTrack
         public int SamplingRate { get; set; } = 60;
         public int PeriodCount { get { return PeriodCollection.Count(); } }
         
-        
-        //[JsonIgnore]        
+        public int LaserPWMValue { get; set; }
         public IEnumerable<PeriodValues> PeriodCollection { get; set; }
 
         #endregion

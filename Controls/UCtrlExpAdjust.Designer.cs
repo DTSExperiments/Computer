@@ -32,7 +32,6 @@
             this.btnExCo = new System.Windows.Forms.Button();
             this.tblControls = new System.Windows.Forms.TableLayoutPanel();
             this.tblRotation = new System.Windows.Forms.TableLayoutPanel();
-            this.btnRotate = new UR_MTrack.CurveButton();
             this.nUDRotation = new System.Windows.Forms.NumericUpDown();
             this.tBarRotation = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,22 +41,23 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tBarLaser = new System.Windows.Forms.TrackBar();
-            this.btnLaser = new UR_MTrack.CurveButton();
             this.nUDLaser = new System.Windows.Forms.NumericUpDown();
             this.tblSerialControl = new System.Windows.Forms.TableLayoutPanel();
             this.cmbSerialPort = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.btnConnect = new UR_MTrack.CurveButton();
             this.tblPattern = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbColorPattern = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cmbPattern = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnAccept = new UR_MTrack.CurveButton();
+            this.btnRotate = new UR_MTrack.CurveButton();
+            this.btnLaser = new UR_MTrack.CurveButton();
+            this.btnConnect = new UR_MTrack.CurveButton();
             this.btnSetPattern = new UR_MTrack.CurveButton();
             this.lblSidebar = new UR_MTrack.OrientedTextLabel();
-            this.btnAccept = new UR_MTrack.CurveButton();
             this.tblMain.SuspendLayout();
             this.tblControls.SuspendLayout();
             this.tblRotation.SuspendLayout();
@@ -162,41 +162,6 @@
             this.tblRotation.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblRotation.Size = new System.Drawing.Size(250, 122);
             this.tblRotation.TabIndex = 40;
-            // 
-            // btnRotate
-            // 
-            this.btnRotate.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnRotate.AutoSizeFont = false;
-            this.btnRotate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnRotate.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRotate.BorderWidth = 1F;
-            this.btnRotate.Checkable = false;
-            this.btnRotate.Checked = false;
-            this.btnRotate.CheckedColor = System.Drawing.Color.Empty;
-            this.btnRotate.CornerRadius = 1;
-            this.btnRotate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnRotate.ExtMessage = null;
-            this.btnRotate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRotate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRotate.ForeColor = System.Drawing.Color.DimGray;
-            this.btnRotate.GradientColoring = false;
-            this.btnRotate.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.btnRotate.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
-            this.btnRotate.HighlightThickness = 2;
-            this.btnRotate.Location = new System.Drawing.Point(145, 31);
-            this.btnRotate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.btnRotate.Name = "btnRotate";
-            this.btnRotate.RelPos = new float[] {
-        0F,
-        0.2F,
-        0.5F,
-        1F};
-            this.btnRotate.ShowExtLabel = false;
-            this.btnRotate.Size = new System.Drawing.Size(85, 26);
-            this.btnRotate.TabIndex = 4;
-            this.btnRotate.Text = "Rotate";
-            this.btnRotate.UseVisualStyleBackColor = true;
-            this.btnRotate.Click += new System.EventHandler(this.btnRotate_Click);
             // 
             // nUDRotation
             // 
@@ -336,38 +301,6 @@
             this.tBarLaser.TickFrequency = 10;
             this.tBarLaser.ValueChanged += new System.EventHandler(this.tBarLaser_ValueChanged);
             // 
-            // btnLaser
-            // 
-            this.btnLaser.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnLaser.AutoSizeFont = false;
-            this.btnLaser.BorderColor = System.Drawing.Color.DimGray;
-            this.btnLaser.BorderWidth = 1F;
-            this.btnLaser.Checkable = true;
-            this.btnLaser.Checked = false;
-            this.btnLaser.CheckedColor = System.Drawing.Color.Lime;
-            this.btnLaser.CornerRadius = 1;
-            this.btnLaser.ExtMessage = null;
-            this.btnLaser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLaser.ForeColor = System.Drawing.Color.DimGray;
-            this.btnLaser.GradientColoring = false;
-            this.btnLaser.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            this.btnLaser.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
-            this.btnLaser.HighlightThickness = 2;
-            this.btnLaser.Location = new System.Drawing.Point(28, 84);
-            this.btnLaser.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.btnLaser.Name = "btnLaser";
-            this.btnLaser.RelPos = new float[] {
-        0F,
-        0.2F,
-        0.5F,
-        1F};
-            this.btnLaser.ShowExtLabel = false;
-            this.btnLaser.Size = new System.Drawing.Size(85, 26);
-            this.btnLaser.TabIndex = 2;
-            this.btnLaser.Text = "Off";
-            this.btnLaser.UseVisualStyleBackColor = false;
-            this.btnLaser.CheckedChanged += new System.EventHandler(this.btnLaser_CheckedChanged);
-            // 
             // nUDLaser
             // 
             this.nUDLaser.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -376,7 +309,6 @@
             this.nUDLaser.Location = new System.Drawing.Point(145, 36);
             this.nUDLaser.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.nUDLaser.Name = "nUDLaser";
-            this.nUDLaser.ReadOnly = true;
             this.nUDLaser.Size = new System.Drawing.Size(61, 22);
             this.nUDLaser.TabIndex = 38;
             this.nUDLaser.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -443,40 +375,6 @@
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(250, 2);
             this.label13.TabIndex = 31;
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.btnConnect.AutoSizeFont = false;
-            this.btnConnect.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnConnect.BorderWidth = 1F;
-            this.btnConnect.Checkable = false;
-            this.btnConnect.Checked = false;
-            this.btnConnect.CheckedColor = System.Drawing.Color.Empty;
-            this.btnConnect.CornerRadius = 1;
-            this.btnConnect.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnConnect.ExtMessage = null;
-            this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConnect.ForeColor = System.Drawing.Color.DimGray;
-            this.btnConnect.GradientColoring = false;
-            this.btnConnect.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.btnConnect.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
-            this.btnConnect.HighlightThickness = 2;
-            this.btnConnect.Location = new System.Drawing.Point(135, 31);
-            this.btnConnect.Margin = new System.Windows.Forms.Padding(10);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.RelPos = new float[] {
-        0F,
-        0.2F,
-        0.5F,
-        1F};
-            this.btnConnect.ShowExtLabel = false;
-            this.btnConnect.Size = new System.Drawing.Size(85, 26);
-            this.btnConnect.TabIndex = 1;
-            this.btnConnect.Text = "Connect";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // tblPattern
             // 
@@ -568,6 +466,141 @@
             this.label7.Size = new System.Drawing.Size(250, 2);
             this.label7.TabIndex = 32;
             // 
+            // btnAccept
+            // 
+            this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAccept.AutoSizeFont = false;
+            this.btnAccept.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAccept.BorderWidth = 1F;
+            this.btnAccept.Checkable = false;
+            this.btnAccept.Checked = false;
+            this.btnAccept.CheckedColor = System.Drawing.Color.Empty;
+            this.btnAccept.CornerRadius = 1;
+            this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnAccept.ExtMessage = null;
+            this.btnAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccept.ForeColor = System.Drawing.Color.DimGray;
+            this.btnAccept.GradientColoring = false;
+            this.btnAccept.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.btnAccept.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
+            this.btnAccept.HighlightThickness = 2;
+            this.btnAccept.Location = new System.Drawing.Point(82, 431);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(10);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.RelPos = new float[] {
+        0F,
+        0.2F,
+        0.5F,
+        1F};
+            this.btnAccept.ShowExtLabel = false;
+            this.btnAccept.Size = new System.Drawing.Size(85, 26);
+            this.btnAccept.TabIndex = 3;
+            this.btnAccept.Text = "Accept";
+            this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            // 
+            // btnRotate
+            // 
+            this.btnRotate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnRotate.AutoSizeFont = false;
+            this.btnRotate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnRotate.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRotate.BorderWidth = 1F;
+            this.btnRotate.Checkable = false;
+            this.btnRotate.Checked = false;
+            this.btnRotate.CheckedColor = System.Drawing.Color.Empty;
+            this.btnRotate.CornerRadius = 1;
+            this.btnRotate.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnRotate.ExtMessage = null;
+            this.btnRotate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRotate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRotate.ForeColor = System.Drawing.Color.DimGray;
+            this.btnRotate.GradientColoring = false;
+            this.btnRotate.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.btnRotate.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
+            this.btnRotate.HighlightThickness = 2;
+            this.btnRotate.Location = new System.Drawing.Point(145, 31);
+            this.btnRotate.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
+            this.btnRotate.Name = "btnRotate";
+            this.btnRotate.RelPos = new float[] {
+        0F,
+        0.2F,
+        0.5F,
+        1F};
+            this.btnRotate.ShowExtLabel = false;
+            this.btnRotate.Size = new System.Drawing.Size(85, 26);
+            this.btnRotate.TabIndex = 4;
+            this.btnRotate.Text = "Rotate";
+            this.btnRotate.UseVisualStyleBackColor = true;
+            this.btnRotate.Click += new System.EventHandler(this.btnRotate_Click);
+            // 
+            // btnLaser
+            // 
+            this.btnLaser.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnLaser.AutoSizeFont = false;
+            this.btnLaser.BorderColor = System.Drawing.Color.DimGray;
+            this.btnLaser.BorderWidth = 1F;
+            this.btnLaser.Checkable = false;
+            this.btnLaser.Checked = false;
+            this.btnLaser.CheckedColor = System.Drawing.Color.Lime;
+            this.btnLaser.CornerRadius = 1;
+            this.btnLaser.ExtMessage = null;
+            this.btnLaser.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLaser.ForeColor = System.Drawing.Color.DimGray;
+            this.btnLaser.GradientColoring = false;
+            this.btnLaser.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            this.btnLaser.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
+            this.btnLaser.HighlightThickness = 2;
+            this.btnLaser.Location = new System.Drawing.Point(28, 84);
+            this.btnLaser.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
+            this.btnLaser.Name = "btnLaser";
+            this.btnLaser.RelPos = new float[] {
+        0F,
+        0.2F,
+        0.5F,
+        1F};
+            this.btnLaser.ShowExtLabel = false;
+            this.btnLaser.Size = new System.Drawing.Size(85, 26);
+            this.btnLaser.TabIndex = 2;
+            this.btnLaser.Text = "Off";
+            this.btnLaser.UseVisualStyleBackColor = false;
+            this.btnLaser.Click += new System.EventHandler(this.btnLaser_Click);
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnConnect.AutoSizeFont = false;
+            this.btnConnect.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnConnect.BorderWidth = 1F;
+            this.btnConnect.Checkable = false;
+            this.btnConnect.Checked = false;
+            this.btnConnect.CheckedColor = System.Drawing.Color.Empty;
+            this.btnConnect.CornerRadius = 1;
+            this.btnConnect.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnConnect.ExtMessage = null;
+            this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConnect.ForeColor = System.Drawing.Color.DimGray;
+            this.btnConnect.GradientColoring = false;
+            this.btnConnect.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
+            this.btnConnect.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
+            this.btnConnect.HighlightThickness = 2;
+            this.btnConnect.Location = new System.Drawing.Point(135, 31);
+            this.btnConnect.Margin = new System.Windows.Forms.Padding(10);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.RelPos = new float[] {
+        0F,
+        0.2F,
+        0.5F,
+        1F};
+            this.btnConnect.ShowExtLabel = false;
+            this.btnConnect.Size = new System.Drawing.Size(85, 26);
+            this.btnConnect.TabIndex = 1;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
             // btnSetPattern
             // 
             this.btnSetPattern.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -619,40 +652,6 @@
             this.lblSidebar.TextDirection = UR_MTrack.Direction.Clockwise;
             this.lblSidebar.TextOrientation = UR_MTrack.Orientation.Rotate;
             this.lblSidebar.Click += new System.EventHandler(this.ExCo_Click);
-            // 
-            // btnAccept
-            // 
-            this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAccept.AutoSizeFont = false;
-            this.btnAccept.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnAccept.BorderWidth = 1F;
-            this.btnAccept.Checkable = false;
-            this.btnAccept.Checked = false;
-            this.btnAccept.CheckedColor = System.Drawing.Color.Empty;
-            this.btnAccept.CornerRadius = 1;
-            this.btnAccept.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAccept.ExtMessage = null;
-            this.btnAccept.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAccept.ForeColor = System.Drawing.Color.DimGray;
-            this.btnAccept.GradientColoring = false;
-            this.btnAccept.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
-            this.btnAccept.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(255)))), ((int)(((byte)(160)))), ((int)(((byte)(122)))));
-            this.btnAccept.HighlightThickness = 2;
-            this.btnAccept.Location = new System.Drawing.Point(82, 431);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(10);
-            this.btnAccept.Name = "btnAccept";
-            this.btnAccept.RelPos = new float[] {
-        0F,
-        0.2F,
-        0.5F,
-        1F};
-            this.btnAccept.ShowExtLabel = false;
-            this.btnAccept.Size = new System.Drawing.Size(85, 26);
-            this.btnAccept.TabIndex = 3;
-            this.btnAccept.Text = "Accept";
-            this.btnAccept.UseVisualStyleBackColor = true;
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // UCtrlExpAdjust
             // 

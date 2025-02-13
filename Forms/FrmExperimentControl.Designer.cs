@@ -31,7 +31,7 @@
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnStop = new UR_MTrack.CurveButton();
             this.btnPunish = new UR_MTrack.CurveButton();
-            this.btnStartStop = new UR_MTrack.CurveButton();
+            this.btnStartResume = new UR_MTrack.CurveButton();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.tblButtons.SuspendLayout();
             this.tblMain.SuspendLayout();
@@ -48,7 +48,7 @@
             this.tblButtons.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblButtons.Controls.Add(this.btnStop, 1, 0);
             this.tblButtons.Controls.Add(this.btnPunish, 2, 0);
-            this.tblButtons.Controls.Add(this.btnStartStop, 0, 0);
+            this.tblButtons.Controls.Add(this.btnStartResume, 0, 0);
             this.tblButtons.Location = new System.Drawing.Point(0, 3);
             this.tblButtons.Margin = new System.Windows.Forms.Padding(0);
             this.tblButtons.Name = "tblButtons";
@@ -122,38 +122,38 @@
             this.btnPunish.UseVisualStyleBackColor = false;
             this.btnPunish.Click += new System.EventHandler(this.btnPunish_Click);
             // 
-            // btnStartStop
+            // btnStartResume
             // 
-            this.btnStartStop.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnStartStop.AutoSizeFont = false;
-            this.btnStartStop.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartStop.BackgroundImage = global::UR_MTrack.Properties.Resources.Play;
-            this.btnStartStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnStartStop.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnStartStop.BorderWidth = 0F;
-            this.btnStartStop.Checkable = false;
-            this.btnStartStop.Checked = false;
-            this.btnStartStop.CheckedColor = System.Drawing.Color.Empty;
-            this.btnStartStop.CornerRadius = 20;
-            this.btnStartStop.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnStartStop.ExtMessage = null;
-            this.btnStartStop.GradientColoring = false;
-            this.btnStartStop.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.btnStartStop.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnStartStop.HighlightThickness = 0;
-            this.btnStartStop.Location = new System.Drawing.Point(10, 3);
-            this.btnStartStop.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
-            this.btnStartStop.Name = "btnStartStop";
-            this.btnStartStop.RelPos = new float[] {
+            this.btnStartResume.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnStartResume.AutoSizeFont = false;
+            this.btnStartResume.BackColor = System.Drawing.Color.Transparent;
+            this.btnStartResume.BackgroundImage = global::UR_MTrack.Properties.Resources.Play;
+            this.btnStartResume.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnStartResume.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnStartResume.BorderWidth = 0F;
+            this.btnStartResume.Checkable = false;
+            this.btnStartResume.Checked = false;
+            this.btnStartResume.CheckedColor = System.Drawing.Color.Empty;
+            this.btnStartResume.CornerRadius = 20;
+            this.btnStartResume.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStartResume.ExtMessage = null;
+            this.btnStartResume.GradientColoring = false;
+            this.btnStartResume.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
+            this.btnStartResume.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.btnStartResume.HighlightThickness = 0;
+            this.btnStartResume.Location = new System.Drawing.Point(10, 3);
+            this.btnStartResume.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnStartResume.Name = "btnStartResume";
+            this.btnStartResume.RelPos = new float[] {
         0F,
         0.2F,
         0.5F,
         1F};
-            this.btnStartStop.ShowExtLabel = false;
-            this.btnStartStop.Size = new System.Drawing.Size(50, 50);
-            this.btnStartStop.TabIndex = 0;
-            this.btnStartStop.UseVisualStyleBackColor = false;
-            this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
+            this.btnStartResume.ShowExtLabel = false;
+            this.btnStartResume.Size = new System.Drawing.Size(50, 50);
+            this.btnStartResume.TabIndex = 0;
+            this.btnStartResume.UseVisualStyleBackColor = false;
+            this.btnStartResume.Click += new System.EventHandler(this.btnStartStop_Click);
             // 
             // tblMain
             // 
@@ -199,7 +199,7 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tblButtons;
-        private CurveButton btnStartStop;
+        private CurveButton btnStartResume;
         private CurveButton btnStop;
         private CurveButton btnPunish;
         private System.Windows.Forms.TableLayoutPanel tblMain;

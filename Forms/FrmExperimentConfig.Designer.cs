@@ -43,7 +43,6 @@
             this.tbRecording = new UR_MTrack.WMTextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnTestConnection = new UR_MTrack.CurveButton();
-            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tbFlyBase = new UR_MTrack.WMTextBox();
             this.tbFlyDescription = new UR_MTrack.WMTextBox();
@@ -65,6 +64,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnShow = new UR_MTrack.CurveButton();
             this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.orientedTextLabel1 = new UR_MTrack.OrientedTextLabel();
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnCancel = new UR_MTrack.CurveButton();
@@ -81,10 +81,10 @@
             this.tblMain.ColumnCount = 2;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 7.625271F));
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 92.37473F));
-            this.tblMain.Controls.Add(this.tBarSessionConfig, 0, 0);
             this.tblMain.Controls.Add(this.tblConfig, 1, 1);
             this.tblMain.Controls.Add(this.orientedTextLabel1, 0, 1);
             this.tblMain.Controls.Add(this.tblButtons, 1, 2);
+            this.tblMain.Controls.Add(this.tBarSessionConfig, 1, 0);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
@@ -94,6 +94,7 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblMain.Size = new System.Drawing.Size(554, 667);
             this.tblMain.TabIndex = 0;
             // 
@@ -113,12 +114,12 @@
             this.tBarSessionConfig.DivVisible = true;
             this.tBarSessionConfig.Dock = System.Windows.Forms.DockStyle.Top;
             this.tBarSessionConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tBarSessionConfig.FormIcon = null;
+            this.tBarSessionConfig.FormIcon = global::UR_MTrack.Properties.Resources.ur_logo_wort_bildmarke_weiss;
             this.tBarSessionConfig.GradientAngle = 180F;
             this.tBarSessionConfig.GrColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(195)))));
             this.tBarSessionConfig.IconSize = new System.Drawing.Size(60, 31);
             this.tBarSessionConfig.Location = new System.Drawing.Point(0, 0);
-            this.tBarSessionConfig.Margin = new System.Windows.Forms.Padding(0);
+            this.tBarSessionConfig.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.tBarSessionConfig.MaxImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MaxImg")));
             this.tBarSessionConfig.MiniImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MiniImg")));
             this.tBarSessionConfig.Name = "tBarSessionConfig";
@@ -126,8 +127,8 @@
         0F,
         0.2F,
         1F};
-            this.tBarSessionConfig.ShowIcon = false;
-            this.tBarSessionConfig.Size = new System.Drawing.Size(554, 31);
+            this.tBarSessionConfig.ShowIcon = true;
+            this.tBarSessionConfig.Size = new System.Drawing.Size(553, 39);
             this.tBarSessionConfig.TabIndex = 1;
             this.tBarSessionConfig.Titel = "";
             this.tBarSessionConfig.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
@@ -152,7 +153,6 @@
             this.tblConfig.Controls.Add(this.tbRecording, 0, 16);
             this.tblConfig.Controls.Add(this.label8, 0, 15);
             this.tblConfig.Controls.Add(this.btnTestConnection, 2, 4);
-            this.tblConfig.Controls.Add(this.label7, 2, 11);
             this.tblConfig.Controls.Add(this.label4, 0, 11);
             this.tblConfig.Controls.Add(this.tbFlyBase, 3, 10);
             this.tblConfig.Controls.Add(this.tbFlyDescription, 2, 10);
@@ -174,8 +174,9 @@
             this.tblConfig.Controls.Add(this.label5, 0, 18);
             this.tblConfig.Controls.Add(this.btnShow, 1, 19);
             this.tblConfig.Controls.Add(this.label9, 0, 2);
+            this.tblConfig.Controls.Add(this.label7, 2, 11);
             this.tblConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblConfig.Location = new System.Drawing.Point(42, 31);
+            this.tblConfig.Location = new System.Drawing.Point(42, 39);
             this.tblConfig.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.tblConfig.Name = "tblConfig";
             this.tblConfig.RowCount = 21;
@@ -364,24 +365,10 @@
             this.btnTestConnection.ShowExtLabel = false;
             this.btnTestConnection.Size = new System.Drawing.Size(85, 25);
             this.btnTestConnection.TabIndex = 4;
-            this.btnTestConnection.Tag = "Check if Com Port is available";
-            this.btnTestConnection.Text = "Check";
+            this.btnTestConnection.Tag = "Find COM port";
+            this.btnTestConnection.Text = "Find Device";
             this.btnTestConnection.UseVisualStyleBackColor = true;
             this.btnTestConnection.Click += new System.EventHandler(this.btnTestConnection_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
-            this.label7.Location = new System.Drawing.Point(169, 285);
-            this.label7.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 16);
-            this.label7.TabIndex = 10;
-            this.label7.Text = "DMS Type";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -393,9 +380,9 @@
             this.label4.Location = new System.Drawing.Point(3, 285);
             this.label4.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 16);
+            this.label4.Size = new System.Drawing.Size(48, 16);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Scope";
+            this.label4.Text = "Arena";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbFlyBase
@@ -478,9 +465,9 @@
             this.label2.Location = new System.Drawing.Point(3, 223);
             this.label2.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 20);
+            this.label2.Size = new System.Drawing.Size(32, 20);
             this.label2.TabIndex = 9;
-            this.label2.Text = "Meta Data";
+            this.label2.Text = "Fly";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbOrcID
@@ -580,9 +567,9 @@
             this.label1.Location = new System.Drawing.Point(3, 159);
             this.label1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 20);
+            this.label1.Size = new System.Drawing.Size(115, 20);
             this.label1.TabIndex = 8;
-            this.label1.Text = "User Data";
+            this.label1.Text = "Experimenter";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbDataPath
@@ -741,6 +728,20 @@
             this.label9.TabIndex = 26;
             this.label9.Text = "label9";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(65)))), ((int)(((byte)(65)))), ((int)(((byte)(65)))));
+            this.label7.Location = new System.Drawing.Point(169, 285);
+            this.label7.Margin = new System.Windows.Forms.Padding(3, 5, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(86, 16);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Meter Type";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // orientedTextLabel1
             // 
             this.orientedTextLabel1.AutoSize = true;
@@ -748,12 +749,12 @@
             this.orientedTextLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.orientedTextLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.orientedTextLabel1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 31);
+            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 39);
             this.orientedTextLabel1.Margin = new System.Windows.Forms.Padding(0);
             this.orientedTextLabel1.Name = "orientedTextLabel1";
             this.orientedTextLabel1.RotationAngle = 270D;
             this.tblMain.SetRowSpan(this.orientedTextLabel1, 2);
-            this.orientedTextLabel1.Size = new System.Drawing.Size(42, 636);
+            this.orientedTextLabel1.Size = new System.Drawing.Size(42, 628);
             this.orientedTextLabel1.TabIndex = 3;
             this.orientedTextLabel1.Text = "Experiment Configuration";
             this.orientedTextLabel1.TextDirection = UR_MTrack.Direction.Clockwise;
@@ -770,12 +771,12 @@
             this.tblButtons.Controls.Add(this.btnCancel, 1, 0);
             this.tblButtons.Controls.Add(this.btnOk, 0, 0);
             this.tblButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblButtons.Location = new System.Drawing.Point(42, 605);
+            this.tblButtons.Location = new System.Drawing.Point(42, 613);
             this.tblButtons.Margin = new System.Windows.Forms.Padding(0, 0, 1, 3);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblButtons.Size = new System.Drawing.Size(511, 59);
+            this.tblButtons.Size = new System.Drawing.Size(511, 51);
             this.tblButtons.TabIndex = 4;
             // 
             // btnCancel
@@ -797,7 +798,7 @@
             this.btnCancel.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnCancel.HighlightColor = System.Drawing.Color.Coral;
             this.btnCancel.HighlightThickness = 2;
-            this.btnCancel.Location = new System.Drawing.Point(270, 14);
+            this.btnCancel.Location = new System.Drawing.Point(270, 10);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(10);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.RelPos = new float[] {
@@ -829,7 +830,7 @@
             this.btnOk.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnOk.HighlightColor = System.Drawing.Color.Coral;
             this.btnOk.HighlightThickness = 2;
-            this.btnOk.Location = new System.Drawing.Point(165, 14);
+            this.btnOk.Location = new System.Drawing.Point(165, 10);
             this.btnOk.Margin = new System.Windows.Forms.Padding(10);
             this.btnOk.Name = "btnOk";
             this.btnOk.RelPos = new float[] {

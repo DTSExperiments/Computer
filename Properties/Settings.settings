@@ -8,8 +8,8 @@
     <Setting Name="LogfilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Log</Value>
     </Setting>
-    <Setting Name="SettingsPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Settings</Value>
+    <Setting Name="AppSettingsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack</Value>
     </Setting>
   </Settings>
 </SettingsFile>

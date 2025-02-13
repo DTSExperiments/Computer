@@ -9,12 +9,14 @@ namespace UR_MTrack
 {
     public enum ExperimentState
     {
-        [Description("Start")]
+        [Description("Running")]
         start,
-        [Description("Stop")]
+        [Description("Stopped")]
         stop,
-        [Description("Suspend/ Resume")]
+        [Description("Suspended")]
         suspend,
+        [Description("Resume")]
+        resume,
         [Description("Laser Trigger")]
         punish
         
@@ -22,16 +24,17 @@ namespace UR_MTrack
 
     public enum ColorPattern
     {
-        [Description("Red")]
-        red,
+        //[Description("Red")]
+        //R,
+        [Description("White")]
+        W,
         [Description("Green")]
         G,
         [Description("Blue")]
         B,
         [Description("Cyan")]
-        D,
-        [Description("White")]
-        W
+        D
+        
     }
 
     public enum DisplayPattern
@@ -46,7 +49,7 @@ namespace UR_MTrack
         tPattern = 4
     }
 
-    public enum RotationValue
+    public enum RotationMode
     {
         [Description("Sample")]
         s,

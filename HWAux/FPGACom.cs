@@ -16,19 +16,23 @@ namespace UR_MTrack
         /// <param name="pwmValue"></param>
         /// <returns></returns>
         public string GetLaserCommand(int pwmValue)
-        {            
-            return string.Format("L{0}", pwmValue);
+        {
+            var dval =Convert.ToChar((int)Math.Round((double)pwmValue * 2.55, 0));
+            return string.Format("L{0}", dval);
         }
+
 
         /// <summary>
         /// returns the command string to rotate the scenery
         /// </summary>
         /// <param name="pwmValue"></param>
         /// <returns></returns>
-        public string GetRotateCommand(RotationValue rv, int angle)
+        public string GetRotateCommand(RotationMode rv, byte angle)
         {
-            return string.Format("{0}{1}", rv.ToString(), angle);
+            return string.Format("{0}{1}", rv.ToString(), (char)angle);
         }
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -39,6 +43,5 @@ namespace UR_MTrack
         {
             return string.Format("{0}{1}", (int)dispat, colpat.ToString());
         }
-
     }
 }
