@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using Logging;
+using UR_MTrack.Controls;
 
 
 namespace UR_MTrack
@@ -50,7 +51,7 @@ namespace UR_MTrack
         SerialPortSettings _serialPortSettings;
         ExperimentSettings _currentExperimentSettings;
         DataHandler _datahandler;
-
+        UCtrlChart _chart;
         UCtrlExpAdjust _ctrlExpAdjust;
         FrmExperimentConfig _experimentConfig;
         FrmExperimentControl _experimentCtrl;
@@ -131,7 +132,6 @@ namespace UR_MTrack
         private void _ctrlExpAdjust_AdjustmentFinished(object sender, EventArgs e)
         {
             Log.Append(string.Format("Adjustment finished."), LogType.Info);
-            _datahandler.ResetChart();
             ShowHistogram();
             ShowExperimentControl();
         }
@@ -196,10 +196,7 @@ namespace UR_MTrack
             _datahandler = new DataHandler(ref _currentExperimentSettings);
             _experimentCtrl = new FrmExperimentControl();
             _experimentCtrl.ExpStateChanged += _experimentCtrl_ExpStateChanged;
-            /*
-            */
-            tblHisto.Visible = false;
-
+           
             Log.Append("Finished Initialization", LogType.Info);
         }
 
@@ -219,8 +216,11 @@ namespace UR_MTrack
         {
             try
             {
-                _datahandler.ADValuesZGC.Dock = DockStyle.Fill;
-                tblControlHost.Controls.Add(_datahandler.ADValuesZGC, 1, 0);
+                _chart = new UCtrlChart();
+               // _chart.Dock=DockStyle.Fill;
+                
+                tblControlHost.Controls.Add(_chart, 1, 0);
+                
             }
             catch (Exception ex)
             {
@@ -233,8 +233,7 @@ namespace UR_MTrack
         {
             try
             {
-                tblHisto.Controls.Add(_datahandler.Histogram, 0, 0);
-                tblHisto.Visible=true;
+                _chart.ShowHistogram();
             }
             catch (Exception ex)
             {

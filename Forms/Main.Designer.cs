@@ -48,19 +48,15 @@ namespace UR_MTrack
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tBarMain = new UR_MTrack.TitleBar();
-            this.btnAbout = new UR_MTrack.CurveButton();
             this.tblLogBox = new System.Windows.Forms.TableLayoutPanel();
-            this.btnCollapseLog = new UR_MTrack.CurveButton();
             this.rtbLogBox = new System.Windows.Forms.RichTextBox();
             this.tblControlHost = new System.Windows.Forms.TableLayoutPanel();
-            this.tblHisto = new System.Windows.Forms.TableLayoutPanel();
-            this.flpHistoCollection = new System.Windows.Forms.FlowLayoutPanel();
+            this.tBarMain = new UR_MTrack.TitleBar();
+            this.btnAbout = new UR_MTrack.CurveButton();
+            this.btnCollapseLog = new UR_MTrack.CurveButton();
             this.menuStrip1.SuspendLayout();
             this.tblMain.SuspendLayout();
             this.tblLogBox.SuspendLayout();
-            this.tblControlHost.SuspendLayout();
-            this.tblHisto.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -184,6 +180,57 @@ namespace UR_MTrack
             this.tblMain.Size = new System.Drawing.Size(1068, 742);
             this.tblMain.TabIndex = 3;
             // 
+            // tblLogBox
+            // 
+            this.tblLogBox.AutoSize = true;
+            this.tblLogBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblLogBox.ColumnCount = 1;
+            this.tblMain.SetColumnSpan(this.tblLogBox, 2);
+            this.tblLogBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblLogBox.Controls.Add(this.btnCollapseLog, 0, 0);
+            this.tblLogBox.Controls.Add(this.rtbLogBox, 0, 1);
+            this.tblLogBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblLogBox.Location = new System.Drawing.Point(0, 632);
+            this.tblLogBox.Margin = new System.Windows.Forms.Padding(0);
+            this.tblLogBox.Name = "tblLogBox";
+            this.tblLogBox.RowCount = 2;
+            this.tblLogBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblLogBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblLogBox.Size = new System.Drawing.Size(1070, 110);
+            this.tblLogBox.TabIndex = 8;
+            // 
+            // rtbLogBox
+            // 
+            this.rtbLogBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.rtbLogBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbLogBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbLogBox.ForeColor = System.Drawing.Color.Silver;
+            this.rtbLogBox.Location = new System.Drawing.Point(2, 14);
+            this.rtbLogBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.rtbLogBox.Name = "rtbLogBox";
+            this.rtbLogBox.Size = new System.Drawing.Size(1066, 96);
+            this.rtbLogBox.TabIndex = 1;
+            this.rtbLogBox.Text = "";
+            // 
+            // tblControlHost
+            // 
+            this.tblControlHost.AutoSize = true;
+            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblControlHost.ColumnCount = 2;
+            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tblControlHost.Location = new System.Drawing.Point(3, 79);
+            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tblControlHost.Name = "tblControlHost";
+            this.tblControlHost.RowCount = 1;
+            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControlHost.Size = new System.Drawing.Size(1064, 550);
+            this.tblControlHost.TabIndex = 9;
+            // 
             // tBarMain
             // 
             this.tBarMain.AbtImg = null;
@@ -256,25 +303,6 @@ namespace UR_MTrack
             this.btnAbout.Visible = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
-            // tblLogBox
-            // 
-            this.tblLogBox.AutoSize = true;
-            this.tblLogBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblLogBox.ColumnCount = 1;
-            this.tblMain.SetColumnSpan(this.tblLogBox, 2);
-            this.tblLogBox.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblLogBox.Controls.Add(this.btnCollapseLog, 0, 0);
-            this.tblLogBox.Controls.Add(this.rtbLogBox, 0, 1);
-            this.tblLogBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblLogBox.Location = new System.Drawing.Point(0, 632);
-            this.tblLogBox.Margin = new System.Windows.Forms.Padding(0);
-            this.tblLogBox.Name = "tblLogBox";
-            this.tblLogBox.RowCount = 2;
-            this.tblLogBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblLogBox.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblLogBox.Size = new System.Drawing.Size(1070, 110);
-            this.tblLogBox.TabIndex = 8;
-            // 
             // btnCollapseLog
             // 
             this.btnCollapseLog.AutoSizeFont = false;
@@ -309,64 +337,6 @@ namespace UR_MTrack
             this.btnCollapseLog.UseVisualStyleBackColor = true;
             this.btnCollapseLog.Click += new System.EventHandler(this.btnCollapseLog_Click);
             // 
-            // rtbLogBox
-            // 
-            this.rtbLogBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.rtbLogBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbLogBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbLogBox.ForeColor = System.Drawing.Color.Silver;
-            this.rtbLogBox.Location = new System.Drawing.Point(2, 14);
-            this.rtbLogBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.rtbLogBox.Name = "rtbLogBox";
-            this.rtbLogBox.Size = new System.Drawing.Size(1066, 96);
-            this.rtbLogBox.TabIndex = 1;
-            this.rtbLogBox.Text = "";
-            // 
-            // tblControlHost
-            // 
-            this.tblControlHost.AutoSize = true;
-            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblControlHost.ColumnCount = 3;
-            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.Controls.Add(this.tblHisto, 2, 0);
-            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblControlHost.Location = new System.Drawing.Point(3, 79);
-            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.tblControlHost.Name = "tblControlHost";
-            this.tblControlHost.RowCount = 1;
-            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.Size = new System.Drawing.Size(1064, 550);
-            this.tblControlHost.TabIndex = 9;
-            // 
-            // tblHisto
-            // 
-            this.tblHisto.ColumnCount = 1;
-            this.tblHisto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblHisto.Controls.Add(this.flpHistoCollection, 0, 1);
-            this.tblHisto.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tblHisto.Location = new System.Drawing.Point(861, 3);
-            this.tblHisto.Name = "tblHisto";
-            this.tblHisto.RowCount = 2;
-            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblHisto.Size = new System.Drawing.Size(200, 544);
-            this.tblHisto.TabIndex = 1;
-            // 
-            // flpHistoCollection
-            // 
-            this.flpHistoCollection.AutoScroll = true;
-            this.flpHistoCollection.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.flpHistoCollection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.flpHistoCollection.Location = new System.Drawing.Point(3, 203);
-            this.flpHistoCollection.MaximumSize = new System.Drawing.Size(200, 0);
-            this.flpHistoCollection.Name = "flpHistoCollection";
-            this.flpHistoCollection.Size = new System.Drawing.Size(194, 0);
-            this.flpHistoCollection.TabIndex = 0;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -390,8 +360,6 @@ namespace UR_MTrack
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.tblLogBox.ResumeLayout(false);
-            this.tblControlHost.ResumeLayout(false);
-            this.tblHisto.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,8 +386,6 @@ namespace UR_MTrack
         private CurveButton btnCollapseLog;
         private RichTextBox rtbLogBox;
         private TableLayoutPanel tblControlHost;
-        private FlowLayoutPanel flpHistoCollection;
-        private TableLayoutPanel tblHisto;
     }
 }
 
