@@ -34,7 +34,7 @@ namespace UR_MTrack
         #region Overrides
         
         /// <summary>
-        /// This gives us the drop shadow behind the borderless form
+        /// This gives the drop shadow behind the borderless form
         /// </summary>
         protected override CreateParams CreateParams
         {

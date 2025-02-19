@@ -25,18 +25,6 @@ namespace UR_MTrack.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Data")]
-        public string DataPath {
-            get {
-                return ((string)(this["DataPath"]));
-            }
-            set {
-                this["DataPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack\\Log")]
         public string LogfilePath {
             get {

@@ -31,14 +31,7 @@ namespace UR_MTrack
             //ToggleExCoState();
         }
 
-        public bool LaserBtnState
-        {
-            get { return btnLaser.Checked; }
-            set
-            {
-
-            }
-        }
+        
         public bool ConnectBtnState
         {
             get { return btnConnect.Checked; }

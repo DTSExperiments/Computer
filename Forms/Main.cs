@@ -38,12 +38,7 @@ namespace UR_MTrack
         }
         #endregion
 
-
-        private double[] liveDataAD = new double[1080];
-        private double[] liveDataPIX = new double[1080];
-
-        private List<byte> list = new List<byte>();
-
+        
         public int nextValueIndex = 0;
 
         SerialInterface _serialCom;
@@ -60,9 +55,12 @@ namespace UR_MTrack
 
 
         public Main()
-        {
+        {            
             InitializeComponent();
             InitializeControl();
+#if DEBUG
+            new TraceView().Show();
+#endif
         }
 
         protected override void OnResizeBegin(EventArgs e)
@@ -85,7 +83,8 @@ namespace UR_MTrack
             {
                 var dlg = new FrmInput(InputType.ExperimentCreation);
                 var res = dlg.ShowDialog();
-                if (res == DialogResult.OK && dlg.CreationType == InputType.Open)
+                if(res != DialogResult.OK) { return; }
+                else if (res == DialogResult.OK && dlg.CreationType == InputType.Open)
                 {
                     _currentExperimentSettings = new FileFactory().LoadSettings();
                 }
@@ -170,20 +169,9 @@ namespace UR_MTrack
             Log.Append("Experiment metadata changed", LogType.Info);
         }
 
-        private void Logging_LogMessageReceive(object sender, LogEventArgs e)
-        {
-            if (rtbLogBox.IsHandleCreated)
-            {
-                rtbLogBox.Invoke((MethodInvoker)(() => rtbLogBox.AppendText(e.Message)));
-                rtbLogBox.Invoke((MethodInvoker)(() => rtbLogBox.ScrollToCaret()));
-            }
-        }
-
-
         void InitializeControl()
         {
             tBarMain.Titel = new AboutBox().AssemblyTitle;
-            Log.LogMessageReceive += Logging_LogMessageReceive;
             Log.Append("Initializing Objects", LogType.Info);
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
@@ -338,9 +326,5 @@ namespace UR_MTrack
 
         #endregion
 
-        private void btnCollapseLog_Click(object sender, EventArgs e)
-        {
-            rtbLogBox.Visible = !rtbLogBox.Visible;
-        }
     }
 }

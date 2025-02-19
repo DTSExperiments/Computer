@@ -41,12 +41,14 @@ namespace UR_MTrack
         public int PeriodsCount { get; set; }
         public InputType CreationType { get; set; }
 
+        public new string Text { get { return tBar.Titel; }set { tBar.Titel = value; } }
+
         #endregion
                
 
         void Initialize()
         {
-            lblTitle.Text = _currenttype.ToString();
+            Text = _currenttype.ToString();
             SuspendLayout();
             switch (_currenttype)
             {
@@ -87,7 +89,6 @@ namespace UR_MTrack
                     }
                 case InputType.ExperimentCreation:
                     { 
-                        
                         break; 
                     }
             }

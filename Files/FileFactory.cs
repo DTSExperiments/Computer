@@ -22,9 +22,7 @@ namespace UR_MTrack
         public void CheckDefaultDirectories()
         {
             if (!Directory.Exists(Properties.Settings.Default.AppSettingsPath))
-            { throw new DirectoryNotFoundException("Settings Directory"); }
-            if (!Directory.Exists(Properties.Settings.Default.DataPath))
-            { throw new DirectoryNotFoundException("Default Data Directory"); }
+            { throw new DirectoryNotFoundException("Settings Directory"); }           
             if (!Directory.Exists(Properties.Settings.Default.LogfilePath))
             { throw new DirectoryNotFoundException("LogFile Directory"); }
         }

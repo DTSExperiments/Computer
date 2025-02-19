@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmExperimentConfig));
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tBarSessionConfig = new UR_MTrack.TitleBar();
             this.tblConfig = new System.Windows.Forms.TableLayoutPanel();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -69,6 +68,7 @@
             this.tblButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnCancel = new UR_MTrack.CurveButton();
             this.btnOk = new UR_MTrack.CurveButton();
+            this.tBarSessionConfig = new UR_MTrack.TitleBar();
             this.tblMain.SuspendLayout();
             this.tblConfig.SuspendLayout();
             this.tblButtons.SuspendLayout();
@@ -87,7 +87,7 @@
             this.tblMain.Controls.Add(this.tBarSessionConfig, 1, 0);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(0);
             this.tblMain.MaximumSize = new System.Drawing.Size(600, 0);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 3;
@@ -97,41 +97,6 @@
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tblMain.Size = new System.Drawing.Size(554, 667);
             this.tblMain.TabIndex = 0;
-            // 
-            // tBarSessionConfig
-            // 
-            this.tBarSessionConfig.AbtImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.AbtImg")));
-            this.tBarSessionConfig.AbtVisible = false;
-            this.tBarSessionConfig.AutoSize = true;
-            this.tBarSessionConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tBarSessionConfig.BackColor = System.Drawing.Color.DimGray;
-            this.tBarSessionConfig.ButtonVisible = false;
-            this.tBarSessionConfig.CloseImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.CloseImg")));
-            this.tblMain.SetColumnSpan(this.tBarSessionConfig, 2);
-            this.tBarSessionConfig.CtrlBxVisible = false;
-            this.tBarSessionConfig.DivColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
-            this.tBarSessionConfig.DivHeight = 2;
-            this.tBarSessionConfig.DivVisible = true;
-            this.tBarSessionConfig.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tBarSessionConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tBarSessionConfig.FormIcon = global::UR_MTrack.Properties.Resources.ur_logo_wort_bildmarke_weiss;
-            this.tBarSessionConfig.GradientAngle = 180F;
-            this.tBarSessionConfig.GrColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(195)))));
-            this.tBarSessionConfig.IconSize = new System.Drawing.Size(60, 31);
-            this.tBarSessionConfig.Location = new System.Drawing.Point(0, 0);
-            this.tBarSessionConfig.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
-            this.tBarSessionConfig.MaxImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MaxImg")));
-            this.tBarSessionConfig.MiniImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MiniImg")));
-            this.tBarSessionConfig.Name = "tBarSessionConfig";
-            this.tBarSessionConfig.RelPos = new float[] {
-        0F,
-        0.2F,
-        1F};
-            this.tBarSessionConfig.ShowIcon = true;
-            this.tBarSessionConfig.Size = new System.Drawing.Size(553, 39);
-            this.tBarSessionConfig.TabIndex = 1;
-            this.tBarSessionConfig.Titel = "";
-            this.tBarSessionConfig.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
             // 
             // tblConfig
             // 
@@ -638,6 +603,8 @@
             // 
             // rtbDescription
             // 
+            this.rtbDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbDescription.BackColor = System.Drawing.Color.WhiteSmoke;
             this.rtbDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tblConfig.SetColumnSpan(this.rtbDescription, 3);
@@ -645,7 +612,7 @@
             this.rtbDescription.Location = new System.Drawing.Point(38, 334);
             this.rtbDescription.Name = "rtbDescription";
             this.rtbDescription.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.rtbDescription.Size = new System.Drawing.Size(457, 94);
+            this.rtbDescription.Size = new System.Drawing.Size(470, 94);
             this.rtbDescription.TabIndex = 13;
             this.rtbDescription.Text = "";
             this.rtbDescription.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rtbDescription_MouseDown);
@@ -772,11 +739,11 @@
             this.tblButtons.Controls.Add(this.btnOk, 0, 0);
             this.tblButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblButtons.Location = new System.Drawing.Point(42, 613);
-            this.tblButtons.Margin = new System.Windows.Forms.Padding(0, 0, 1, 3);
+            this.tblButtons.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblButtons.Size = new System.Drawing.Size(511, 51);
+            this.tblButtons.Size = new System.Drawing.Size(511, 54);
             this.tblButtons.TabIndex = 4;
             // 
             // btnCancel
@@ -798,7 +765,7 @@
             this.btnCancel.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnCancel.HighlightColor = System.Drawing.Color.Coral;
             this.btnCancel.HighlightThickness = 2;
-            this.btnCancel.Location = new System.Drawing.Point(270, 10);
+            this.btnCancel.Location = new System.Drawing.Point(270, 12);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(10);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.RelPos = new float[] {
@@ -830,7 +797,7 @@
             this.btnOk.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnOk.HighlightColor = System.Drawing.Color.Coral;
             this.btnOk.HighlightThickness = 2;
-            this.btnOk.Location = new System.Drawing.Point(165, 10);
+            this.btnOk.Location = new System.Drawing.Point(165, 12);
             this.btnOk.Margin = new System.Windows.Forms.Padding(10);
             this.btnOk.Name = "btnOk";
             this.btnOk.RelPos = new float[] {
@@ -844,6 +811,41 @@
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // tBarSessionConfig
+            // 
+            this.tBarSessionConfig.AbtImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.AbtImg")));
+            this.tBarSessionConfig.AbtVisible = false;
+            this.tBarSessionConfig.AutoSize = true;
+            this.tBarSessionConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tBarSessionConfig.BackColor = System.Drawing.Color.DimGray;
+            this.tBarSessionConfig.ButtonVisible = false;
+            this.tBarSessionConfig.CloseImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.CloseImg")));
+            this.tblMain.SetColumnSpan(this.tBarSessionConfig, 2);
+            this.tBarSessionConfig.CtrlBxVisible = false;
+            this.tBarSessionConfig.DivColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
+            this.tBarSessionConfig.DivHeight = 2;
+            this.tBarSessionConfig.DivVisible = true;
+            this.tBarSessionConfig.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tBarSessionConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tBarSessionConfig.FormIcon = global::UR_MTrack.Properties.Resources.ur_logo_wort_bildmarke_weiss;
+            this.tBarSessionConfig.GradientAngle = 180F;
+            this.tBarSessionConfig.GrColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(195)))));
+            this.tBarSessionConfig.IconSize = new System.Drawing.Size(60, 31);
+            this.tBarSessionConfig.Location = new System.Drawing.Point(0, 0);
+            this.tBarSessionConfig.Margin = new System.Windows.Forms.Padding(0, 0, 1, 0);
+            this.tBarSessionConfig.MaxImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MaxImg")));
+            this.tBarSessionConfig.MiniImg = ((System.Drawing.Image)(resources.GetObject("tBarSessionConfig.MiniImg")));
+            this.tBarSessionConfig.Name = "tBarSessionConfig";
+            this.tBarSessionConfig.RelPos = new float[] {
+        0F,
+        0.2F,
+        1F};
+            this.tBarSessionConfig.ShowIcon = true;
+            this.tBarSessionConfig.Size = new System.Drawing.Size(553, 39);
+            this.tBarSessionConfig.TabIndex = 1;
+            this.tBarSessionConfig.Titel = "";
+            this.tBarSessionConfig.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
             // 
             // FrmExperimentConfig
             // 

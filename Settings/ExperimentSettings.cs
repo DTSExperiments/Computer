@@ -25,7 +25,7 @@ namespace UR_MTrack
         /// <summary>
         /// Path to the folder where measurement files are stored.
         /// </summary>
-        public string Datapath { get; set; } = Properties.Settings.Default.DataPath;
+        public string Datapath { get; set; } 
         /// <summary>
         /// Path to the currently used meaurement file
         /// </summary>

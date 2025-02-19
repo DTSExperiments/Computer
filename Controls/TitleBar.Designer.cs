@@ -67,7 +67,7 @@ namespace UR_MTrack
             this.tblControlHost.RowCount = 2;
             this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblControlHost.Size = new System.Drawing.Size(561, 40);
+            this.tblControlHost.Size = new System.Drawing.Size(298, 42);
             this.tblControlHost.TabIndex = 0;
             this.tblControlHost.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitle_MouseDown);
             // 
@@ -77,10 +77,10 @@ namespace UR_MTrack
             this.tblControlHost.SetColumnSpan(this.Divider, 6);
             this.Divider.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Divider.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Divider.Location = new System.Drawing.Point(0, 38);
+            this.Divider.Location = new System.Drawing.Point(0, 40);
             this.Divider.Margin = new System.Windows.Forms.Padding(0);
             this.Divider.Name = "Divider";
-            this.Divider.Size = new System.Drawing.Size(561, 2);
+            this.Divider.Size = new System.Drawing.Size(298, 2);
             this.Divider.TabIndex = 0;
             this.Divider.Text = "Divider";
             // 
@@ -94,7 +94,7 @@ namespace UR_MTrack
             this.btnCloseForm.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(255)))));
             this.btnCloseForm.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnCloseForm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCloseForm.Location = new System.Drawing.Point(526, 6);
+            this.btnCloseForm.Location = new System.Drawing.Point(263, 7);
             this.btnCloseForm.Margin = new System.Windows.Forms.Padding(2, 2, 10, 2);
             this.btnCloseForm.Name = "btnCloseForm";
             this.btnCloseForm.Size = new System.Drawing.Size(25, 25);
@@ -108,7 +108,7 @@ namespace UR_MTrack
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblTitle.Location = new System.Drawing.Point(226, 7);
+            this.lblTitle.Location = new System.Drawing.Point(95, 8);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(0);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(45, 24);
@@ -139,7 +139,7 @@ namespace UR_MTrack
             this.btnAbout.GradientTop = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(198)))), ((int)(((byte)(241)))));
             this.btnAbout.HighlightColor = System.Drawing.Color.SeaShell;
             this.btnAbout.HighlightThickness = 0;
-            this.btnAbout.Location = new System.Drawing.Point(414, 3);
+            this.btnAbout.Location = new System.Drawing.Point(151, 4);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.RelPos = new float[] {
@@ -164,7 +164,7 @@ namespace UR_MTrack
             this.btnMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(255)))));
             this.btnMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimize.Location = new System.Drawing.Point(468, 6);
+            this.btnMinimize.Location = new System.Drawing.Point(205, 7);
             this.btnMinimize.Margin = new System.Windows.Forms.Padding(2);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(25, 25);
@@ -182,7 +182,7 @@ namespace UR_MTrack
             this.btnMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(125)))), ((int)(((byte)(255)))));
             this.btnMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMaximize.Location = new System.Drawing.Point(497, 6);
+            this.btnMaximize.Location = new System.Drawing.Point(234, 7);
             this.btnMaximize.Margin = new System.Windows.Forms.Padding(2);
             this.btnMaximize.Name = "btnMaximize";
             this.btnMaximize.Size = new System.Drawing.Size(25, 25);
@@ -197,20 +197,19 @@ namespace UR_MTrack
             this.pIcon.BackColor = System.Drawing.Color.Transparent;
             this.pIcon.BackgroundImage = global::UR_MTrack.Properties.Resources.ur_logo_wort_bildmarke_weiss;
             this.pIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pIcon.Location = new System.Drawing.Point(3, 3);
+            this.pIcon.Location = new System.Drawing.Point(3, 4);
             this.pIcon.Name = "pIcon";
             this.pIcon.Size = new System.Drawing.Size(81, 32);
             this.pIcon.TabIndex = 9;
             // 
             // TitleBar
             // 
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(0)))), ((int)(((byte)(69)))), ((int)(((byte)(190)))));
             this.Controls.Add(this.tblControlHost);
             this.DoubleBuffered = true;
             this.Name = "TitleBar";
-            this.Size = new System.Drawing.Size(561, 40);
+            this.Size = new System.Drawing.Size(298, 42);
             this.tblControlHost.ResumeLayout(false);
             this.tblControlHost.PerformLayout();
             this.ResumeLayout(false);

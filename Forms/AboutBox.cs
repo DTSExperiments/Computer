@@ -10,6 +10,8 @@ namespace UR_MTrack
 { 
     partial class AboutBox : Form
     {
+        const int CS_DROPSHADOW = 0x20000;
+
         public AboutBox()
         {
             InitializeComponent();
@@ -20,12 +22,31 @@ namespace UR_MTrack
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }
-     
+
+
+        #region overrides
+
+        /// <summary>
+        /// This gives the drop shadow behind the borderless form
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
             //this.FadeOut();
         }
+
+        #endregion
 
         #region Assembly Attribute Accessors
 

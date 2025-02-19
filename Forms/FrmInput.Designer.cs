@@ -29,20 +29,19 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmInput));
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this.tblPrjType = new System.Windows.Forms.TableLayoutPanel();
             this.curveButton2 = new UR_MTrack.CurveButton();
             this.btnNew = new UR_MTrack.CurveButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.tblPeriodCnt = new System.Windows.Forms.TableLayoutPanel();
             this.lblHint = new System.Windows.Forms.Label();
             this.tbPeriodCnt = new UR_MTrack.WMTextBox();
             this.tblButton = new System.Windows.Forms.TableLayoutPanel();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.tBar = new UR_MTrack.TitleBar();
             this.tblMain.SuspendLayout();
             this.tblPrjType.SuspendLayout();
             this.tblPeriodCnt.SuspendLayout();
@@ -56,26 +55,21 @@
             this.tblMain.BackColor = System.Drawing.Color.White;
             this.tblMain.ColumnCount = 1;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tblMain.Controls.Add(this.tblPrjType, 0, 3);
-            this.tblMain.Controls.Add(this.label2, 0, 5);
-            this.tblMain.Controls.Add(this.lblTitle, 0, 0);
-            this.tblMain.Controls.Add(this.label1, 0, 1);
-            this.tblMain.Controls.Add(this.tblPeriodCnt, 0, 2);
-            this.tblMain.Controls.Add(this.tblButton, 0, 6);
+            this.tblMain.Controls.Add(this.tblPrjType, 0, 2);
+            this.tblMain.Controls.Add(this.tblPeriodCnt, 0, 1);
+            this.tblMain.Controls.Add(this.tblButton, 0, 4);
+            this.tblMain.Controls.Add(this.tBar, 0, 0);
             this.tblMain.Location = new System.Drawing.Point(1, 1);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 2, 1);
             this.tblMain.Name = "tblMain";
-            this.tblMain.RowCount = 7;
+            this.tblMain.RowCount = 5;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(344, 281);
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tblMain.Size = new System.Drawing.Size(344, 271);
             this.tblMain.TabIndex = 4;
             this.tblMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
             // 
@@ -90,7 +84,7 @@
             this.tblPrjType.Controls.Add(this.curveButton2, 1, 2);
             this.tblPrjType.Controls.Add(this.btnNew, 1, 1);
             this.tblPrjType.Controls.Add(this.label3, 1, 0);
-            this.tblPrjType.Location = new System.Drawing.Point(3, 100);
+            this.tblPrjType.Location = new System.Drawing.Point(3, 92);
             this.tblPrjType.Name = "tblPrjType";
             this.tblPrjType.RowCount = 3;
             this.tblPrjType.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -180,40 +174,6 @@
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label3.Visible = false;
             // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.DimGray;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 228);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(344, 2);
-            this.label2.TabIndex = 8;
-            // 
-            // lblTitle
-            // 
-            this.lblTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(5, 10);
-            this.lblTitle.Margin = new System.Windows.Forms.Padding(5, 10, 3, 5);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(336, 21);
-            this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Title";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 36);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(344, 2);
-            this.label1.TabIndex = 12;
-            // 
             // tblPeriodCnt
             // 
             this.tblPeriodCnt.AutoSize = true;
@@ -224,7 +184,7 @@
             this.tblPeriodCnt.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblPeriodCnt.Controls.Add(this.lblHint, 1, 0);
             this.tblPeriodCnt.Controls.Add(this.tbPeriodCnt, 1, 1);
-            this.tblPeriodCnt.Location = new System.Drawing.Point(3, 41);
+            this.tblPeriodCnt.Location = new System.Drawing.Point(3, 33);
             this.tblPeriodCnt.Name = "tblPeriodCnt";
             this.tblPeriodCnt.RowCount = 2;
             this.tblPeriodCnt.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -275,7 +235,7 @@
             this.tblButton.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblButton.Controls.Add(this.btnOk, 1, 0);
             this.tblButton.Controls.Add(this.btnCancel, 2, 0);
-            this.tblButton.Location = new System.Drawing.Point(58, 233);
+            this.tblButton.Location = new System.Drawing.Point(58, 223);
             this.tblButton.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tblButton.Name = "tblButton";
             this.tblButton.RowCount = 1;
@@ -316,6 +276,41 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // tBar
+            // 
+            this.tBar.AbtImg = ((System.Drawing.Image)(resources.GetObject("tBar.AbtImg")));
+            this.tBar.AbtVisible = false;
+            this.tBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(195)))));
+            this.tBar.ButtonVisible = false;
+            this.tBar.CloseImg = ((System.Drawing.Image)(resources.GetObject("tBar.CloseImg")));
+            this.tBar.CtrlBxVisible = false;
+            this.tBar.DivColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
+            this.tBar.DivHeight = 2;
+            this.tBar.DivVisible = false;
+            this.tBar.FormIcon = ((System.Drawing.Image)(resources.GetObject("tBar.FormIcon")));
+            this.tBar.GradientAngle = 0F;
+            this.tBar.GrColor = System.Drawing.Color.DimGray;
+            this.tBar.IconSize = new System.Drawing.Size(34, 18);
+            this.tBar.Location = new System.Drawing.Point(0, 0);
+            this.tBar.Margin = new System.Windows.Forms.Padding(0);
+            this.tBar.MaxImg = ((System.Drawing.Image)(resources.GetObject("tBar.MaxImg")));
+            this.tBar.MaximumSize = new System.Drawing.Size(400, 32);
+            this.tBar.MiniImg = ((System.Drawing.Image)(resources.GetObject("tBar.MiniImg")));
+            this.tBar.Name = "tBar";
+            this.tBar.RelPos = new float[] {
+        0F,
+        0.2F,
+        1F};
+            this.tBar.ShowIcon = false;
+            this.tBar.Size = new System.Drawing.Size(344, 30);
+            this.tBar.TabIndex = 13;
+            this.tBar.TabStop = false;
+            this.tBar.Titel = "";
+            this.tBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
+            // 
             // FrmInput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,12 +319,12 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.DimGray;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(351, 291);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(363, 280);
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmInput";
             this.Padding = new System.Windows.Forms.Padding(1);
             this.ShowIcon = false;
@@ -356,13 +351,11 @@
         private System.Windows.Forms.TableLayoutPanel tblButton;
         private System.Windows.Forms.TableLayoutPanel tblPeriodCnt;
         private System.Windows.Forms.Label lblHint;
-        private System.Windows.Forms.Label lblTitle;
         private WMTextBox tbPeriodCnt;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tblPrjType;
         private System.Windows.Forms.Label label3;
         private CurveButton curveButton2;
         private CurveButton btnNew;
+        private TitleBar tBar;
     }
 }
