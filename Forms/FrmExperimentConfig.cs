@@ -223,11 +223,6 @@ namespace UR_MTrack
             _periodsView.Show(_expsettings.PeriodCollection);
         }
 
-        private void btnCreatePeriod_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void rtbDescription_MouseDown(object sender, MouseEventArgs e)
         {
             rtbDescription.BackColor = Color.WhiteSmoke;

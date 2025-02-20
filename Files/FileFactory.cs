@@ -323,8 +323,11 @@ namespace UR_MTrack
         /// <returns></returns>
         string GetSettingsFileName(ExperimentSettings exsettings)
         {
-            var filename = string.Format("{0}_Settings_{1}{2}", DateTime.Now.ToString("yyMMdd_HHmm"), exsettings.FlyName, ".json");
-            return Path.Combine(Properties.Settings.Default.AppSettingsPath, filename);
+            var filename = string.Format("{0}_{1}{2}_ExpConfig_{3}{4}", DateTime.Now.ToString("yyMMdd_HHmm"), 
+                                                                  exsettings.FirstName,
+                                                                  exsettings.LastName,
+                                                                  exsettings.FlyName, ".json");
+            return Path.Combine(exsettings.Datapath, filename);
         }
 
 

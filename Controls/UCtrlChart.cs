@@ -153,12 +153,12 @@ namespace UR_MTrack.Controls
 
         public void ShowHistogram()
         {
-            _histozgc.Visible = true;
+            tblHisto.Visible = true;
         }
 
         public void HideHistogram()
         {
-            _histozgc.Visible = false;
+            tblHisto.Visible = false;               
         }
         #endregion
 
