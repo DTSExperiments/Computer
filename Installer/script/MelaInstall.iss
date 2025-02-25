@@ -3,7 +3,7 @@
 ; 2014-2025 Walter Kleisch
 ;--------------------------------
 #define AppName       "MelaTrack"
-#define Version       "2.0.0.0"
+#define Version       "2.0.0.x"
 #define SourceFileDir "..\..\bin\Release"
 
 [Setup]

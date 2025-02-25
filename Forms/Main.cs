@@ -58,9 +58,9 @@ namespace UR_MTrack
         {            
             InitializeComponent();
             InitializeControl();
-#if DEBUG
-            new TraceView().Show();
-#endif
+//#if DEBUG
+//            new TraceView().Show();
+//#endif
         }
 
         protected override void OnResizeBegin(EventArgs e)
@@ -73,6 +73,15 @@ namespace UR_MTrack
         {
             base.OnResizeEnd(e);
             ResumeLayout();
+        }
+        protected override void OnLoad(EventArgs e)
+        {
+            //Thread t = new Thread(new ThreadStart(Splash));
+            //t.Start();
+            //Thread.Sleep(3000);
+            base.OnLoad(e);
+            //t.Abort();
+            
         }
 
         protected override void OnShown(EventArgs e)
@@ -91,7 +100,10 @@ namespace UR_MTrack
                 ShowExperimentConfig();
             }
         }
-
+        public void Splash()
+        {
+            Application.Run(new FrmSplashScreen());
+        }
 
         private void _serialCom_DataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -205,7 +217,7 @@ namespace UR_MTrack
             try
             {
                 _chart = new UCtrlChart();
-               // _chart.Dock=DockStyle.Fill;
+                _chart.Dock = DockStyle.Fill;
                 
                 tblControlHost.Controls.Add(_chart, 1, 0);
                 

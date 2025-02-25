@@ -21,6 +21,7 @@ namespace UR_MTrack.Controls
         {
             InitializeComponent();
             InitializeViews();
+            HideHistogram();
         }
 
         #region Properties
@@ -124,10 +125,15 @@ namespace UR_MTrack.Controls
             _graphPane.Fill = new Fill(Color.White);
             _graphPane.Chart.Fill = new Fill(Color.White);
 
-            _graphPane.YAxis.Scale.Max = 0.5d;
-            _graphPane.YAxis.Scale.Min = 0;
+            _graphPane.XAxis.Title.IsVisible = false ;
+            _graphPane.XAxis.IsVisible = false;
             _graphPane.XAxis.Scale.Min = 0;
             _graphPane.XAxis.Scale.Max = 1.5;
+
+            _graphPane.YAxis.Title.IsVisible = false ;
+            _graphPane.YAxis.IsVisible = false;
+            _graphPane.YAxis.Scale.Max = 0.5d;
+            _graphPane.YAxis.Scale.Min = 0;            
 
             _graphPane.Y2Axis.IsVisible = false;
             _graphPane.X2Axis.IsVisible=false;
@@ -154,11 +160,13 @@ namespace UR_MTrack.Controls
         public void ShowHistogram()
         {
             tblHisto.Visible = true;
+            flowHisto.Visible = true;  
         }
 
         public void HideHistogram()
         {
-            tblHisto.Visible = false;               
+            tblHisto.Visible = false; 
+            flowHisto.Visible = false;     
         }
         #endregion
 

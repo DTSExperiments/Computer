@@ -30,6 +30,23 @@ namespace UR_MTrack
         }
     }
 
+    public class DataHandlerEventArgs : EventArgs
+    {
+        /// <summary>
+        /// pixel value
+        /// </summary>
+        public int Location { get; private set; }
+        /// <summary>
+        /// torquevalue (not calibrated)
+        /// </summary>
+        public double RawTorque{ get; private set; }
+        public DataHandlerEventArgs(int pixvalue, double torque)
+        {
+            Location = pixvalue;
+            RawTorque = torque;
+        }
+    }
+
     public class PatternEventArgs : EventArgs
     {        
         public DisplayPattern Pattern { get; private set; }

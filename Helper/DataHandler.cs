@@ -27,26 +27,27 @@ namespace UR_MTrack
     /// </summary>
     public class DataHandler
     {
-        ConcurrentBag<IEnumerable<byte>> _dataCollection;
+        ConcurrentBag<IEnumerable<byte>> _rawValueCollection;
+        List<double> _rawtorque;
+        List<double> _rawpixel;
         Thread _dataTh;
-        
-        ExperimentSettings _expsettings;
 
+        public event EventHandler<DataHandlerEventArgs> RawValuesConverted;
 
-        public DataHandler(ref ExperimentSettings settings)
+        public DataHandler()
         {
-            _expsettings = settings;
-            _dataCollection = new ConcurrentBag<IEnumerable<byte>>();
+            _rawValueCollection = new ConcurrentBag<IEnumerable<byte>>();
+            _rawtorque = new List<double>();
+            _rawpixel = new List<double>();
             InitThread();
         }
 
-        #region Properties
-        public DateTime StartTime { get; set; }
 
-        #endregion
+
+
 
         #region Methods
-       
+
         void InitThread()
         {
             _dataTh = new Thread(RawDataWorker);
@@ -60,19 +61,20 @@ namespace UR_MTrack
         {
             while (_dataTh.IsAlive)
             {
-                //Democurves();
-                if (_dataCollection.TryTake(out var values))
+                if (_rawValueCollection.TryTake(out var values))
                 {
-                    var valtorque = Convert.ToDouble(((values.ElementAt(0) << 8) | values.ElementAt(1)) * 244.14 * Math.Pow(10, -6));
-                    var valpix = (values.ElementAt(2) << 8) | values.ElementAt(3);
-                    var timestamp = DateTime.Now.Subtract(StartTime).TotalSeconds;
-                    var mstring = string.Format("{0}\t{1}\t{2}\t{3}", timestamp, valpix, valtorque, 0);                    
+                    _rawtorque.Add(Convert.ToDouble(((values.ElementAt(0) << 8) | values.ElementAt(1)) * 244.14 * Math.Pow(10, -6)));
+                    _rawpixel.Add(PixelToDegree((values.ElementAt(2) << 8) | values.ElementAt(3)));
                 }
-                Thread.Sleep(100);
+                Thread.Sleep(1);
             }
         }
 
-
+        /// <summary>
+        /// convert the transmitted pixel to degree of torsion 
+        /// </summary>
+        /// <param name="pixel"></param>
+        /// <returns></returns>
         double PixelToDegree(double pixel)
         {
             if (pixel >= 0 && pixel <= 400)
@@ -93,17 +95,31 @@ namespace UR_MTrack
             return pixel;
         }
 
-        
         /// <summary>
         /// 
         /// </summary>
         public void AddMValues(IEnumerable<byte> values)
         {
-            if (values.Count() > 0)
-            { _dataCollection.Add(values); }
+            if (values.Any())
+            { _rawValueCollection.Add(values); }
         }
 
-       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values"></param>
+        public MeasurementValues GetMValues()
+        {
+            var values = new MeasurementValues()
+            {
+                Torque = _rawtorque.Average(),
+                Location = (int)_rawpixel.Average()
+            };
+
+            _rawtorque.Clear();
+            _rawpixel.Clear();
+            return values;
+        }
 
         #endregion
 

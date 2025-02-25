@@ -18,14 +18,7 @@ namespace UR_MTrack
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using (var sp = new FrmSplashScreen())
-            {
-                sp.Show();
-                try
-                {
-                    Log.CheckDirPath(Properties.Settings.Default.LogfilePath);
-                }catch (Exception ex) {sp.Message = ex.Message;}
-            }
+            Log.CheckDirPath(Properties.Settings.Default.LogfilePath);
             Application.Run(new Main());
         }
     }

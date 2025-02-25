@@ -21,6 +21,9 @@ namespace UR_MTrack
         #region General Meta Data
 
         public DateTime TimeStamp { get; set; }
+        /// <summary>
+        /// Used COM port throughout the experiment.
+        /// </summary>
         public string COMPort { get; set; }
         /// <summary>
         /// Path to the folder where measurement files are stored.

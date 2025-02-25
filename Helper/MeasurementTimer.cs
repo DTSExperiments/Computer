@@ -13,7 +13,7 @@ namespace UR_MTrack
         System.Threading.SemaphoreSlim _semaphore;
         double _interval;
         double _monitorinterval=1000;
-        double _ticktime=50;
+        double _ticktime=1;
         DateTime _endtime;
         DateTime _cntdwn;
 

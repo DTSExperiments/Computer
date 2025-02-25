@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
             this._valueszgc = new ZedGraph.ZedGraphControl();
-            this._histozgc = new ZedGraph.ZedGraphControl();
             this.tblHisto = new System.Windows.Forms.TableLayoutPanel();
+            this._histozgc = new ZedGraph.ZedGraphControl();
             this.flowHisto = new System.Windows.Forms.FlowLayoutPanel();
             this.tblMain.SuspendLayout();
             this.tblHisto.SuspendLayout();
@@ -42,8 +42,9 @@
             // 
             this.tblMain.AutoSize = true;
             this.tblMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblMain.BackColor = System.Drawing.Color.LemonChiffon;
             this.tblMain.ColumnCount = 2;
-            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblMain.Controls.Add(this._valueszgc, 0, 0);
             this.tblMain.Controls.Add(this.tblHisto, 1, 0);
@@ -54,14 +55,12 @@
             this.tblMain.RowCount = 2;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(631, 309);
+            this.tblMain.Size = new System.Drawing.Size(637, 477);
             this.tblMain.TabIndex = 0;
             // 
             // _valueszgc
             // 
-            this._valueszgc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._valueszgc.Dock = System.Windows.Forms.DockStyle.Fill;
             this._valueszgc.IsAntiAlias = true;
             this._valueszgc.IsShowCursorValues = true;
             this._valueszgc.Location = new System.Drawing.Point(0, 0);
@@ -75,9 +74,29 @@
             this._valueszgc.ScrollMinX = 0D;
             this._valueszgc.ScrollMinY = 0D;
             this._valueszgc.ScrollMinY2 = 0D;
-            this._valueszgc.Size = new System.Drawing.Size(425, 309);
+            this._valueszgc.Size = new System.Drawing.Size(425, 477);
             this._valueszgc.TabIndex = 0;
             this._valueszgc.UseExtendedPrintDialog = true;
+            // 
+            // tblHisto
+            // 
+            this.tblHisto.AutoSize = true;
+            this.tblHisto.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblHisto.BackColor = System.Drawing.Color.OrangeRed;
+            this.tblHisto.ColumnCount = 1;
+            this.tblHisto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblHisto.Controls.Add(this._histozgc, 0, 0);
+            this.tblHisto.Controls.Add(this.flowHisto, 0, 1);
+            this.tblHisto.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblHisto.Location = new System.Drawing.Point(428, 0);
+            this.tblHisto.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tblHisto.Name = "tblHisto";
+            this.tblHisto.RowCount = 2;
+            this.tblMain.SetRowSpan(this.tblHisto, 2);
+            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblHisto.Size = new System.Drawing.Size(206, 474);
+            this.tblHisto.TabIndex = 2;
             // 
             // _histozgc
             // 
@@ -93,41 +112,17 @@
             this._histozgc.ScrollMinX = 0D;
             this._histozgc.ScrollMinY = 0D;
             this._histozgc.ScrollMinY2 = 0D;
-            this._histozgc.Size = new System.Drawing.Size(200, 200);
+            this._histozgc.Size = new System.Drawing.Size(206, 200);
             this._histozgc.TabIndex = 1;
             this._histozgc.UseExtendedPrintDialog = true;
-            this._histozgc.Visible = false;
-            // 
-            // tblHisto
-            // 
-            this.tblHisto.AutoSize = true;
-            this.tblHisto.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblHisto.ColumnCount = 1;
-            this.tblHisto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblHisto.Controls.Add(this.flowHisto, 0, 1);
-            this.tblHisto.Controls.Add(this._histozgc, 0, 0);
-            this.tblHisto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblHisto.Location = new System.Drawing.Point(428, 0);
-            this.tblHisto.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.tblHisto.MinimumSize = new System.Drawing.Size(200, 200);
-            this.tblHisto.Name = "tblHisto";
-            this.tblHisto.RowCount = 2;
-            this.tblMain.SetRowSpan(this.tblHisto, 2);
-            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblHisto.Size = new System.Drawing.Size(200, 306);
-            this.tblHisto.TabIndex = 2;
             // 
             // flowHisto
             // 
-            this.flowHisto.AutoScroll = true;
-            this.flowHisto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowHisto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowHisto.Location = new System.Drawing.Point(0, 200);
-            this.flowHisto.Margin = new System.Windows.Forms.Padding(0);
+            this.flowHisto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.flowHisto.Location = new System.Drawing.Point(3, 203);
             this.flowHisto.Name = "flowHisto";
-            this.flowHisto.Size = new System.Drawing.Size(200, 106);
-            this.flowHisto.TabIndex = 4;
+            this.flowHisto.Size = new System.Drawing.Size(200, 268);
+            this.flowHisto.TabIndex = 2;
             // 
             // UCtrlChart
             // 
@@ -139,7 +134,7 @@
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.Name = "UCtrlChart";
-            this.Size = new System.Drawing.Size(631, 309);
+            this.Size = new System.Drawing.Size(637, 477);
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.tblHisto.ResumeLayout(false);

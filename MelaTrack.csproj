@@ -95,7 +95,7 @@
     <Compile Include="Controls\UCtrlChart.Designer.cs">
       <DependentUpon>UCtrlChart.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataHandler.cs" />
+    <Compile Include="Helper\DataHandler.cs" />
     <Compile Include="Forms\FrmInput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +117,7 @@
     <Compile Include="Forms\TraceView.Designer.cs">
       <DependentUpon>TraceView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\MeasurementValues.cs" />
     <Compile Include="HWAux\FPGACom.cs" />
     <Compile Include="Helper\CenterDialog.cs" />
     <Compile Include="Helper\Extensions.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MeasDirector.cs" />
+    <Compile Include="Helper\MeasDirector.cs" />
     <Compile Include="Settings\SerialPortSettings.cs" />
     <Compile Include="Settings\PeriodValues.cs" />
     <Compile Include="Forms\FrmPeriodsView.cs">
