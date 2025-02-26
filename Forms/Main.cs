@@ -38,29 +38,25 @@ namespace UR_MTrack
         }
         #endregion
 
-        
-        public int nextValueIndex = 0;
 
         SerialInterface _serialCom;
-        XmlFileFactory _xmlBuilder;
         SerialPortSettings _serialPortSettings;
         ExperimentSettings _currentExperimentSettings;
         DataHandler _datahandler;
+        MeasDirector _measDirector;
         UCtrlChart _chart;
         UCtrlExpAdjust _ctrlExpAdjust;
-        FrmExperimentConfig _experimentConfig;
         FrmExperimentControl _experimentCtrl;
-        FrmPeriodsView _periodsView;
 
 
 
         public Main()
-        {            
+        {
             InitializeComponent();
-            InitializeControl();
-//#if DEBUG
-//            new TraceView().Show();
-//#endif
+            Initialize();
+            //#if DEBUG
+            //            new TraceView().Show();
+            //#endif
         }
 
         protected override void OnResizeBegin(EventArgs e)
@@ -81,7 +77,7 @@ namespace UR_MTrack
             //Thread.Sleep(3000);
             base.OnLoad(e);
             //t.Abort();
-            
+
         }
 
         protected override void OnShown(EventArgs e)
@@ -92,7 +88,7 @@ namespace UR_MTrack
             {
                 var dlg = new FrmInput(InputType.ExperimentCreation);
                 var res = dlg.ShowDialog();
-                if(res != DialogResult.OK) { return; }
+                if (res != DialogResult.OK) { return; }
                 else if (res == DialogResult.OK && dlg.CreationType == InputType.Open)
                 {
                     _currentExperimentSettings = new FileFactory().LoadSettings();
@@ -104,6 +100,12 @@ namespace UR_MTrack
         {
             Application.Run(new FrmSplashScreen());
         }
+
+        private void _measDirector_MValuesReceived(object sender, MDirectorEventArgs e)
+        {            
+            ///TODO: write the values to xmlfile (periodsfile)
+        }
+
 
         private void _serialCom_DataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -157,14 +159,21 @@ namespace UR_MTrack
                         try
                         {
                             new FileFactory().CreateMeasurementFile(_currentExperimentSettings);
+                            _measDirector.StartMeasurement();
                         }
                         catch (Exception ex) { Log.Append(ex); }
                         break;
                     }
                 case ExperimentState.suspend:
-                    { break; }
+                    {
+                        _measDirector.Suspend();
+                        break; 
+                    }
                 case ExperimentState.resume:
-                    { break; }
+                    { 
+                        _measDirector.Resume();
+                        break; 
+                    }
                 case ExperimentState.stop:
                     { break; }
                 case ExperimentState.punish:
@@ -181,28 +190,28 @@ namespace UR_MTrack
             Log.Append("Experiment metadata changed", LogType.Info);
         }
 
-        void InitializeControl()
+        void Initialize()
         {
             tBarMain.Titel = new AboutBox().AssemblyTitle;
+            
             Log.Append("Initializing Objects", LogType.Info);
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
+            _datahandler = new DataHandler();
+            _measDirector=new MeasDirector(ref _currentExperimentSettings, _datahandler);
+            _measDirector.MValuesReceived += _measDirector_MValuesReceived;
             
-            /*
-             */
             Log.Append("Initializing Controls", LogType.Info);
-
-
-            _datahandler = new DataHandler(ref _currentExperimentSettings);
             _experimentCtrl = new FrmExperimentControl();
             _experimentCtrl.ExpStateChanged += _experimentCtrl_ExpStateChanged;
-           
+
             Log.Append("Finished Initialization", LogType.Info);
         }
 
+       
         void ConnectToSerialPort()
         {
-            if(_serialCom!=null&&_serialCom.Connected)
+            if (_serialCom != null && _serialCom.Connected)
             { _serialCom.Disconnect(); _ctrlExpAdjust.ConnectBtnState = false; }
             else
             {
@@ -218,9 +227,9 @@ namespace UR_MTrack
             {
                 _chart = new UCtrlChart();
                 _chart.Dock = DockStyle.Fill;
-                
+
                 tblControlHost.Controls.Add(_chart, 1, 0);
-                
+
             }
             catch (Exception ex)
             {

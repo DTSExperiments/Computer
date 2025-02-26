@@ -61,7 +61,7 @@ namespace UR_MTrack
         public string Analysis { get; set; }
         public string DataModel { get; set; }
         public int Duration { get; set; }
-        public int SamplingRate { get; set; } = 60;
+        public int SamplingRate { get; set; }
         public int PeriodCount { get { return PeriodCollection.Count(); } }
         
         public int LaserPWMValue { get; set; }

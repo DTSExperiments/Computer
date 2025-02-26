@@ -71,9 +71,7 @@ namespace UR_MTrack
         }
 
         void BindControls()
-        {
-            cmbSerialPort.Items.Clear();
-            cmbSerialPort.DataSource = new SerialInterface().PortNames;
+        {            
             cmbDMSType.DataSource = Extension.BindEnumDescription(typeof(DMSType));
             cmbDMSType.DisplayMember = "Description";
             cmbDMSType.ValueMember = "value";
@@ -90,6 +88,7 @@ namespace UR_MTrack
             if (_expsettings != null)
             {
                 tbDataPath.Text = _expsettings.Datapath;
+                tbSamplingRate.Text = _expsettings.SamplingRate.ToString();
                 tbFirstName.Text = _expsettings.FirstName;
                 tbLastName.Text = _expsettings.LastName;
                 tbOrcID.Text = _expsettings.ORCID;
@@ -108,24 +107,18 @@ namespace UR_MTrack
             var list = new List<bool>();
             foreach (Control control in tblConfig.Controls)
             {
-                if (control is WMTextBox)
+                if (control is WMTextBox&&string.IsNullOrEmpty(control.Text))
                 {
-                    if (string.IsNullOrEmpty(control.Text))
-                    {
-                        list.Add(false);
-                        (control as WMTextBox).Highlight();
-                    }
+                    list.Add(false);
+                    (control as WMTextBox).Highlight();
                 }
-                else if (control is RichTextBox)
+                else if (control is RichTextBox&&string.IsNullOrEmpty(control.Text))
                 {
-                    if (string.IsNullOrEmpty(control.Text))
-                    {
-                        list.Add(false);
-                        (control as RichTextBox).BackColor = Color.FromArgb(255, 192, 128);
-                    }
+                    list.Add(false);
+                    (control as RichTextBox).BackColor = Color.FromArgb(255, 192, 128);
                 }
             }
-            return !list.Any(element => element.Equals(false));
+            return !list.Contains(false);
         }
 
         void CollectData()
@@ -133,7 +126,7 @@ namespace UR_MTrack
             _expsettings.TimeStamp = DateTime.Now;
             _expsettings.Datapath = tbDataPath.Text;
             _expsettings.ExperimentDescription = rtbDescription.Text;
-            _expsettings.COMPort = cmbSerialPort.SelectedItem.ToString();
+            _expsettings.SamplingRate = tbSamplingRate.GetIntValue();
             _expsettings.ORCID = tbOrcID.Text;
             _expsettings.FirstName = tbFirstName.Text;
             _expsettings.LastName = tbLastName.Text;
@@ -193,23 +186,6 @@ namespace UR_MTrack
             catch (Exception ex) { Log.Append(ex); }
         }
 
-
-        private void btnTestConnection_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var portname = new SerialInterface().FindDMSComPort();//CheckPort(new SerialPortSettings() { Portname = cmbSerialPort.SelectedItem.ToString() });
-                if (!string.IsNullOrEmpty(portname))
-                    MessageBox.Show(string.Format("Found DMS Device on Port \"{0}\"", portname), "Port lookup successful",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else
-                {
-                    MessageBox.Show(string.Format("Found DMS Device on Port \"{0}\"", portname), "Port lookup successful",
-                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex) { Log.Append(ex); }
-        }
 
         private void btnChangePath_Click(object sender, EventArgs e)
         {

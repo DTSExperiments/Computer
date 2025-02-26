@@ -244,6 +244,7 @@
     <EmbeddedResource Include="Controls\UCtrlExpAdjust.resx">
       <DependentUpon>UCtrlExpAdjust.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="DTSExperiments_Workprint.licenseheader" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -29,7 +29,17 @@ namespace UR_MTrack
             ExState = exstate;
         }
     }
-
+    public class MDirectorEventArgs : EventArgs
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        public MeasurementValues Values { get; private set; }
+        public MDirectorEventArgs(MeasurementValues values)
+        {
+            Values = values;
+        }
+    }
     public class DataHandlerEventArgs : EventArgs
     {
         /// <summary>

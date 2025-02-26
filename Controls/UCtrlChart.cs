@@ -148,6 +148,12 @@ namespace UR_MTrack.Controls
             _histozgc.Invalidate();
         }
 
+        public void AddValues(MeasurementValues mVal)
+        {
+            _torquevalues.Add(mVal.Timestamp, mVal.Torque);
+            _posvalues.Add(mVal.Timestamp, mVal.Location);
+        }
+
         public void ResetChart()
         {
             _torquevalues.Clear();
