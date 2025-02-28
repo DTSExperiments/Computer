@@ -55,10 +55,10 @@ namespace UR_MTrack
         {
             SuspendLayout();
             lblHeaderCounter.Text = _periodValues.Number.ToString();
-            cmbType.DataSource = Extension.BindEnumDescription(typeof(PeriodType));
+            cmbType.DataSource = Extension.BindEnumDescription(typeof(ExperimentType));
             cmbType.DisplayMember = "Description";
             cmbType.ValueMember = "value";
-            cmbPattern.DataSource = Extension.BindEnumDescription(typeof(PeriodPattern));
+            cmbPattern.DataSource = Extension.BindEnumDescription(typeof(DisplayPattern));
             cmbPattern.DisplayMember = "Description";
             cmbPattern.ValueMember = "value";
             cmbContingency.DataSource = Extension.BindEnumDescription(typeof(PeriodContingency));
@@ -78,8 +78,8 @@ namespace UR_MTrack
         /// </summary>
         void CollectValues()
         {
-            _periodValues.Pattern = cmbPattern.SelectedItem.ToEnum<PeriodPattern>();
-            _periodValues.Type = cmbType.SelectedItem.ToEnum<PeriodType>();
+            _periodValues.Pattern = cmbPattern.SelectedItem.ToEnum<DisplayPattern>();
+            _periodValues.Type = cmbType.SelectedItem.ToEnum<ExperimentType>();
             _periodValues.Contingency = cmbContingency.SelectedItem.ToEnum<PeriodContingency>();
             _periodValues.Duration=tbDuration.GetIntValue(); 
             _periodValues.Outcome=tbOutcome.GetIntValue();

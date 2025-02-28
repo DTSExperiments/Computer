@@ -73,12 +73,12 @@ namespace UR_MTrack
             if (pixel >= 0 && pixel <= 400)
             {
                 // Map 0-400 pixels to 0-180 degrees
-                return (pixel / 400.0) * 180;
+                return Math.Round((pixel / 400.0) * 180,0);
             }
             else if (pixel >= 401 && pixel <= 800)
             {
                 // Map 401-800 pixels to 0 to -180 degrees
-                return -180 + ((pixel - 401) / 400.0) * 180;
+                return Math.Round(-180 + ((pixel - 401) / 400.0) * 180,0);
             }
 #if !DEBUG            
             {

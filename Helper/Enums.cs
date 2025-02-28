@@ -41,13 +41,18 @@ namespace UR_MTrack
     {
         [Description("No Pattern")]
         noPattern = 1,
-        [Description("One Touch")]
-        oneTouch = 2,
-        [Description("Multi Touch")]
-        multiTouch = 3,
-        [Description("T-Pattern")]
-        tPattern = 4
+        [Description("Single vertical stripe")]
+        singlevstripe = 2,
+        [Description("Striped Drum (15 Stripes)")]
+        stripeddrum = 3,
+        [Description("T-Patterns")]
+        tpatterns = 4,
+        [Description("Four vertical bars")]
+        fourvbars = 5,
+        [Description("Diagonals")]
+        diag = 6
     }
+
 
     public enum RotationMode
     {
@@ -83,32 +88,18 @@ namespace UR_MTrack
 
     }
 
-    public enum PeriodType
+    public enum ExperimentType
     {
-        [Description("fs")]
+        [Description("Flight Simulator")]
         fs,
         [Description("sw")]
         sw,
         [Description("yt")]
         yt,
-        [Description("optomotorR")]
+        [Description("Optomotor R")]
         optomotorR,
-        [Description("optomotorL")]
+        [Description("Optomotor L")]
         optomotorL,
-    }
-
-    public enum PeriodPattern
-    {
-        [Description("Single vertical stripe")]
-        singlevstripe,
-        [Description("Striped Drum (15 Stripes)")]
-        stripeddrum,
-        [Description("T-Patterns")]
-        tpatterns,
-        [Description("Four vertical bars")]
-        fourvbars,
-        [Description("Diagonals")]
-        diag
     }
 
     public enum PeriodContingency

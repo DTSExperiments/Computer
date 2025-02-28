@@ -11,10 +11,10 @@ namespace UR_MTrack
         public PeriodValues() { }   
         public PeriodValues(int nr) { Number = nr; }
         public int Number { get; set; }
-        public PeriodType Type { get; set; }
+        public ExperimentType Type { get; set; }
         public int Duration { get; set; }
         public int Outcome { get; set; }
-        public PeriodPattern Pattern { get; set; }
+        public DisplayPattern Pattern { get; set; }
         public double CoupCoeff { get; set; } = 11.0;
         public PeriodContingency Contingency { get; set; }
     }

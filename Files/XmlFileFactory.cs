@@ -226,10 +226,10 @@ namespace UR_MTrack
                         PeriodValues period = new PeriodValues
                         {
                             Number = int.Parse(node.Attributes["number"].Value),
-                            Type = node.SelectSingleNode("type").InnerText.ToEnum<PeriodType>(),
+                            Type = node.SelectSingleNode("type").InnerText.ToEnum<ExperimentType>(),
                             Duration = int.Parse(node.SelectSingleNode("duration").InnerText),
                             Outcome = int.Parse(node.SelectSingleNode("outcome").InnerText),
-                            Pattern = (PeriodPattern)int.Parse(node.SelectSingleNode("pattern").InnerText),
+                            Pattern = (DisplayPattern)int.Parse(node.SelectSingleNode("pattern").InnerText),
                             CoupCoeff = int.Parse(node.SelectSingleNode("coup_coeff").InnerText),
                             Contingency = node.SelectSingleNode("contingency").InnerText.ToEnum<PeriodContingency>()
                         };

@@ -159,7 +159,7 @@ namespace UR_MTrack
                         try
                         {
                             new FileFactory().CreateMeasurementFile(_currentExperimentSettings);
-                            _measDirector.StartMeasurement();
+                            _measDirector.StartExperiment();
                         }
                         catch (Exception ex) { Log.Append(ex); }
                         break;

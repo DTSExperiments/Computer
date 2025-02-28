@@ -104,8 +104,8 @@ namespace UR_MTrack.Controls
             _graphPane.Y2Axis.Title.FontSpec.Border.IsVisible = false;
             _graphPane.Y2Axis.Scale.FontSpec.Angle = 270;
             _graphPane.Y2Axis.Title.FontSpec.Angle = 180;
-            _graphPane.Y2Axis.Scale.Min = -0.4d;//-0.4d;
-            _graphPane.Y2Axis.Scale.Max = 0.4d;// 0.4d;
+            _graphPane.Y2Axis.Scale.Min = -0.4d;
+            _graphPane.Y2Axis.Scale.Max = 0.4d;
             _graphPane.Y2Axis.MajorTic.Size = 1.0f;
             _graphPane.YAxis.MajorGrid.IsVisible = true;
             _graphPane.YAxis.MajorGrid.Color = Color.FromArgb(150, Color.Blue);
@@ -119,7 +119,7 @@ namespace UR_MTrack.Controls
             _graphPane.Title.Text = "Live Histogram";
             _graphPane.Title.FontSpec = _graphPane.XAxis.Title.FontSpec = new FontSpec("Segoe UI", 15, Color.FromArgb(180, 75, 75, 75), true, false, false);
             _graphPane.Title.FontSpec.Border.IsVisible = false;
-            //_graphPane.TitleGap = 1;
+            
             _graphPane.Legend.IsVisible = false;
             _graphPane.Border.Color = Color.White;
             _graphPane.Fill = new Fill(Color.White);
@@ -136,8 +136,7 @@ namespace UR_MTrack.Controls
             _graphPane.YAxis.Scale.Min = 0;            
 
             _graphPane.Y2Axis.IsVisible = false;
-            _graphPane.X2Axis.IsVisible=false;
-            //_graphPane.YAxis.Scale.Max = 0.2;
+            _graphPane.X2Axis.IsVisible=false;            
         }
 
         void UpdateViews()
