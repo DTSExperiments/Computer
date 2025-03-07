@@ -61,13 +61,13 @@ namespace UR_MTrack
 
         protected override void OnResizeBegin(EventArgs e)
         {
-            SuspendLayout();
+           // SuspendLayout();
             base.OnResizeBegin(e);
         }
 
         protected override void OnResizeEnd(EventArgs e)
         {
-            base.OnResizeEnd(e);
+            //base.OnResizeEnd(e);
             ResumeLayout();
         }
         protected override void OnLoad(EventArgs e)

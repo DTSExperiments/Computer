@@ -87,7 +87,5 @@ namespace UR_MTrack
             _datahandler.ResumeWorkerTh();
             _timer.Start();
         }
-
-
     }
 }
