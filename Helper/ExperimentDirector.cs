@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UR_MTrack
 {
-    public class MeasDirector
+    public class ExperimentDirector
     {
         MeasurementTimer _timer;
         ExperimentSettings _expsettings;
@@ -15,9 +17,11 @@ namespace UR_MTrack
 
 
         public event EventHandler<MDirectorEventArgs> MValuesReceived;
+        public event EventHandler<PatternEventArgs> SetPattern;
+        public event EventHandler ExperimentFinished;
         public event EventHandler Abort;
 
-        public MeasDirector(ref ExperimentSettings settings, DataHandler dHandler)
+        public ExperimentDirector(ref ExperimentSettings settings, DataHandler dHandler)
         {
             _expsettings = settings;
             _datahandler = dHandler;
@@ -37,20 +41,28 @@ namespace UR_MTrack
 
         #endregion
 
-        void SetupPeriod()
+        void ExperimentControl()
         {
-
+            _timer.Stop();
+            _currentPeriod = _expsettings.PeriodCollection.Next<PeriodValues>(_currentPeriod);
+            if (_currentPeriod == null) { ExperimentFinished.Invoke(this, EventArgs.Empty); }
+            else
+            {
+                SetPattern?.Invoke(this, new PatternEventArgs(_currentPeriod.Pattern, ColorPattern.W));
+                PeriodStartTime = DateTime.Now;
+                _timer.Start();
+            }
         }
 
         void GrabMeasurement()
         {
             var values = _datahandler.GetMValues();
             values.Timestamp = Math.Round((DateTime.Now - PeriodStartTime).TotalSeconds, 0);
-            values.PeriodNumber=_currentPeriod.Number;
+            values.PeriodNumber = _currentPeriod.Number;
             MValuesReceived?.Invoke(this, new MDirectorEventArgs(values));
             if (values.Timestamp >= _currentPeriod.Duration)
             {
-                
+                ExperimentControl();
             }
         }
 
@@ -63,11 +75,7 @@ namespace UR_MTrack
 
         public void StartExperiment()
         {
-            foreach (PeriodValues pv in _expsettings.PeriodCollection)
-            {
-                _currentPeriod = pv;
-                PeriodStartTime = DateTime.Now;
-            }
+            
         }
 
         public void AbortMeasurement()

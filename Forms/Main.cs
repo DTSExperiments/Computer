@@ -43,7 +43,7 @@ namespace UR_MTrack
         SerialPortSettings _serialPortSettings;
         ExperimentSettings _currentExperimentSettings;
         DataHandler _datahandler;
-        MeasDirector _measDirector;
+        ExperimentDirector _measDirector;
         UCtrlChart _chart;
         UCtrlExpAdjust _ctrlExpAdjust;
         FrmExperimentControl _experimentCtrl;
@@ -198,7 +198,7 @@ namespace UR_MTrack
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
             _datahandler = new DataHandler();
-            _measDirector=new MeasDirector(ref _currentExperimentSettings, _datahandler);
+            _measDirector=new ExperimentDirector(ref _currentExperimentSettings, _datahandler);
             _measDirector.MValuesReceived += _measDirector_MValuesReceived;
             
             Log.Append("Initializing Controls", LogType.Info);

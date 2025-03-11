@@ -53,7 +53,7 @@ namespace UR_MTrack
         {
             while (_dataTh.IsAlive)
             {
-                _thControl.WaitOne(); //waiting for signalling [EWH.set()] if a reset was called previously.
+                _thControl.WaitOne(); //waiting for signalling [EWH.Set()] if a reset was called previously.
                 if (_rawValueCollection.TryTake(out var values))
                 {
                     _rawtorque.Add(Convert.ToDouble(((values.ElementAt(0) << 8) | values.ElementAt(1)) * 244.14 * Math.Pow(10, -6)));
@@ -123,11 +123,9 @@ namespace UR_MTrack
             SuspendWorkerTh();
             var values = new MeasurementValues()
             {
-
                 Torque = _rawtorque.Average(),
                 Location = (int)_rawpixel.Average()
             };
-
             _rawtorque.Clear();
             _rawpixel.Clear();
             ResumeWorkerTh();

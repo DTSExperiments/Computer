@@ -95,7 +95,7 @@
     <Compile Include="Controls\CurveButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ExceptionHandler.cs" />
+    <Compile Include="Helper\ExceptionHandler.cs" />
     <Compile Include="Controls\UCtrlChart.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,7 +159,7 @@
     <Compile Include="Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Helper\MeasDirector.cs" />
+    <Compile Include="Helper\ExperimentDirector.cs" />
     <Compile Include="Settings\SerialPortSettings.cs" />
     <Compile Include="Settings\PeriodValues.cs" />
     <Compile Include="Forms\FrmPeriodsView.cs">

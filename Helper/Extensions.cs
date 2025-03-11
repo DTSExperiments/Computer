@@ -13,6 +13,16 @@ namespace Extensions
 {
     public static class Extension
     {
+        public static T Next<T>(this IEnumerable<T> src, T current)
+        {
+            if (current == null) { return (src as List<T>)[0]; }
+            var collection = (src as List<T>);
+            var index = collection.IndexOf(current);
+            if (collection.Count == collection.IndexOf(current))
+            { return default; }
+            return collection[index+1];
+        }
+
         public static void AddRange<T>(this ConcurrentBag<T> bag, IEnumerable<T> toAdd)
         {
             foreach (var element in toAdd)

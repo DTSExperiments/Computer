@@ -145,7 +145,7 @@ namespace Logging
         /// <param name="line"></param>
         static void WriteToFile(string line)
         {
-            if (string.IsNullOrEmpty(LogFilePath))
+            if (!string.IsNullOrEmpty(LogFilePath))
                 try
                 {
                     using (var sw = new StreamWriter(LogFilePath, true))
