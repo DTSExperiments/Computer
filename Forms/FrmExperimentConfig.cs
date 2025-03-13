@@ -62,12 +62,12 @@ namespace UR_MTrack
 
         #region Methods
 
-        public void Show(ExperimentSettings _settings)
+        public DialogResult ShowDialog(ExperimentSettings _settings)
         {
             _expsettings = _settings;
             if (!DesignMode) { BindControls(); }
             Initialize();
-            ShowDialog();
+            return ShowDialog();
         }
 
         void BindControls()
@@ -159,6 +159,7 @@ namespace UR_MTrack
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.Cancel;
             Close();
         }
 
@@ -203,5 +204,6 @@ namespace UR_MTrack
         {
             rtbDescription.BackColor = Color.WhiteSmoke;
         }
+
     }
 }

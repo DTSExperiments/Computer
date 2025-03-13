@@ -15,23 +15,19 @@ namespace UR_MTrack
     public class XmlFileFactory : IDisposable
     {
         ExperimentSettings _settings;
+        string _path;
 
         public XmlFileFactory() { }
         public XmlFileFactory(ExperimentSettings settings)
         {
             _settings = settings;
-            Filepath = GetFileName(_settings.Datapath, _settings.FlyName);
+            _path=_settings.Filepath = GetFileName(_settings.Datapath, _settings.FlyName);
         }
 
-        /// <summary>
-        /// Fully qualified path to the measurement file.
-        /// </summary>
-        public string Filepath
-        { get; }
 
         public XDocument BuildMeasFile()
         {
-            if (_settings == null) { throw new NullReferenceException("Experiment Settings Not Set"); }
+            if (_settings == null) { Log.Append("Experiment Settings Not Set", LogType.Fail, true); }
             try
             {
                 var header = BuildXMLHeader();
@@ -48,6 +44,59 @@ namespace UR_MTrack
             return new XDocument();
         }
 
+
+        public void AppendTimeseriesValues(IEnumerable<string> lines)
+        {
+            new XElement("csv_data", @""));
+
+            try
+            {
+                XDocument doc = XDocument.Load(_path);
+                XElement element = doc.Descendants(xmlElement).FirstOrDefault();
+
+                if (!element.Equals(@""))
+                {
+                    element.Value = newValue;
+                    doc.Save(path);
+                }
+                else
+                {
+                    Log.Append(string.Format("XElement \"{0}\" not found.", xmlElement));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}", xmlElement, ex.StackTrace));
+            }
+        }
+
+        public void ChangeXMLValue(string path, string xmlElement, string newValue)
+        {
+            if (!File.Exists(path)) { Log.Append(string.Format("Unable to change Value for \"{0}\"\nFile {1} does not exist.", xmlElement, path)); return; }
+
+            try
+            {
+                XDocument doc = XDocument.Load(path);
+                XElement element = doc.Descendants(xmlElement).FirstOrDefault();
+
+                if (!element.Equals(@""))
+                {
+                    element.Value = newValue;
+                    doc.Save(path);
+                }
+                else
+                {
+                    Log.Append(string.Format("XElement \"{0}\" not found.", xmlElement));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}", xmlElement, ex.StackTrace));
+            }
+        }
+
+
+
         /// <summary>
         /// The name of an outputfile has the structure >>FLYNAME-nn.xml<<
         /// where >>nn<< represents a file counter 
@@ -60,9 +109,9 @@ namespace UR_MTrack
                                     .Where(f => f.Contains(flyName))
                                     .Select(f => Path.GetFileNameWithoutExtension(f))
                                     .Select(str => str.Substring(str.Length - 2).ToNumberOnly()).Max();
-            _settings.Filepath = Path.Combine(folderPath, string.Format("{0}-{1}{2}", flyName, max + 1, ".xml"));
-            return _settings.Filepath;
+            return Path.Combine(folderPath, string.Format("{0}-{1}{2}", flyName, (max + 1).ToString("00"), ".xml"));
         }
+
 
         XElement BuildXMLHeader()
         {
@@ -206,7 +255,6 @@ namespace UR_MTrack
                     valid = false;
                 }
             }
-
             return valid;
         }
 

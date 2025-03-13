@@ -30,7 +30,7 @@ namespace UR_MTrack
         /// </summary>
         public string Datapath { get; set; } 
         /// <summary>
-        /// Path to the currently used meaurement file
+        /// Fully qualified path to the currently used meaurement file
         /// </summary>
         public string Filepath { get; set; }
 

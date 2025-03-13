@@ -17,7 +17,7 @@ namespace UR_MTrack
         {
             InitializeComponent();
 
-            Log.LogMessageReceive += Logging_LogMessageReceive;
+            Log.LogMessageReceived += Logging_LogMessageReceive;
         }
 
 

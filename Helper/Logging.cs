@@ -71,7 +71,7 @@ namespace Logging
     public static class Log
     {
         #region Events
-        public static event EventHandler<LogEventArgs> LogMessageReceive;
+        public static event EventHandler<LogEventArgs> LogMessageReceived;
         #endregion
 
 
@@ -91,24 +91,9 @@ namespace Logging
         public static void Append(string logMessage, LogType logtype = LogType.Info, bool showmsgbox = false, string exceptionMessage = null)
         {
             var tag = logtype.ToString();
-            var line = string.Format("\n{0} {1} {2}", DateTime.Now.ToLongTimeString() + "  -  ", tag + " - ", logMessage);
-            switch (logtype)
-            {
-                case LogType.Success:
-                case LogType.Info:
-                case LogType.Warning:
-                    {
-                        WriteToFile(line);
-                        LogMessageReceive?.Invoke(null, new LogEventArgs(line, logtype, showmsgbox));
-                        break;
-                    }
-                case LogType.Error:
-                case LogType.Fail:
-                    {
-                        WriteToFile(logtype.ToDescriptionString<LogType>() + Environment.NewLine + exceptionMessage + Environment.NewLine + line);
-                        break;
-                    }
-            }
+            var line = string.Format("\n{0} {1} {2}\n{3}", DateTime.Now.ToLongTimeString() + "  -  ", tag + " - ", logMessage,exceptionMessage);
+            WriteToFile(line);
+            LogMessageReceived?.Invoke(null, new LogEventArgs(line, logtype, showmsgbox));
 #if DEBUG
             Debug.WriteLine(exceptionMessage + Environment.NewLine + line);
 #endif
@@ -117,13 +102,12 @@ namespace Logging
 
         public static void Append(Exception ex)
         {
-            var line = string.Format("\n{0} {1} {2}", "Exeption [" + ex.Source + "]  -  ",
-                                     ex.Message + "\n", ex.StackTrace);
+            var line = string.Format("\n{0} {1} {2}", "Exeption [" + ex.Source + "]  -  ", ex.Message + "\n", ex.StackTrace);
             WriteToFile(line);
 
 #if DEBUG
-            LogMessageReceive?.Invoke(null, new LogEventArgs(line,LogType.Debug ,false));
-            Trace.WriteLine(line);
+            LogMessageReceived?.Invoke(null, new LogEventArgs(line, LogType.Debug, false));
+            Debug.WriteLine(line);
 #endif
         }
 
@@ -145,16 +129,15 @@ namespace Logging
         /// <param name="line"></param>
         static void WriteToFile(string line)
         {
-            if (!string.IsNullOrEmpty(LogFilePath))
-                try
+            try
+            {
+                using (var sw = new StreamWriter(LogFilePath, true))
                 {
-                    using (var sw = new StreamWriter(LogFilePath, true))
-                    {
-                        sw.Write(line.Insert(0, DateTime.Now.ToLongTimeString()));
-                        sw.Flush();
-                    }
+                    sw.Write(line.Insert(0, DateTime.Now.ToLongTimeString()));
+                    sw.Flush();
                 }
-                catch (FileNotFoundException ex) { Append(ex); }
+            }
+            catch (FileNotFoundException ex) { MessageBox.Show("File Not Found", "Logfile corrupted or deleted.\nAttempt restarting the software to resolve this issue."); }
         }
 
 

@@ -13,7 +13,6 @@ namespace UR_MTrack
     public class SerialInterface : IDisposable
     {
         bool _simulate;
-        int _thSleepTime;
         SerialPort _serialport;
         Thread _simulatorTH;
 
@@ -67,7 +66,6 @@ namespace UR_MTrack
                 finally
                 {
                     SerialInterfaceDataReceived?.Invoke(this, new DataReceivedEventArgs(buffer));
-                    Thread.Sleep(_thSleepTime);
                 }
             }
         }
@@ -84,33 +82,7 @@ namespace UR_MTrack
             _simulatorTH.Start();
         }
 
-        public string FindDMSComPort(string vid = "VID_0403", string pid = "PID_6001")
-        {
-            string comPort = "";
-
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity");
-            var mgmtobjlist =searcher.Get();
-            foreach (ManagementObject queryObj in searcher.Get())
-            {
-                if (queryObj.ToString().Contains("VID_0403&PID_6001"))
-                {
-                    Log.Append(string.Format("Found Object {0}", queryObj.ToString()));
-                    Log.Append(string.Format("Name is {0}", queryObj["Name"].ToString()));
-                }
-                var x = queryObj["Name"];
-                
-                //var name = queryObj["Name"].ToString();
-                //int startIndex = name.IndexOf("(COM");
-                //int endIndex = name.IndexOf(")", startIndex);
-                //if (startIndex != -1 && endIndex != -1)
-                //{
-                //    comPort = name.Substring(startIndex + 1, endIndex - startIndex - 1);
-                //    Log.Append($"Device with VID_0403 and PID_6001 is connected to {comPort}");
-                //}
-            }
-            return comPort;
-        }
-
+        
         public void CheckPort(SerialPortSettings settings)
         {
             try
@@ -125,7 +97,7 @@ namespace UR_MTrack
                 };
                 _serialport.Open();
             }
-            catch (Exception) { throw; }
+            catch (Exception ex) { Log.Append(ex); }
             finally
             {
                 _serialport.Close();
@@ -158,7 +130,7 @@ namespace UR_MTrack
                 catch (Exception ex)
                 {
                     Connected = false;
-                    throw new Exception("Connection failed", ex);
+                    Log.Append(ex);
                 }
             }
             return Connected;
@@ -173,8 +145,8 @@ namespace UR_MTrack
                     _serialport.Write(data);
                     Log.Append(string.Format("Writing \"{0}\" to serial port", data), LogType.Info);
                 }
-                catch (Exception)
-                { throw; }
+                catch (Exception ex)
+                { Log.Append(ex); }
             }
         }
 
@@ -190,7 +162,7 @@ namespace UR_MTrack
                     _serialport.Dispose();                    
                 }
                 catch (Exception ex)
-                { throw new Exception("Disconnect failed", ex); }
+                { Log.Append(ex); }
                 finally
                 { Connected = false; }
             }

@@ -61,7 +61,7 @@ namespace UR_MTrack
 
         protected override void OnResizeBegin(EventArgs e)
         {
-           // SuspendLayout();
+            // SuspendLayout();
             base.OnResizeBegin(e);
         }
 
@@ -88,12 +88,15 @@ namespace UR_MTrack
             {
                 var dlg = new FrmInput(InputType.ExperimentCreation);
                 var res = dlg.ShowDialog();
-                if (res != DialogResult.OK) { return; }
-                else if (res == DialogResult.OK && dlg.CreationType == InputType.Open)
+                if (res == DialogResult.OK)
                 {
-                    _currentExperimentSettings = new FileFactory().LoadSettings();
+                    _currentExperimentSettings = new FileFactory().LoadSettings(dlg.CreationType.Equals(InputType.New));
+                    if (ShowExperimentConfig() == DialogResult.OK) { return; }
                 }
-                ShowExperimentConfig();
+                MessageBox.Show(this, "Without a valid configuration, no experiment can be started." +
+                                " To complete this step later, please use the corresponding entry under 'Files' from the menu bar.", "Questionable Choice",
+                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
             }
         }
         public void Splash()
@@ -102,7 +105,8 @@ namespace UR_MTrack
         }
 
         private void _measDirector_MValuesReceived(object sender, MDirectorEventArgs e)
-        {            
+        {
+            var x = e.Values;
             ///TODO: write the values to xmlfile (periodsfile)
         }
 
@@ -167,12 +171,12 @@ namespace UR_MTrack
                 case ExperimentState.suspend:
                     {
                         _measDirector.Suspend();
-                        break; 
+                        break;
                     }
                 case ExperimentState.resume:
-                    { 
+                    {
                         _measDirector.Resume();
-                        break; 
+                        break;
                     }
                 case ExperimentState.stop:
                     { break; }
@@ -193,14 +197,14 @@ namespace UR_MTrack
         void Initialize()
         {
             tBarMain.Titel = new AboutBox().AssemblyTitle;
-            
+
             Log.Append("Initializing Objects", LogType.Info);
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
             _datahandler = new DataHandler();
-            _measDirector=new ExperimentDirector(ref _currentExperimentSettings, _datahandler);
+            _measDirector = new ExperimentDirector(ref _currentExperimentSettings, _datahandler);
             _measDirector.MValuesReceived += _measDirector_MValuesReceived;
-            
+
             Log.Append("Initializing Controls", LogType.Info);
             _experimentCtrl = new FrmExperimentControl();
             _experimentCtrl.ExpStateChanged += _experimentCtrl_ExpStateChanged;
@@ -208,7 +212,7 @@ namespace UR_MTrack
             Log.Append("Finished Initialization", LogType.Info);
         }
 
-       
+
         void ConnectToSerialPort()
         {
             if (_serialCom != null && _serialCom.Connected)
@@ -268,14 +272,15 @@ namespace UR_MTrack
             _experimentCtrl.Show(new Point(globalcoords.X + (tblControlHost.Size.Width / 2), globalcoords.Y));
         }
 
-        void ShowExperimentConfig()
+        DialogResult ShowExperimentConfig()
         {
             using (new CenterDialog(this))
             {
                 using (var exc = new FrmExperimentConfig())
                 {
                     exc.ExperimentConfigChanged += Main_ExperimentConfigChanged;
-                    exc.Show(_currentExperimentSettings);
+                    //exc.Show(_currentExperimentSettings);
+                    return exc.ShowDialog(_currentExperimentSettings);
                 }
             }
         }

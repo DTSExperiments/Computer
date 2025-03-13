@@ -46,5 +46,17 @@ namespace UR_MTrack.Properties {
                 this["AppSettingsPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AppSettingsDefault.json")]
+        public string AppSettingsFilename {
+            get {
+                return ((string)(this["AppSettingsFilename"]));
+            }
+            set {
+                this["AppSettingsFilename"] = value;
+            }
+        }
     }
 }

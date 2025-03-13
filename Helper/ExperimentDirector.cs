@@ -1,4 +1,5 @@
 ﻿using Extensions;
+using Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
@@ -75,7 +76,8 @@ namespace UR_MTrack
 
         public void StartExperiment()
         {
-            
+            Log.Append("Experiment started.");
+            ExperimentControl();
         }
 
         public void AbortMeasurement()

@@ -22,7 +22,7 @@ namespace UR_MTrack
         public void CheckDefaultDirectories()
         {
             if (!Directory.Exists(Properties.Settings.Default.AppSettingsPath))
-            { throw new DirectoryNotFoundException("Settings Directory"); }           
+            { throw new DirectoryNotFoundException("AppSettings Directory"); }
             if (!Directory.Exists(Properties.Settings.Default.LogfilePath))
             { throw new DirectoryNotFoundException("LogFile Directory"); }
         }
@@ -52,11 +52,20 @@ namespace UR_MTrack
         /// 
         /// </summary>
         /// <returns></returns>
-        public ExperimentSettings LoadSettings()
+        public ExperimentSettings LoadSettings(bool defsettings = false)
         {
+            var content = string.Empty;
             try
             {
-                var content = OpenFile(Properties.Settings.Default.AppSettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
+                if (defsettings)
+                {
+                    content = OpenFile(Path.Combine(Properties.Settings.Default.AppSettingsPath,
+                                                    Properties.Settings.Default.AppSettingsFilename));
+                }
+                else
+                {
+                    content = OpenFile(Properties.Settings.Default.AppSettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
+                }
                 return DeserializeSettings<ExperimentSettings>(content);
             }
             catch (Exception ex)
@@ -70,47 +79,19 @@ namespace UR_MTrack
         {
             using (var xmlFactory = new XmlFileFactory(settings))
             {
-                if (!File.Exists(xmlFactory.Filepath))
+                try
                 {
-                    try
-                    {
-                        xmlFactory.BuildMeasFile().Save(xmlFactory.Filepath);
-                        Log.Append("XML file created successfully.", LogType.Success, false);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Append("Failed saving XML.", LogType.Fail, true);
-                        throw new Exception("Failed saving XML", ex);
-                    }
+                    xmlFactory.BuildMeasFile().Save(settings.Filepath);
+                    Log.Append("XML file created successfully.", LogType.Success, false);
+                }
+                catch (Exception ex)
+                {
+                    Log.Append("Failed to create XML file.", LogType.Fail, true, ex.StackTrace);
                 }
             }
         }
 
-        public void ChangeXMLValue(string path, string xmlElement, string newValue)
-        {
-            if (File.Exists(path)) { Log.Append(string.Format("Unable to change Value for \"{0}\"\nFile {1} does not exist.",xmlElement, path)); return; }
-
-            try
-            {
-                XDocument doc = XDocument.Load(path);
-                XElement element = doc.Descendants(xmlElement).FirstOrDefault();
-
-                if (!element.Equals(@""))
-                {
-                    element.Value = newValue;                    
-                    doc.Save(path);
-                }
-                else
-                {
-                    Log.Append(string.Format("XElement \"{0}\" not found.",xmlElement));
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}",xmlElement,ex.StackTrace));
-            }
-        }
-
+       
 
         /// <summary>
         /// 
@@ -323,7 +304,7 @@ namespace UR_MTrack
         /// <returns></returns>
         string GetSettingsFileName(ExperimentSettings exsettings)
         {
-            var filename = string.Format("{0}_{1}{2}_ExpConfig_{3}{4}", DateTime.Now.ToString("yyMMdd_HHmm"), 
+            var filename = string.Format("{0}_{1}{2}_ExpConfig_{3}{4}", DateTime.Now.ToString("yyMMdd_HHmm"),
                                                                   exsettings.FirstName,
                                                                   exsettings.LastName,
                                                                   exsettings.FlyName, ".json");

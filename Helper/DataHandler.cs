@@ -24,7 +24,7 @@ namespace UR_MTrack
     public class DataHandler
     {
         EventWaitHandle _thControl;
-        ConcurrentBag<IEnumerable<byte>> _rawValueCollection;
+        ConcurrentBag<IEnumerable<byte>> _rawValueCollection;        
         List<double> _rawtorque;
         List<double> _rawpixel;
         Thread _dataTh;
