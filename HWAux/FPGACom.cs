@@ -27,9 +27,9 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="pwmValue"></param>
         /// <returns></returns>
-        public string GetRotateCommand(RotationMode rv, byte angle)
+        public string GetRotateCommand(RotationMode rv, byte velocity)
         {
-            return string.Format("{0}{1}", rv.ToString(), (char)angle);
+            return string.Format("{0}{1}", rv.ToString(), (char)velocity);
         }
 
 

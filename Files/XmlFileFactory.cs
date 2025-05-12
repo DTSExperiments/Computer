@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,13 +16,13 @@ namespace UR_MTrack
     public class XmlFileFactory : IDisposable
     {
         ExperimentSettings _settings;
-        string _path;
+        
 
         public XmlFileFactory() { }
         public XmlFileFactory(ExperimentSettings settings)
         {
             _settings = settings;
-            _path=_settings.Filepath = GetFileName(_settings.Datapath, _settings.FlyName);
+            _settings.Filepath = GetFileName(_settings.DataFolderpath, _settings.FlyName);
         }
 
 
@@ -44,31 +45,6 @@ namespace UR_MTrack
             return new XDocument();
         }
 
-
-        public void AppendTimeseriesValues(IEnumerable<string> lines)
-        {
-            new XElement("csv_data", @""));
-
-            try
-            {
-                XDocument doc = XDocument.Load(_path);
-                XElement element = doc.Descendants(xmlElement).FirstOrDefault();
-
-                if (!element.Equals(@""))
-                {
-                    element.Value = newValue;
-                    doc.Save(path);
-                }
-                else
-                {
-                    Log.Append(string.Format("XElement \"{0}\" not found.", xmlElement));
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}", xmlElement, ex.StackTrace));
-            }
-        }
 
         public void ChangeXMLValue(string path, string xmlElement, string newValue)
         {
@@ -218,7 +194,7 @@ namespace UR_MTrack
         {
             bool valid = false;
             var schemes = new XmlSchemaSet();
-            var schemaPath = Path.Combine(Properties.Settings.Default.AppSettingsPath, @"periods.xsd");
+            var schemaPath = Path.Combine(Properties.Settings.Default.SettingsPath, @"periods.xsd");
 
             // Read the schema file into a string
             var schemaContent = (new FileFactory()).OpenFile(schemaPath);
@@ -265,7 +241,6 @@ namespace UR_MTrack
             if (ValidateXML(path))
             {
                 doc.Load(Path.Combine(path));
-
                 XmlNodeList periodNodes = doc.DocumentElement.SelectNodes("/sequence/period");
                 foreach (XmlNode node in periodNodes)
                 {

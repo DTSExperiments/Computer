@@ -14,6 +14,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Logging;
 using UR_MTrack.Controls;
+using System.ComponentModel;
 
 
 namespace UR_MTrack
@@ -43,9 +44,11 @@ namespace UR_MTrack
         SerialPortSettings _serialPortSettings;
         ExperimentSettings _currentExperimentSettings;
         DataHandler _datahandler;
+        FileFactory _filehandler;
+
         ExperimentDirector _measDirector;
         UCtrlChart _chart;
-        UCtrlExpAdjust _ctrlExpAdjust;
+        UCtrlDevControl _ctrlExpAdjust;
         FrmExperimentControl _experimentCtrl;
 
 
@@ -54,30 +57,22 @@ namespace UR_MTrack
         {
             InitializeComponent();
             Initialize();
+
             //#if DEBUG
             //            new TraceView().Show();
             //#endif
         }
 
-        protected override void OnResizeBegin(EventArgs e)
+        protected override void OnClosing(CancelEventArgs e)
         {
-            // SuspendLayout();
-            base.OnResizeBegin(e);
-        }
-
-        protected override void OnResizeEnd(EventArgs e)
-        {
-            //base.OnResizeEnd(e);
-            ResumeLayout();
-        }
-        protected override void OnLoad(EventArgs e)
-        {
-            //Thread t = new Thread(new ThreadStart(Splash));
-            //t.Start();
-            //Thread.Sleep(3000);
-            base.OnLoad(e);
-            //t.Abort();
-
+            ///if software crashes make sure the laser is turned off.
+            if (_serialCom != null && _serialCom.Connected)
+            {
+                _serialCom.SendData(new FPGACom().GetLaserCommand(0));
+                _serialCom.SendData(new FPGACom().GetPatternCommand(DisplayPattern.noPattern, ColorPattern.W));
+                _serialCom.SendData(new FPGACom().GetRotateCommand(RotationMode.s, 0));
+            }
+            base.OnClosing(e);
         }
 
         protected override void OnShown(EventArgs e)
@@ -90,13 +85,23 @@ namespace UR_MTrack
                 var res = dlg.ShowDialog();
                 if (res == DialogResult.OK)
                 {
-                    _currentExperimentSettings = new FileFactory().LoadSettings(dlg.CreationType.Equals(InputType.New));
-                    if (ShowExperimentConfig() == DialogResult.OK) { return; }
+                    try
+                    {
+                        _currentExperimentSettings = new FileFactory().LoadExperimentSettings(dlg.CreationType.Equals(InputType.New));
+                        if (ShowExperimentConfig() == DialogResult.OK) { return; }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "\nPlease reinstall application and try again.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Log.Append("Default Experiment settings not found.");
+                    }
                 }
-                MessageBox.Show(this, "Without a valid configuration, no experiment can be started." +
-                                " To complete this step later, please use the corresponding entry under 'Files' from the menu bar.", "Questionable Choice",
-                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
+                using (new CenterDialog(this))
+                {
+                    MessageBox.Show(this, "Without a valid configuration, no experiment can be started." +
+                                    " To complete this step later, please use the corresponding entry under 'Files' from the menu bar.", "Questionable Choice",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
         public void Splash()
@@ -104,16 +109,26 @@ namespace UR_MTrack
             Application.Run(new FrmSplashScreen());
         }
 
-        private void _measDirector_MValuesReceived(object sender, MDirectorEventArgs e)
+        private void _datahandler_ChartValuesPrepared(object sender, DataHandlerEventArgs e)
         {
-            var x = e.Values;
-            ///TODO: write the values to xmlfile (periodsfile)
+            if (_chart != null)
+            {
+                _chart.AddValues(e.TimeStamp, e.Torque, e.Location);
+            }
         }
 
+        private void _datahandler_MValuesReceived(object sender, MeasurementEventArgs e)
+        {
+            if (_currentExperimentSettings != null)
+            {
+                ///save values to xml file.
+                _filehandler.AppendPeriodValues(e.Values.ToString());              
+            }
+        }
 
         private void _serialCom_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            _datahandler.AddMValues(e.Bytes);
+            _datahandler.EnqueueRawValues(e.Bytes);
             foreach (byte b in e.Bytes)
             {
                 Log.Append(string.Format("Received data on serial port - \"{0}\"", b.ToString()), LogType.Info);
@@ -123,14 +138,15 @@ namespace UR_MTrack
         private void _ctrlExpAdjust_Rotate(object sender, RotateEventArgs e)
         {
             Log.Append(string.Format("Arena rotation requested - \"{0}\"", e.Rotation.ToDescriptionString<RotationMode>()), LogType.Info);
-            if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetRotateCommand(e.Rotation, (byte)e.Angle)); }
+            if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetRotateCommand(e.Rotation, (byte)e.Velocity)); }
+            Program.Settings.Velocity = e.Velocity;
+            Program.Settings.RotationMode = e.Rotation;
         }
 
-        private void _ctrlExpAdjust_SerialConnect(object sender, string e)
+        private void _ctrlExpAdjust_SerialConnect(object sender, SerialPortSettings e)
         {
-            Log.Append(string.Format("Serial connection requested to port \"{0}\"", e), LogType.Info);
-            _serialPortSettings.Portname = e;
-            ConnectToSerialPort();
+            Log.Append(string.Format("Serial connection requested to port \"{0}\"", e.ToString(), LogType.Info));
+            ConnectToSerialPort(e);
         }
 
         private void _ctrlExpAdjust_SetPattern(object sender, PatternEventArgs e)
@@ -143,12 +159,12 @@ namespace UR_MTrack
         {
             Log.Append(string.Format("Laser triggered - PWM (0-100): \"{0}\"", e), LogType.Info);
             if (_serialCom.Connected) { _serialCom.SendData(new FPGACom().GetLaserCommand(e)); }
-            if (e > 0) { _currentExperimentSettings.LaserPWMValue = e; }
+            if (e > 0) { Program.Settings.LaserPWMValue = e; }
         }
 
         private void _ctrlExpAdjust_AdjustmentFinished(object sender, EventArgs e)
         {
-            Log.Append(string.Format("Adjustment finished."), LogType.Info);
+            Log.Append("Adjustment finished.", LogType.Info);
             ShowHistogram();
             ShowExperimentControl();
         }
@@ -162,7 +178,7 @@ namespace UR_MTrack
                     {
                         try
                         {
-                            new FileFactory().CreateMeasurementFile(_currentExperimentSettings);
+                            _filehandler.CreateMeasurementFile();
                             _measDirector.StartExperiment();
                         }
                         catch (Exception ex) { Log.Append(ex); }
@@ -189,7 +205,6 @@ namespace UR_MTrack
         private void Main_ExperimentConfigChanged(object sender, EventArgs e)
         {
             _currentExperimentSettings = (sender as FrmExperimentConfig).Settings;
-            if (_ctrlExpAdjust == null) { ShowExperimentAdjust(); }
             ShowChart();
             Log.Append("Experiment metadata changed", LogType.Info);
         }
@@ -201,25 +216,29 @@ namespace UR_MTrack
             Log.Append("Initializing Objects", LogType.Info);
             _serialPortSettings = new SerialPortSettings();
             _currentExperimentSettings = new ExperimentSettings();
+            _filehandler = new FileFactory();
             _datahandler = new DataHandler();
+            _datahandler.MValuesPrepared += _datahandler_MValuesReceived;
+            _datahandler.ChartValuesPrepared += _datahandler_ChartValuesPrepared;
             _measDirector = new ExperimentDirector(ref _currentExperimentSettings, _datahandler);
-            _measDirector.MValuesReceived += _measDirector_MValuesReceived;
-
+            _measDirector.SetRotation += _ctrlExpAdjust_Rotate;
+            _measDirector.SetPattern += _ctrlExpAdjust_SetPattern;
             Log.Append("Initializing Controls", LogType.Info);
             _experimentCtrl = new FrmExperimentControl();
             _experimentCtrl.ExpStateChanged += _experimentCtrl_ExpStateChanged;
-
+            HookUpEvents();
             Log.Append("Finished Initialization", LogType.Info);
         }
 
 
-        void ConnectToSerialPort()
+
+        void ConnectToSerialPort(SerialPortSettings settings)
         {
             if (_serialCom != null && _serialCom.Connected)
             { _serialCom.Disconnect(); _ctrlExpAdjust.ConnectBtnState = false; }
             else
             {
-                _serialCom = new SerialInterface(_serialPortSettings);
+                _serialCom = new SerialInterface(settings);
                 _serialCom.SerialInterfaceDataReceived += _serialCom_DataReceived;
                 _ctrlExpAdjust.ConnectBtnState = _serialCom.Connect();
             }
@@ -255,15 +274,13 @@ namespace UR_MTrack
             }
         }
 
-        void ShowExperimentAdjust()
+        void HookUpEvents()
         {
-            _ctrlExpAdjust = new UCtrlExpAdjust();
-            _ctrlExpAdjust.LaserSwitch += _ctrlExpAdjust_LaserSwitch;
-            _ctrlExpAdjust.SetPattern += _ctrlExpAdjust_SetPattern;
-            _ctrlExpAdjust.SerialConnect += _ctrlExpAdjust_SerialConnect;
-            _ctrlExpAdjust.Rotate += _ctrlExpAdjust_Rotate;
-            _ctrlExpAdjust.AdjustmentFinished += _ctrlExpAdjust_AdjustmentFinished;
-            tblControlHost.Controls.Add(_ctrlExpAdjust, 0, 0);
+            _ctrlExpAdjust = new UCtrlDevControl();
+            Signals.LaserSwitch += _ctrlExpAdjust_LaserSwitch;
+            Signals.SetPattern += _ctrlExpAdjust_SetPattern;
+            Signals.SerialConnect += _ctrlExpAdjust_SerialConnect;
+            Signals.Rotate += _ctrlExpAdjust_Rotate;            
         }
 
         void ShowExperimentControl()
@@ -279,7 +296,6 @@ namespace UR_MTrack
                 using (var exc = new FrmExperimentConfig())
                 {
                     exc.ExperimentConfigChanged += Main_ExperimentConfigChanged;
-                    //exc.Show(_currentExperimentSettings);
                     return exc.ShowDialog(_currentExperimentSettings);
                 }
             }
@@ -317,7 +333,7 @@ namespace UR_MTrack
 
         private void tsmOpen_Click(object sender, EventArgs e)
         {
-            _currentExperimentSettings = new FileFactory().LoadSettings();
+            _currentExperimentSettings = new FileFactory().LoadExperimentSettings();
             ShowExperimentConfig();
         }
 

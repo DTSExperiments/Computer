@@ -2,8 +2,6 @@
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
-
-//using System.Threading;
 using System.Windows.Forms;
 
 namespace UR_MTrack

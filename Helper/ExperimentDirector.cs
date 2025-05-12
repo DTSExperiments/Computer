@@ -17,8 +17,8 @@ namespace UR_MTrack
         PeriodValues _currentPeriod;
 
 
-        public event EventHandler<MDirectorEventArgs> MValuesReceived;
         public event EventHandler<PatternEventArgs> SetPattern;
+        public event EventHandler<RotateEventArgs> SetRotation;
         public event EventHandler ExperimentFinished;
         public event EventHandler Abort;
 
@@ -32,36 +32,26 @@ namespace UR_MTrack
 
         private void _timer_Elapsed(object sender, EventArgs e)
         {
-            GrabMeasurement();
+            ProcessData();
         }
-
-
-        #region Properties
-
-        public DateTime PeriodStartTime { get; private set; }
-
-        #endregion
 
         void ExperimentControl()
         {
             _timer.Stop();
-            _currentPeriod = _expsettings.PeriodCollection.Next<PeriodValues>(_currentPeriod);
-            if (_currentPeriod == null) { ExperimentFinished.Invoke(this, EventArgs.Empty); }
+            _datahandler.CurrentPeriod = _expsettings.PeriodCollection.Next<PeriodValues>(_datahandler.CurrentPeriod);
+            if (_datahandler.CurrentPeriod == null) { ExperimentFinished.Invoke(this, EventArgs.Empty); }
             else
             {
-                SetPattern?.Invoke(this, new PatternEventArgs(_currentPeriod.Pattern, ColorPattern.W));
-                PeriodStartTime = DateTime.Now;
+                SetPattern?.Invoke(this, new PatternEventArgs(_datahandler.CurrentPeriod.Pattern, ColorPattern.W));
+                SetRotation?.Invoke(this,new RotateEventArgs(_expsettings.RotationMode,(byte)(_expsettings.Velocity*(int)_datahandler.CurrentPeriod.CoupCoeff)));
+                _datahandler.CurrentPeriod.StartTime = DateTime.Now;
                 _timer.Start();
             }
         }
 
-        void GrabMeasurement()
+        void ProcessData()
         {
-            var values = _datahandler.GetMValues();
-            values.Timestamp = Math.Round((DateTime.Now - PeriodStartTime).TotalSeconds, 0);
-            values.PeriodNumber = _currentPeriod.Number;
-            MValuesReceived?.Invoke(this, new MDirectorEventArgs(values));
-            if (values.Timestamp >= _currentPeriod.Duration)
+            if (_datahandler.PreparePeriodValues())            
             {
                 ExperimentControl();
             }

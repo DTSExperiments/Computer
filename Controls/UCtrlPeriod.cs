@@ -51,7 +51,7 @@ namespace UR_MTrack
 
 
         #region Methods
-        void BindControls()
+        public void BindControls()
         {
             SuspendLayout();
             lblHeaderCounter.Text = _periodValues.Number.ToString();

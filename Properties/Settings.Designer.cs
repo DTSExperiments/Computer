@@ -12,7 +12,7 @@ namespace UR_MTrack.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -38,24 +38,36 @@ namespace UR_MTrack.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\ProgramData\\UniRegensburg\\MelaTrack")]
-        public string AppSettingsPath {
+        public string SettingsPath {
             get {
-                return ((string)(this["AppSettingsPath"]));
+                return ((string)(this["SettingsPath"]));
             }
             set {
-                this["AppSettingsPath"] = value;
+                this["SettingsPath"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("AppSettingsDefault.json")]
-        public string AppSettingsFilename {
+        public string AppSettings {
             get {
-                return ((string)(this["AppSettingsFilename"]));
+                return ((string)(this["AppSettings"]));
             }
             set {
-                this["AppSettingsFilename"] = value;
+                this["AppSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("DefaultExpSettings.json")]
+        public string DefExperimentSettings {
+            get {
+                return ((string)(this["DefExperimentSettings"]));
+            }
+            set {
+                this["DefExperimentSettings"] = value;
             }
         }
     }

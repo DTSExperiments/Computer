@@ -129,15 +129,18 @@ namespace Logging
         /// <param name="line"></param>
         static void WriteToFile(string line)
         {
-            try
+            if (!string.IsNullOrEmpty(LogFilePath))
             {
-                using (var sw = new StreamWriter(LogFilePath, true))
+                try
                 {
-                    sw.Write(line.Insert(0, DateTime.Now.ToLongTimeString()));
-                    sw.Flush();
+                    using (var sw = new StreamWriter(LogFilePath, true))
+                    {
+                        sw.Write(line.Insert(0, DateTime.Now.ToLongTimeString()));
+                        sw.Flush();
+                    }
                 }
+                catch (FileNotFoundException ex) { MessageBox.Show("File Not Found", "Logfile corrupted or deleted.\nAttempt restarting the software to resolve this issue."); }
             }
-            catch (FileNotFoundException ex) { MessageBox.Show("File Not Found", "Logfile corrupted or deleted.\nAttempt restarting the software to resolve this issue."); }
         }
 
 

@@ -11,13 +11,142 @@ namespace UR_MTrack
 
     public partial class FrmPeriodsView : Form
     {
-        #region Move Borderless Frame
+        #region WinAPI import stuff
         const int WM_NCLBUTTONDOWN = 0xA1;
         const int HT_CAPTION = 0x2;
+        const int CS_DROPSHADOW = 0x20000;
         [DllImportAttribute("user32.dll")]
         static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         static extern bool ReleaseCapture();
+
+
+        #endregion
+
+        public event EventHandler<IEnumerable<PeriodValues>> PeriodsConfigured;
+        public FrmPeriodsView()
+        {
+            InitializeComponent();
+        }
+
+        #region Overrides
+
+        /// <summary>
+        /// This gives the drop shadow behind the borderless form
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+        #endregion
+
+        private void PeriodValuesChanged(object sender, PeriodChangedEventArgs e)
+        {
+            UpdatePeriods(e.Values);
+        }
+
+        public void Show(int cnt)
+        {
+            if (!DesignMode)
+            {
+                PopulatePeriodCtrls(BuildPeriods(cnt));
+                ShowDialog();
+            }
+        }
+        public void Show(IEnumerable<PeriodValues> pvalues)
+        {
+            if (!DesignMode)
+            {
+                PopulatePeriodCtrls(pvalues);
+                ShowDialog();
+            }
+        }
+
+
+        IEnumerable<PeriodValues> BuildPeriods(int cnt)
+        {
+            var periods=new List<PeriodValues>();  
+            for (int i = 1; i <= cnt; i++)
+            {
+                periods.Add(new PeriodValues(i));
+            }
+            return periods;    
+        }
+
+       
+        void PopulatePeriodCtrls(IEnumerable<PeriodValues> valCollection)
+        {
+            flpCtrlHost.SuspendLayout();
+
+            if (flpCtrlHost.Controls.Count > 0) { flpCtrlHost.Controls.Clear(); }
+            foreach (var values in valCollection)
+            {
+                var ctrl = new UCtrlPeriod(values);
+                ctrl.PeriodChanged += PeriodValuesChanged;
+                flpCtrlHost.Controls.Add(ctrl);
+            }
+
+            flpCtrlHost.ResumeLayout();
+        }
+
+        /// <summary>
+        /// Set same values for periods with greater Id
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="updmode"></param>
+        void UpdatePeriods(PeriodValues values)
+        {
+            /// check if any of the controls are selected 
+            if (flpCtrlHost.Controls.OfType<UCtrlPeriod>().Any(p => p.Selected))
+            {
+                ///grab controls that are selected      
+                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Selected)
+                                                          .Select(ctrl => { ctrl.UpdateControls(values); return ctrl; }).ToList();
+            }
+            else
+            {
+                ///grab controls with id greater than the sourcing valueset. 
+                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Period.Number > values.Number)
+                                                          .Select(ctrl => { ctrl.UpdateControls(values); return ctrl; }).ToList();
+            }
+            /// apply values to listed controls
+            foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
+            {
+                if (ctrl.Period.Number >= values.Number)
+                { ctrl.UpdateControls(values); }
+            }
+        }
+
+
+        IEnumerable<PeriodValues> GetPeriodValueCollection()
+        {
+            var collection = new List<PeriodValues>();
+            foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
+            {
+                collection.Add(ctrl.Period);
+            }
+            return collection;
+        }
+
+
+        void DeleteSelected()
+        {
+            var controls=flpCtrlHost.Controls.Cast<UCtrlPeriod>().ToList();
+            controls.RemoveAll(p => p.Selected);
+            controls.ForEach(p => p.Period.Number = controls.IndexOf(p) + 1);
+            foreach(var ctrl in controls)
+            { ctrl.BindControls(); }
+            flpCtrlHost.Controls.Clear();
+            flpCtrlHost.Controls.AddRange(controls.ToArray());  
+            
+        }
+
 
         private void MoveFrame_MouseDown(object sender, MouseEventArgs e)
         {
@@ -29,116 +158,6 @@ namespace UR_MTrack
         }
 
 
-        #endregion
-
-        public event EventHandler<IEnumerable<PeriodValues>> PeriodsConfigured;
-        public FrmPeriodsView()
-        {
-            InitializeComponent();
-        }
-       
-        private void PeriodValuesChanged(object sender, PeriodChangedEventArgs e)
-        {
-            var selectionmode = flpCtrlHost.Controls.OfType<UCtrlPeriod>().Any(p => p.Selected);
-            UpdatePeriods(e.Values,selectionmode);
-        }
-
-        public void Show(int cnt)
-        {
-            if (!DesignMode)
-            {
-                BuildPeriods(cnt);
-                ShowDialog();
-            }
-        }
-        public void Show(IEnumerable<PeriodValues> pvalues)
-        {
-            if (!DesignMode)
-            {
-                BuildPeriods(pvalues);
-                ShowDialog();
-            }
-        }
-        
-
-        void BuildPeriods(int cnt)
-        {
-            flpCtrlHost.SuspendLayout();
-            for(int i=1; i<=cnt; i++) 
-            {
-                var ctrl = new UCtrlPeriod(i);
-                ctrl.PeriodChanged += PeriodValuesChanged;
-                flpCtrlHost.Controls.Add(ctrl);
-            }
-            flpCtrlHost.ResumeLayout();
-        }
-
-        void BuildPeriods(IEnumerable<PeriodValues> valuecollection)
-        {
-            flpCtrlHost.SuspendLayout();
-            foreach(var values in valuecollection)
-            { 
-                var ctrl = new UCtrlPeriod(values);
-                ctrl.PeriodChanged += PeriodValuesChanged;
-                flpCtrlHost.Controls.Add(ctrl);
-            }
-            flpCtrlHost.ResumeLayout();
-        }
-
-        void UpdatePeriods(PeriodValues values,bool updmode)
-        {
-            if (updmode)
-            {
-                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Selected)
-                                                          .Select(ctrl => { ctrl.UpdateControls(values); return ctrl; }).ToList();
-            }
-            else
-            {
-                flpCtrlHost.Controls.ToList<UCtrlPeriod>().Where(ctrl => ctrl.Period.Number>values.Number)
-                                                          .Select(ctrl => { ctrl.UpdateControls(values);return ctrl;}).ToList();
-                //foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
-                //{
-                //    if (ctrl.Period.Number >= values.Number)
-                //    { ctrl.UpdateControls(values); }
-                //}
-            }
-        }
-
-        void UpdatePeriodID()
-        {
-            for(int i=0;i<flpCtrlHost.Controls.Count;i++)
-            {
-                (flpCtrlHost.Controls[i] as UCtrlPeriod).Period.Number = ++i;
-                flpCtrlHost.Controls[i].Invalidate();
-            }
-
-        }
-
-        IEnumerable<PeriodValues> GetPeriodValueCollection()
-        {
-            var collection= new List<PeriodValues>();
-            foreach (UCtrlPeriod ctrl in flpCtrlHost.Controls)
-            {
-               collection.Add(ctrl.Period); 
-            }
-            return collection;
-        }
-
-        void DeleteSelected()
-        {
-            var ctrlList = flpCtrlHost.Controls.Cast<UCtrlPeriod>().ToList();
-            foreach (var ctrl in ctrlList)
-            {
-                if (ctrl.Selected)
-                {
-                    flpCtrlHost.Controls.Remove(ctrl);
-                }
-            }
-            UpdatePeriodID();
-        }
-
-
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
@@ -146,17 +165,23 @@ namespace UR_MTrack
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            PeriodsConfigured?.Invoke(this,GetPeriodValueCollection());
+            PeriodsConfigured?.Invoke(this, GetPeriodValueCollection());
         }
 
         private void btnCreatePeriod_Click(object sender, EventArgs e)
         {
+            if (flpCtrlHost.Controls.Count > 0)
+            {
+                var dlgre = MessageBox.Show("Periods will be deleted. \nContinue?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dlgre == DialogResult.Yes) { flpCtrlHost.Controls.Clear(); }
+                else { return; }
+            }
             using (new CenterDialog(this))
             {
                 var dlg = new FrmInput(InputType.PeriodCount);
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    BuildPeriods(dlg.PeriodsCount);                 
+                    PopulatePeriodCtrls(BuildPeriods(dlg.PeriodsCount));
                 }
             }
         }
@@ -169,17 +194,17 @@ namespace UR_MTrack
 
         private void btnLoadPeriod_Click(object sender, EventArgs e)
         {
-            if(flpCtrlHost.Controls.Count>0)
+            if (flpCtrlHost.Controls.Count > 0)
             {
-                var dlgre=MessageBox.Show("Periods will be deleted. \nContinue?","",MessageBoxButtons.YesNo,MessageBoxIcon.Warning); 
-                if (dlgre == DialogResult.Yes) {flpCtrlHost.Controls.Clear(); }
+                var dlgre = MessageBox.Show("Periods will be deleted. \nContinue?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dlgre == DialogResult.Yes) { flpCtrlHost.Controls.Clear(); }
                 else { return; }
-            } 
+            }
             var path = new FileFactory().SelectFilePath("Open file", "XML files(.xml) | *.xml");
             if (!string.IsNullOrEmpty(path))
             {
                 var periodscollection = new XmlFileFactory().ReadPeriodsFromXml(path);
-                BuildPeriods(periodscollection);
+                PopulatePeriodCtrls(periodscollection);
             }
         }
     }

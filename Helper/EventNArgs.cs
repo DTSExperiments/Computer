@@ -5,7 +5,35 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace UR_MTrack
-{  
+{
+    internal class Signals
+    {
+        
+        public static event EventHandler<PatternEventArgs> SetPattern;
+        public void OnSetPattern(object sender, PatternEventArgs e)
+        {
+            SetPattern?.Invoke(sender, e);
+        }
+
+        public static event EventHandler<RotateEventArgs> Rotate;
+        public void OnRotate(object sender, RotateEventArgs e)
+        {
+            Rotate?.Invoke(sender, e);
+        }
+
+        public static event EventHandler<int> LaserSwitch;
+        public void OnLaserSwitch(object sender, int pwmvalue)
+        {
+            LaserSwitch?.Invoke(sender, pwmvalue);
+        }
+        
+        public static event EventHandler<SerialPortSettings> SerialConnect;
+        public void OnSerialConnect(object sender,SerialPortSettings settings )
+        {
+            SerialConnect?.Invoke(sender, settings);
+        }
+    }
+
     public class PeriodChangedEventArgs : EventArgs
     {
         /// <summary>
@@ -18,6 +46,29 @@ namespace UR_MTrack
         }
     }
 
+    public class DataHandlerEventArgs : EventArgs
+    {
+        /// <summary>
+        /// Timestamp. Δt from start of period measurement in seconds. 
+        /// </summary>
+        public double TimeStamp { get; private set; }
+        /// <summary>
+        /// Single torque value [raw]
+        /// </summary>
+        public double Torque { get; private set; }
+        /// <summary>
+        /// Single location value [raw]
+        /// </summary>
+        public double Location { get; private set; }
+
+
+        public DataHandlerEventArgs(double timestamp,double torque,double location)
+        {
+            TimeStamp = timestamp;
+            Torque = torque;    
+            Location=location;  
+        }
+    }
     public class ExpControlEventArgs : EventArgs
     {
         /// <summary>
@@ -29,33 +80,18 @@ namespace UR_MTrack
             ExState = exstate;
         }
     }
-    public class MDirectorEventArgs : EventArgs
+    public class MeasurementEventArgs : EventArgs
     {
         /// <summary>
         /// 
         /// </summary>
         public MeasurementValues Values { get; private set; }
-        public MDirectorEventArgs(MeasurementValues values)
+        public MeasurementEventArgs(MeasurementValues values)
         {
             Values = values;
         }
     }
-    public class DataHandlerEventArgs : EventArgs
-    {
-        /// <summary>
-        /// pixel value
-        /// </summary>
-        public int Location { get; private set; }
-        /// <summary>
-        /// torquevalue (not calibrated)
-        /// </summary>
-        public double RawTorque{ get; private set; }
-        public DataHandlerEventArgs(int pixvalue, double torque)
-        {
-            Location = pixvalue;
-            RawTorque = torque;
-        }
-    }
+   
 
     public class PatternEventArgs : EventArgs
     {        
@@ -76,12 +112,12 @@ namespace UR_MTrack
     public class RotateEventArgs : EventArgs
     {
         public RotationMode Rotation { get; private set; }
-        public int Angle { get; private set; }
+        public int Velocity { get; private set; }
 
-        public RotateEventArgs(RotationMode r, int angle)
+        public RotateEventArgs(RotationMode r, int velocity)
         {
             Rotation = r;
-            Angle = angle;
+            Velocity = velocity;
         }
     }
 

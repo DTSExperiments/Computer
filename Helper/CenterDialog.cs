@@ -128,7 +128,7 @@ class CenterDialog : IDisposable
         ptStart.Y = (ptCenter.Y - (height / 2));
 
         //MoveWindow(hChildWnd, ptStart.X, ptStart.Y, width, height, false);
-        System.Threading.Tasks.Task.Factory.StartNew(() => SetWindowPos(hChildWnd, (IntPtr)0, ptStart.X, ptStart.Y, width, height, SetWindowPosFlags.SWP_ASYNCWINDOWPOS | SetWindowPosFlags.SWP_NOSIZE | SetWindowPosFlags.SWP_NOACTIVATE | SetWindowPosFlags.SWP_NOOWNERZORDER | SetWindowPosFlags.SWP_NOZORDER));
+        System.Threading.Tasks.Task.Factory.StartNew(() => SetWindowPos(hChildWnd, (IntPtr)0, ptStart.X, ptStart.Y, width, height, SetWindowPosition.SWP_ASYNCWINDOWPOS | SetWindowPosition.SWP_NOSIZE | SetWindowPosition.SWP_NOACTIVATE | SetWindowPosition.SWP_NOOWNERZORDER | SetWindowPosition.SWP_NOZORDER));
     }
 
     // some p/invoke
@@ -163,7 +163,7 @@ class CenterDialog : IDisposable
 
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosFlags uFlags);
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, SetWindowPosition uFlags);
 
     [DllImport("User32.dll")]
     public static extern UIntPtr SetTimer(IntPtr hWnd, UIntPtr nIDEvent, uint uElapse, TimerProc lpTimerFunc);
@@ -202,7 +202,7 @@ class CenterDialog : IDisposable
 }
 
 [Flags]
-public enum SetWindowPosFlags : uint
+public enum SetWindowPosition : uint
 {
     /// <summary>
     ///     If the calling thread and the thread that owns the window are attached to different input queues, the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request.

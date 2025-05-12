@@ -59,14 +59,14 @@
             this.tblMain.Controls.Add(this.label1, 1, 2);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
-            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 3, 3);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(0, 0, 2, 2);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 4;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(769, 549);
+            this.tblMain.Size = new System.Drawing.Size(1154, 845);
             this.tblMain.TabIndex = 0;
             // 
             // orientedTextLabel1
@@ -75,13 +75,13 @@
             this.orientedTextLabel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.orientedTextLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
             this.orientedTextLabel1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 31);
+            this.orientedTextLabel1.Location = new System.Drawing.Point(0, 40);
             this.orientedTextLabel1.Margin = new System.Windows.Forms.Padding(0);
-            this.orientedTextLabel1.MaximumSize = new System.Drawing.Size(35, 0);
+            this.orientedTextLabel1.MaximumSize = new System.Drawing.Size(52, 0);
             this.orientedTextLabel1.Name = "orientedTextLabel1";
             this.orientedTextLabel1.RotationAngle = 270D;
             this.tblMain.SetRowSpan(this.orientedTextLabel1, 3);
-            this.orientedTextLabel1.Size = new System.Drawing.Size(35, 518);
+            this.orientedTextLabel1.Size = new System.Drawing.Size(52, 805);
             this.orientedTextLabel1.TabIndex = 4;
             this.orientedTextLabel1.Text = "Periods";
             this.orientedTextLabel1.TextDirection = UR_MTrack.Direction.Clockwise;
@@ -103,12 +103,12 @@
             this.tblButtons.Controls.Add(this.btnOk, 0, 0);
             this.tblButtons.Controls.Add(this.btnCancel, 1, 0);
             this.tblButtons.Controls.Add(this.btnRemove, 4, 0);
-            this.tblButtons.Location = new System.Drawing.Point(139, 499);
+            this.tblButtons.Location = new System.Drawing.Point(208, 769);
             this.tblButtons.Margin = new System.Windows.Forms.Padding(0);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblButtons.Size = new System.Drawing.Size(525, 50);
+            this.tblButtons.Size = new System.Drawing.Size(790, 76);
             this.tblButtons.TabIndex = 5;
             // 
             // btnCreatePeriod
@@ -128,8 +128,8 @@
             this.btnCreatePeriod.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnCreatePeriod.HighlightColor = System.Drawing.Color.Coral;
             this.btnCreatePeriod.HighlightThickness = 2;
-            this.btnCreatePeriod.Location = new System.Drawing.Point(325, 10);
-            this.btnCreatePeriod.Margin = new System.Windows.Forms.Padding(10);
+            this.btnCreatePeriod.Location = new System.Drawing.Point(489, 15);
+            this.btnCreatePeriod.Margin = new System.Windows.Forms.Padding(15);
             this.btnCreatePeriod.Name = "btnCreatePeriod";
             this.btnCreatePeriod.RelPos = new float[] {
         0F,
@@ -137,7 +137,7 @@
         0.5F,
         1F};
             this.btnCreatePeriod.ShowExtLabel = false;
-            this.btnCreatePeriod.Size = new System.Drawing.Size(85, 30);
+            this.btnCreatePeriod.Size = new System.Drawing.Size(128, 46);
             this.btnCreatePeriod.TabIndex = 19;
             this.btnCreatePeriod.Text = "Create New";
             this.btnCreatePeriod.UseVisualStyleBackColor = true;
@@ -161,8 +161,8 @@
             this.btnLoadPeriod.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnLoadPeriod.HighlightColor = System.Drawing.Color.Coral;
             this.btnLoadPeriod.HighlightThickness = 2;
-            this.btnLoadPeriod.Location = new System.Drawing.Point(220, 10);
-            this.btnLoadPeriod.Margin = new System.Windows.Forms.Padding(10);
+            this.btnLoadPeriod.Location = new System.Drawing.Point(331, 15);
+            this.btnLoadPeriod.Margin = new System.Windows.Forms.Padding(15);
             this.btnLoadPeriod.Name = "btnLoadPeriod";
             this.btnLoadPeriod.RelPos = new float[] {
         0F,
@@ -170,7 +170,7 @@
         0.5F,
         1F};
             this.btnLoadPeriod.ShowExtLabel = false;
-            this.btnLoadPeriod.Size = new System.Drawing.Size(85, 30);
+            this.btnLoadPeriod.Size = new System.Drawing.Size(128, 46);
             this.btnLoadPeriod.TabIndex = 18;
             this.btnLoadPeriod.Text = "Load";
             this.btnLoadPeriod.UseVisualStyleBackColor = false;
@@ -194,8 +194,8 @@
             this.btnOk.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnOk.HighlightColor = System.Drawing.Color.Coral;
             this.btnOk.HighlightThickness = 2;
-            this.btnOk.Location = new System.Drawing.Point(10, 10);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(10);
+            this.btnOk.Location = new System.Drawing.Point(15, 15);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(15);
             this.btnOk.Name = "btnOk";
             this.btnOk.RelPos = new float[] {
         0F,
@@ -203,7 +203,7 @@
         0.5F,
         1F};
             this.btnOk.ShowExtLabel = false;
-            this.btnOk.Size = new System.Drawing.Size(85, 30);
+            this.btnOk.Size = new System.Drawing.Size(128, 46);
             this.btnOk.TabIndex = 0;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -228,8 +228,8 @@
             this.btnCancel.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnCancel.HighlightColor = System.Drawing.Color.Coral;
             this.btnCancel.HighlightThickness = 2;
-            this.btnCancel.Location = new System.Drawing.Point(115, 10);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(10);
+            this.btnCancel.Location = new System.Drawing.Point(173, 15);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(15);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.RelPos = new float[] {
         0F,
@@ -237,7 +237,7 @@
         0.5F,
         1F};
             this.btnCancel.ShowExtLabel = false;
-            this.btnCancel.Size = new System.Drawing.Size(83, 30);
+            this.btnCancel.Size = new System.Drawing.Size(124, 46);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
@@ -261,8 +261,8 @@
             this.btnRemove.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.ForwardDiagonal;
             this.btnRemove.HighlightColor = System.Drawing.Color.Coral;
             this.btnRemove.HighlightThickness = 2;
-            this.btnRemove.Location = new System.Drawing.Point(430, 10);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(10);
+            this.btnRemove.Location = new System.Drawing.Point(647, 15);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(15);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.RelPos = new float[] {
         0F,
@@ -270,7 +270,7 @@
         0.5F,
         1F};
             this.btnRemove.ShowExtLabel = false;
-            this.btnRemove.Size = new System.Drawing.Size(83, 30);
+            this.btnRemove.Size = new System.Drawing.Size(124, 46);
             this.btnRemove.TabIndex = 2;
             this.btnRemove.Text = "Delete";
             this.btnRemove.UseVisualStyleBackColor = false;
@@ -288,14 +288,14 @@
             this.tblMain.SetColumnSpan(this.tBarPeriodsView, 2);
             this.tBarPeriodsView.CtrlBxVisible = false;
             this.tBarPeriodsView.DivColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
-            this.tBarPeriodsView.DivHeight = 2;
+            this.tBarPeriodsView.DivHeight = 3;
             this.tBarPeriodsView.DivVisible = true;
             this.tBarPeriodsView.Dock = System.Windows.Forms.DockStyle.Top;
             this.tBarPeriodsView.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tBarPeriodsView.FormIcon = null;
+            this.tBarPeriodsView.FormIcon = global::UR_MTrack.Properties.Resources.ur_logo_wort_bildmarke_weiss;
             this.tBarPeriodsView.GradientAngle = 180F;
             this.tBarPeriodsView.GrColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(195)))));
-            this.tBarPeriodsView.IconSize = new System.Drawing.Size(60, 31);
+            this.tBarPeriodsView.IconSize = new System.Drawing.Size(90, 33);
             this.tBarPeriodsView.Location = new System.Drawing.Point(0, 0);
             this.tBarPeriodsView.Margin = new System.Windows.Forms.Padding(0);
             this.tBarPeriodsView.MaxImg = ((System.Drawing.Image)(resources.GetObject("tBarPeriodsView.MaxImg")));
@@ -306,7 +306,7 @@
         0.2F,
         1F};
             this.tBarPeriodsView.ShowIcon = false;
-            this.tBarPeriodsView.Size = new System.Drawing.Size(769, 31);
+            this.tBarPeriodsView.Size = new System.Drawing.Size(1154, 40);
             this.tBarPeriodsView.TabIndex = 2;
             this.tBarPeriodsView.Titel = "";
             this.tBarPeriodsView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
@@ -316,36 +316,37 @@
             this.flpCtrlHost.AutoScroll = true;
             this.flpCtrlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flpCtrlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpCtrlHost.Location = new System.Drawing.Point(45, 41);
-            this.flpCtrlHost.Margin = new System.Windows.Forms.Padding(10);
+            this.flpCtrlHost.Location = new System.Drawing.Point(67, 55);
+            this.flpCtrlHost.Margin = new System.Windows.Forms.Padding(15);
             this.flpCtrlHost.Name = "flpCtrlHost";
-            this.flpCtrlHost.Padding = new System.Windows.Forms.Padding(10, 15, 3, 15);
-            this.flpCtrlHost.Size = new System.Drawing.Size(714, 446);
+            this.flpCtrlHost.Padding = new System.Windows.Forms.Padding(15, 23, 4, 23);
+            this.flpCtrlHost.Size = new System.Drawing.Size(1072, 696);
             this.flpCtrlHost.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.BackColor = System.Drawing.Color.DimGray;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(35, 497);
+            this.label1.Location = new System.Drawing.Point(52, 766);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(734, 2);
+            this.label1.Size = new System.Drawing.Size(1102, 3);
             this.label1.TabIndex = 7;
             // 
             // FrmPeriodsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(769, 551);
+            this.ClientSize = new System.Drawing.Size(1154, 848);
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmPeriodsView";
-            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.Padding = new System.Windows.Forms.Padding(0, 0, 0, 3);
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "PeriodDesigner";

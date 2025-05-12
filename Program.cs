@@ -11,6 +11,7 @@ namespace UR_MTrack
 {
     internal static class Program
     {
+        public static AppSettings Settings { get; set; }
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
@@ -20,11 +21,12 @@ namespace UR_MTrack
             ThreadExceptionHandler thExHandler = new ThreadExceptionHandler();
             Application.ThreadException += new ThreadExceptionEventHandler(thExHandler.Application_ThreadException);
             Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);
             
             try
             {
                 Log.CheckDirPath(Properties.Settings.Default.LogfilePath);
+                Settings = new FileFactory().LoadAppSettings();
                 Application.Run(new Main());
             }
             catch (Exception ex) { MessageBox.Show(ex.StackTrace, ex.Message, MessageBoxButtons.OK); }

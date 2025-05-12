@@ -12,8 +12,16 @@ namespace UR_MTrack
 {
     public class FileFactory
     {
+        ExperimentSettings _settings;
+        XmlFileFactory _xmlFileHandler;
         public FileFactory()
         { }
+        public FileFactory(ExperimentSettings settings)
+        {
+            _settings = settings;
+            _xmlFileHandler = new XmlFileFactory(_settings);
+        }
+
 
         /// <summary>
         /// 
@@ -21,30 +29,10 @@ namespace UR_MTrack
         /// <exception cref="DirectoryNotFoundException"></exception>
         public void CheckDefaultDirectories()
         {
-            if (!Directory.Exists(Properties.Settings.Default.AppSettingsPath))
+            if (!Directory.Exists(Properties.Settings.Default.SettingsPath))
             { throw new DirectoryNotFoundException("AppSettings Directory"); }
             if (!Directory.Exists(Properties.Settings.Default.LogfilePath))
             { throw new DirectoryNotFoundException("LogFile Directory"); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="settings"></param>
-        /// <param name="usedlg"></param>
-        public void SaveSettings(ExperimentSettings settings, bool usedlg = false)
-        {
-            var filepath = GetSettingsFileName(settings);
-            if (usedlg)
-            {
-                filepath = SaveFileDialog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-                                                , "Save Experiment Settings"
-                                                , "Json(*.json)|*.json|All Files (*.*)|*.*");
-            }
-            if (!string.IsNullOrEmpty(filepath))
-            {
-                WriteFile(filepath, SerializeToJSON(settings));
-            }
         }
 
 
@@ -52,19 +40,49 @@ namespace UR_MTrack
         /// 
         /// </summary>
         /// <returns></returns>
-        public ExperimentSettings LoadSettings(bool defsettings = false)
+        public AppSettings LoadAppSettings()
+        {
+            var path = Path.Combine(Properties.Settings.Default.SettingsPath, Properties.Settings.Default.AppSettings);
+            if (File.Exists(path))
+            {
+                return DeserializeSettings<AppSettings>(OpenFile(path));
+            }
+            else
+            {
+                Log.Append("Appsettings not found.");
+                MessageBox.Show("Appsettings not found.","File Not Found",MessageBoxButtons.OK, MessageBoxIcon.Error); 
+            }            
+            return new AppSettings();
+        }
+
+
+        public void SaveAppSettings(AppSettings settings)
+        {
+            var filepath = Path.Combine(Properties.Settings.Default.SettingsPath, Properties.Settings.Default.AppSettings);
+            if (!string.IsNullOrEmpty(filepath))
+            { WriteFile(filepath, SerializeToJSON(settings)); }
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ExperimentSettings LoadExperimentSettings(bool defsettings = false)
         {
             var content = string.Empty;
+            var path = string.Empty;
             try
             {
-                if (defsettings)
+                if (defsettings) { path = Path.Combine(Properties.Settings.Default.SettingsPath, Properties.Settings.Default.DefExperimentSettings); }
+
+                if (File.Exists(path))
                 {
-                    content = OpenFile(Path.Combine(Properties.Settings.Default.AppSettingsPath,
-                                                    Properties.Settings.Default.AppSettingsFilename));
+                    content = OpenFile(path);
                 }
                 else
                 {
-                    content = OpenFile(Properties.Settings.Default.AppSettingsPath, "Load Experiment", "Settings(*.JSON)|*.Json|All Files (*.*)|*.*");
+                    throw new FileNotFoundException("Experiment settings not found.");
                 }
                 return DeserializeSettings<ExperimentSettings>(content);
             }
@@ -75,23 +93,70 @@ namespace UR_MTrack
             }
         }
 
-        public void CreateMeasurementFile(ExperimentSettings settings)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settings">Object that holds the value collection.</param>
+        /// <param name="defvalues">True if settings should be saved as default </param>
+        /// /// <param name="usedlg">True if a dialog should be used for user defined path and/or filename.</param>
+        public void SaveSettings(ExperimentSettings settings, bool defvalues = false, bool usedlg = false)
         {
-            using (var xmlFactory = new XmlFileFactory(settings))
+            var filepath = Path.Combine(Properties.Settings.Default.SettingsPath, Properties.Settings.Default.DefExperimentSettings);
+            if (!defvalues)
             {
-                try
+                filepath = GetSettingsFileName(settings);
+                if (usedlg)
                 {
-                    xmlFactory.BuildMeasFile().Save(settings.Filepath);
-                    Log.Append("XML file created successfully.", LogType.Success, false);
+                    filepath = SaveFileDialog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                                                    , "Save Experiment Settings"
+                                                    , "Json(*.json)|*.json|All Files (*.*)|*.*");
                 }
-                catch (Exception ex)
-                {
-                    Log.Append("Failed to create XML file.", LogType.Fail, true, ex.StackTrace);
-                }
+            }
+            if (!string.IsNullOrEmpty(filepath))
+            {
+                WriteFile(filepath, SerializeToJSON(settings));
             }
         }
 
-       
+
+        public void CreateMeasurementFile()
+        {
+            try
+            {
+                new XmlFileFactory().BuildMeasFile().Save(_settings.Filepath);
+                Log.Append("XML file created successfully.", LogType.Success, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Append("Failed to create XML file.", LogType.Fail, true, ex.StackTrace);
+            }
+        }
+
+
+        public void AppendPeriodValues(string line)
+        {
+            try
+            {
+                XDocument doc = XDocument.Load(_settings.Filepath);
+                XElement element = doc.Descendants("csv_data").FirstOrDefault();
+
+                if (!element.Equals(@""))
+                {
+                    element.Value = element.Value + line + Environment.NewLine;
+                    doc.Save(_settings.Filepath);
+                }
+                else
+                {
+                    Log.Append(string.Format("XElement \"{0}\" not found.", "csv_data"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}", "csv_data", ex.StackTrace));
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -106,9 +171,10 @@ namespace UR_MTrack
                     Directory.CreateDirectory(path);
                     return path;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw new Exception("Failed to create directory " + path, ex);
+                    Log.Append("Failed to create directory.");
+                    MessageBox.Show("Failed to create directory.\n"+path, "Directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return string.Empty;
@@ -140,6 +206,7 @@ namespace UR_MTrack
             }
         }
 
+
         /// <summary>
         /// Open a file and read its content without a filedialog.
         /// </summary>
@@ -153,6 +220,7 @@ namespace UR_MTrack
             { Log.Append(ex); }
             return string.Empty;
         }
+
 
         /// <summary>
         /// Select a file from a dialog, open it and read its content.
@@ -185,11 +253,12 @@ namespace UR_MTrack
                         return File.ReadAllText(ofdlg.FileName);
                     }
                 }
-                catch (Exception)
-                { throw; }
+                catch (Exception ex)
+                { Log.Append(ex); }
                 return string.Empty;
             }
         }
+
 
         /// <summary>
         /// Select the destination path for a file using a dialog.
@@ -308,7 +377,7 @@ namespace UR_MTrack
                                                                   exsettings.FirstName,
                                                                   exsettings.LastName,
                                                                   exsettings.FlyName, ".json");
-            return Path.Combine(exsettings.Datapath, filename);
+            return Path.Combine(exsettings.DataFolderpath, filename);
         }
 
 
@@ -327,6 +396,7 @@ namespace UR_MTrack
             }
             catch (Exception) { Log.Append("Failed to save file.", LogType.Fail); }
         }
+
 
         /// <summary>
         /// save string collection (lines) to file. 

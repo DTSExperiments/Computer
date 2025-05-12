@@ -11,6 +11,7 @@ namespace UR_MTrack
         public PeriodValues() { }   
         public PeriodValues(int nr) { Number = nr; }
         public int Number { get; set; }
+        public DateTime StartTime { get; set; } 
         public ExperimentType Type { get; set; }
         public int Duration { get; set; }
         public int Outcome { get; set; }

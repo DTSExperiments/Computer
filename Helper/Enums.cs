@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace UR_MTrack
 {
+    public enum DeviceStatus
+    {
+        [Description("Off")]
+        off,
+        [Description("On")]
+        on,
+        [Description("Disconnected")]
+        disconnected,
+        [Description("Connected")]
+        connected
+    }
+
     public enum ExperimentState
     {
         [Description("Running")]
@@ -47,10 +59,10 @@ namespace UR_MTrack
         stripeddrum = 3,
         [Description("T-Patterns")]
         tpatterns = 4,
-        [Description("Four vertical bars")]
-        fourvbars = 5,
-        [Description("Diagonals")]
-        diag = 6
+        //[Description("Four vertical bars")]
+        //fourvbars = 5,
+        //[Description("Diagonals")]
+        //diag = 6
     }
 
 

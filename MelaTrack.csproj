@@ -95,6 +95,7 @@
     <Compile Include="Controls\CurveButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="AppSettings.cs" />
     <Compile Include="Helper\ExceptionHandler.cs" />
     <Compile Include="Controls\UCtrlChart.cs">
       <SubType>UserControl</SubType>
@@ -153,7 +154,7 @@
     <Compile Include="Forms\FrmSplashScreen.Designer.cs">
       <DependentUpon>FrmSplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\EventArgs.cs" />
+    <Compile Include="Helper\EventNArgs.cs" />
     <Compile Include="Helper\Logging.cs" />
     <Compile Include="Helper\MeasurementTimer.cs" />
     <Compile Include="Controls\OrientedTextLabel.cs">
@@ -195,11 +196,11 @@
     <Compile Include="Controls\WMTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\UCtrlExpAdjust.cs">
+    <Compile Include="Controls\UCtrlDevControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\UCtrlExpAdjust.Designer.cs">
-      <DependentUpon>UCtrlExpAdjust.cs</DependentUpon>
+    <Compile Include="Controls\UCtrlDevControl.Designer.cs">
+      <DependentUpon>UCtrlDevControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\UCtrlChart.resx">
       <DependentUpon>UCtrlChart.cs</DependentUpon>
@@ -248,8 +249,8 @@
     <EmbeddedResource Include="Forms\FrmExperimentConfig.resx">
       <DependentUpon>FrmExperimentConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\UCtrlExpAdjust.resx">
-      <DependentUpon>UCtrlExpAdjust.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\UCtrlDevControl.resx">
+      <DependentUpon>UCtrlDevControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="DTSExperiments_Workprint.licenseheader" />
@@ -317,6 +318,9 @@
   <ItemGroup>
     <Folder Include="Installer\" />
     <Folder Include="Libs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="packages\SonarAnalyzer.CSharp.10.7.0.110445\analyzers\SonarAnalyzer.CSharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

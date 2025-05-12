@@ -5,11 +5,14 @@
     <Setting Name="LogfilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack\Log</Value>
     </Setting>
-    <Setting Name="AppSettingsPath" Type="System.String" Scope="User">
+    <Setting Name="SettingsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\ProgramData\UniRegensburg\MelaTrack</Value>
     </Setting>
-    <Setting Name="AppSettingsFilename" Type="System.String" Scope="User">
+    <Setting Name="AppSettings" Type="System.String" Scope="User">
       <Value Profile="(Default)">AppSettingsDefault.json</Value>
+    </Setting>
+    <Setting Name="DefExperimentSettings" Type="System.String" Scope="User">
+      <Value Profile="(Default)">DefaultExpSettings.json</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -19,10 +19,10 @@ namespace UR_MTrack
         Color _gradientTop = Color.FromArgb(255, 79, 184, 0);
         Color _gradientBottom = Color.FromArgb(255, 79, 184, 0);
         LinearGradientMode _gmode = LinearGradientMode.Vertical;
-        float[] _relPos = { 0.0f, 0.01f, 0.3f, 1.0f };
+        float[] _relPos = { 0.0f, 0.4f, 1.0f };
 
-        float _bordersize;
-        int _cornerradius = 0;
+        float _bordersize=1;
+        int _cornerradius = 1;
         int _glowsize = 2;
         bool _glow = false;
         bool _canGlow = false;
@@ -68,7 +68,7 @@ namespace UR_MTrack
             
             // Paint the outer rounded rectangle
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            var rect =new Rectangle(0, 0, Width, Height);// new Rectangle(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
+            var rect =new Rectangle(0, 0, Width, Height);
 
             using (GraphicsPath outerPath = RoundedRectangle(rect, CornerRadius, 0))
             {
@@ -76,11 +76,11 @@ namespace UR_MTrack
                 {
                     var blend = new ColorBlend();
                     blend.Positions = _relPos;
-                    blend.Colors = new[] { BackColor, BackColor, BackColor, BackColor };
+                    blend.Colors = new[] { BackColor, BackColor, BackColor};
 
                     if (_usegradient)
                     {
-                        blend.Colors = new[] { BackColor, _gradientTop, _gradientBottom, Color.Transparent };
+                        blend.Colors = new[] { BackColor, _gradientTop, _gradientBottom};
                     }
 
                     fillBrush.InterpolationColors = blend;

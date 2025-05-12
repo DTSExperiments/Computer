@@ -147,6 +147,19 @@ namespace UR_MTrack.Controls
             _histozgc.Invalidate();
         }
 
+        /// <summary>
+        /// Show the raw not yet averaged values
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <param name="torque"></param>
+        /// <param name="position"></param>
+        public void AddValues(double timestamp, double torque, double position)
+        {
+            _torquevalues.Add(timestamp, torque);
+            _posvalues.Add(timestamp, position);
+            UpdateViews();
+        }
+
         public void AddValues(MeasurementValues mVal)
         {
             _torquevalues.Add(mVal.Timestamp, mVal.Torque);

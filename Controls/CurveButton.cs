@@ -30,7 +30,7 @@ namespace UR_MTrack
         Color _gradientBottom = Color.FromArgb(255, 153, 198, 241);
 
 
-        float[] _relPos = { 0.0f, 0.2f, 0.5f, 1.0f };
+        float[] _relPos = { 0.0f, 0.5f, 1.0f };
         LinearGradientMode _gmode;
 
         float _outlineWidth;
@@ -101,7 +101,7 @@ namespace UR_MTrack
         public string ExtMessage
         { get; set; }
 
-       
+
 
         [Category("Appearance")]
         [Description("Set the border color to use for the top portion of the gradient fill of the component.")]
@@ -245,18 +245,18 @@ namespace UR_MTrack
 
         protected override void OnPaint(PaintEventArgs pevent)
         {
-            
-                base.OnPaintBackground(pevent);
-                base.OnPaint(pevent);
-            
-                Graphics g = pevent.Graphics;
-                ButtonRenderer.DrawParentBackground(g, ClientRectangle, this);
 
-                // Paint the outer rounded rectangle
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                var rect = new RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 2, ClientRectangle.Height - 2);
-        
-{
+            base.OnPaintBackground(pevent);
+            base.OnPaint(pevent);
+
+            Graphics g = pevent.Graphics;
+            ButtonRenderer.DrawParentBackground(g, ClientRectangle, this);
+
+            // Paint the outer rounded rectangle
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            var rect = new RectangleF(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width - 2, ClientRectangle.Height - 2);
+
+            {
                 using (GraphicsPath outerPath = RoundedRectangle(rect, CornerRadius, 0))
                 {
                     if (_usegradient)
@@ -265,25 +265,20 @@ namespace UR_MTrack
                         {
                             var blend = new ColorBlend();
                             blend.Positions = _relPos;
-                            blend.Colors = new[] { BackColor, BackColor, BackColor, BackColor };
-
-                            if (!Enabled)
+                            blend.Colors = new[] { Color.FromArgb(50, BackColor), BackColor, Color.FromArgb(50, BackColor) };
+                            if (Enabled)
                             {
-                                blend.Colors = new[] { BackColor, SystemColors.ControlDarkDark, SystemColors.ControlDark, Color.Silver };
+                                blend.Colors = new[] { _gradientTop, _gradientBottom, Color.FromArgb(50, _gradientBottom) };
                             }
-                            else if (_usegradient)
+                            else if (Checked || (Checkable && DesignMode))
                             {
-                                blend.Colors = new[] { BackColor, _gradientTop, _gradientBottom, _gradientBottom };
-                            }
-                            if (Checked || (Checkable && DesignMode))
-                            {
-                                blend.Colors = new[] { BackColor, _gradientTop, _gradientBottom, CheckedColor };
+                                blend.Colors = new[] { _gradientTop, _gradientBottom, CheckedColor };
                             }
                             fillBrush.InterpolationColors = blend;
                             g.FillPath(fillBrush, outerPath);
                         }
                     }
-                    else { g.FillPath(new SolidBrush(BackColor), outerPath);}
+                    else { g.FillPath(new SolidBrush(BackColor), outerPath); }
                     if (_highlight)
                     {
                         using (Pen outlinePen = new Pen(HighlightColor, BorderWidth + HighlightThickness))
@@ -420,55 +415,54 @@ namespace UR_MTrack
             CheckedChanged?.Invoke(this, EventArgs.Empty);
         }
 
-            void AdjustFontsize()
-            {
-                var size = Font.Size;
-                if (Height < Width) { size = size * (Height / (4 * size)); }
-                else { size = size * (Width / (4 * size)); }
-                Font = new Font(Font.FontFamily, size, Font.Style);
-            }
+        void AdjustFontsize()
+        {
+            var size = Font.Size;
+            if (Height < Width) { size = size * (Height / (4 * size)); }
+            else { size = size * (Width / (4 * size)); }
+            Font = new Font(Font.FontFamily, size, Font.Style);
+        }
 
 
-            /// <summary>
-            /// Create a graphics path for a rectangle wicth round corners. 
-            /// </summary>
-            /// <param name="boundingRect"></param>
-            /// <param name="cornerRadius"></param>
-            /// <param name="margin"></param>
-            /// <returns></returns>
-            GraphicsPath RoundedRectangle(RectangleF boundingRect, int cornerRadius, int margin)
-            {
-                GraphicsPath roundedRect = new GraphicsPath();
-                //Top left corner
-                roundedRect.AddArc(boundingRect.X + margin, boundingRect.Y + margin, cornerRadius * 2,
-          cornerRadius * 2, 180, 90);
-                //Top right corner
-                roundedRect.AddArc(boundingRect.X + boundingRect.Width - margin - cornerRadius * 2,
-          boundingRect.Y + margin, cornerRadius * 2, cornerRadius * 2, 270, 90);
-                //Bottom right corner
-                roundedRect.AddArc(boundingRect.X + boundingRect.Width - margin - cornerRadius * 2,
-          boundingRect.Y + boundingRect.Height - margin - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 0, 90);
-                //Bottom left corner
-                roundedRect.AddArc(boundingRect.X + margin,
-          boundingRect.Y + boundingRect.Height - margin - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 90, 90);
-                roundedRect.CloseFigure();
-                return roundedRect;
-            }
+        /// <summary>
+        /// Create a graphics path for a rectangle wicth round corners. 
+        /// </summary>
+        /// <param name="boundingRect"></param>
+        /// <param name="cornerRadius"></param>
+        /// <param name="margin"></param>
+        /// <returns></returns>
+        GraphicsPath RoundedRectangle(RectangleF boundingRect, int cornerRadius, int margin)
+        {
+            GraphicsPath roundedRect = new GraphicsPath();
+            //Top left corner
+            roundedRect.AddArc(boundingRect.X + margin, boundingRect.Y + margin, cornerRadius * 2,
+      cornerRadius * 2, 180, 90);
+            //Top right corner
+            roundedRect.AddArc(boundingRect.X + boundingRect.Width - margin - cornerRadius * 2,
+      boundingRect.Y + margin, cornerRadius * 2, cornerRadius * 2, 270, 90);
+            //Bottom right corner
+            roundedRect.AddArc(boundingRect.X + boundingRect.Width - margin - cornerRadius * 2,
+      boundingRect.Y + boundingRect.Height - margin - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 0, 90);
+            //Bottom left corner
+            roundedRect.AddArc(boundingRect.X + margin, boundingRect.Y + boundingRect.Height - margin - cornerRadius * 2, cornerRadius * 2, cornerRadius * 2, 90, 90);
+            roundedRect.CloseFigure();
+            return roundedRect;
+        }
 
-            void UncheckAllButtons()
+        void UncheckAllButtons()
+        {
+            if (Parent != null)
             {
-                if (Parent != null)
+                foreach (var ctrl in Parent.Controls)
                 {
-                    foreach (var ctrl in Parent.Controls)
+                    if (ctrl.GetType() == this.GetType() && ((CurveButton)ctrl).Checkable)
                     {
-                        if (ctrl.GetType() == this.GetType() && ((CurveButton)ctrl).Checkable)
-                        {
-                            ((CurveButton)ctrl).Checked = false;
-                        }
+                        ((CurveButton)ctrl).Checked = false;
                     }
                 }
             }
-            #endregion
         }
+        #endregion
     }
+}
 

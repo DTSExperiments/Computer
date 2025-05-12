@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -21,7 +22,7 @@ namespace UR_MTrack
         [DllImportAttribute("user32.dll")]
         static extern bool ReleaseCapture();
 
-       
+
         #endregion
 
         ExperimentSettings _expsettings;
@@ -32,7 +33,7 @@ namespace UR_MTrack
         }
 
         #region Overrides
-        
+
         /// <summary>
         /// This gives the drop shadow behind the borderless form
         /// </summary>
@@ -71,7 +72,7 @@ namespace UR_MTrack
         }
 
         void BindControls()
-        {            
+        {
             cmbDMSType.DataSource = Extension.BindEnumDescription(typeof(DMSType));
             cmbDMSType.DisplayMember = "Description";
             cmbDMSType.ValueMember = "value";
@@ -87,7 +88,7 @@ namespace UR_MTrack
             _periodsView.PeriodsConfigured += _periodsView_PeriodsConfigured;
             if (_expsettings != null)
             {
-                tbDataPath.Text = _expsettings.Datapath;
+                tbDataPath.Text = _expsettings.DataFolderpath;
                 tbSamplingRate.Text = _expsettings.SamplingRate.ToString();
                 tbFirstName.Text = _expsettings.FirstName;
                 tbLastName.Text = _expsettings.LastName;
@@ -107,12 +108,12 @@ namespace UR_MTrack
             var list = new List<bool>();
             foreach (Control control in tblConfig.Controls)
             {
-                if (control is WMTextBox&&string.IsNullOrEmpty(control.Text))
+                if (control is WMTextBox && string.IsNullOrEmpty(control.Text))
                 {
                     list.Add(false);
                     (control as WMTextBox).Highlight();
                 }
-                else if (control is RichTextBox&&string.IsNullOrEmpty(control.Text))
+                else if (control is RichTextBox && string.IsNullOrEmpty(control.Text))
                 {
                     list.Add(false);
                     (control as RichTextBox).BackColor = Color.FromArgb(255, 192, 128);
@@ -124,7 +125,7 @@ namespace UR_MTrack
         void CollectData()
         {
             _expsettings.TimeStamp = DateTime.Now;
-            _expsettings.Datapath = tbDataPath.Text;
+            _expsettings.DataFolderpath = tbDataPath.Text;
             _expsettings.ExperimentDescription = rtbDescription.Text;
             _expsettings.SamplingRate = tbSamplingRate.GetIntValue();
             _expsettings.ORCID = tbOrcID.Text;
@@ -190,9 +191,9 @@ namespace UR_MTrack
 
         private void btnChangePath_Click(object sender, EventArgs e)
         {
-            var path = new FileFactory().SelectFolderPath("Select new data folder", _expsettings.Datapath);
-            _expsettings.Datapath = path;
-            tbDataPath.Text = path;
+            _expsettings.DataFolderpath = new FileFactory().SelectFolderPath("Select new data folder", _expsettings.DataFolderpath);
+            tbDataPath.Text = _expsettings.DataFolderpath;
+
         }
 
         private void btnShowPeriod_Click(object sender, EventArgs e)
@@ -205,5 +206,14 @@ namespace UR_MTrack
             rtbDescription.BackColor = Color.WhiteSmoke;
         }
 
+        private void btnSetDefault_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CollectData();
+                new FileFactory().SaveSettings(_expsettings, true);
+            }
+            catch (Exception ex) { Log.Append(ex); }
+        }
     }
 }

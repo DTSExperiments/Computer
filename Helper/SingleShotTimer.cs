@@ -100,8 +100,7 @@ namespace UR_MTrack
                 _timer.Enabled = false;
                 _timer.Elapsed -= timer_Elapsed;
             }
-            if (TimerElapsed != null)
-            { TimerElapsed = null; }
+            TimerElapsed = null;
         }
 
         #endregion

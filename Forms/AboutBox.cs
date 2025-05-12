@@ -43,7 +43,6 @@ namespace UR_MTrack
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
-            //this.FadeOut();
         }
 
         #endregion
@@ -55,7 +54,7 @@ namespace UR_MTrack
         {
             get
             {
-                return string.Concat(AssemblyName,"  V", AssemblyVersion); 
+                return string.Concat(AssemblyName," V", AssemblyVersion); 
             }
         }
         public string AssemblyName

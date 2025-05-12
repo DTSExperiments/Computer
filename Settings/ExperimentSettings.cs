@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace UR_MTrack
 {
@@ -12,23 +13,32 @@ namespace UR_MTrack
     /// </summary>
     public class ExperimentSettings
     {
-        public ExperimentSettings() 
-        { 
-            TimeStamp = DateTime.Now; 
-            PeriodCollection=new List<PeriodValues>();  
+        string _datapath;
+        public ExperimentSettings()
+        {
+            TimeStamp = DateTime.Now;
+            PeriodCollection = new List<PeriodValues>();
         }
 
         #region General Meta Data
 
         public DateTime TimeStamp { get; set; }
-        /// <summary>
-        /// Used COM port throughout the experiment.
-        /// </summary>
-        public string COMPort { get; set; }
+        
         /// <summary>
         /// Path to the folder where measurement files are stored.
         /// </summary>
-        public string Datapath { get; set; } 
+        public string DataFolderpath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_datapath)) 
+                { 
+                    _datapath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); 
+                }
+                return _datapath;   
+            }
+            set { _datapath = value; }
+        }
         /// <summary>
         /// Fully qualified path to the currently used meaurement file
         /// </summary>
@@ -54,18 +64,31 @@ namespace UR_MTrack
         #region Experiment Data
 
         public DMSType DMSType { get; set; }
-        public ArenaType Arena { get; set; }        
+        public ArenaType Arena { get; set; }
         public string ExperimentDescription { get; set; }
-        
+
         public string Recording { get; set; }
         public string Analysis { get; set; }
         public string DataModel { get; set; }
         public int Duration { get; set; }
         public int SamplingRate { get; set; }
-        public int PeriodCount { get { return PeriodCollection.Count(); } }
-        
-        public int LaserPWMValue { get; set; }
+        public int PeriodCount { get { return PeriodCollection.Count(); } }        
         public IEnumerable<PeriodValues> PeriodCollection { get; set; }
+
+        #endregion
+
+        #region Data from Adjust-Control
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Velocity { get; set; } = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public RotationMode RotationMode { get; set; } = RotationMode.s;
+
 
         #endregion
     }

@@ -53,8 +53,10 @@ namespace UR_MTrack
             this.tblControlHost = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.label1 = new System.Windows.Forms.Label();
+            this.uCtrlDevControl1 = new UR_MTrack.UCtrlDevControl();
             this.menuStrip1.SuspendLayout();
             this.tblMain.SuspendLayout();
+            this.tblControlHost.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -68,14 +70,15 @@ namespace UR_MTrack
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFiles,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 33);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 35);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(533, 46);
+            this.menuStrip1.Size = new System.Drawing.Size(1103, 46);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -87,34 +90,34 @@ namespace UR_MTrack
             this.tsmOpen,
             this.exitToolStripMenuItem});
             this.tsmFiles.Name = "tsmFiles";
-            this.tsmFiles.Size = new System.Drawing.Size(45, 42);
+            this.tsmFiles.Size = new System.Drawing.Size(66, 42);
             this.tsmFiles.Text = "Files";
             // 
             // tsmNew
             // 
             this.tsmNew.Name = "tsmNew";
-            this.tsmNew.Size = new System.Drawing.Size(177, 22);
+            this.tsmNew.Size = new System.Drawing.Size(265, 36);
             this.tsmNew.Text = "New";
             this.tsmNew.Click += new System.EventHandler(this.tsmNew_Click);
             // 
             // tsmSave
             // 
             this.tsmSave.Name = "tsmSave";
-            this.tsmSave.Size = new System.Drawing.Size(177, 22);
+            this.tsmSave.Size = new System.Drawing.Size(265, 36);
             this.tsmSave.Text = "Save As";
             this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
             // 
             // tsmOpen
             // 
             this.tsmOpen.Name = "tsmOpen";
-            this.tsmOpen.Size = new System.Drawing.Size(177, 22);
+            this.tsmOpen.Size = new System.Drawing.Size(265, 36);
             this.tsmOpen.Text = "Open Experiment";
             this.tsmOpen.Click += new System.EventHandler(this.tsmOpen_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(265, 36);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -124,20 +127,20 @@ namespace UR_MTrack
             this.periodsToolStripMenuItem,
             this.configurationToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(66, 42);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(99, 42);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // periodsToolStripMenuItem
             // 
             this.periodsToolStripMenuItem.Name = "periodsToolStripMenuItem";
-            this.periodsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.periodsToolStripMenuItem.Size = new System.Drawing.Size(235, 36);
             this.periodsToolStripMenuItem.Text = "Periods";
             this.periodsToolStripMenuItem.Click += new System.EventHandler(this.periodsToolStripMenuItem_Click);
             // 
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(235, 36);
             this.configurationToolStripMenuItem.Text = "Configuration";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
@@ -147,7 +150,7 @@ namespace UR_MTrack
             this.aboutToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0);
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(47, 42);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(71, 42);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
@@ -176,7 +179,7 @@ namespace UR_MTrack
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(1066, 742);
+            this.tblMain.Size = new System.Drawing.Size(2207, 1365);
             this.tblMain.TabIndex = 3;
             // 
             // tBarMain
@@ -209,7 +212,7 @@ namespace UR_MTrack
         0.2F,
         1F};
             this.tBarMain.ShowIcon = true;
-            this.tBarMain.Size = new System.Drawing.Size(1066, 33);
+            this.tBarMain.Size = new System.Drawing.Size(2207, 35);
             this.tBarMain.TabIndex = 5;
             this.tBarMain.Titel = "Title Text";
             this.tBarMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
@@ -236,12 +239,11 @@ namespace UR_MTrack
             this.btnAbout.GradientTop = System.Drawing.Color.Transparent;
             this.btnAbout.HighlightColor = System.Drawing.Color.SeaShell;
             this.btnAbout.HighlightThickness = 0;
-            this.btnAbout.Location = new System.Drawing.Point(996, 36);
+            this.btnAbout.Location = new System.Drawing.Point(2137, 38);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.RelPos = new float[] {
         0F,
-        0.1F,
         0.8F,
         1F};
             this.btnAbout.ShowExtLabel = false;
@@ -255,27 +257,30 @@ namespace UR_MTrack
             // 
             this.tblControlHost.AutoSize = true;
             this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblControlHost.ColumnCount = 2;
+            this.tblControlHost.ColumnCount = 3;
             this.tblMain.SetColumnSpan(this.tblControlHost, 2);
             this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControlHost.Controls.Add(this.uCtrlDevControl1, 0, 0);
             this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblControlHost.Location = new System.Drawing.Point(3, 79);
+            this.tblControlHost.Location = new System.Drawing.Point(3, 81);
             this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.tblControlHost.Name = "tblControlHost";
             this.tblControlHost.RowCount = 1;
             this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.Size = new System.Drawing.Size(1060, 637);
+            this.tblControlHost.Size = new System.Drawing.Size(2201, 1258);
             this.tblControlHost.TabIndex = 9;
             // 
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
             this.tblMain.SetColumnSpan(this.statusStrip1, 2);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 720);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1343);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1066, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(2207, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -284,18 +289,31 @@ namespace UR_MTrack
             this.label1.BackColor = System.Drawing.Color.DarkGray;
             this.tblMain.SetColumnSpan(this.label1, 2);
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 719);
+            this.label1.Location = new System.Drawing.Point(0, 1342);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1066, 1);
+            this.label1.Size = new System.Drawing.Size(2207, 1);
             this.label1.TabIndex = 11;
+            // 
+            // uCtrlDevControl1
+            // 
+            this.uCtrlDevControl1.AutoSize = true;
+            this.uCtrlDevControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.uCtrlDevControl1.BackColor = System.Drawing.Color.Transparent;
+            this.uCtrlDevControl1.ConnectBtnState = false;
+            this.uCtrlDevControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.uCtrlDevControl1.Location = new System.Drawing.Point(5, 6);
+            this.uCtrlDevControl1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.uCtrlDevControl1.Name = "uCtrlDevControl1";
+            this.uCtrlDevControl1.Size = new System.Drawing.Size(549, 1246);
+            this.uCtrlDevControl1.TabIndex = 0;
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(1070, 744);
+            this.ClientSize = new System.Drawing.Size(2211, 1367);
             this.ControlBox = false;
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
@@ -312,6 +330,8 @@ namespace UR_MTrack
             this.menuStrip1.PerformLayout();
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
+            this.tblControlHost.ResumeLayout(false);
+            this.tblControlHost.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -337,6 +357,7 @@ namespace UR_MTrack
         private TableLayoutPanel tblControlHost;
         private StatusStrip statusStrip1;
         private Label label1;
+        private UCtrlDevControl uCtrlDevControl1;
     }
 }
 

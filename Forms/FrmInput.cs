@@ -19,6 +19,8 @@ namespace UR_MTrack
         #region WinApi import stuff
         const int WM_NCLBUTTONDOWN = 0xA1;
         const int HT_CAPTION = 0x2;
+        const int CS_DROPSHADOW = 0x20000;
+
         [DllImportAttribute("user32.dll")]
         static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
@@ -27,7 +29,6 @@ namespace UR_MTrack
 
 
         InputType _currenttype;
-        InputType _experimentCreation;
         
         public FrmInput(InputType type)
         {
@@ -44,7 +45,24 @@ namespace UR_MTrack
         public new string Text { get { return tBar.Titel; }set { tBar.Titel = value; } }
 
         #endregion
-               
+
+
+        #region Overrides
+
+        /// <summary>
+        /// This gives the drop shadow behind the borderless form
+        /// </summary>
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle |= CS_DROPSHADOW;
+                return cp;
+            }
+        }
+
+        #endregion
 
         void Initialize()
         {
