@@ -11,12 +11,12 @@
 
 
 
+using Logging;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using Logging;
 
 namespace UR_MTrack
 {
@@ -138,7 +138,7 @@ namespace UR_MTrack
             }
         }
 
-        
+
 
         //[DisplayName("Title Font")]
         [Description("")]
@@ -180,7 +180,7 @@ namespace UR_MTrack
             set
             {
                 btnMaximize.Visible = value;
-                btnMinimize.Visible = value;    
+                btnMinimize.Visible = value;
                 Invalidate();
             }
         }
@@ -190,7 +190,7 @@ namespace UR_MTrack
         [Category("Control Box")]
         public bool AbtVisible
         {
-            get { return  btnAbout.Visible; }
+            get { return btnAbout.Visible; }
             set
             {
                 btnAbout.Visible = value;
@@ -269,7 +269,7 @@ namespace UR_MTrack
                 Invalidate();
             }
         }
-               
+
 
         [DisplayName("Gradient Color")]
         [Description("Control fades, starting from this color to BackColor.")]

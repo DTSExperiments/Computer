@@ -9,12 +9,10 @@
 // 			                        Copyright (c) 2024 Universität Regensburg							
 //***********************************************************************************************************************************
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZedGraph;
 using System.Threading;
 namespace UR_MTrack
 {
@@ -23,21 +21,66 @@ namespace UR_MTrack
     /// </summary>
     public class DataHandler
     {
+      
+        Thread _dataHandlerTh;
         EventWaitHandle _thControl;
-        ConcurrentBag<IEnumerable<byte>> _rawValueCollection;
         List<double> _rawtorque;
         List<double> _rawpixel;
-        Thread _dataHandlerTh;
-        
 
-        public event EventHandler<MeasurementEventArgs> MValuesPrepared;
-        public event EventHandler<DataHandlerEventArgs> ChartValuesPrepared;
+
         public DataHandler()
         {
-            _rawValueCollection = new ConcurrentBag<IEnumerable<byte>>();
             _rawtorque = new List<double>();
             _rawpixel = new List<double>();
-            InitThread();
+            StartTime = DateTime.Now;
+            Signals.DataReceived += Signals_DataReceived;
+        }
+
+        private void Signals_DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            //EnqueueRawValues(e.Bytes);
+            convertList(e.Bytes);
+        }
+
+
+        private void convertList(IEnumerable<byte> bCollection)
+        {
+            short nextValueAD = 0;
+            ushort nextValuePIX = 0;
+            byte[] byteArray = new byte[4];
+            var list = bCollection.ToList();
+
+            while (list.Count >= 5)
+            {
+                try
+                {
+                    if (Convert.ToByte(list[4]) != 0x0A)
+                    {
+                        throw new Exception("LF not found");
+                    }
+
+                    byteArray = list.GetRange(0, 4).ToArray();
+                    list.RemoveRange(0, 5);
+                    BitArray nextValueADBit = new BitArray(byteArray);
+                    if (nextValueADBit[11] == true)
+                    {
+                        nextValueADBit = nextValueADBit.Or(new BitArray(BitConverter.GetBytes(0x0000F000)));
+                    }
+                    nextValueADBit.CopyTo(byteArray, 0);
+                    nextValueAD = BitConverter.ToInt16(byteArray, 0);
+                    nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
+
+
+
+                    //Calculation AD-Values
+                    var t = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
+                    var p = Convert.ToDouble(nextValuePIX);
+
+                    new Signals().OnChartValuesPrepared(this, new DataHandlerEventArgs((DateTime.Now - StartTime).TotalSeconds, t, p));
+
+                }
+                catch (Exception ex) { }
+            }
         }
 
 
@@ -45,40 +88,13 @@ namespace UR_MTrack
 
         public PeriodValues CurrentPeriod { get; set; }
 
-        #endregion
+        public DateTime StartTime { get; set; }
 
+        #endregion
 
         #region Methods
 
-        void InitThread()
-        {
-            _thControl = new EventWaitHandle(true, EventResetMode.ManualReset); //true --> signaled >>thread can continue<<
-            _dataHandlerTh = new Thread(RawDataWorker);
-            _dataHandlerTh.IsBackground = true;
-            _dataHandlerTh.Name = "ThDataHandler";
-            _dataHandlerTh.Start();
-
-        }
-
-
-        void RawDataWorker()
-        {
-            while (_dataHandlerTh.IsAlive)
-            {
-                _thControl.WaitOne(); //waiting for signalling [EWH.Set()] if a reset was called previously.
-                if (_rawValueCollection.TryTake(out var values))
-                {
-                    var t = Convert.ToDouble(((values.ElementAt(0) << 8) | values.ElementAt(1)) * 244.14 * Math.Pow(10, -6));
-                    var p = PixelToDegree((values.ElementAt(2) << 8) | values.ElementAt(3));
-                    _rawtorque.Add(t);
-                    _rawpixel.Add(p);
-                    ChartValuesPrepared?.Invoke(this,new DataHandlerEventArgs((DateTime.Now- CurrentPeriod.StartTime).TotalSeconds,t,p));
-                }
-                Thread.Sleep(1);
-            }
-        }
-
-
+       
         /// <summary>
         /// convert the transmitted pixel to degree of torsion 
         /// </summary>
@@ -121,15 +137,6 @@ namespace UR_MTrack
         }
 
         /// <summary>
-        /// Add raw values to a temporary collection.
-        /// </summary>
-        public void EnqueueRawValues(IEnumerable<byte> values)
-        {
-            if (values.Any())
-            { _rawValueCollection.Add(values); }
-        }
-
-        /// <summary>
         /// Prepare raw values for further processing and clear the buffer.
         /// Averaging torque and location to meet the configured sampling frequency, add the periodnumber and a Timestamp. 
         /// </summary>
@@ -139,14 +146,21 @@ namespace UR_MTrack
             SuspendWorkerTh();
             var values = new MeasurementValues()
             {
-                Timestamp = Math.Round((DateTime.Now - CurrentPeriod.StartTime).TotalSeconds, 0),
+                Timestamp = Math.Round((double)(DateTime.Now - CurrentPeriod.StartTime).Seconds, 2),
                 PeriodNumber = CurrentPeriod.Number,
-                Torque = _rawtorque.Average(),
-                Location = (int)_rawpixel.Average()
+
             };
-            MValuesPrepared?.Invoke(this, new MeasurementEventArgs(values));
+            if (_rawtorque.Count > 0 && _rawpixel.Count > 0)
+            {
+                values.Torque = _rawtorque.Average();
+                values.Location = (int)_rawpixel.Average();
+
+            }
+
             _rawtorque.Clear();
             _rawpixel.Clear();
+
+            new Signals().OnMValuesPrepared(this, new MeasurementEventArgs(values));
             ResumeWorkerTh();
             return values.Timestamp >= CurrentPeriod.Duration;
         }

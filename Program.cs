@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Logging;
+using System;
 using System.Threading;
-using Logging;
+using System.Windows.Forms;
 
 
 namespace UR_MTrack
@@ -22,7 +19,7 @@ namespace UR_MTrack
             Application.ThreadException += new ThreadExceptionEventHandler(thExHandler.Application_ThreadException);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             try
             {
                 Log.CheckDirPath(Properties.Settings.Default.LogfilePath);

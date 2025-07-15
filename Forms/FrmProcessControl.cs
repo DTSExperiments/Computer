@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace UR_MTrack
 {
-    public partial class FrmExperimentControl : Form
+    public partial class FrmProcessControl : Form
     {
         #region WinApi to enable FormMovement
         const int WM_NCLBUTTONDOWN = 0xA1;
@@ -31,20 +25,18 @@ namespace UR_MTrack
         }
         #endregion
 
-        ExperimentState _currentState=ExperimentState.stop;
-       
-        public event EventHandler<ExpControlEventArgs> ExpStateChanged; 
+        ExecutionControl _currentState = ExecutionControl.stop;
 
-        public FrmExperimentControl()
+        public FrmProcessControl()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
         }
-        
+
         public void Show(Point center)
         {
             Location = new Point(center.X - Width / 2, center.Y);
@@ -53,33 +45,36 @@ namespace UR_MTrack
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
-            if (_currentState == ExperimentState.suspend||_currentState == ExperimentState.stop)
-            {                 
-                _currentState = ExperimentState.start;
-                btnStartResume.BackgroundImage=Properties.Resources.Pause;
-                ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.start));
+            if (_currentState == ExecutionControl.stop)
+            {
+                new Signals().OnProcessControl(this, ExecutionControl.start);
+                _currentState = ExecutionControl.start;
+                btnStartResume.BackgroundImage = Properties.Resources.Pause;
                 btnStartResume.BackColor = Color.Green;
             }
             else
-            {                
-                _currentState = ExperimentState.suspend;    
-                btnStartResume.BackgroundImage=Properties.Resources.Play;
-                ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.suspend));
+            {
+                new Signals().OnProcessControl(this, ExecutionControl.suspend);
+                _currentState = ExecutionControl.suspend;
+                btnStartResume.BackgroundImage = Properties.Resources.Play;
                 btnStartResume.BackColor = Color.Transparent;
             }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            _currentState = ExperimentState.stop;
-            btnStartResume.BackgroundImage=Properties.Resources.Play;
-            btnStartResume.BackColor = Color.Transparent;
-            ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.stop));            
+            if (_currentState == ExecutionControl.start || _currentState == ExecutionControl.suspend)
+            {
+                new Signals().OnProcessControl(this, ExecutionControl.stop);
+                _currentState = ExecutionControl.stop;
+                btnStartResume.BackgroundImage = Properties.Resources.Play;
+                btnStartResume.BackColor = Color.Transparent;
+            }
         }
 
         private void btnPunish_Click(object sender, EventArgs e)
         {
-            ExpStateChanged?.Invoke(this, new ExpControlEventArgs(ExperimentState.punish));
+            new Signals().OnProcessControl(this, ExecutionControl.punish);
         }
     }
 }

@@ -1,0 +1,23 @@
+{
+  "TimeStamp": "2025-05-07T10:26:05.8392874+02:00",
+  "DataFolderpath": "C:\\",
+  "Filepath": null,
+  "ORCID": null,
+  "FirstName": null,
+  "LastName": null,
+  "FlyName": null,
+  "FlyDescription": null,
+  "FlyBase": null,
+  "DMSType": 0,
+  "Arena": 0,
+  "ExperimentDescription": null,
+  "Recording": null,
+  "Analysis": null,
+  "DataModel": null,
+  "Duration": 20,
+  "SamplingRate": 60,
+  "PeriodCount": 0,
+  "PeriodCollection": [],
+  "Velocity": 0,
+  "RotationMode": 0
+}

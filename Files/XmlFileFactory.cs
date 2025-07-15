@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -16,13 +15,12 @@ namespace UR_MTrack
     public class XmlFileFactory : IDisposable
     {
         ExperimentSettings _settings;
-        
+
 
         public XmlFileFactory() { }
         public XmlFileFactory(ExperimentSettings settings)
         {
             _settings = settings;
-            _settings.Filepath = GetFileName(_settings.DataFolderpath, _settings.FlyName);
         }
 
 
@@ -39,6 +37,7 @@ namespace UR_MTrack
                 doc.Add(header);
                 doc.Root.Add(sequence);
                 doc.Root.Add(timeSeries);
+                doc.Save(_settings.Filepath);
                 return doc;
             }
             catch (Exception ex) { Log.Append(ex); }
@@ -78,16 +77,25 @@ namespace UR_MTrack
         /// where >>nn<< represents a file counter 
         /// </summary>
         /// <returns></returns>
-        string GetFileName(string folderPath, string flyName)
+        public string GetFileName(string folderPath, string flyName)
         {
             // Get all XML files in the directory and extract the int-counter from filename and deliver the max-value
-            var max = Directory.GetFiles(folderPath, "*.xml")
-                                    .Where(f => f.Contains(flyName))
-                                    .Select(f => Path.GetFileNameWithoutExtension(f))
-                                    .Select(str => str.Substring(str.Length - 2).ToNumberOnly()).Max();
-            return Path.Combine(folderPath, string.Format("{0}-{1}{2}", flyName, (max + 1).ToString("00"), ".xml"));
+            var nr = GetFileCount(folderPath, flyName);
+
+            return Path.Combine(folderPath, string.Format("{0}-{1}{2}", flyName, (nr + 1).ToString("00"), ".xml"));
         }
 
+        int GetFileCount(string folderPath, string flyName)
+        {
+            try
+            {
+                return Directory.GetFiles(folderPath, "*.xml")
+                            .Where(f => f.Contains(flyName))
+                            .Select(f => Path.GetFileNameWithoutExtension(f))
+                            .Select(str => str.Substring(str.Length - 2).ToNumberOnly()).Max();
+            }
+            catch (Exception ex) { return 0; }
+        }
 
         XElement BuildXMLHeader()
         {
@@ -137,7 +145,6 @@ namespace UR_MTrack
                         new XElement("coup_coeff", period.CoupCoeff.ToString()),
                         new XElement("contingency", period.Contingency.ToString())
                     );
-
                     // Add the constructed <period> element to the root <sequence> element
                     seqElement.Add(periodElement);
                 }

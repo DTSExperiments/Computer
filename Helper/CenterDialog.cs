@@ -11,12 +11,12 @@
 
 
 using System;
-using System.Text;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows.Forms;
 
-class CenterDialog : IDisposable 
+class CenterDialog : IDisposable
 {
     private readonly IWin32Window owner;
     private readonly HookProc hookProc;
@@ -39,7 +39,7 @@ class CenterDialog : IDisposable
     public CenterDialog(IWin32Window owner)
     {
         if (owner == null) throw new ArgumentNullException("No owner defined");
-         
+
         this.owner = owner;
         hookProc = DialogHookProc;
 
@@ -198,7 +198,7 @@ class CenterDialog : IDisposable
         public uint message;
         public IntPtr hwnd;
     };
-    
+
 }
 
 [Flags]

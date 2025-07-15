@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace UR_MTrack
 {
+    /// <summary>
+    /// Distinguish how the serialport retrieves data.
+    /// Auto: The serialport retrieves data eventdriven.
+    /// DataPoll: The serialport retrieves data by reading the serial buffer.
+    /// </summary>
+    public enum DataMode
+    {
+        Auto,
+        DataPoll
+    }
+
     public enum DeviceStatus
     {
         [Description("Off")]
@@ -19,19 +25,19 @@ namespace UR_MTrack
         connected
     }
 
-    public enum ExperimentState
+    public enum ExecutionControl
     {
-        [Description("Running")]
+        [Description("Start")]
         start,
-        [Description("Stopped")]
+        [Description("Stop")]
         stop,
-        [Description("Suspended")]
+        [Description("Suspend")]
         suspend,
         [Description("Resume")]
         resume,
         [Description("Laser Trigger")]
         punish
-        
+
     }
 
     public enum ColorPattern
@@ -46,7 +52,7 @@ namespace UR_MTrack
         B,
         [Description("Cyan")]
         D
-        
+
     }
 
     public enum DisplayPattern

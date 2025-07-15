@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
-namespace UR_MTrack
+﻿namespace UR_MTrack
 {
     /// <summary>
     /// Valuecollection of experiment metadata
     /// </summary>
     public class AppSettings
     {
-        public AppSettings()        {}
+        public AppSettings() { }
 
+        public SerialPortSettings COMPortSettings { get; set; } = new SerialPortSettings();
 
-        /// <summary>
-        /// Used COM port throughout the experiment.
-        /// </summary>
-        public string COMPort { get; set; } = "COM1";
-        public SerialPortSettings COMPortSettings { get; set; }=new SerialPortSettings();
-
-        public bool AutoConnect { get; set; }=true;
+        public bool AutoConnect { get; set; } = true;
 
         /// <summary>
         /// 

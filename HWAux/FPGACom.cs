@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UR_MTrack
 {
-    public class FPGACom
+    public static class FPGACom
     {
+        public static string GetStartCommand()
+        {
+            return "S";
+        }
+        public static string GetStopCommand()
+        {
+            return "S";
+        }
+
         /// <summary>
         /// returns the command string to either turn the laser on or off
         /// IMPORTANT!!!  Convert the value from NumUpDown with following line.....
@@ -15,10 +21,9 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="pwmValue"></param>
         /// <returns></returns>
-        public string GetLaserCommand(int pwmValue)
+        public static byte[] GetLaserCommand(int pwmValue)
         {
-            var dval =Convert.ToChar((int)Math.Round((double)pwmValue * 2.55, 0));
-            return string.Format("L{0}", dval);
+            return new byte[1] { (byte)Math.Floor(pwmValue * 2.55) };
         }
 
 
@@ -27,9 +32,9 @@ namespace UR_MTrack
         /// </summary>
         /// <param name="pwmValue"></param>
         /// <returns></returns>
-        public string GetRotateCommand(RotationMode rv, byte velocity)
+        public static char GetRotateCommand(byte velocity)
         {
-            return string.Format("{0}{1}", rv.ToString(), (char)velocity);
+            return Convert.ToChar(velocity);
         }
 
 
@@ -39,7 +44,7 @@ namespace UR_MTrack
         /// <param name="dispat"></param>
         /// <param name="colpat"></param>
         /// <returns></returns>
-        public string GetPatternCommand(DisplayPattern dispat, ColorPattern colpat)
+        public static string GetPatternCommand(DisplayPattern dispat, ColorPattern colpat)
         {
             return string.Format("{0}{1}", (int)dispat, colpat.ToString());
         }

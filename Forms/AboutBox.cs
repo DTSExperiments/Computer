@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace UR_MTrack
-{ 
+{
     partial class AboutBox : Form
     {
         const int CS_DROPSHADOW = 0x20000;
@@ -54,7 +51,7 @@ namespace UR_MTrack
         {
             get
             {
-                return string.Concat(AssemblyName," V", AssemblyVersion); 
+                return string.Concat(AssemblyName, " V", AssemblyVersion);
             }
         }
         public string AssemblyName

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO.Ports;
 
 namespace UR_MTrack
 {
@@ -16,7 +11,7 @@ namespace UR_MTrack
         public Handshake HandShake { get; set; } = Handshake.None;
         public new string ToString()
         {
-            return string.Format("PortName: {0}\nBaudRate: {1}\nStopBits: {2}\nParity: {3}\nHandShake: {4}", 
+            return string.Format("PortName: {0}\nBaudRate: {1}\nStopBits: {2}\nParity: {3}\nHandShake: {4}",
                                     Portname, BaudRate, StopBits, Parity, HandShake);
         }
     }

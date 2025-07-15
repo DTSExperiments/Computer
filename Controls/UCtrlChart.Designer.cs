@@ -1,4 +1,4 @@
-﻿namespace UR_MTrack.Controls
+﻿namespace UR_MTrack
 {
     partial class UCtrlChart
     {
@@ -53,9 +53,9 @@
             this.tblMain.Margin = new System.Windows.Forms.Padding(0);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 2;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(637, 477);
+            this.tblMain.Size = new System.Drawing.Size(1770, 1017);
             this.tblMain.TabIndex = 0;
             // 
             // _valueszgc
@@ -74,7 +74,7 @@
             this._valueszgc.ScrollMinX = 0D;
             this._valueszgc.ScrollMinY = 0D;
             this._valueszgc.ScrollMinY2 = 0D;
-            this._valueszgc.Size = new System.Drawing.Size(425, 477);
+            this._valueszgc.Size = new System.Drawing.Size(1453, 1017);
             this._valueszgc.TabIndex = 0;
             this._valueszgc.UseExtendedPrintDialog = true;
             // 
@@ -88,14 +88,14 @@
             this.tblHisto.Controls.Add(this._histozgc, 0, 0);
             this.tblHisto.Controls.Add(this.flowHisto, 0, 1);
             this.tblHisto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblHisto.Location = new System.Drawing.Point(428, 0);
-            this.tblHisto.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tblHisto.Location = new System.Drawing.Point(1457, 0);
+            this.tblHisto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 5);
             this.tblHisto.Name = "tblHisto";
             this.tblHisto.RowCount = 2;
             this.tblMain.SetRowSpan(this.tblHisto, 2);
-            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 308F));
             this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblHisto.Size = new System.Drawing.Size(206, 474);
+            this.tblHisto.Size = new System.Drawing.Size(309, 1012);
             this.tblHisto.TabIndex = 2;
             // 
             // _histozgc
@@ -112,29 +112,30 @@
             this._histozgc.ScrollMinX = 0D;
             this._histozgc.ScrollMinY = 0D;
             this._histozgc.ScrollMinY2 = 0D;
-            this._histozgc.Size = new System.Drawing.Size(206, 200);
+            this._histozgc.Size = new System.Drawing.Size(309, 308);
             this._histozgc.TabIndex = 1;
             this._histozgc.UseExtendedPrintDialog = true;
             // 
             // flowHisto
             // 
             this.flowHisto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.flowHisto.Location = new System.Drawing.Point(3, 203);
+            this.flowHisto.Location = new System.Drawing.Point(4, 313);
+            this.flowHisto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.flowHisto.Name = "flowHisto";
-            this.flowHisto.Size = new System.Drawing.Size(200, 268);
+            this.flowHisto.Size = new System.Drawing.Size(300, 412);
             this.flowHisto.TabIndex = 2;
             // 
             // UCtrlChart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UCtrlChart";
-            this.Size = new System.Drawing.Size(637, 477);
+            this.Size = new System.Drawing.Size(1770, 1017);
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.tblHisto.ResumeLayout(false);

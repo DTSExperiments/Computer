@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UR_MTrack
+﻿namespace UR_MTrack
 {
     public class MeasurementValues
     {
@@ -21,12 +15,12 @@ namespace UR_MTrack
         /// <summary>
         /// pixelvalue recalculated to degree (average to fulfill the sampling rate requirement) 
         /// </summary>
-        public int Location { get;  set; }
-       
+        public int Location { get; set; }
+
         /// <summary>
         /// total seconds since period measurement started  
         /// </summary>
-        public double Timestamp {  get; set; }
+        public double Timestamp { get; set; }
 
         public override string ToString()
         {

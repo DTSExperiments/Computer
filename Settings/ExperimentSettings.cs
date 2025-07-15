@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace UR_MTrack
 {
@@ -23,7 +19,7 @@ namespace UR_MTrack
         #region General Meta Data
 
         public DateTime TimeStamp { get; set; }
-        
+
         /// <summary>
         /// Path to the folder where measurement files are stored.
         /// </summary>
@@ -31,11 +27,11 @@ namespace UR_MTrack
         {
             get
             {
-                if (string.IsNullOrEmpty(_datapath)) 
-                { 
-                    _datapath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); 
+                if (string.IsNullOrEmpty(_datapath))
+                {
+                    _datapath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 }
-                return _datapath;   
+                return _datapath;
             }
             set { _datapath = value; }
         }
@@ -72,24 +68,10 @@ namespace UR_MTrack
         public string DataModel { get; set; }
         public int Duration { get; set; }
         public int SamplingRate { get; set; }
-        public int PeriodCount { get { return PeriodCollection.Count(); } }        
+        public int PeriodCount { get { return PeriodCollection.Count(); } }
         public IEnumerable<PeriodValues> PeriodCollection { get; set; }
 
         #endregion
 
-        #region Data from Adjust-Control
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public int Velocity { get; set; } = 0;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public RotationMode RotationMode { get; set; } = RotationMode.s;
-
-
-        #endregion
     }
 }

@@ -31,7 +31,7 @@ namespace UR_MTrack
 
         #region Properties
 
-       
+
         public bool IsActive { get; private set; }
         #endregion
 
@@ -68,7 +68,7 @@ namespace UR_MTrack
             catch (Exception) { }
         }
         public void Restart()
-        {            
+        {
             try
             {
                 if (_timer != null)

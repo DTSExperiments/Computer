@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logging;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,6 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Logging;
 
 namespace Extensions
 {
@@ -15,12 +15,9 @@ namespace Extensions
     {
         public static T Next<T>(this IEnumerable<T> src, T current)
         {
-            if (current == null) { return (src as List<T>)[0]; }
-            var collection = (src as List<T>);
-            var index = collection.IndexOf(current);
-            if (collection.Count == collection.IndexOf(current))
-            { return default; }
-            return collection[index+1];
+            if (src.IsEmpty()) { return default; }
+            else if (current.Equals(default)) { return (src.ElementAt(0)); }
+            return src.ElementAt((src.ToList().IndexOf(current)) + 1);
         }
 
         public static void AddRange<T>(this ConcurrentBag<T> bag, IEnumerable<T> toAdd)
@@ -47,7 +44,7 @@ namespace Extensions
         /// <returns></returns>
         public static IEnumerable<T> ToList<T>(this Control.ControlCollection ctrlcollection)
         {
-            return ctrlcollection.Cast<T>().ToList();           
+            return ctrlcollection.Cast<T>().ToList();
         }
 
         /// <summary>

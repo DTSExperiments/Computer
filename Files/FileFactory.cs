@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Logging;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.Xml.Linq;
-using Logging;
 using System.Linq;
-using Extensions;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace UR_MTrack
 {
@@ -50,8 +49,8 @@ namespace UR_MTrack
             else
             {
                 Log.Append("Appsettings not found.");
-                MessageBox.Show("Appsettings not found.","File Not Found",MessageBoxButtons.OK, MessageBoxIcon.Error); 
-            }            
+                MessageBox.Show("Appsettings not found.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return new AppSettings();
         }
 
@@ -82,7 +81,10 @@ namespace UR_MTrack
                 }
                 else
                 {
-                    throw new FileNotFoundException("Experiment settings not found.");
+                    content = OpenFile(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                                      "Load Experiment Settings",
+                                      "Json(*.json)|*.json|All Files (*.*)|*.*");
+                    //throw new FileNotFoundException("Experiment settings not found.");
                 }
                 return DeserializeSettings<ExperimentSettings>(content);
             }
@@ -124,7 +126,7 @@ namespace UR_MTrack
         {
             try
             {
-                new XmlFileFactory().BuildMeasFile().Save(_settings.Filepath);
+                new XmlFileFactory(_settings).BuildMeasFile();
                 Log.Append("XML file created successfully.", LogType.Success, false);
             }
             catch (Exception ex)
@@ -134,28 +136,21 @@ namespace UR_MTrack
         }
 
 
-        public void AppendPeriodValues(string line)
+        public void AppendPeriodValues(string path, string line)
         {
             try
             {
-                XDocument doc = XDocument.Load(_settings.Filepath);
-                XElement element = doc.Descendants("csv_data").FirstOrDefault();
-
-                if (!element.Equals(@""))
-                {
-                    element.Value = element.Value + line + Environment.NewLine;
-                    doc.Save(_settings.Filepath);
-                }
-                else
-                {
-                    Log.Append(string.Format("XElement \"{0}\" not found.", "csv_data"));
-                }
+                XElement elementCollection = XElement.Load(path); 
+                var value = elementCollection.Element("csv_data").Value;
+                elementCollection.Element("csv_data").Value= value + Environment.NewLine + line;
+                elementCollection.Save(path);
             }
             catch (Exception ex)
             {
                 Log.Append(string.Format("An error occurred while changing value for XElement \"{0}\"\nStacktrace:\n{1}", "csv_data", ex.StackTrace));
             }
         }
+                
 
 
         /// <summary>
@@ -174,7 +169,7 @@ namespace UR_MTrack
                 catch (Exception)
                 {
                     Log.Append("Failed to create directory.");
-                    MessageBox.Show("Failed to create directory.\n"+path, "Directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Failed to create directory.\n" + path, "Directory", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             return string.Empty;

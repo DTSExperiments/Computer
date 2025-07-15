@@ -88,7 +88,6 @@
             this.btnClearLog.Name = "btnClearLog";
             this.btnClearLog.RelPos = new float[] {
         0F,
-        0.3F,
         0.9F,
         1F};
             this.btnClearLog.ShowExtLabel = false;

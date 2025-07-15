@@ -1,6 +1,6 @@
 ﻿namespace UR_MTrack
 {
-    partial class FrmExperimentControl
+    partial class FrmProcessControl
     {
         /// <summary>
         /// Required designer variable.

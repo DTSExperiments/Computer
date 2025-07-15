@@ -23,7 +23,7 @@ namespace UR_MTrack
 
         #endregion
 
-        public event EventHandler<IEnumerable<PeriodValues>> PeriodsConfigured;
+
         public FrmPeriodsView()
         {
             InitializeComponent();
@@ -71,19 +71,18 @@ namespace UR_MTrack
 
         IEnumerable<PeriodValues> BuildPeriods(int cnt)
         {
-            var periods=new List<PeriodValues>();  
+            var periods = new List<PeriodValues>();
             for (int i = 1; i <= cnt; i++)
             {
                 periods.Add(new PeriodValues(i));
             }
-            return periods;    
+            return periods;
         }
 
-       
+
         void PopulatePeriodCtrls(IEnumerable<PeriodValues> valCollection)
         {
             flpCtrlHost.SuspendLayout();
-
             if (flpCtrlHost.Controls.Count > 0) { flpCtrlHost.Controls.Clear(); }
             foreach (var values in valCollection)
             {
@@ -91,9 +90,9 @@ namespace UR_MTrack
                 ctrl.PeriodChanged += PeriodValuesChanged;
                 flpCtrlHost.Controls.Add(ctrl);
             }
-
             flpCtrlHost.ResumeLayout();
         }
+
 
         /// <summary>
         /// Set same values for periods with greater Id
@@ -137,14 +136,13 @@ namespace UR_MTrack
 
         void DeleteSelected()
         {
-            var controls=flpCtrlHost.Controls.Cast<UCtrlPeriod>().ToList();
+            var controls = flpCtrlHost.Controls.Cast<UCtrlPeriod>().ToList();
             controls.RemoveAll(p => p.Selected);
             controls.ForEach(p => p.Period.Number = controls.IndexOf(p) + 1);
-            foreach(var ctrl in controls)
+            foreach (var ctrl in controls)
             { ctrl.BindControls(); }
             flpCtrlHost.Controls.Clear();
-            flpCtrlHost.Controls.AddRange(controls.ToArray());  
-            
+            flpCtrlHost.Controls.AddRange(controls.ToArray());
         }
 
 
@@ -165,7 +163,7 @@ namespace UR_MTrack
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            PeriodsConfigured?.Invoke(this, GetPeriodValueCollection());
+            new Signals().OnPeriodsConfigured(this, GetPeriodValueCollection());
         }
 
         private void btnCreatePeriod_Click(object sender, EventArgs e)
@@ -196,8 +194,8 @@ namespace UR_MTrack
         {
             if (flpCtrlHost.Controls.Count > 0)
             {
-                var dlgre = MessageBox.Show("Periods will be deleted. \nContinue?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (dlgre == DialogResult.Yes) { flpCtrlHost.Controls.Clear(); }
+                var dlgres = MessageBox.Show("Periods will be deleted. \nContinue?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (dlgres == DialogResult.Yes) { flpCtrlHost.Controls.Clear(); }
                 else { return; }
             }
             var path = new FileFactory().SelectFilePath("Open file", "XML files(.xml) | *.xml");

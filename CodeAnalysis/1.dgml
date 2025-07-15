@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph ButterflyMode="True" GraphDirection="RightToLeft" Layout="Sugiyama" NeighborhoodDistance="7" ZoomLevel="-1" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="CenterDialog" Category="CodeSchema_Class" Bounds="478.512917000149,103.388053593455,110.443333333333,26" Label="CenterDialog" UseManualLocation="True" />
+    <Node Id="Extensions" Category="CodeSchema_Namespace" Bounds="335.889483666815,120.897284719309,112.623333333333,25" Group="Collapsed" Label="Extensions" UseManualLocation="True" />
+    <Node Id="Extensions.Extension" Category="CodeSchema_Class" Bounds="540.846666666667,40,91.5299999999997,26" Label="Extension" UseManualLocation="True" />
+    <Node Id="Helper" Category="CodeSchema_Namespace" Bounds="184.103333333333,442.125,141.683333333333,86" Group="Expanded" Label="Helper" Visibility="Hidden" />
+    <Node Id="Logging" Category="CodeSchema_Namespace" Bounds="705.803044358549,-139.293317419353,244.516666666667,86" Group="Expanded" Label="Logging" UseManualLocation="True" />
+    <Node Id="Logging.Log" Category="CodeSchema_Class" Bounds="869.573028082508,-99.2931174194534,60.7466666666669,26" Label="Log" />
+    <Node Id="Logging.LogEventArgs" Category="CodeSchema_Class" Bounds="725.803060634591,-99.2931174194534,113.77,26" Label="LogEventArgs" />
+    <Node Id="Properties" Category="CodeSchema_Namespace" Bounds="20,442.125,134.103333333333,142" Group="Expanded" Label="Properties" Visibility="Hidden" />
+    <Node Id="UR_MTrack" Category="CodeSchema_Namespace" Bounds="849.471792015922,162.326665745783,475.713333333333,338" Group="Expanded" Label="UR_MTrack" LayoutSettings="List" UseManualLocation="True" />
+    <Node Id="UR_MTrack.AboutBox" Category="CodeSchema_Class" Bounds="618.956350333481,103.388053593455,93.0966666666664,26" Label="AboutBox" UseManualLocation="True" />
+    <Node Id="UR_MTrack.AppSettings" Category="CodeSchema_Class" Bounds="479.439683666814,159.388053593455,105.486666666667,26" Label="AppSettings" UseManualLocation="True" />
+    <Node Id="UR_MTrack.ComInterface" Category="CodeSchema_Class" Bounds="337.459583666814,175.897284719309,111.98,26" Label="ComInterface" UseManualLocation="True" />
+    <Node Id="UR_MTrack.CurveButton" Category="CodeSchema_Class" Bounds="855.471792015922,188.326665745783,107.04,26" Label="CurveButton" />
+    <Node Id="UR_MTrack.DataHandler" Category="CodeSchema_Class" Bounds="855.471792015922,216.326665745783,107.533333333333,26" Label="DataHandler" />
+    <Node Id="UR_MTrack.DataHandlerEventArgs" Category="CodeSchema_Class" Bounds="855.471792015922,244.326665745783,160.556666666667,26" Label="DataHandlerEventArgs" />
+    <Node Id="UR_MTrack.DataReceivedEventArgs" Category="CodeSchema_Class" Bounds="855.471792015922,272.326665745783,165.636666666667,26" Label="DataReceivedEventArgs" />
+    <Node Id="UR_MTrack.ExperimentDirector" Category="CodeSchema_Class" Bounds="530.218366533437,215.388053593455,143.04,26" Label="ExperimentDirector" UseManualLocation="True" />
+    <Node Id="UR_MTrack.ExperimentSettings" Category="CodeSchema_Class" Bounds="855.471792015922,300.326665745783,143.096666666667,26" Label="ExperimentSettings" />
+    <Node Id="UR_MTrack.FPGACom" Category="CodeSchema_Class" Bounds="855.471792015922,328.326665745783,94.1166666666668,26" Label="FPGACom" />
+    <Node Id="UR_MTrack.FileFactory" Category="CodeSchema_Class" Bounds="614.926450333481,159.388053593455,97.126666666667,26" Label="FileFactory" UseManualLocation="True" />
+    <Node Id="UR_MTrack.FrmExperimentConfig" Category="CodeSchema_Class" Bounds="531.455662712085,327.388053593455,155.806666666667,26" Label="FrmExperimentConfig" UseManualLocation="True" />
+    <Node Id="UR_MTrack.FrmInput" Category="CodeSchema_Class" Bounds="855.471792015922,356.326665745783,89.2633333333333,26" Label="FrmInput" />
+    <Node Id="UR_MTrack.FrmPeriodsView" Category="CodeSchema_Class" Bounds="536.778114207259,-8.61194640654517,125.503333333333,26" Label="FrmPeriodsView" UseManualLocation="True" />
+    <Node Id="UR_MTrack.FrmProcessControl" Category="CodeSchema_Class" Bounds="571.326450333481,47.3880535934548,140.726666666667,26" Label="FrmProcessControl" UseManualLocation="True" />
+    <Node Id="UR_MTrack.FrmSplashScreen" Category="CodeSchema_Class" Bounds="472.683017000147,271.388053593455,131.126666666667,26" Label="FrmSplashScreen" UseManualLocation="True" />
+    <Node Id="UR_MTrack.GradientPanel" Category="CodeSchema_Class" Bounds="855.471792015922,384.326665745783,115.01,26" Label="GradientPanel" />
+    <Node Id="UR_MTrack.Helper.FakeValGen" Category="CodeSchema_Class" Bounds="204.103333333333,482.125,101.683333333333,26" Label="FakeValGen" Visibility="Hidden" />
+    <Node Id="UR_MTrack.Main" Category="CodeSchema_Class" Bounds="742.053117000148,103.388053593455,67.5799999999999,26" Label="Main" NeighborhoodCenter="True" UseManualLocation="True" />
+    <Node Id="UR_MTrack.MeasurementEventArgs" Category="CodeSchema_Class" Bounds="855.471792015922,412.326665745783,166.986666666667,26" Label="MeasurementEventArgs" />
+    <Node Id="UR_MTrack.MeasurementTimer" Category="CodeSchema_Class" Bounds="855.471792015922,440.326665745783,143.943333333333,26" Label="MeasurementTimer" />
+    <Node Id="UR_MTrack.MeasurementValues" Category="CodeSchema_Class" Bounds="855.471792015922,468.326665745783,147.71,26" Label="MeasurementValues" />
+    <Node Id="UR_MTrack.OrientedTextLabel" Category="CodeSchema_Class" Bounds="1024.45845868259,188.326665745783,136.563333333333,26" Label="OrientedTextLabel" />
+    <Node Id="UR_MTrack.PatternEventArgs" Category="CodeSchema_Class" Bounds="1024.45845868259,216.326665745783,131.813333333333,26" Label="PatternEventArgs" />
+    <Node Id="UR_MTrack.PeriodChangedEventArgs" Category="CodeSchema_Class" Bounds="1024.45845868259,244.326665745783,175.28,26" Label="PeriodChangedEventArgs" />
+    <Node Id="UR_MTrack.PeriodValues" Category="CodeSchema_Class" Bounds="1024.45845868259,272.326665745783,108.476666666667,26" Label="PeriodValues" />
+    <Node Id="UR_MTrack.Program" Category="CodeSchema_Class" Bounds="1457.69666666667,155.375,86.6066666666666,26" Label="Program" Visibility="Hidden" />
+    <Node Id="UR_MTrack.Properties.Resources" Category="CodeSchema_Class" Bounds="40,538.125,94.1033333333334,26" Label="Resources" Visibility="Hidden" />
+    <Node Id="UR_MTrack.Properties.Settings" Category="CodeSchema_Class" Bounds="40,482.125,83.64,26" Label="Settings" Visibility="Hidden" />
+    <Node Id="UR_MTrack.RotateEventArgs" Category="CodeSchema_Class" Bounds="1024.45845868259,300.326665745783,128.396666666667,26" Label="RotateEventArgs" />
+    <Node Id="UR_MTrack.SerialPortSettings" Category="CodeSchema_Class" Bounds="1024.45845868259,328.326665745783,133.93,26" Label="SerialPortSettings" />
+    <Node Id="UR_MTrack.Signals" Category="CodeSchema_Class" Bounds="633.809783666814,271.388053593455,78.2433333333333,26" Label="Signals" UseManualLocation="True" />
+    <Node Id="UR_MTrack.SingleShotTimer" Category="CodeSchema_Class" Bounds="355.786666666667,442.125,127.56,26" Label="SingleShotTimer" Visibility="Hidden" />
+    <Node Id="UR_MTrack.ThreadExceptionHandler" Category="CodeSchema_Class" Bounds="513.346666666667,442.125,170.783333333333,26" Label="ThreadExceptionHandler" Visibility="Hidden" />
+    <Node Id="UR_MTrack.TitleBar" Category="CodeSchema_Class" Bounds="1024.45845868259,356.326665745783,80.6033333333335,26" Label="TitleBar" />
+    <Node Id="UR_MTrack.TraceView" Category="CodeSchema_Class" Bounds="2474.17333333333,270.75,93.6533333333336,26" Label="TraceView" Visibility="Hidden" />
+    <Node Id="UR_MTrack.UCtrlChart" Category="CodeSchema_Class" Bounds="1024.45845868259,384.326665745783,96.3866666666668,26" Label="UCtrlChart" />
+    <Node Id="UR_MTrack.UCtrlDevControl" Category="CodeSchema_Class" Bounds="1024.45845868259,412.326665745783,127.683333333333,26" Label="UCtrlDevControl" />
+    <Node Id="UR_MTrack.UCtrlPeriod" Category="CodeSchema_Class" Bounds="1024.45845868259,440.326665745783,101.55,26" Label="UCtrlPeriod" />
+    <Node Id="UR_MTrack.WMTextBox" Category="CodeSchema_Class" Bounds="1024.45845868259,468.326665745783,103.37,26" Label="WMTextBox" />
+    <Node Id="UR_MTrack.XmlFileFactory" Category="CodeSchema_Class" Bounds="1201.73845868259,188.326665745783,117.446666666667,26" Label="XmlFileFactory" />
+  </Nodes>
+  <Links>
+    <Link Source="Extensions" Target="Extensions.Extension" Category="Contains" />
+    <Link Source="Helper" Target="UR_MTrack.Helper.FakeValGen" Category="Contains" />
+    <Link Source="Logging" Target="Logging.Log" Category="Contains" />
+    <Link Source="Logging" Target="Logging.LogEventArgs" Category="Contains" />
+    <Link Source="Logging.Log" Target="Logging.LogEventArgs" Category="Uses" Bounds="848.573059082031,-86.2933044433594,21,0" />
+    <Link Source="Properties" Target="UR_MTrack.Properties.Resources" Category="Contains" />
+    <Link Source="Properties" Target="UR_MTrack.Properties.Settings" Category="Contains" />
+    <Link Source="UR_MTrack" Target="Helper" Category="Contains" />
+    <Link Source="UR_MTrack" Target="Properties" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.CurveButton" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.DataHandler" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.DataHandlerEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.DataReceivedEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.ExperimentSettings" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.FPGACom" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.FrmInput" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.GradientPanel" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.MeasurementEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.MeasurementTimer" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.MeasurementValues" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.OrientedTextLabel" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.PatternEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.PeriodChangedEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.PeriodValues" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.Program" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.RotateEventArgs" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.SerialPortSettings" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.SingleShotTimer" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.ThreadExceptionHandler" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.TitleBar" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.TraceView" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.UCtrlChart" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.UCtrlDevControl" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.UCtrlPeriod" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.WMTextBox" Category="Contains" />
+    <Link Source="UR_MTrack" Target="UR_MTrack.XmlFileFactory" Category="Contains" />
+    <Link Source="UR_MTrack.AboutBox" Target="UR_MTrack.TitleBar" Category="Composes" Bounds="686.024764399866,129.388053593455,350.612569943619,222.122099253032" Visibility="Hidden" />
+    <Link Source="UR_MTrack.AppSettings" Target="UR_MTrack.SerialPortSettings" Category="Composes" Bounds="575.217137935528,185.388028593455,464.556725099099,140.336023950777" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ComInterface" Target="Logging.Log" Category="Uses" Bounds="417.376489118888,-68.9965551332399,450.734842176356,244.893889852549" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ComInterface" Target="UR_MTrack.DataReceivedEventArgs" Category="Composes" Bounds="449.439583666814,198.806799656518,406.536274867943,71.9513656279261" />
+    <Link Source="UR_MTrack.ComInterface" Target="UR_MTrack.FPGACom" Category="Uses" Bounds="436.866733091437,201.897334719309,413.624433186585,123.847781410912" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ComInterface" Target="UR_MTrack.SerialPortSettings" Category="Uses" Bounds="448.629330864526,200.947946142791,574.474366971626,125.458482879983" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ComInterface" Target="UR_MTrack.Signals" Category="Composes" Bounds="359.128954862007,158.799679447082,573.557614286552,227.152009980581" Visibility="Hidden" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.DataHandlerEventArgs" Category="Composes" Bounds="397.6337890625,239.0625,26.3662109375,80.375" Visibility="Hidden" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.DataReceivedEventArgs" Category="Uses" Bounds="1049.08855926153,206.499980952376,35.8438218111535,24.8695053024956" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.MeasurementEventArgs" Category="Composes" Bounds="198.306930541992,239.0625,153.805740356445,85.0094299316406" Visibility="Hidden" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.MeasurementValues" Category="Composes" Bounds="200.720520019531,239.0625,165.814697265625,142.998870849609" Visibility="Hidden" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.PeriodValues" Category="Composes" Bounds="880.129331463783,206.499980952376,102.180019853381,27.6492054254829" />
+    <Link Source="UR_MTrack.DataHandler" Target="UR_MTrack.Signals" Category="Composes" Bounds="720.818317348066,241.609323090995,135.706817162194,31.6208541347814" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="Extensions.Extension" Category="Uses" Bounds="113.883710588728,69.0297076805034,427.889573144479,152.970292319497" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="Logging.Log" Category="Uses" Bounds="614.057826184223,-66.7605641439213,267.378418130777,282.148692737376" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.DataHandler" Category="Aggregates" Bounds="673.258366533437,228.606418534981,173.213467402547,0.52867390479355" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.ExperimentSettings" Category="Aggregates" Bounds="651.523340543785,241.388128593455,217.003794546977,56.6646741348972" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.MeasurementTimer" Category="Composes" Bounds="620.562024993844,241.388128593455,280.652202026979,193.824098223245" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.PatternEventArgs" Category="Composes" Bounds="673.258366533437,228.525501702732,342.200108751127,0.657285975029282" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.PeriodValues" Category="Uses" Bounds="673.258366533437,236.926072279039,342.263545156107,40.8588768759976" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.RotateEventArgs" Category="Composes" Bounds="672.195629833624,240.678764074222,343.6293207448,59.9430424054909" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentDirector" Target="UR_MTrack.Signals" Category="Composes" Bounds="537.420176996006,214.799779447082,397.922842728231,170.913977033599" Visibility="Hidden" />
+    <Link Source="UR_MTrack.ExperimentSettings" Target="UR_MTrack.PeriodValues" Category="Aggregates" Bounds="806.517272949219,150.499984741211,41.1475219726563,77.7337646484375" />
+    <Link Source="UR_MTrack.FPGACom" Target="UR_MTrack.Signals" Category="Uses" Bounds="720.788512866131,296.256356086452,135.121602376676,33.5089602077087" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FileFactory" Target="CenterDialog" Category="Composes" Bounds="501.349103164656,116.314743045378,184.157278802387,216.951225755469" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FileFactory" Target="Logging.Log" Category="Uses" Bounds="675.372884868113,-66.6502931874277,206.618196167045,226.038346780883" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FileFactory" Target="UR_MTrack.AppSettings" Category="Composes" Bounds="593.926350333481,172.388053593455,21.0001,0" />
+    <Link Source="UR_MTrack.FileFactory" Target="UR_MTrack.ExperimentSettings" Category="Composes" Bounds="687.79749033111,185.388053593455,206.9786226359,110.69419799355" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FileFactory" Target="UR_MTrack.XmlFileFactory" Category="Composes" Bounds="712.053117000148,174.742193232337,480.695897585464,23.3020509318522" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="CenterDialog" Category="Composes" Bounds="532.911230489731,130.177899338545,327.28806944326,226.15045705601" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="Extensions.Extension" Category="Uses" Bounds="106.131921884965,70.5435240867242,450.482233443224,263.456475913276" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="Logging.Log" Category="Uses" Bounds="618.212521576824,-65.8544795431659,267.814249375325,393.242808136621" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="637.369781101853,218.115466887695,235.447587826275,109.27286170576" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.ExperimentSettings" Category="Composes" Bounds="687.262329378752,320.18583935189,159.241944225847,13.5658769938005" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.FileFactory" Category="Composes" Bounds="659.042025871941,186.808766172016,204.303564715491,169.519590222539" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.FrmPeriodsView" Category="Composes" Bounds="591.674566440302,20.0120721678789,276.645050552929,336.316284226676" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.OrientedTextLabel" Category="Composes" Bounds="654.547256794417,216.814913162213,384.355409878019,110.573415431241" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.PeriodValues" Category="Uses" Bounds="687.262329378752,292.73845390278,328.257432778324,38.5104294733133" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.Signals" Category="Composes" Bounds="688.244947698219,296.280303761523,156.818072772157,60.0480526330322" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.TitleBar" Category="Composes" Bounds="687.262329378752,345.3386740806,328.214245150708,20.8562822382269" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmExperimentConfig" Target="UR_MTrack.WMTextBox" Category="Composes" Bounds="652.414690733547,353.388328593455,372.057237614977,112.336919054015" />
+    <Link Source="UR_MTrack.FrmInput" Target="Extensions.Extension" Category="Uses" Bounds="262.899977213542,40.6963609523964,268.953210828217,10.2223770462817" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmInput" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="2300.40844726563,239.0625,25.337646484375,80.7286376953125" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmInput" Target="UR_MTrack.TitleBar" Category="Composes" Bounds="2314.8310546875,239.0625,51.12939453125,27.9657592773438" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmInput" Target="UR_MTrack.WMTextBox" Category="Composes" Bounds="680.63050602915,145.690708377938,199.97785129996,36.6995945587371" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="CenterDialog" Category="Composes" Bounds="298.674531489867,78.6049952862325,416.849945233183,77.6663152303763" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="Extensions.Extension" Category="Uses" Bounds="299.139972330729,55.1889156288139,232.713904216635,9.30261874110671" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="619.957463703016,17.3877285934549,261.013787296237,166.106908122684" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.FileFactory" Category="Composes" Bounds="483.792179329549,-58.5469306284089,201.730069919761,383.846120190912" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.FrmInput" Category="Composes" Bounds="610.236935999666,17.3877285934549,273.437597003553,331.991898809868" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.OrientedTextLabel" Category="Composes" Bounds="632.086747875428,17.3877285934549,419.738104526363,167.601464798331" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.PeriodChangedEventArgs" Category="Uses" Bounds="625.873660098419,17.3877285934549,451.810114531537,222.956210771307" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.PeriodValues" Category="Composes" Bounds="621.70246796382,17.3877285934549,427.057694079017,250.386883669938" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.Signals" Category="Composes" Bounds="520.480010216226,-9.2006205529182,432.409625726002,392.417944168176" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.TitleBar" Category="Composes" Bounds="616.10240128372,17.3877285934549,425.003810166268,333.384184006063" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.UCtrlPeriod" Category="Composes" Bounds="613.304811952182,17.3877285934549,441.608184707225,416.761774879471" />
+    <Link Source="UR_MTrack.FrmPeriodsView" Target="UR_MTrack.XmlFileFactory" Category="Composes" Bounds="643.158106836709,17.3877285934549,565.050122223115,168.368861898725" />
+    <Link Source="UR_MTrack.FrmProcessControl" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="666.345344750965,73.3878285934549,210.02973697574,110.741206471257" Visibility="Hidden" />
+    <Link Source="UR_MTrack.FrmProcessControl" Target="UR_MTrack.Signals" Category="Composes" Bounds="541.939209900707,46.7994794470818,409.193840738737,336.747167516223" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Main" Target="CenterDialog" Category="Composes" Bounds="597.811279296875,128.059371948242,147.880493164063,11.4628601074219" />
+    <Link Source="UR_MTrack.Main" Target="Extensions.Extension" Category="Uses" Bounds="240.986803181666,68.8380413281779,297.961814468891,99.0102162923227" />
+    <Link Source="UR_MTrack.Main" Target="Logging.Log" Category="Uses" Bounds="783.803114393743,-65.6177696381321,103.483531725067,169.005823231587" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.AboutBox" Category="Composes" Bounds="721.053017000148,116.388053593455,21.0001,2.8421709430404E-14" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.ComInterface" Category="Composes" Bounds="426.390411376953,129.388046264648,319.301361083984,42.5165863037109" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="796.221749654291,129.388053593455,84.8038203594639,54.0983138262162" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.DataHandler" Category="Composes" Bounds="791.197825268855,129.388053593455,95.8171152852127,81.1231628051374" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.DataHandlerEventArgs" Category="Uses" Bounds="790.592737964853,129.388053593455,123.655962989799,108.987717224335" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.ExperimentDirector" Category="Composes" Bounds="658.064270019531,129.388046264648,108.96435546875,83.6308746337891" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.ExperimentSettings" Category="Composes" Bounds="785.822374429962,129.388053593455,125.73825586163,163.799494871999" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FPGACom" Category="Uses" Bounds="783.164808428666,129.388053593455,107.627063188109,191.096802577032" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FileFactory" Category="Composes" Bounds="697.62671209662,129.388053593455,52.1343810940039,25.9852133857256" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FrmExperimentConfig" Category="Composes" Bounds="613.420227050781,129.388046264648,153.529052734375,189.163833618164" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FrmInput" Category="Composes" Bounds="782.229585353579,129.388053593455,107.519018047336,218.860747014325" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FrmPeriodsView" Category="Composes" Bounds="656.739990234375,19.717414855957,110.288635253906,83.6706390380859" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FrmProcessControl" Category="Composes" Bounds="681.13795325759,76.8550130211004,63.6017519213141,26.5494566485632" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.FrmSplashScreen" Category="Composes" Bounds="604.436401367188,129.388046264648,162.512878417969,140.012435913086" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.MeasurementEventArgs" Category="Uses" Bounds="782.707218880339,129.388053593455,145.191545009762,274.97990532075" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.MeasurementValues" Category="Uses" Bounds="781.310578399854,129.388053593455,139.059612668838,330.64247418229" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.PatternEventArgs" Category="Uses" Bounds="808.961231553999,128.280111368509,236.729811102185,85.0049777479727" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.RotateEventArgs" Category="Uses" Bounds="796.492078271692,129.388053593455,263.899457709706,166.143609119649" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.SerialPortSettings" Category="Uses" Bounds="794.08162395374,129.388053593455,271.77450270935,193.714789495178" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.Signals" Category="Composes" Bounds="685.596049376703,129.388053593455,82.2836648456672,134.325447656457" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.TitleBar" Category="Composes" Bounds="790.69225796988,129.388053593455,252.447118741333,221.010262501162" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.UCtrlChart" Category="Composes" Bounds="789.577479627072,129.388053593455,262.803643420654,248.751795570833" />
+    <Link Source="UR_MTrack.Main" Target="UR_MTrack.UCtrlDevControl" Category="Composes" Bounds="788.991169554147,129.388053593455,279.761011495041,276.610785855834" />
+    <Link Source="UR_MTrack.MeasurementEventArgs" Target="UR_MTrack.MeasurementValues" Category="Aggregates" Bounds="167,354.4375,0,22.6875" Visibility="Hidden" />
+    <Link Source="UR_MTrack.MeasurementTimer" Target="Logging.Log" Category="Uses" Bounds="901.066824020096,-64.3048792052963,25.7142015979759,504.631544951079" Visibility="Hidden" />
+    <Link Source="UR_MTrack.PeriodChangedEventArgs" Target="UR_MTrack.PeriodValues" Category="Aggregates" Bounds="1659.08020019531,296.75,210.27197265625,85.2344665527344" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Program" Target="Logging.Log" Category="Uses" />
+    <Link Source="UR_MTrack.Program" Target="UR_MTrack.AppSettings" Category="Composes" Bounds="1506.40844726563,181.375,19.9552001953125,84.5553894042969" />
+    <Link Source="UR_MTrack.Program" Target="UR_MTrack.FileFactory" Category="Uses" Bounds="1519.92956542969,181.375,55.3416748046875,28.3962554931641" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.DataHandlerEventArgs" Category="Uses" Bounds="712.053117000148,266.514484336814,134.4660085738,13.8455166539329" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.DataReceivedEventArgs" Category="Uses" Bounds="712.053117000148,284.526581807115,134.418731295535,0.475369917373314" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.MeasurementEventArgs" Category="Uses" Bounds="697.470091779229,297.388228593455,209.003501271176,110.725181038745" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.PatternEventArgs" Category="Uses" Bounds="712.053117000148,239.197030266711,303.482629693164,40.0308573269645" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.PeriodValues" Category="Uses" Bounds="712.053117000148,284.478707551832,303.405365752173,0.70170327080416" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.RotateEventArgs" Category="Uses" Bounds="712.053117000148,287.11146862387,303.427067437603,21.1214093560493" Visibility="Hidden" />
+    <Link Source="UR_MTrack.Signals" Target="UR_MTrack.SerialPortSettings" Category="Uses" Bounds="712.053117000148,289.710974343324,303.487503551141,41.2913599369106" Visibility="Hidden" />
+    <Link Source="UR_MTrack.TitleBar" Target="Logging.Log" Category="Uses" Bounds="907.710407458451,-64.8299209078983,152.347160345112,421.156586653681" Visibility="Hidden" />
+    <Link Source="UR_MTrack.TitleBar" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="2354.98510742188,296.75,32.014892578125,26.0121765136719" Visibility="Hidden" />
+    <Link Source="UR_MTrack.TraceView" Target="Logging.LogEventArgs" Category="Uses" />
+    <Link Source="UR_MTrack.TraceView" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="2383.19946289063,296.75,95.208984375,29.0601501464844" />
+    <Link Source="UR_MTrack.UCtrlChart" Target="UR_MTrack.MeasurementValues" Category="Uses" Bounds="53,123.6875,53.9156875610352,260.1484375" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="Extensions.Extension" Category="Uses" Bounds="429.265461314808,72.0062746349199,136.136547080919,121.99372536508" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.AppSettings" Category="Composes" Bounds="568.957557223387,189.114185631822,490.760448407303,223.212480113961" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.ComInterface" Category="Composes" Bounds="440.176025728079,204.796439310985,609.917938809174,207.530226434798" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.CurveButton" Category="Composes" Bounds="1337.84155273438,120.70654296875,931.771240234375,209.890716552734" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.FileFactory" Category="Composes" Bounds="693.056314047793,189.992420594282,373.410314252994,222.334245151501" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.GradientPanel" Category="Composes" Bounds="351.216979980469,94.4999847412109,86.8196716308594,77.0322113037109" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.OrientedTextLabel" Category="Composes" Bounds="555.437133789063,92.1932067871094,177.688171386719,84.5650634765625" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.PatternEventArgs" Category="Composes" Bounds="483.248718261719,118.243309020996,726.909606933594,207.968269348145" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.RotateEventArgs" Category="Composes" Bounds="1085.06384277344,123.6875,134.401000976563,196.326965332031" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.SerialPortSettings" Category="Composes" Bounds="1201.80419921875,123.6875,52.139404296875,196.158508300781" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlDevControl" Target="UR_MTrack.Signals" Category="Composes" Bounds="718.883387784569,299.980146419786,331.10360678001,112.346519325997" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlPeriod" Target="Extensions.Extension" Category="Uses" Bounds="414.900224958147,72.313115080567,152.088490864497,149.686884919433" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlPeriod" Target="UR_MTrack.PeriodChangedEventArgs" Category="Composes" Bounds="1966.19372558594,239.0625,51.8203125,27.6686401367188" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlPeriod" Target="UR_MTrack.PeriodValues" Category="Aggregates" Bounds="1689.21765136719,239.0625,361.782348632813,155.772064208984" Visibility="Hidden" />
+    <Link Source="UR_MTrack.UCtrlPeriod" Target="UR_MTrack.WMTextBox" Category="Composes" Bounds="2077.95776367188,239.0625,111.11865234375,30.9699096679688" Visibility="Hidden" />
+    <Link Source="UR_MTrack.XmlFileFactory" Target="Extensions.Extension" Category="Uses" Bounds="419.306534967503,73.2221999992286,152.268366507762,204.777800000771" Visibility="Hidden" />
+    <Link Source="UR_MTrack.XmlFileFactory" Target="Logging.Log" Category="Uses" Bounds="923.276506149544,-67.6803965672916,320.890513979826,256.007062313075" Visibility="Hidden" />
+    <Link Source="UR_MTrack.XmlFileFactory" Target="UR_MTrack.ExperimentSettings" Category="Aggregates" Bounds="1666.33386230469,296.75,62.5252685546875,28.2894592285156" Visibility="Hidden" />
+    <Link Source="UR_MTrack.XmlFileFactory" Target="UR_MTrack.FileFactory" Category="Composes" Bounds="721.042561097125,175.177962468665,480.695897585464,23.3020509318522" Visibility="Hidden" />
+    <Link Source="UR_MTrack.XmlFileFactory" Target="UR_MTrack.PeriodValues" Category="Composes" Bounds="1681.07629394531,296.75,70.017578125,86.902587890625" Visibility="Hidden" />
+  </Links>
+  <Categories>
+    <Category Id="Aggregates" Background="#FFFFA500" />
+    <Category Id="CodeSchema_Class" Label="Klasse" BasedOn="CodeSchema_Type" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Klassen" />
+    <Category Id="CodeSchema_Namespace" Label="Namespace" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" NavigationActionLabel="Namespaces" />
+    <Category Id="CodeSchema_Type" Label="Typ" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Member" Icon="CodeSchema_Class" NavigationActionLabel="Typen" />
+    <Category Id="Composes" Background="#FF008000" />
+    <Category Id="Contains" Label="Enthält" Description="Gibt an, ob die Quelle der Verknüpfung das Zielobjekt enthält" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Enthalten in" IsContainment="True" OutgoingActionLabel="Enthält" />
+    <Category Id="Uses" Background="#FF000000" />
+  </Categories>
+  <Properties>
+    <Property Id="Background" Label="Hintergrund" Description="Die Hintergrundfarbe." DataType="System.Windows.Media.Brush" />
+    <Property Id="Bounds" DataType="System.Windows.Rect" />
+    <Property Id="ButterflyMode" DataType="System.Boolean" />
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="Expression" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Diagrams.Layout.LayoutOrientation" />
+    <Property Id="Group" Label="Gruppe" Description="Knoten als Gruppe anzeigen" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
+    <Property Id="GroupLabel" DataType="System.String" />
+    <Property Id="Icon" Label="Symbol" Description="Symbol" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsEnabled" DataType="System.Boolean" />
+    <Property Id="Label" Label="Bezeichnung" Description="Anzeigbare Bezeichnung eines Objekts, das Anmerkungen einblenden werden kann" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="LayoutSettings" DataType="Microsoft.VisualStudio.Diagrams.View.GroupLayoutStyle" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="NeighborhoodCenter" DataType="System.Boolean" />
+    <Property Id="NeighborhoodDistance" DataType="System.Int32" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+    <Property Id="TargetType" DataType="System.Type" />
+    <Property Id="UseManualLocation" DataType="System.Boolean" />
+    <Property Id="Value" DataType="System.String" />
+    <Property Id="ValueLabel" DataType="System.String" />
+    <Property Id="Visibility" Label="Sichtbarkeit" Description="Definiert, ob ein Knoten des Diagramms sichtbar ist oder nicht" DataType="System.Windows.Visibility" />
+    <Property Id="ZoomLevel" DataType="System.String" />
+  </Properties>
+  <Styles>
+    <Style TargetType="Link" GroupLabel="Inherits" ValueLabel="True">
+      <Condition Expression="HasCategory('Inherits')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="2" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Implements" ValueLabel="True">
+      <Condition Expression="HasCategory('Implements')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="2" />
+      <Setter Property="StrokeDashArray" Value="4,2" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Composes" ValueLabel="True">
+      <Condition Expression="HasCategory('Composes')" />
+      <Setter Property="Stroke" Value="#FFFFA500" />
+      <Setter Property="StrokeThickness" Value="1" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Aggregates" ValueLabel="True">
+      <Condition Expression="HasCategory('Aggregates')" />
+      <Setter Property="Stroke" Value="#FFFFA500" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="StrokeDashArray" Value="2,4" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="Uses" ValueLabel="True">
+      <Condition Expression="HasCategory('Uses')" />
+      <Setter Property="Stroke" Value="#FF000000" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="StrokeDashArray" Value="1,2" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Center" ValueLabel="True">
+      <Condition Expression="HasValue('NeighborhoodCenter')" />
+      <Setter Property="Stroke" Value="#C0A0B862" />
+      <Setter Property="StrokeThickness" Value="4" />
+    </Style>
+  </Styles>
+</DirectedGraph>

@@ -4,8 +4,9 @@
 ; University of Regensburg
 ;--------------------------------
 #define AppName       "MelaTrack"
-#define Version       "2.0.x.x"
+#define Version       "2.0.0.1"
 #define SourceFileDir "..\..\bin\Release"
+#define SettingsDir "..\Settings"
 
 [Setup]
 ; Do not use the same AppId value in installers for other applications.
@@ -23,6 +24,8 @@ DisableProgramGroupPage=yes
 SetupIconFile=..\..\Resources\ur-logo-bildmarke-grau.ico
 UninstallDisplayIcon={app}\{#AppName}.exe
 DefaultDirName={code:GetProgramFiles}\UniRegensburg\{#AppName}
+
+
 
 AlwaysRestart=no
 WizardStyle=modern
@@ -42,14 +45,14 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 ;Create the directories in ..\ProgramData\UniRegensburg\...
 [Dirs]
-Name:{commonappdata}\UniRegensburg\{#AppName}\AppLogFiles;    Permissions: everyone-modify
+Name:{commonappdata}\UniRegensburg\{#AppName};    Permissions: everyone-modify
 ;Name:{commonappdata}\UniRegensburg\{AppName};     Permissions: everyone-modify
 
 [Files]
 Source: "{#SourceFileDir}\{#AppName}.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceFileDir}\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#SourceFileDir}\*.config"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "{#SettingsDir}\*.json"; DestDir: "{commonappdata}\UniRegensburg\{#AppName}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppName}.exe"

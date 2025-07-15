@@ -95,7 +95,7 @@
     <Compile Include="Controls\CurveButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AppSettings.cs" />
+    <Compile Include="Settings\AppSettings.cs" />
     <Compile Include="Helper\ExceptionHandler.cs" />
     <Compile Include="Controls\UCtrlChart.cs">
       <SubType>UserControl</SubType>
@@ -113,11 +113,11 @@
     <Compile Include="Controls\GradientPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\FrmExperimentControl.cs">
+    <Compile Include="Forms\FrmProcessControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmExperimentControl.Designer.cs">
-      <DependentUpon>FrmExperimentControl.cs</DependentUpon>
+    <Compile Include="Forms\FrmProcessControl.Designer.cs">
+      <DependentUpon>FrmProcessControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\TraceView.cs">
       <SubType>Form</SubType>
@@ -125,6 +125,7 @@
     <Compile Include="Forms\TraceView.Designer.cs">
       <DependentUpon>TraceView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\FakeValGen.cs" />
     <Compile Include="Helper\MeasurementValues.cs" />
     <Compile Include="HWAux\FPGACom.cs" />
     <Compile Include="Helper\CenterDialog.cs" />
@@ -154,13 +155,13 @@
     <Compile Include="Forms\FrmSplashScreen.Designer.cs">
       <DependentUpon>FrmSplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\EventNArgs.cs" />
+    <Compile Include="Helper\SignalsNArgs.cs" />
     <Compile Include="Helper\Logging.cs" />
     <Compile Include="Helper\MeasurementTimer.cs" />
     <Compile Include="Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Helper\ExperimentDirector.cs" />
+    <Compile Include="Helper\MeasurementDirector.cs" />
     <Compile Include="Settings\SerialPortSettings.cs" />
     <Compile Include="Settings\PeriodValues.cs" />
     <Compile Include="Forms\FrmPeriodsView.cs">
@@ -176,7 +177,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="HWAux\SerialInterface.cs" />
+    <Compile Include="HWAux\ComInterface.cs" />
     <Compile Include="Files\FileFactory.cs" />
     <Compile Include="Files\XmlFileFactory.cs" />
     <Compile Include="Settings\ExperimentSettings.cs" />
@@ -232,8 +233,8 @@
     <EmbeddedResource Include="Controls\GradientPanel.resx">
       <DependentUpon>GradientPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmExperimentControl.resx">
-      <DependentUpon>FrmExperimentControl.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmProcessControl.resx">
+      <DependentUpon>FrmProcessControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TraceView.resx">
       <DependentUpon>TraceView.cs</DependentUpon>
@@ -254,6 +255,7 @@
     </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="DTSExperiments_Workprint.licenseheader" />
+    <None Include="1.dgml" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

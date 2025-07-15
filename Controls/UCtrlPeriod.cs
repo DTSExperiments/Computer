@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Extensions;
 
 namespace UR_MTrack
 {
@@ -19,7 +19,7 @@ namespace UR_MTrack
         public UCtrlPeriod(int number)
         {
             InitializeComponent();
-            _periodValues = new PeriodValues(number);  
+            _periodValues = new PeriodValues(number);
             BindControls();
             UpdateControls(_periodValues);
 
@@ -28,7 +28,7 @@ namespace UR_MTrack
         public UCtrlPeriod(PeriodValues _pvalues)
         {
             InitializeComponent();
-            _periodValues = _pvalues;   
+            _periodValues = _pvalues;
             BindControls();
             UpdateControls(_periodValues);
         }
@@ -81,9 +81,12 @@ namespace UR_MTrack
             _periodValues.Pattern = cmbPattern.SelectedItem.ToEnum<DisplayPattern>();
             _periodValues.Type = cmbType.SelectedItem.ToEnum<ExperimentType>();
             _periodValues.Contingency = cmbContingency.SelectedItem.ToEnum<PeriodContingency>();
-            _periodValues.Duration=tbDuration.GetIntValue(); 
-            _periodValues.Outcome=tbOutcome.GetIntValue();
-            _periodValues.CoupCoeff=tbCouplingCoeff.GetDoubleValue();
+            _periodValues.Duration = tbDuration.GetIntValue();
+            _periodValues.Outcome = tbOutcome.GetIntValue();
+            _periodValues.CoupCoeff = tbCouplingCoeff.GetDoubleValue();
+            _periodValues.ColorPattern=Program.Settings.ColorPattern;
+            _periodValues.RotationMode=Program.Settings.RotationMode;
+            _periodValues.Velocity= Program.Settings.Velocity;
         }
 
 
@@ -94,11 +97,11 @@ namespace UR_MTrack
         public void UpdateControls(PeriodValues _values)
         {
             cmbType.SelectedValue = _values.Type;
-            cmbPattern.SelectedValue=_values.Pattern;
-            cmbContingency.SelectedValue=_values.Contingency;
-            tbDuration.Text=_values.Duration.ToString();
-            tbOutcome.Text=_values.Outcome.ToString();
-            tbCouplingCoeff.Text=_values.CoupCoeff.ToString();  
+            cmbPattern.SelectedValue = _values.Pattern;
+            cmbContingency.SelectedValue = _values.Contingency;
+            tbDuration.Text = _values.Duration.ToString();
+            tbOutcome.Text = _values.Outcome.ToString();
+            tbCouplingCoeff.Text = _values.CoupCoeff.ToString();
             Refresh();
         }
 
@@ -114,7 +117,7 @@ namespace UR_MTrack
 
         private void tb_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter||e.KeyCode == Keys.Return||e.KeyCode == Keys.Tab) 
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return || e.KeyCode == Keys.Tab)
             {
                 CollectValues();
                 PeriodChanged?.Invoke(this, new PeriodChangedEventArgs(_periodValues));
@@ -129,7 +132,7 @@ namespace UR_MTrack
 
         private void SelectCtrl_Click(object sender, EventArgs e)
         {
-            Selected=!Selected;
+            Selected = !Selected;
             Invalidate();
         }
     }

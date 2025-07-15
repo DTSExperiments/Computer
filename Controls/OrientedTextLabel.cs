@@ -1,11 +1,7 @@
 using System;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 using System.ComponentModel;
-using UR_MTrack.Properties;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace UR_MTrack
 {
@@ -55,7 +51,7 @@ namespace UR_MTrack
             UpdateStyles();
             rotationAngle = 0d;
             textOrientation = Orientation.Rotate;
-            Font = new Font(Font.Name, 20); 
+            Font = new Font(Font.Name, 20);
         }
 
 
@@ -167,7 +163,7 @@ namespace UR_MTrack
             }
             #endregion
 
-           
+
         }
 
         #endregion
@@ -234,7 +230,7 @@ namespace UR_MTrack
             }
         }
         #endregion
-             
+
 
         #endregion
 

@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Extensions;
+using Logging;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Extensions;
-using Logging;
 
 namespace UR_MTrack
 {
@@ -55,11 +54,6 @@ namespace UR_MTrack
 
         #endregion
 
-        #region Events
-
-        public event EventHandler ExperimentConfigChanged;
-
-        #endregion
 
         #region Methods
 
@@ -85,7 +79,7 @@ namespace UR_MTrack
         void Initialize()
         {
             _periodsView = new FrmPeriodsView();
-            _periodsView.PeriodsConfigured += _periodsView_PeriodsConfigured;
+            Signals.PeriodsConfigured += signals_PeriodsConfigured;
             if (_expsettings != null)
             {
                 tbDataPath.Text = _expsettings.DataFolderpath;
@@ -144,7 +138,7 @@ namespace UR_MTrack
 
         #endregion
 
-        private void _periodsView_PeriodsConfigured(object sender, IEnumerable<PeriodValues> e)
+        private void signals_PeriodsConfigured(object sender, IEnumerable<PeriodValues> e)
         {
             _expsettings.PeriodCollection = e;
         }
@@ -173,7 +167,7 @@ namespace UR_MTrack
                 {
                     CollectData();
                     new FileFactory().SaveSettings(_expsettings);
-                    ExperimentConfigChanged?.Invoke(this, EventArgs.Empty);
+                    new Signals().OnExperimentConfigChanged(this, EventArgs.Empty);
                     DialogResult = DialogResult.OK;
                 }
                 else
@@ -198,7 +192,10 @@ namespace UR_MTrack
 
         private void btnShowPeriod_Click(object sender, EventArgs e)
         {
-            _periodsView.Show(_expsettings.PeriodCollection);
+            using (new CenterDialog(this))
+            {
+                _periodsView.Show(_expsettings.PeriodCollection);
+            }
         }
 
         private void rtbDescription_MouseDown(object sender, MouseEventArgs e)

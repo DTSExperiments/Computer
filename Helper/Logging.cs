@@ -1,11 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Collections.Concurrent;
 using System.IO;
 using System.Windows.Forms;
-using Extensions;
-using System.ComponentModel;
-using System.Text;
 
 namespace Logging
 {
@@ -91,7 +88,7 @@ namespace Logging
         public static void Append(string logMessage, LogType logtype = LogType.Info, bool showmsgbox = false, string exceptionMessage = null)
         {
             var tag = logtype.ToString();
-            var line = string.Format("\n{0} {1} {2}\n{3}", DateTime.Now.ToLongTimeString() + "  -  ", tag + " - ", logMessage,exceptionMessage);
+            var line = string.Format("\n{0} {1} {2}\n{3}", DateTime.Now.ToLongTimeString() + "  -  ", tag + " - ", logMessage, exceptionMessage);
             WriteToFile(line);
             LogMessageReceived?.Invoke(null, new LogEventArgs(line, logtype, showmsgbox));
 #if DEBUG

@@ -41,22 +41,25 @@ namespace UR_MTrack
             this.tsmFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmNew = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.periodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
-            this.tBarMain = new UR_MTrack.TitleBar();
-            this.btnAbout = new UR_MTrack.CurveButton();
             this.tblControlHost = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.stLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
+            this.tBarMain = new UR_MTrack.TitleBar();
+            this.btnAbout = new UR_MTrack.CurveButton();
             this.uCtrlDevControl1 = new UR_MTrack.UCtrlDevControl();
             this.menuStrip1.SuspendLayout();
             this.tblMain.SuspendLayout();
             this.tblControlHost.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -75,7 +78,7 @@ namespace UR_MTrack
             this.tsmFiles,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 35);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 34);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1103, 46);
@@ -87,7 +90,6 @@ namespace UR_MTrack
             this.tsmFiles.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmNew,
             this.tsmSave,
-            this.tsmOpen,
             this.exitToolStripMenuItem});
             this.tsmFiles.Name = "tsmFiles";
             this.tsmFiles.Size = new System.Drawing.Size(66, 42);
@@ -96,28 +98,23 @@ namespace UR_MTrack
             // tsmNew
             // 
             this.tsmNew.Name = "tsmNew";
-            this.tsmNew.Size = new System.Drawing.Size(265, 36);
+            this.tsmNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.tsmNew.Size = new System.Drawing.Size(254, 36);
             this.tsmNew.Text = "New";
             this.tsmNew.Click += new System.EventHandler(this.tsmNew_Click);
             // 
             // tsmSave
             // 
             this.tsmSave.Name = "tsmSave";
-            this.tsmSave.Size = new System.Drawing.Size(265, 36);
+            this.tsmSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.tsmSave.Size = new System.Drawing.Size(254, 36);
             this.tsmSave.Text = "Save As";
             this.tsmSave.Click += new System.EventHandler(this.tsmSave_Click);
-            // 
-            // tsmOpen
-            // 
-            this.tsmOpen.Name = "tsmOpen";
-            this.tsmOpen.Size = new System.Drawing.Size(265, 36);
-            this.tsmOpen.Text = "Open Experiment";
-            this.tsmOpen.Click += new System.EventHandler(this.tsmOpen_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(265, 36);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(254, 36);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -125,7 +122,8 @@ namespace UR_MTrack
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.periodsToolStripMenuItem,
-            this.configurationToolStripMenuItem});
+            this.configurationToolStripMenuItem,
+            this.resetChartToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(99, 42);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -143,6 +141,13 @@ namespace UR_MTrack
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(235, 36);
             this.configurationToolStripMenuItem.Text = "Configuration";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
+            // 
+            // resetChartToolStripMenuItem
+            // 
+            this.resetChartToolStripMenuItem.Name = "resetChartToolStripMenuItem";
+            this.resetChartToolStripMenuItem.Size = new System.Drawing.Size(235, 36);
+            this.resetChartToolStripMenuItem.Text = "Reset Chart";
+            this.resetChartToolStripMenuItem.Click += new System.EventHandler(this.resetChartToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -179,8 +184,65 @@ namespace UR_MTrack
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(2207, 1365);
+            this.tblMain.Size = new System.Drawing.Size(2207, 1482);
             this.tblMain.TabIndex = 3;
+            // 
+            // tblControlHost
+            // 
+            this.tblControlHost.AutoSize = true;
+            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblControlHost.ColumnCount = 3;
+            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.Controls.Add(this.uCtrlDevControl1, 0, 0);
+            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tblControlHost.Location = new System.Drawing.Point(3, 80);
+            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tblControlHost.Name = "tblControlHost";
+            this.tblControlHost.RowCount = 1;
+            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblControlHost.Size = new System.Drawing.Size(2201, 1350);
+            this.tblControlHost.TabIndex = 9;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.AutoSize = false;
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.tblMain.SetColumnSpan(this.statusStrip1, 2);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.stLbl});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1434);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(2207, 48);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(167, 41);
+            this.toolStripStatusLabel1.Text = "SerialPort Live Data:";
+            // 
+            // stLbl
+            // 
+            this.stLbl.Name = "stLbl";
+            this.stLbl.Size = new System.Drawing.Size(0, 41);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.DarkGray;
+            this.tblMain.SetColumnSpan(this.label1, 2);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 1433);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(2207, 1);
+            this.label1.TabIndex = 11;
             // 
             // tBarMain
             // 
@@ -197,6 +259,7 @@ namespace UR_MTrack
             this.tBarMain.DivHeight = 2;
             this.tBarMain.DivVisible = true;
             this.tBarMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tBarMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tBarMain.ForeColor = System.Drawing.Color.Gainsboro;
             this.tBarMain.FormIcon = ((System.Drawing.Image)(resources.GetObject("tBarMain.FormIcon")));
             this.tBarMain.GradientAngle = 0F;
@@ -212,7 +275,7 @@ namespace UR_MTrack
         0.2F,
         1F};
             this.tBarMain.ShowIcon = true;
-            this.tBarMain.Size = new System.Drawing.Size(2207, 35);
+            this.tBarMain.Size = new System.Drawing.Size(2207, 34);
             this.tBarMain.TabIndex = 5;
             this.tBarMain.Titel = "Title Text";
             this.tBarMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
@@ -239,7 +302,7 @@ namespace UR_MTrack
             this.btnAbout.GradientTop = System.Drawing.Color.Transparent;
             this.btnAbout.HighlightColor = System.Drawing.Color.SeaShell;
             this.btnAbout.HighlightThickness = 0;
-            this.btnAbout.Location = new System.Drawing.Point(2137, 38);
+            this.btnAbout.Location = new System.Drawing.Point(2137, 37);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.RelPos = new float[] {
@@ -253,59 +316,16 @@ namespace UR_MTrack
             this.btnAbout.Visible = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
-            // tblControlHost
-            // 
-            this.tblControlHost.AutoSize = true;
-            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblControlHost.ColumnCount = 3;
-            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.Controls.Add(this.uCtrlDevControl1, 0, 0);
-            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblControlHost.Location = new System.Drawing.Point(3, 81);
-            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.tblControlHost.Name = "tblControlHost";
-            this.tblControlHost.RowCount = 1;
-            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.Size = new System.Drawing.Size(2201, 1258);
-            this.tblControlHost.TabIndex = 9;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.tblMain.SetColumnSpan(this.statusStrip1, 2);
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1343);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(2207, 22);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.DarkGray;
-            this.tblMain.SetColumnSpan(this.label1, 2);
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 1342);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2207, 1);
-            this.label1.TabIndex = 11;
-            // 
             // uCtrlDevControl1
             // 
             this.uCtrlDevControl1.AutoSize = true;
             this.uCtrlDevControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.uCtrlDevControl1.BackColor = System.Drawing.Color.Transparent;
-            this.uCtrlDevControl1.ConnectBtnState = false;
             this.uCtrlDevControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.uCtrlDevControl1.Location = new System.Drawing.Point(5, 6);
             this.uCtrlDevControl1.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.uCtrlDevControl1.Name = "uCtrlDevControl1";
-            this.uCtrlDevControl1.Size = new System.Drawing.Size(549, 1246);
+            this.uCtrlDevControl1.Size = new System.Drawing.Size(557, 1338);
             this.uCtrlDevControl1.TabIndex = 0;
             // 
             // Main
@@ -313,12 +333,12 @@ namespace UR_MTrack
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(2211, 1367);
+            this.ClientSize = new System.Drawing.Size(2211, 1484);
             this.ControlBox = false;
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -332,6 +352,8 @@ namespace UR_MTrack
             this.tblMain.PerformLayout();
             this.tblControlHost.ResumeLayout(false);
             this.tblControlHost.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -351,13 +373,15 @@ namespace UR_MTrack
         private ToolStripMenuItem tsmNew;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem tsmSave;
-        private ToolStripMenuItem tsmOpen;
         private ToolStripMenuItem periodsToolStripMenuItem;
         private ToolStripMenuItem configurationToolStripMenuItem;
         private TableLayoutPanel tblControlHost;
         private StatusStrip statusStrip1;
         private Label label1;
         private UCtrlDevControl uCtrlDevControl1;
+        private ToolStripMenuItem resetChartToolStripMenuItem;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel stLbl;
     }
 }
 

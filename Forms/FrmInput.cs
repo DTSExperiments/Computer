@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Extensions;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Extensions;
 
 namespace UR_MTrack
 {
@@ -29,10 +29,10 @@ namespace UR_MTrack
 
 
         InputType _currenttype;
-        
+
         public FrmInput(InputType type)
         {
-            _currenttype=type;
+            _currenttype = type;
             InitializeComponent();
             Initialize();
         }
@@ -42,7 +42,7 @@ namespace UR_MTrack
         public int PeriodsCount { get; set; }
         public InputType CreationType { get; set; }
 
-        public new string Text { get { return tBar.Titel; }set { tBar.Titel = value; } }
+        public new string Text { get { return tBar.Titel; } set { tBar.Titel = value; } }
 
         #endregion
 
@@ -74,14 +74,14 @@ namespace UR_MTrack
                     {
                         tblPeriodCnt.Visible = true;
                         tbPeriodCnt.Focus();
-                        break; 
+                        break;
                     }
-                case InputType.ExperimentCreation: 
-                    { 
+                case InputType.ExperimentCreation:
+                    {
                         tblPrjType.Visible = true;
                         btnOk.Visible = false;
                         btnCancel.Visible = false;
-                        break; 
+                        break;
                     }
             }
             ResumeLayout();
@@ -95,19 +95,19 @@ namespace UR_MTrack
                     {
                         if (!string.IsNullOrEmpty(tbPeriodCnt.Text))
                         {
-                            PeriodsCount=tbPeriodCnt.GetIntValue();
+                            PeriodsCount = tbPeriodCnt.GetIntValue();
                             DialogResult = DialogResult.OK;
                             Close();
                         }
-                        else 
-                        {  
+                        else
+                        {
                             tbPeriodCnt.Highlight();
                         }
                         break;
                     }
                 case InputType.ExperimentCreation:
-                    { 
-                        break; 
+                    {
+                        break;
                     }
             }
         }
@@ -134,9 +134,9 @@ namespace UR_MTrack
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            
-            CreationType=InputType.New;
-            DialogResult= DialogResult.OK;  
+
+            CreationType = InputType.New;
+            DialogResult = DialogResult.OK;
         }
 
         private void curveButton2_Click(object sender, EventArgs e)
