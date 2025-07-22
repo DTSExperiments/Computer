@@ -75,6 +75,88 @@ namespace UR_MTrack
             }
         }
 
+
+
+        #region EventHandler
+
+        private void signal_ConnectRequest(object sender, SerialPortSettings e)
+        {
+            Log.Append(string.Format("Serial connection requested to port \"{0}\"", e.ToString()), LogType.Info);
+            if (_serialCom != null && _serialCom.Connected)
+            { _serialCom.Disconnect(); }
+            else
+            {
+                _serialCom = new ComInterface();
+                _serialCom.Connect(e);
+            }
+        }
+
+        private void signal_Rotate(object sender, RotateEventArgs e)
+        {
+            Log.Append(string.Format("Arena rotation requested - \"{0}\"", e.Rotation.ToDescriptionString<RotationMode>()), LogType.Info);
+            if (_serialCom != null)
+            {
+                _serialCom.SendData(e.Rotation.ToString());
+                _serialCom.SendData(Convert.ToChar(e.Velocity).ToString());
+            }
+            Program.Settings.Velocity = e.Velocity;
+            Program.Settings.RotationMode = e.Rotation;
+        }
+
+        
+
+        private void signal_SetPattern(object sender, PatternEventArgs e)
+        {
+            //Log.Append(string.Format("Arena pattern change requested - \"{0}\"", e.Pattern.ToDescriptionString<DisplayPattern>()), LogType.Info);
+            if (_serialCom != null)
+            { _serialCom.SendData(FPGACom.GetPatternCommand(e.Pattern, e.Color)); }
+        }
+
+        private void signal_LaserSwitch(object sender, int e)
+        {
+            Log.Append(string.Format("Laser triggered - PWM (0-100): \"{0}\"", e), LogType.Info);
+            if (_serialCom != null)
+            {
+                _serialCom.SendData("L");
+                _serialCom.SendData(FPGACom.GetLaserCommand(e));
+                if (e == 0) { new Signals().OnDeviceStatusChanged(null, DeviceStatus.off); }
+                else { new Signals().OnDeviceStatusChanged(null, DeviceStatus.on); }
+            }
+            if (e > 0)
+            { Program.Settings.LaserPWMValue = e; }
+        }
+
+        private void signal_ExperimentConfigChanged(object sender, EventArgs e)
+        {
+            _currExpSettings = (sender as FrmExperimentConfig).Settings;
+            _currExpSettings.Duration = _currExpSettings.PeriodCollection.Sum(pv => pv.Duration);
+            _currExpSettings.Filepath = new XmlFileFactory().GetFileName(_currExpSettings.DataFolderpath, _currExpSettings.FlyName);
+            _currExpSettings.FlyName = Path.GetFileNameWithoutExtension(_currExpSettings.Filepath);
+            _currExpSettings.IsConfigured = true;
+            Log.Append("Experiment metadata changed", LogType.Info);
+            
+        }
+
+        #endregion
+
+        void SwitchDataMode(ChartDataMode mode)
+        {
+            ShowExperimentControl();
+            new FileFactory(_currExpSettings).CreateMeasurementFile();
+             _measDirector = new MeasurementDirector(_currExpSettings);
+
+        }
+
+        void HookUpEvents()
+        {
+            Signals.ConnectRequest += signal_ConnectRequest;
+            Signals.LaserSwitch += signal_LaserSwitch;
+            Signals.SetPattern += signal_SetPattern;
+            Signals.Rotate += signal_Rotate;
+            Signals.ExperimentConfigChanged += signal_ExperimentConfigChanged;            
+        }
+
+
         public void Splash()
         {
             Application.Run(new FrmSplashScreen());
@@ -96,121 +178,6 @@ namespace UR_MTrack
             _wait.Set();
         }
 
-        private void signal_ChartValuesPrepared(object sender, DataHandlerEventArgs e)
-        {
-            stLbl.Text = string.Format("Time[s]: {0:0.00}, Torque: {1:0.00} Nm, Location: {2:0.00} mm", e.TimeStamp, e.Torque, e.Location);
-            //_wait.Set();
-            if (_chart != null)
-            {
-                _chart.AddValues(e.TimeStamp, e.Torque, e.Location);
-            }
-        }
-
-        private void signal_MValuesReceived(object sender, MeasurementEventArgs e)
-        {
-            if (_currExpSettings != null)
-            {
-                _chart.AddValues(e.Values.Timestamp, e.Values.Torque, e.Values.Location);
-                ///save values to xml file.
-                _filehandler.AppendPeriodValues(_currExpSettings.Filepath, e.Values.ToString());
-            }
-        }
-
-
-        private void signal_Rotate(object sender, RotateEventArgs e)
-        {
-            Log.Append(string.Format("Arena rotation requested - \"{0}\"", e.Rotation.ToDescriptionString<RotationMode>()), LogType.Info);
-            if (_serialCom != null) 
-            {
-                _serialCom.SendData(e.Rotation.ToString()); 
-                _serialCom.SendData(Convert.ToChar(e.Velocity).ToString()); 
-            }
-            Program.Settings.Velocity = e.Velocity;
-            Program.Settings.RotationMode = e.Rotation;
-        }
-
-
-        private void signal_ConnectRequest(object sender, SerialPortSettings e)
-        {
-            Log.Append(string.Format("Serial connection requested to port \"{0}\"", e.ToString()), LogType.Info);
-            if (_serialCom != null && _serialCom.Connected)
-            { _serialCom.Disconnect(); }
-            else
-            {
-                _serialCom = new ComInterface();
-                _serialCom.Connect(e);
-            }
-        }
-
-        private void Signals_AquisitionControl(object sender, ExecutionControl e)
-        {
-            if (e.Equals(ExecutionControl.start))
-            { StartAquisition(); }
-            else
-            { StopAquisition(); }
-        }
-
-        private void signal_SetPattern(object sender, PatternEventArgs e)
-        {
-            //Log.Append(string.Format("Arena pattern change requested - \"{0}\"", e.Pattern.ToDescriptionString<DisplayPattern>()), LogType.Info);
-            if (_serialCom != null)
-            { _serialCom.SendData(FPGACom.GetPatternCommand(e.Pattern, e.Color)); }
-        }
-
-        private void signal_LaserSwitch(object sender, int e)
-        {
-            Log.Append(string.Format("Laser triggered - PWM (0-100): \"{0}\"", e), LogType.Info);
-            if (_serialCom != null)
-            {                
-                _serialCom.SendData("L");
-                _serialCom.SendData(FPGACom.GetLaserCommand(e));
-                if (e == 0) { new Signals().OnDeviceStatusChanged(null, DeviceStatus.off); }
-                else { new Signals().OnDeviceStatusChanged(null, DeviceStatus.on); }
-            }
-            if (e > 0)
-            { Program.Settings.LaserPWMValue = e; }
-        }
-
-
-        private void signal_ProcessControl(object sender, ExecutionControl e)
-        {
-            Log.Append(string.Format("Experiment status change requested - \"{0}\"", e.ToDescriptionString<ExecutionControl>()), LogType.Info);
-            switch (e)
-            {
-                case ExecutionControl.start:
-                    {
-                        try
-                        {
-                            new FileFactory(_currExpSettings).CreateMeasurementFile();
-                            _measDirector = new MeasurementDirector(_currExpSettings);
-                            _measDirector.StartExperiment();
-                        }
-                        catch (Exception ex) { Log.Append(ex); }
-                        break;
-                    }
-                case ExecutionControl.suspend:
-                    { break; }
-                case ExecutionControl.resume:
-                    { break; }
-                case ExecutionControl.stop:
-                    { break; }
-                case ExecutionControl.punish:
-                    { break; }
-                default: break;
-            }
-        }
-
-        private void Signals_ExperimentConfigChanged(object sender, EventArgs e)
-        {
-            _currExpSettings = (sender as FrmExperimentConfig).Settings;
-            _currExpSettings.Duration = _currExpSettings.PeriodCollection.Sum(pv => pv.Duration);
-            _currExpSettings.Filepath = new XmlFileFactory().GetFileName(_currExpSettings.DataFolderpath, _currExpSettings.FlyName);
-            _currExpSettings.FlyName = Path.GetFileNameWithoutExtension(_currExpSettings.Filepath);
-
-            Log.Append("Experiment metadata changed", LogType.Info);
-            ShowExperimentControl();
-        }
-
 
         void Initialize()
         {
@@ -218,8 +185,7 @@ namespace UR_MTrack
             ShowChart();
             _currExpSettings = new ExperimentSettings();
             _filehandler = new FileFactory();
-            _datahandler = new DataHandler();
-            _measDirector = new MeasurementDirector(_currExpSettings);
+            _datahandler = new DataHandler();           
             Log.Append("Initializing Controls", LogType.Info);
             _procCtrl = new FrmProcessControl();
             HookUpEvents();
@@ -255,39 +221,13 @@ namespace UR_MTrack
             }
         }
 
-        void HookUpEvents()
-        {
-            Signals.ConnectRequest += signal_ConnectRequest;
-            Signals.LaserSwitch += signal_LaserSwitch;
-            Signals.SetPattern += signal_SetPattern;
-            Signals.Rotate += signal_Rotate;
-            Signals.MValuesPrepared += signal_MValuesReceived;
-            Signals.ChartValuesPrepared += signal_ChartValuesPrepared;
-            Signals.ExperimentConfigChanged += Signals_ExperimentConfigChanged;
-            Signals.ProcessControl += signal_ProcessControl;
-            Signals.AquisitionControl += Signals_AquisitionControl;
-        }
-
-
-
-        void StartAquisition()
-        {
-            if (_serialCom != null) { }
-        }
-        void StopAquisition()
-        {
-            if (_serialCom != null)
-            {
-                _serialCom.SendData(FPGACom.GetStopCommand());
-                _serialCom.SendData(FPGACom.GetStopCommand());
-            }
-        }
 
         void ShowExperimentControl()
         {
             var globalcoords = PointToScreen(tblControlHost.Location);
             _procCtrl.Show(new Point(globalcoords.X + (tblControlHost.Size.Width / 2), globalcoords.Y));
         }
+
 
         DialogResult ShowExperimentConfig()
         {
@@ -343,6 +283,7 @@ namespace UR_MTrack
             ResumeEvent();
         }
 
+
         private void tsmSave_Click(object sender, EventArgs e)
         {
             try
@@ -391,10 +332,8 @@ namespace UR_MTrack
         }
         private void resetChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            _datahandler.SuspendWorkerTh();
             _chart.ResetChart();
             _datahandler.StartTime = DateTime.Now;
-            _datahandler.ResumeWorkerTh();
         }
 
         #endregion

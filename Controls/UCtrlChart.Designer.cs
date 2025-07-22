@@ -42,24 +42,25 @@
             // 
             this.tblMain.AutoSize = true;
             this.tblMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblMain.BackColor = System.Drawing.Color.LemonChiffon;
+            this.tblMain.BackColor = System.Drawing.Color.Transparent;
             this.tblMain.ColumnCount = 2;
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblMain.Controls.Add(this._valueszgc, 0, 0);
             this.tblMain.Controls.Add(this.tblHisto, 1, 0);
+            this.tblMain.Controls.Add(this._valueszgc, 0, 0);
             this.tblMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblMain.Location = new System.Drawing.Point(0, 0);
             this.tblMain.Margin = new System.Windows.Forms.Padding(0);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 2;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(1770, 1017);
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblMain.Size = new System.Drawing.Size(1770, 1451);
             this.tblMain.TabIndex = 0;
             // 
             // _valueszgc
             // 
+            this._valueszgc.BackColor = System.Drawing.Color.White;
             this._valueszgc.Dock = System.Windows.Forms.DockStyle.Fill;
             this._valueszgc.IsAntiAlias = true;
             this._valueszgc.IsShowCursorValues = true;
@@ -74,9 +75,10 @@
             this._valueszgc.ScrollMinX = 0D;
             this._valueszgc.ScrollMinY = 0D;
             this._valueszgc.ScrollMinY2 = 0D;
-            this._valueszgc.Size = new System.Drawing.Size(1453, 1017);
+            this._valueszgc.Size = new System.Drawing.Size(1453, 1451);
             this._valueszgc.TabIndex = 0;
             this._valueszgc.UseExtendedPrintDialog = true;
+            this._valueszgc.Load += new System.EventHandler(this._valueszgc_Load);
             // 
             // tblHisto
             // 
@@ -92,10 +94,9 @@
             this.tblHisto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 5);
             this.tblHisto.Name = "tblHisto";
             this.tblHisto.RowCount = 2;
-            this.tblMain.SetRowSpan(this.tblHisto, 2);
             this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 308F));
             this.tblHisto.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblHisto.Size = new System.Drawing.Size(309, 1012);
+            this.tblHisto.Size = new System.Drawing.Size(309, 730);
             this.tblHisto.TabIndex = 2;
             // 
             // _histozgc
@@ -130,12 +131,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.Gainsboro;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tblMain);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UCtrlChart";
-            this.Size = new System.Drawing.Size(1770, 1017);
+            this.Size = new System.Drawing.Size(1770, 1451);
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.tblHisto.ResumeLayout(false);

@@ -3,14 +3,14 @@
 namespace UR_MTrack
 {
     /// <summary>
-    /// Distinguish how the serialport retrieves data.
-    /// Auto: The serialport retrieves data eventdriven.
-    /// DataPoll: The serialport retrieves data by reading the serial buffer.
+    /// Distinguish how the received data is displayed.
+    /// Live: "oszilloscope" mode.
+    /// Experiment: setup for experiment - period measurement.
     /// </summary>
-    public enum DataMode
+    public enum ChartDataMode
     {
-        Auto,
-        DataPoll
+        Live,
+        Experiment
     }
 
     public enum DeviceStatus
@@ -37,7 +37,6 @@ namespace UR_MTrack
         resume,
         [Description("Laser Trigger")]
         punish
-
     }
 
     public enum ColorPattern
@@ -52,7 +51,6 @@ namespace UR_MTrack
         B,
         [Description("Cyan")]
         D
-
     }
 
     public enum DisplayPattern
@@ -90,7 +88,6 @@ namespace UR_MTrack
         lightguide,
         [Description("Motor")]
         motor
-
     }
 
     public enum DMSType

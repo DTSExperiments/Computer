@@ -48,14 +48,18 @@ namespace UR_MTrack
             this.resetChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tblMain = new System.Windows.Forms.TableLayoutPanel();
+            this.tBarMain = new UR_MTrack.TitleBar();
+            this.btnAbout = new UR_MTrack.CurveButton();
             this.tblControlHost = new System.Windows.Forms.TableLayoutPanel();
+            this.uCtrlDevControl1 = new UR_MTrack.UCtrlDevControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.stLbl = new System.Windows.Forms.ToolStripStatusLabel();
             this.label1 = new System.Windows.Forms.Label();
-            this.tBarMain = new UR_MTrack.TitleBar();
-            this.btnAbout = new UR_MTrack.CurveButton();
-            this.uCtrlDevControl1 = new UR_MTrack.UCtrlDevControl();
+            this.experimentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tblMain.SuspendLayout();
             this.tblControlHost.SuspendLayout();
@@ -77,6 +81,7 @@ namespace UR_MTrack
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmFiles,
             this.settingsToolStripMenuItem,
+            this.experimentToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 34);
             this.menuStrip1.Name = "menuStrip1";
@@ -187,63 +192,6 @@ namespace UR_MTrack
             this.tblMain.Size = new System.Drawing.Size(2207, 1482);
             this.tblMain.TabIndex = 3;
             // 
-            // tblControlHost
-            // 
-            this.tblControlHost.AutoSize = true;
-            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tblControlHost.ColumnCount = 3;
-            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblControlHost.Controls.Add(this.uCtrlDevControl1, 0, 0);
-            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tblControlHost.Location = new System.Drawing.Point(3, 80);
-            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
-            this.tblControlHost.Name = "tblControlHost";
-            this.tblControlHost.RowCount = 1;
-            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblControlHost.Size = new System.Drawing.Size(2201, 1350);
-            this.tblControlHost.TabIndex = 9;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.AutoSize = false;
-            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
-            this.tblMain.SetColumnSpan(this.statusStrip1, 2);
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.stLbl});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 1434);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(2207, 48);
-            this.statusStrip1.TabIndex = 10;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(167, 41);
-            this.toolStripStatusLabel1.Text = "SerialPort Live Data:";
-            // 
-            // stLbl
-            // 
-            this.stLbl.Name = "stLbl";
-            this.stLbl.Size = new System.Drawing.Size(0, 41);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.DarkGray;
-            this.tblMain.SetColumnSpan(this.label1, 2);
-            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label1.Location = new System.Drawing.Point(0, 1433);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(2207, 1);
-            this.label1.TabIndex = 11;
-            // 
             // tBarMain
             // 
             this.tBarMain.AbtImg = null;
@@ -316,6 +264,26 @@ namespace UR_MTrack
             this.btnAbout.Visible = false;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // tblControlHost
+            // 
+            this.tblControlHost.AutoSize = true;
+            this.tblControlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tblControlHost.ColumnCount = 3;
+            this.tblMain.SetColumnSpan(this.tblControlHost, 2);
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblControlHost.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tblControlHost.Controls.Add(this.uCtrlDevControl1, 0, 0);
+            this.tblControlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblControlHost.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.tblControlHost.Location = new System.Drawing.Point(3, 80);
+            this.tblControlHost.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.tblControlHost.Name = "tblControlHost";
+            this.tblControlHost.RowCount = 1;
+            this.tblControlHost.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tblControlHost.Size = new System.Drawing.Size(2201, 1350);
+            this.tblControlHost.TabIndex = 9;
+            // 
             // uCtrlDevControl1
             // 
             this.uCtrlDevControl1.AutoSize = true;
@@ -327,6 +295,71 @@ namespace UR_MTrack
             this.uCtrlDevControl1.Name = "uCtrlDevControl1";
             this.uCtrlDevControl1.Size = new System.Drawing.Size(557, 1338);
             this.uCtrlDevControl1.TabIndex = 0;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.AutoSize = false;
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.tblMain.SetColumnSpan(this.statusStrip1, 2);
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.stLbl});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1434);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(2207, 48);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(167, 41);
+            this.toolStripStatusLabel1.Text = "SerialPort Live Data:";
+            // 
+            // stLbl
+            // 
+            this.stLbl.Name = "stLbl";
+            this.stLbl.Size = new System.Drawing.Size(0, 41);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.DarkGray;
+            this.tblMain.SetColumnSpan(this.label1, 2);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Location = new System.Drawing.Point(0, 1433);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(2207, 1);
+            this.label1.TabIndex = 11;
+            // 
+            // experimentToolStripMenuItem
+            // 
+            this.experimentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startToolStripMenuItem,
+            this.stopToolStripMenuItem,
+            this.pauseToolStripMenuItem});
+            this.experimentToolStripMenuItem.Name = "experimentToolStripMenuItem";
+            this.experimentToolStripMenuItem.Size = new System.Drawing.Size(126, 42);
+            this.experimentToolStripMenuItem.Text = "Experiment";
+            // 
+            // startToolStripMenuItem
+            // 
+            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
+            this.startToolStripMenuItem.Text = "Start";
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
+            this.stopToolStripMenuItem.Text = "Stop";
+            // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 36);
+            this.pauseToolStripMenuItem.Text = "Break";
             // 
             // Main
             // 
@@ -382,6 +415,10 @@ namespace UR_MTrack
         private ToolStripMenuItem resetChartToolStripMenuItem;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private ToolStripStatusLabel stLbl;
+        private ToolStripMenuItem experimentToolStripMenuItem;
+        private ToolStripMenuItem startToolStripMenuItem;
+        private ToolStripMenuItem stopToolStripMenuItem;
+        private ToolStripMenuItem pauseToolStripMenuItem;
     }
 }
 

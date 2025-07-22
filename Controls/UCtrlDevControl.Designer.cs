@@ -797,7 +797,7 @@
             this.Controls.Add(this.tblMain);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "UCtrlDevControl";
-            this.Size = new System.Drawing.Size(498, 1549);
+            this.Size = new System.Drawing.Size(419, 1549);
             this.tblMain.ResumeLayout(false);
             this.tblMain.PerformLayout();
             this.tblControls.ResumeLayout(false);

@@ -152,18 +152,19 @@ namespace UR_MTrack
             }
         }
 
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
+
         private void btnOK_Click(object sender, EventArgs e)
         {
             try
-            {
-                var check = IsComplete();
-                if (check)
+            {               
+                if (IsComplete())
                 {
                     CollectData();
                     new FileFactory().SaveSettings(_expsettings);

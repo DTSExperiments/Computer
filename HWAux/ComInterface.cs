@@ -4,48 +4,72 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
+using Timer =System.Windows.Forms.Timer;
 
 namespace UR_MTrack
 {
     public class ComInterface : IDisposable
     {
         SerialPort _serialport;
+        Timer _t;
 
-        public ComInterface() { }
+        public ComInterface()
+        {
+            _t = new Timer();
+            _t.Interval = (int)(1000d / 60);
+            _t.Tick += _t_Tick;
+            _t.Start();
+        }
+
+        private void _t_Tick(object sender, EventArgs e)
+        {
+            PollSerialData();
+        }
 
         #region Properties
         public IEnumerable<string> SerialPortNames { get { return SerialPort.GetPortNames(); } }
         public bool Connected { get; set; }
+        public int AcquisitionInterval { get { return _t.Interval; } set { _t.Interval = value; } }
 
         #endregion
 
-        private void _serialport_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void PollSerialData()
         {
-            var b2read = _serialport.BytesToRead;   
-            var buffer = new byte[b2read];
-            _serialport.Read(buffer, 0, b2read);
-            new Signals().OnDataReceived(this, new DataReceivedEventArgs(buffer));
-            _serialport.DiscardInBuffer();
+            if (_serialport != null)
+            {
+                try
+                {
+                    if (_serialport.IsOpen)
+                    {
+                        _serialport.DiscardInBuffer();
+                        while(_serialport.BytesToRead < 5)
+                        {
+                            Thread.Sleep(1);                           
+                        }
+                        var buffer = new byte[_serialport.BytesToRead];
+                        System.Diagnostics.Debug.Write("BytesToRead: " + _serialport.BytesToRead.ToString() + "\n");
+                        _serialport.Read(buffer, 0, buffer.Length);
+                        new Signals().OnDataReceived(this, new DataReceivedEventArgs(buffer));
+                    }
+                    //PrintBuffer(buffer);
+                }
+                catch (Exception ex)
+                {
+                    Log.Append(ex);
+                }
+            }
         }
 
         void PrintBuffer(IEnumerable<byte> buffer)
         {
-            System.Diagnostics.Debug.Write("Byte values: ");
-            for(int i=0;i<buffer.Count();i++  )
+            System.Diagnostics.Debug.Write("buffer content:\n");
+            for (int i = 0; i < buffer.Count(); i++)
             {
-                System.Diagnostics.Debug.Write(buffer.ElementAt(i).ToString()+"-");
+                System.Diagnostics.Debug.Write("|:" + i + ":|" + buffer.ElementAt(i).ToString() + "\n");
             }
         }
 
-        public void SwitchAqMode(DataMode mode)
-        {
-            if (_serialport != null)
-            {
-                if (mode.Equals(DataMode.Auto)) { _serialport.DataReceived += _serialport_DataReceived; }
-                else if (mode.Equals(DataMode.DataPoll))
-                { _serialport.DataReceived -= _serialport_DataReceived; }
-            }
-        }
 
         public void Connect(SerialPortSettings settings)
         {
@@ -60,15 +84,12 @@ namespace UR_MTrack
                     StopBits = settings.StopBits,
                     Handshake = settings.HandShake
                 };
-
-                _serialport.DataReceived += _serialport_DataReceived;
                 _serialport.Open();
                 _serialport.DiscardInBuffer();
                 new Signals().OnConnectionStatusChanged(this, DeviceStatus.connected);
-                Connected = true;
                 SendData(FPGACom.GetStartCommand());
+                Connected = true;
             }
-
             catch (Exception ex)
             {
                 new Signals().OnConnectionStatusChanged(this, DeviceStatus.disconnected);
@@ -96,8 +117,7 @@ namespace UR_MTrack
             {
                 try
                 {
-                    _serialport.Write(data,0,1);
-                    Log.Append(string.Format("Writing \"{0}\" to serial port", data), LogType.Info);
+                    _serialport.Write(data, 0, 1);
                 }
                 catch (Exception ex)
                 { Log.Append(ex); }
@@ -111,7 +131,6 @@ namespace UR_MTrack
                 try
                 {
                     new Signals().OnConnectionStatusChanged(this, DeviceStatus.disconnected);
-                    _serialport.DataReceived -= _serialport_DataReceived;
                     _serialport.Close();
                     _serialport.Dispose();
                     Connected = false;
@@ -124,7 +143,7 @@ namespace UR_MTrack
 
         public void Dispose()
         {
-            Disconnect();            
+            Disconnect();
             _serialport.DiscardOutBuffer();
             _serialport.DiscardInBuffer();
             _serialport.Dispose();

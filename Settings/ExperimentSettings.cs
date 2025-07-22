@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace UR_MTrack
 {
@@ -15,6 +16,10 @@ namespace UR_MTrack
             TimeStamp = DateTime.Now;
             PeriodCollection = new List<PeriodValues>();
         }
+
+        [JsonIgnore]            
+        public bool IsConfigured { get; set; }
+
 
         #region General Meta Data
 

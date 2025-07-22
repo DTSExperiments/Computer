@@ -40,11 +40,11 @@ namespace UR_MTrack
             AquisitionControl?.Invoke(sender, e);
         }
 
-        public static event EventHandler<ExecutionControl> ProcessControl;
-        public void OnProcessControl(object sender, ExecutionControl e)
-        {
-            ProcessControl?.Invoke(sender, e);
-        }
+        //public static event EventHandler<ExecutionControl> ProcessControl;
+        //public void OnProcessControl(object sender, ExecutionControl e)
+        //{
+        //    ProcessControl?.Invoke(sender, e);
+        //}
 
         public static event EventHandler<IEnumerable<PeriodValues>> PeriodsConfigured;
         public void OnPeriodsConfigured(object sender, IEnumerable<PeriodValues> e)
@@ -96,16 +96,11 @@ namespace UR_MTrack
 
 
         public static event EventHandler<MeasurementEventArgs> MValuesPrepared;
-        public void OnMValuesPrepared(object sender, MeasurementEventArgs e)
+        public void OnMValuesPrepared(object sender, MeasurementValues e)
         {
-            MValuesPrepared?.Invoke(sender, e);
+            MValuesPrepared?.Invoke(sender,new MeasurementEventArgs(e));
         }
 
-        public static event EventHandler<DataHandlerEventArgs> ChartValuesPrepared;
-        public void OnChartValuesPrepared(object sender, DataHandlerEventArgs e)
-        {
-            ChartValuesPrepared?.Invoke(sender, e);
-        }
     }
 
 

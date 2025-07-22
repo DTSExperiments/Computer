@@ -15,7 +15,7 @@
         /// <summary>
         /// pixelvalue recalculated to degree (average to fulfill the sampling rate requirement) 
         /// </summary>
-        public int Location { get; set; }
+        public double Location { get; set; }
 
         /// <summary>
         /// total seconds since period measurement started  

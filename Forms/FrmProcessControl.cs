@@ -47,14 +47,14 @@ namespace UR_MTrack
         {
             if (_currentState == ExecutionControl.stop)
             {
-                new Signals().OnProcessControl(this, ExecutionControl.start);
+                new Signals().OnAquisitionControl(this, ExecutionControl.start);
                 _currentState = ExecutionControl.start;
                 btnStartResume.BackgroundImage = Properties.Resources.Pause;
                 btnStartResume.BackColor = Color.Green;
             }
             else
             {
-                new Signals().OnProcessControl(this, ExecutionControl.suspend);
+                new Signals().OnAquisitionControl(this, ExecutionControl.suspend);
                 _currentState = ExecutionControl.suspend;
                 btnStartResume.BackgroundImage = Properties.Resources.Play;
                 btnStartResume.BackColor = Color.Transparent;
@@ -65,7 +65,7 @@ namespace UR_MTrack
         {
             if (_currentState == ExecutionControl.start || _currentState == ExecutionControl.suspend)
             {
-                new Signals().OnProcessControl(this, ExecutionControl.stop);
+                new Signals().OnAquisitionControl(this, ExecutionControl.stop);
                 _currentState = ExecutionControl.stop;
                 btnStartResume.BackgroundImage = Properties.Resources.Play;
                 btnStartResume.BackColor = Color.Transparent;
@@ -74,7 +74,7 @@ namespace UR_MTrack
 
         private void btnPunish_Click(object sender, EventArgs e)
         {
-            new Signals().OnProcessControl(this, ExecutionControl.punish);
+            new Signals().OnAquisitionControl(this, ExecutionControl.punish);
         }
     }
 }

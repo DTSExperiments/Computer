@@ -54,30 +54,38 @@ namespace UR_MTrack
             {
                 try
                 {
-                    if (Convert.ToByte(list[4]) != 0x0A)
+                    var index = list.IndexOf(0x0A);
+                    if (index == 4)
                     {
-                        throw new Exception("LF not found");
-                    }
+                        byteArray = list.GetRange(0, 4).ToArray();
+                        list.RemoveRange(0, 5);
+                        BitArray nextValueADBit = new BitArray(byteArray);
+                        if (nextValueADBit[11] == true)
+                        {
+                            nextValueADBit = nextValueADBit.Or(new BitArray(BitConverter.GetBytes(0x0000F000)));
+                        }
+                        nextValueADBit.CopyTo(byteArray, 0);
+                        nextValueAD = BitConverter.ToInt16(byteArray, 0);
+                        nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
 
-                    byteArray = list.GetRange(0, 4).ToArray();
-                    list.RemoveRange(0, 5);
-                    BitArray nextValueADBit = new BitArray(byteArray);
-                    if (nextValueADBit[11] == true)
+                        var mV = new MeasurementValues()
+                        {
+                            Timestamp = (DateTime.Now - StartTime).TotalSeconds,
+                            Torque = Math.Round(Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6)), 3),
+                            //Location = Math.Round(Convert.ToDouble(nextValuePIX), 0)
+                            Location = Math.Round(PixelToDegree( Convert.ToDouble(nextValuePIX)), 1)
+                        };
+                        new Signals().OnMValuesPrepared(this,mV);
+                       
+                        //var t = Math.Round(Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6)),3);
+                        //var p = Math.Round(Convert.ToDouble(nextValuePIX),3);                        
+                        //new Signals().OnChartValuesPrepared(this, new DataHandlerEventArgs((DateTime.Now - StartTime).TotalSeconds, t, p));
+                    }
+                    else
                     {
-                        nextValueADBit = nextValueADBit.Or(new BitArray(BitConverter.GetBytes(0x0000F000)));
+                        System.Diagnostics.Debug.WriteLine("Invalid byte received at buffer[4]: " + Convert.ToByte(list[4]));
+                        list.RemoveRange(0, index + 1);
                     }
-                    nextValueADBit.CopyTo(byteArray, 0);
-                    nextValueAD = BitConverter.ToInt16(byteArray, 0);
-                    nextValuePIX = BitConverter.ToUInt16(byteArray, 2);
-
-
-
-                    //Calculation AD-Values
-                    var t = Convert.ToDouble(nextValueAD * 244.14 * Math.Pow(10, -6));
-                    var p = Convert.ToDouble(nextValuePIX);
-
-                    new Signals().OnChartValuesPrepared(this, new DataHandlerEventArgs((DateTime.Now - StartTime).TotalSeconds, t, p));
-
                 }
                 catch (Exception ex) { }
             }
@@ -120,21 +128,7 @@ namespace UR_MTrack
             return pixel;
         }
 
-        /// <summary>
-        /// Block the worker thread from execution.
-        /// </summary>
-        public void SuspendWorkerTh()
-        {
-            _thControl.Reset();
-        }
-
-        /// <summary>
-        /// Resume from a previously block signal.
-        /// </summary>
-        public void ResumeWorkerTh()
-        {
-            _thControl.Set();
-        }
+        
 
         /// <summary>
         /// Prepare raw values for further processing and clear the buffer.
@@ -143,7 +137,6 @@ namespace UR_MTrack
         /// <param name="values"></param>
         public bool PreparePeriodValues()
         {
-            SuspendWorkerTh();
             var values = new MeasurementValues()
             {
                 Timestamp = Math.Round((double)(DateTime.Now - CurrentPeriod.StartTime).Seconds, 2),
@@ -160,8 +153,7 @@ namespace UR_MTrack
             _rawtorque.Clear();
             _rawpixel.Clear();
 
-            new Signals().OnMValuesPrepared(this, new MeasurementEventArgs(values));
-            ResumeWorkerTh();
+            new Signals().OnMValuesPrepared(this, values);
             return values.Timestamp >= CurrentPeriod.Duration;
         }
         #endregion

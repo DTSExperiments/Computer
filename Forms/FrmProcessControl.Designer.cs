@@ -49,12 +49,12 @@
             this.tblButtons.Controls.Add(this.btnStop, 1, 0);
             this.tblButtons.Controls.Add(this.btnPunish, 2, 0);
             this.tblButtons.Controls.Add(this.btnStartResume, 0, 0);
-            this.tblButtons.Location = new System.Drawing.Point(0, 3);
+            this.tblButtons.Location = new System.Drawing.Point(0, 5);
             this.tblButtons.Margin = new System.Windows.Forms.Padding(0);
             this.tblButtons.Name = "tblButtons";
             this.tblButtons.RowCount = 1;
             this.tblButtons.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblButtons.Size = new System.Drawing.Size(210, 56);
+            this.tblButtons.Size = new System.Drawing.Size(390, 110);
             this.tblButtons.TabIndex = 0;
             this.tblButtons.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
             // 
@@ -76,8 +76,8 @@
             this.btnStop.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.btnStop.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnStop.HighlightThickness = 0;
-            this.btnStop.Location = new System.Drawing.Point(80, 3);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnStop.Location = new System.Drawing.Point(145, 5);
+            this.btnStop.Margin = new System.Windows.Forms.Padding(15, 5, 15, 5);
             this.btnStop.Name = "btnStop";
             this.btnStop.RelPos = new float[] {
         0F,
@@ -85,7 +85,7 @@
         0.5F,
         1F};
             this.btnStop.ShowExtLabel = false;
-            this.btnStop.Size = new System.Drawing.Size(50, 50);
+            this.btnStop.Size = new System.Drawing.Size(100, 100);
             this.btnStop.TabIndex = 1;
             this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
@@ -108,8 +108,8 @@
             this.btnPunish.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.btnPunish.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnPunish.HighlightThickness = 0;
-            this.btnPunish.Location = new System.Drawing.Point(150, 3);
-            this.btnPunish.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnPunish.Location = new System.Drawing.Point(275, 5);
+            this.btnPunish.Margin = new System.Windows.Forms.Padding(15, 5, 15, 5);
             this.btnPunish.Name = "btnPunish";
             this.btnPunish.RelPos = new float[] {
         0F,
@@ -117,7 +117,7 @@
         0.5F,
         1F};
             this.btnPunish.ShowExtLabel = false;
-            this.btnPunish.Size = new System.Drawing.Size(50, 50);
+            this.btnPunish.Size = new System.Drawing.Size(100, 100);
             this.btnPunish.TabIndex = 2;
             this.btnPunish.UseVisualStyleBackColor = false;
             this.btnPunish.Click += new System.EventHandler(this.btnPunish_Click);
@@ -141,8 +141,8 @@
             this.btnStartResume.GradientDirection = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
             this.btnStartResume.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnStartResume.HighlightThickness = 0;
-            this.btnStartResume.Location = new System.Drawing.Point(10, 3);
-            this.btnStartResume.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnStartResume.Location = new System.Drawing.Point(15, 5);
+            this.btnStartResume.Margin = new System.Windows.Forms.Padding(15, 5, 15, 5);
             this.btnStartResume.Name = "btnStartResume";
             this.btnStartResume.RelPos = new float[] {
         0F,
@@ -150,7 +150,7 @@
         0.5F,
         1F};
             this.btnStartResume.ShowExtLabel = false;
-            this.btnStartResume.Size = new System.Drawing.Size(50, 50);
+            this.btnStartResume.Size = new System.Drawing.Size(100, 100);
             this.btnStartResume.TabIndex = 0;
             this.btnStartResume.UseVisualStyleBackColor = false;
             this.btnStartResume.Click += new System.EventHandler(this.btnStartStop_Click);
@@ -163,26 +163,28 @@
             this.tblMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tblMain.Controls.Add(this.tblButtons, 0, 1);
             this.tblMain.Location = new System.Drawing.Point(0, 0);
+            this.tblMain.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 2;
-            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 3F));
+            this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tblMain.Size = new System.Drawing.Size(210, 59);
+            this.tblMain.Size = new System.Drawing.Size(390, 115);
             this.tblMain.TabIndex = 1;
             this.tblMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MoveFrame_MouseDown);
             // 
-            // FrmExperimentControl
+            // FrmProcessControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(184)))), ((int)(((byte)(0)))));
-            this.ClientSize = new System.Drawing.Size(220, 67);
+            this.ClientSize = new System.Drawing.Size(519, 238);
             this.Controls.Add(this.tblMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MinimizeBox = false;
-            this.Name = "FrmExperimentControl";
+            this.Name = "FrmProcessControl";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

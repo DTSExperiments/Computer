@@ -20,6 +20,7 @@ namespace UR_MTrack
             _expsettings = settings;
             _wait = new EventWaitHandle(true, EventResetMode.ManualReset); //true --> signaled >>thread can continue<<
             InitializeTimer();
+            HookUpEvents();
         }
 
 
@@ -35,6 +36,24 @@ namespace UR_MTrack
             }
         }
 
+
+        void HookUpEvents()
+        {
+            Signals.AquisitionControl += signal_AquisitionControl;
+        }
+
+        private void signal_AquisitionControl(object sender, ExecutionControl e)
+        {
+            switch (e) 
+            {
+                case ExecutionControl.start:
+                    { break; }
+                case ExecutionControl.suspend:
+                    { break; }
+                case ExecutionControl.stop:
+                    { break; }
+            }
+        }
 
         void NextPeriod()
         {   
@@ -80,6 +99,7 @@ namespace UR_MTrack
         {
             
         }
+
 
         void InitializeTimer()
         {
